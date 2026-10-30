@@ -2,58 +2,79 @@
 <html lang="sr-Cyrl">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#061A35">
-<title>Одговорна Плана — Предложи акцију</title>
+<title>Одговорна Плана — Заједничке акције</title>
 <style>
 :root{--navy:#061A35;--blue:#2166F3;--pale:#F1F5F9;--white:#fff;--text:#142844;--muted:#64748b;--line:#dce5f0}
 *{box-sizing:border-box}body{margin:0;background:var(--pale);color:var(--text);font:16px/1.6 system-ui,sans-serif}
-.wrap{width:min(850px,calc(100% - 32px));margin:auto}header{background:var(--navy);color:white;padding:18px 0}.brand{font-weight:900;letter-spacing:.4px}.brand small{display:block;color:#a9c5f5;font-size:10px;letter-spacing:1.5px}
-.hero{background:linear-gradient(120deg,#061A35,#0d3263 68%,#2166F3);color:white;padding:58px 0 66px}.eyebrow{color:#8db8ff;font-size:11px;font-weight:900;letter-spacing:2px}.hero h1{font-size:clamp(36px,7vw,58px);line-height:1.08;letter-spacing:-1.5px;margin:14px 0}.hero p{color:#d5e4f8;font-size:18px;max-width:690px;margin:0}
-main{padding:34px 0 64px}.intro{margin:0 0 22px;color:var(--muted)}.panel{background:white;border:1px solid var(--line);border-radius:17px;padding:clamp(18px,4vw,32px);box-shadow:0 12px 38px #061a3510}
-h2{color:var(--navy);font-size:26px;margin:0 0 5px}.hint{color:var(--muted);font-size:14px;margin:0 0 22px}
-.fields{display:grid;grid-template-columns:1fr 1fr;gap:15px}.field.full{grid-column:1/-1}label{display:block;font-size:13px;font-weight:800;margin-bottom:6px}.field input,.field textarea,.field select{width:100%;border:1px solid #cbd8e8;border-radius:9px;padding:12px;background:#fbfdff;font:inherit;color:var(--text)}textarea{min-height:90px;resize:vertical}.section{grid-column:1/-1;border-top:1px solid var(--line);padding-top:16px;margin-top:5px}.section h3{margin:0 0 3px;color:var(--navy);font-size:17px}.section p{margin:0;color:var(--muted);font-size:13px}
-.btn{display:inline-block;background:var(--blue);color:white;padding:13px 20px;border:0;border-radius:10px;font-weight:850;font-size:15px;cursor:pointer;margin-top:20px}.btn:disabled{opacity:.6;cursor:wait}.msg{display:none;background:#eaf1ff;color:#1648a1;border-radius:9px;padding:13px;margin-top:15px}
+.wrap{width:min(900px,calc(100% - 32px));margin:auto}header{background:var(--navy);color:white;padding:18px 0}.brand{font-weight:900;letter-spacing:.4px}.brand small{display:block;color:#a9c5f5;font-size:10px;letter-spacing:1.5px}
+.hero{background:linear-gradient(120deg,#061A35,#0d3263 68%,#2166F3);color:white;padding:56px 0 62px}.eyebrow{color:#8db8ff;font-size:11px;font-weight:900;letter-spacing:2px}.hero h1{font-size:clamp(36px,7vw,58px);line-height:1.08;letter-spacing:-1.5px;margin:14px 0}.hero p{color:#d5e4f8;font-size:18px;max-width:690px;margin:0}
+main{padding:32px 0 64px}.intro{margin:0 0 22px;color:var(--muted)}.choices{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:0 0 28px}.choice{background:white;border:1px solid var(--line);border-radius:16px;padding:24px;box-shadow:0 12px 38px #061a3509}.choice h2{color:var(--navy);font-size:24px;margin:0 0 6px}.choice p{color:var(--muted);margin:0 0 12px}.btn{display:inline-block;background:var(--blue);color:white;padding:12px 19px;border:0;border-radius:10px;font-weight:850;font-size:15px;cursor:pointer}.btn.secondary{background:var(--navy)}.btn:disabled{opacity:.6;cursor:wait}
+.panel{background:white;border:1px solid var(--line);border-radius:17px;padding:clamp(18px,4vw,30px);box-shadow:0 12px 38px #061a3510;margin:0 0 18px}h2{color:var(--navy);font-size:26px;margin:0 0 5px}.hint{color:var(--muted);font-size:14px;margin:0 0 22px}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field.full{grid-column:1/-1}label{display:block;font-size:13px;font-weight:800;margin-bottom:6px}.field input,.field textarea{width:100%;border:1px solid #cbd8e8;border-radius:9px;padding:12px;background:#fbfdff;font:inherit;color:var(--text)}textarea{min-height:100px;resize:vertical}
+.msg{display:none;background:#eaf1ff;color:#1648a1;border-radius:9px;padding:13px;margin-top:15px}.actions{display:grid;gap:14px}.action{background:white;border:1px solid var(--line);border-radius:15px;padding:20px}.action h3{margin:0 0 5px;color:var(--navy);font-size:21px}.action .meta{font-size:13px;color:var(--muted);margin-bottom:12px}.action p{margin:0 0 14px;white-space:pre-line}.joinbox{display:none;background:#f6f9ff;border:1px solid var(--line);border-radius:12px;padding:16px;margin-top:15px}.joinbox .fields{margin-bottom:12px}.empty{padding:24px;background:white;border:1px dashed #b9c9df;border-radius:14px;color:var(--muted)}
 footer{background:#041329;color:#d4e1f3;padding:24px 0;font-size:13px}
-@media(max-width:620px){.hero{padding:42px 0 48px}.hero p{font-size:16px}.fields{grid-template-columns:1fr}.field.full,.section{grid-column:auto}.panel{padding:18px}}
+@media(max-width:620px){.hero{padding:42px 0 48px}.hero p{font-size:16px}.choices{grid-template-columns:1fr}.fields{grid-template-columns:1fr}.field.full{grid-column:auto}.panel{padding:18px}}
 </style></head>
 <body>
 <header><div class="wrap"><div class="brand">ОДГОВОРНА ПЛАНА<small>МЕСТО ЗА ЗАЈЕДНИЧКО ДЕЛОВАЊЕ</small></div></div></header>
-<section class="hero"><div class="wrap"><div class="eyebrow">ВЕЛИКА ПЛАНА · ЗАЈЕДНИЧКА АКЦИЈА</div><h1>Промена почиње од нас.</h1><p>Предложи акцију за уређење Велике Плане. Не мораш имати разрађен план — довољно је да укажеш шта треба уредити и шта бисмо заједно могли да урадимо.</p></div></section>
+<section class="hero"><div class="wrap"><div class="eyebrow">ВЕЛИКА ПЛАНА · ЗАЈЕДНИЧКО ДЕЛОВАЊЕ</div><h1>Промена почиње од нас.</h1><p>Један човек може да покрене. Заједница може да промени ствари. Предложи шта треба урадити или се придружи акцији која је већ покренута.</p></div></section>
 <main><div class="wrap">
-<p class="intro">За почетак отварамо једну ствар: предлоге конкретних акција за лепшу, уређенију и уређенију Велику Плану. Сваки предлог биће прегледан пре објављивања.</p>
-<div class="panel">
-<h2>Предложи акцију</h2><p class="hint">Шаблон: Уређење Велике Плане</p>
-<form id="actionForm">
-<div class="fields">
-<div class="field full"><label for="title">Назив акције *</label><input id="title" name="title" value="Уређење Велике Плане" required maxlength="180"></div>
-<div class="field"><label for="full_name">Име и презиме *</label><input id="full_name" name="full_name" required maxlength="120"></div>
-<div class="field"><label for="phone">Телефон</label><input id="phone" name="phone" type="tel"></div>
-<div class="field"><label for="email">Имејл</label><input id="email" name="email" type="email"></div>
-<div class="field"><label for="location">Локација у Великој Плани *</label><input id="location" name="location" placeholder="Улица, парк, трг, насеље…" required></div>
-<div class="section"><h3>1. Шта треба уредити?</h3><p>Опиши место и шта на њему тренутно није у реду.</p></div>
-<div class="field full"><label for="problem">Шта је проблем? *</label><textarea id="problem" required placeholder="На пример: запуштена зелена површина, смеће, оштећене клупе…"></textarea></div>
-<div class="section"><h3>2. Шта предлажеш?</h3><p>Који конкретан посао можемо да урадимо?</p></div>
-<div class="field full"><label for="proposal">Предлог решења и активности *</label><textarea id="proposal" required placeholder="На пример: чишћење, кошење, садња цвећа или дрвећа, фарбање…"></textarea></div>
-<div class="section"><h3>3. Шта је потребно да бисмо то урадили?</h3><p>Означи или опиши каква је помоћ потребна.</p></div>
-<div class="field"><label for="support">Потребна подршка</label><select id="support"><option value="Волонтери">Волонтери</option><option value="Алат и опрема">Алат и опрема</option><option value="Саднице и материјал">Саднице и материјал</option><option value="Стручна помоћ">Стручна помоћ</option><option value="Подршка општине / надлежних">Подршка општине / надлежних</option><option value="Више врста подршке">Више врста подршке</option><option value="За сада није познато">Још не знам</option></select></div>
-<div class="field"><label for="when">Када би акција могла да се одржи?</label><input id="when" placeholder="Предлог датума или периода"></div>
-<div class="field full"><label for="extra">Додатне информације</label><textarea id="extra" placeholder="Да ли имаш фотографију, контакте, процену трошкова или још неку важну информацију?"></textarea></div>
+<p class="intro">Изабери како желиш да учествујеш.</p>
+<div class="choices">
+<section class="choice"><h2>Предложи</h2><p>Имаш идеју, видиш проблем или знаш шта можемо заједно да урадимо? Покрени предлог.</p><button class="btn" id="showProposal">Предложи акцију →</button></section>
+<section class="choice"><h2>Придружи се</h2><p>Погледај акције које су отворене за учешће и пријави се да помогнеш.</p><button class="btn secondary" id="showActions">Погледај акције ↓</button></section>
 </div>
-<button class="btn" type="submit">Пошаљи предлог акције →</button><div class="msg" id="message" role="status"></div>
-</form></div></div></main>
+<section class="panel" id="proposalPanel" hidden>
+<h2>Предложи акцију</h2><p class="hint">Предлог прво прегледамо. Када буде одобрен, биће објављен у делу „Придружи се“.</p>
+<form id="proposalForm"><div class="fields">
+<div class="field full"><label for="pTitle">Назив акције *</label><input id="pTitle" required minlength="3" maxlength="140" placeholder="Шта бисмо могли да урадимо?"></div>
+<div class="field"><label for="pName">Име и презиме *</label><input id="pName" required minlength="2" maxlength="120"></div>
+<div class="field"><label for="pEmail">Имејл *</label><input id="pEmail" type="email" required></div>
+<div class="field"><label for="pPhone">Телефон / Viber</label><input id="pPhone" type="tel"></div>
+<div class="field"><label for="pLocation">Где треба спровести акцију?</label><input id="pLocation" placeholder="Насеље, улица, парк…"></div>
+<div class="field full"><label for="pDescription">Опиши предлог и шта је потребно *</label><textarea id="pDescription" required minlength="10" maxlength="3000" placeholder="Шта је проблем? Шта предлажеш? Која помоћ, алат или материјал су потребни?"></textarea></div>
+</div><button class="btn" type="submit">Пошаљи предлог →</button><div class="msg" id="proposalMessage" role="status"></div></form>
+</section>
+<section id="actionsSection">
+<h2>Акције којима можеш да се придружиш</h2><p class="hint">Овде се приказују само објављени предлози.</p>
+<div id="actionsList" class="actions"><div class="empty">Учитавање акција…</div></div><div class="msg" id="listMessage" role="status"></div>
+</section>
+</div></main>
 <footer><div class="wrap">ОДГОВОРНА ПЛАНА · Место за заједничко деловање · © <span id="year"></span></div></footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 document.getElementById('year').textContent=new Date().getFullYear();
 const db=window.supabase.createClient('https://hmfeizkmpmxcnzhwxgbn.supabase.co','sb_publishable_JPtLezaiIeq4MsQ2f3LSlg_nT01Chxe');
-const form=document.getElementById('actionForm'),button=form.querySelector('button'),message=document.getElementById('message');
-form.addEventListener('submit',async e=>{
- e.preventDefault();button.disabled=true;button.textContent='Шаљем предлог…';message.style.display='none';
- const v=id=>document.getElementById(id).value.trim();
- const description=['ШТА ТРЕБА УРЕДИТИ?',v('problem'),'','ПРЕДЛОГ РЕШЕЊА И АКТИВНОСТИ',v('proposal'),'','ПОТРЕБНА ПОДРШКА',v('support'),'','ПРЕДЛОЖЕНИ ТЕРМИН',v('when')||'Није одређен','','ДОДАТНЕ ИНФОРМАЦИЈЕ',v('extra')||'Нема'].join('\n');
+const $=id=>document.getElementById(id);
+$('showProposal').addEventListener('click',()=>{$('proposalPanel').hidden=false;$('proposalPanel').scrollIntoView({behavior:'smooth',block:'start'});});
+$('showActions').addEventListener('click',()=>$('actionsSection').scrollIntoView({behavior:'smooth',block:'start'}));
+$('proposalForm').addEventListener('submit',async e=>{
+ e.preventDefault();const b=e.submitter;b.disabled=true;b.textContent='Шаљем…';const m=$('proposalMessage');m.style.display='none';
+ const val=id=>$(id).value.trim();
  try{
-  const {error}=await db.from('civic_submissions').insert({submission_type:'action',title:v('title'),description,full_name:v('full_name'),phone:v('phone')||null,email:v('email')||null,location:v('location'),support_type:v('support')});
-  if(error)throw error;message.textContent='Хвала! Твој предлог акције је примљен. Биће прегледан пре објављивања.';message.style.display='block';form.reset();document.getElementById('title').value='Уређење Велике Плане';
- }catch(err){console.error(err);message.textContent='Слање тренутно није успело. Покушај поново касније.';message.style.display='block'}
- finally{button.disabled=false;button.textContent='Пошаљи предлог акције →'}
+  const {error}=await db.from('action_proposals').insert({title:val('pTitle'),description:val('pDescription'),location:val('pLocation')||null,proposer_name:val('pName'),proposer_email:val('pEmail'),proposer_viber:val('pPhone')||null,status:'pending'});
+  if(error)throw error;
+  m.textContent='Хвала! Предлог је успешно послат. Биће прегледан пре објављивања.';m.style.display='block';e.target.reset();
+ }catch(err){console.error(err);m.textContent='Слање није успело. Проверите податке и покушајте поново.';m.style.display='block'}
+ finally{b.disabled=false;b.textContent='Пошаљи предлог →'}
 });
+function safe(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+async function loadActions(){
+ const root=$('actionsList');
+ try{
+  const {data,error}=await db.from('action_proposals').select('id,title,description,location,created_at').eq('status','published').order('created_at',{ascending:false});
+  if(error)throw error;
+  if(!data?.length){root.innerHTML='<div class="empty">Тренутно нема објављених акција. Предложи своју — можда баш она буде следећа.</div>';return;}
+  root.innerHTML=data.map(a=>'<article class="action" data-id="'+safe(a.id)+'"><h3>'+safe(a.title)+'</h3><div class="meta">'+(a.location?'📍 '+safe(a.location):'')+'</div><p>'+safe(a.description)+'</p><button class="btn secondary joinToggle" type="button">Придружи се овој акцији →</button><form class="joinbox joinForm"><div class="fields"><div class="field"><label>Име и презиме *</label><input name="full_name" required minlength="2" maxlength="120"></div><div class="field"><label>Имејл *</label><input name="email" type="email" required></div><div class="field full"><label>Телефон / Viber (није обавезно)</label><input name="viber_phone" type="tel"></div></div><button class="btn" type="submit">Пошаљи пријаву</button><div class="msg joinMessage" role="status"></div></form></article>').join('');
+  root.querySelectorAll('.joinToggle').forEach(btn=>btn.addEventListener('click',()=>{const f=btn.nextElementSibling;f.style.display=f.style.display==='block'?'none':'block';}));
+  root.querySelectorAll('.joinForm').forEach(form=>form.addEventListener('submit',async e=>{
+   e.preventDefault();const f=e.currentTarget,btn=f.querySelector('button[type=submit]'),msg=f.querySelector('.joinMessage'),article=f.closest('.action');btn.disabled=true;btn.textContent='Шаљем…';msg.style.display='none';
+   const fd=new FormData(f);const v=n=>String(fd.get(n)||'').trim();
+   try{const {error}=await db.from('action_proposal_joins').insert({proposal_id:article.dataset.id,full_name:v('full_name'),email:v('email'),viber_phone:v('viber_phone')||null});if(error)throw error;msg.textContent='Пријава је послата. Хвала што желиш да учествујеш!';msg.style.display='block';f.reset();}
+   catch(err){console.error(err);msg.textContent='Пријава није успела. Покушај поново.';msg.style.display='block';}
+   finally{btn.disabled=false;btn.textContent='Пошаљи пријаву';}
+  }));
+ }catch(err){console.error(err);root.innerHTML='<div class="empty">Акције тренутно нису могле да се учитају. Покушај поново касније.</div>';}
+}
+loadActions();
 </script></body></html>
