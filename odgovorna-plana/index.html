@@ -35,7 +35,7 @@ footer{background:#041329;color:#d4e1f3;padding:24px 0;font-size:13px}
 <div class="field full"><label for="pDescription">Опиши предлог и шта је потребно *</label><textarea id="pDescription" required minlength="10" maxlength="3000" placeholder="Шта је проблем? Шта предлажеш? Која помоћ, алат или материјал су потребни?"></textarea></div>
 </div><button class="btn" type="submit">Пошаљи предлог →</button><div class="msg" id="proposalMessage" role="status"></div></form>
 </section>
-<section id="actionsSection">
+<section id="actionsSection" hidden>
 <h2>Акције којима можеш да се придружиш</h2><p class="hint">Овде се приказују само објављени предлози.</p>
 <div id="actionsList" class="actions"><div class="empty">Учитавање акција…</div></div><div class="msg" id="listMessage" role="status"></div>
 </section>
@@ -46,8 +46,8 @@ footer{background:#041329;color:#d4e1f3;padding:24px 0;font-size:13px}
 document.getElementById('year').textContent=new Date().getFullYear();
 const db=window.supabase.createClient('https://hmfeizkmpmxcnzhwxgbn.supabase.co','sb_publishable_JPtLezaiIeq4MsQ2f3LSlg_nT01Chxe');
 const $=id=>document.getElementById(id);
-$('showProposal').addEventListener('click',()=>{$('proposalPanel').hidden=false;$('proposalPanel').scrollIntoView({behavior:'smooth',block:'start'});});
-$('showActions').addEventListener('click',()=>$('actionsSection').scrollIntoView({behavior:'smooth',block:'start'}));
+$('showProposal').addEventListener('click',()=>{const open=$('proposalPanel').hidden;$('actionsSection').hidden=true;$('proposalPanel').hidden=!open;});
+$('showActions').addEventListener('click',()=>{const open=$('actionsSection').hidden;$('proposalPanel').hidden=true;$('actionsSection').hidden=!open;});
 $('proposalForm').addEventListener('submit',async e=>{
  e.preventDefault();const b=e.submitter;b.disabled=true;b.textContent='Шаљем…';const m=$('proposalMessage');m.style.display='none';
  const val=id=>$(id).value.trim();
