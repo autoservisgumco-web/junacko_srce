@@ -53,7 +53,7 @@ small{display:block;color:var(--muted);font-size:12px;margin-top:5px}
 </div>
 </section>
 <section class="section">
-<h2>3. Како људи могу да се прикључе?</h2><p class="hint">Изабери све начине помоћи који би били корисни. Касније могу да се измене.</p>
+<h2>3. Како људи могу да се прикључе?</h2><p class="hint">Изабери понуђене начине учешћа и опиши шта је потребно. Ако ниједна опција не одговара твојој идеји, додај свој начин. Администратор може касније да га уреди.</p>
 <div class="checks">
 <div class="check"><input type="checkbox" id="physical" name="ways" value="Физичко учешће"><label for="physical">Физичко учешће<span>Долазак на локацију и рад на терену.</span></label></div>
 <div class="check"><input type="checkbox" id="volunteer" name="ways" value="Волонтирање"><label for="volunteer">Волонтирање<span>Време, организација и помоћ.</span></label></div>
@@ -62,7 +62,10 @@ small{display:block;color:var(--muted);font-size:12px;margin-top:5px}
 <div class="check"><input type="checkbox" id="expert" name="ways" value="Стручна помоћ"><label for="expert">Стручна помоћ<span>Знање или професионалне услуге.</span></label></div>
 <div class="check"><input type="checkbox" id="other" name="ways" value="Други облик помоћи"><label for="other">Други облик помоћи<span>Дефиниши шта још може да се понуди.</span></label></div>
 </div>
-<div id="goodsPanel" class="subpanel hidden"><h3>Потребне ствари</h3><div class="field"><label for="goodsDetails">Шта је потребно?</label><textarea id="goodsDetails" name="goodsDetails" placeholder="Наведите ствари, количине и услове преузимања."></textarea></div></div>
+<div id="physicalPanel" class="subpanel hidden"><h3>Физичко учешће</h3><div class="grid"><div class="field full"><label for="physicalDetails">Шта ће учесници радити?</label><textarea id="physicalDetails" name="physicalDetails" placeholder="Нпр. окупљање на локацији, чишћење, уређивање, подела помоћи..."></textarea></div><div class="field"><label for="bringItems">Шта треба да понесу?</label><textarea id="bringItems" name="bringItems" placeholder="Нпр. рукавице, алат, воду..."></textarea></div><div class="field"><label for="meetingInfo">Упутство за долазак</label><textarea id="meetingInfo" name="meetingInfo" placeholder="Место окупљања, време, коме да се јаве..."></textarea></div></div></div>
+<div id="volunteerPanel" class="subpanel hidden"><h3>Волонтирање</h3><div class="grid"><div class="field"><label for="volunteerTasks">Каква помоћ је потребна?</label><textarea id="volunteerTasks" name="volunteerTasks" placeholder="Нпр. организација, телефонирање, превоз, комуникација..."></textarea></div><div class="field"><label for="volunteerTime">Када и колико времена?</label><textarea id="volunteerTime" name="volunteerTime" placeholder="Наведите дане, трајање или смене."></textarea></div></div></div>
+<div id="goodsPanel" class="subpanel hidden"><h3>Донација ствари</h3><div class="grid"><div class="field"><label for="goodsDetails">Које ствари су потребне?</label><textarea id="goodsDetails" name="goodsDetails" placeholder="Наведите ствари и, ако је могуће, количине."></textarea></div><div class="field"><label for="goodsDropoff">Где и како се предају?</label><textarea id="goodsDropoff" name="goodsDropoff" placeholder="Место преузимања, рок, контакт или договор о достави."></textarea></div></div></div>
+<div id="expertPanel" class="subpanel hidden"><h3>Стручна помоћ</h3><div class="grid"><div class="field"><label for="expertise">Која знања или услуге су потребне?</label><textarea id="expertise" name="expertise" placeholder="Нпр. правна помоћ, фотографисање, превоз, поправке..."></textarea></div><div class="field"><label for="expertHow">Како се стручњак укључује?</label><textarea id="expertHow" name="expertHow" placeholder="На који начин и у ком периоду може да помогне?"></textarea></div></div></div>
 <div id="moneyPanel" class="subpanel hidden"><h3>Подаци за новчане донације</h3><p class="hint">Попуни ако већ имаш одобрене податке за уплату. Ови подаци ће се користити за приказ донаторима када акција буде објављена.</p>
 <div class="grid">
 <div class="field"><label for="payee">Прималац уплате</label><input id="payee" name="payee"></div>
@@ -75,7 +78,8 @@ small{display:block;color:var(--muted);font-size:12px;margin-top:5px}
 <div class="field"><label for="reference">Позив на број</label><input id="reference" name="reference"></div>
 <div class="field full"><label for="purpose">Сврха уплате / инструкције</label><textarea id="purpose" name="purpose" placeholder="Инструкције за уплату"></textarea></div>
 </div></div>
-<div id="otherPanel" class="subpanel hidden"><h3>Други облик помоћи</h3><div class="field"><label for="otherDetails">Опиши како људи могу да помогну</label><textarea id="otherDetails" name="otherDetails"></textarea></div></div>
+<div id="otherPanel" class="subpanel hidden"><h3>Други облик помоћи</h3><div class="grid"><div class="field"><label for="otherName">Назив начина прикључивања</label><input id="otherName" name="otherName" placeholder="Нпр. уступање простора"></div><div class="field"><label for="otherDetails">Како људи могу да помогну?</label><textarea id="otherDetails" name="otherDetails" placeholder="Опиши шта се нуди и шта је потребно."></textarea></div></div></div>
+<div class="subpanel"><h3>＋ Додај свој начин прикључивања</h3><p class="hint">Ако нешто недостаје у понуђеним опцијама, предложи нову. Ово је слободно поље — администратор ће проверити и по потреби уредити предлог.</p><div id="customWays"></div><button type="button" id="addCustomWay" class="btn secondary">＋ Додај начин прикључивања</button></div>
 <div class="field" style="margin-top:14px"><label for="participants">Очекивани број учесника (ако је познат)</label><input id="participants" name="participants" type="number" min="1" step="1" placeholder="Нпр. 10"></div>
 </section>
 <section class="section">
@@ -96,7 +100,9 @@ small{display:block;color:var(--muted);font-size:12px;margin-top:5px}
 <script>
 const byId=id=>document.getElementById(id);
 function togglePanel(checkId,panelId){byId(checkId).addEventListener('change',()=>byId(panelId).classList.toggle('hidden',!byId(checkId).checked));}
-togglePanel('goods','goodsPanel');togglePanel('money','moneyPanel');togglePanel('other','otherPanel');
+togglePanel('physical','physicalPanel');togglePanel('volunteer','volunteerPanel');togglePanel('goods','goodsPanel');togglePanel('money','moneyPanel');togglePanel('expert','expertPanel');togglePanel('other','otherPanel');
+let customWayCount=0;
+byId('addCustomWay').addEventListener('click',()=>{customWayCount++;const box=document.createElement('div');box.className='subpanel';box.innerHTML='<div class="grid"><div class="field"><label>Назив начина прикључивања</label><input name="customWayName[]" required maxlength="100" placeholder="Нпр. уступање возила"></div><div class="field"><label>Шта је потребно / како се помаже?</label><textarea name="customWayDetails[]" required placeholder="Опиши шта човек може да понуди и како се то организује."></textarea></div><div class="field full"><button type="button" class="btn secondary removeWay">Уклони овај начин</button></div></div>';box.querySelector('.removeWay').addEventListener('click',()=>box.remove());byId('customWays').appendChild(box);box.scrollIntoView({behavior:'smooth',block:'nearest'});});
 byId('actionForm').addEventListener('submit',e=>{
  e.preventDefault();
  if(byId('periodStart').value && byId('periodEnd').value && byId('periodEnd').value<byId('periodStart').value){alert('Планирани завршетак не може бити пре почетка.');return;}
@@ -105,7 +111,7 @@ byId('actionForm').addEventListener('submit',e=>{
  result.textContent='Образац је проверен. Ово је прототип: предлог није послат нити сачуван у бази. За стварно слање потребно је повезивање са базом података.';
  result.scrollIntoView({behavior:'smooth',block:'nearest'});
 });
-byId('actionForm').addEventListener('reset',()=>setTimeout(()=>{['goodsPanel','moneyPanel','otherPanel'].forEach(id=>byId(id).classList.add('hidden'));byId('result').classList.add('hidden')},0));
+byId('actionForm').addEventListener('reset',()=>setTimeout(()=>{['physicalPanel','volunteerPanel','goodsPanel','moneyPanel','expertPanel','otherPanel'].forEach(id=>byId(id).classList.add('hidden'));byId('customWays').innerHTML='';customWayCount=0;byId('result').classList.add('hidden')},0));
 </script>
 </body>
 </html>
