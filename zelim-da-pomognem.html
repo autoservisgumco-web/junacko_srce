@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="sr-Cyrl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#173c29">
+<title>Желим да помогнем — Јуначко срце</title>
+<style>
+:root{--green:#173c29;--green2:#246447;--mint:#eaf3ec;--paper:#f5f7f4;--line:#dce6de;--ink:#1e2b22;--muted:#66736a;--white:#fff;--orange:#e6a052}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}a{color:inherit}button,input,textarea{font:inherit}
+header{background:var(--green);color:white;padding:16px max(18px,calc((100% - 1000px)/2));display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}.brand{font-weight:850;text-decoration:none;font-size:18px}.brand small{display:block;color:#c6d9cc;font-weight:450;font-size:12px}.nav{display:flex;gap:15px;flex-wrap:wrap}.nav a{color:#e6f0e8;text-decoration:none;font-size:13px}
+main{max-width:1000px;margin:auto;padding:25px 16px 70px}.crumb{font-size:13px;color:var(--muted);margin:0 0 18px}.crumb a{color:var(--green2)}.hero{background:var(--green);color:white;border-radius:18px;padding:clamp(25px,5vw,48px)}.eyebrow{font-size:11px;font-weight:850;letter-spacing:1.5px;color:#b9d8c4;text-transform:uppercase}.hero h1{font-size:clamp(32px,5vw,50px);line-height:1.08;letter-spacing:-1.3px;margin:12px 0}.hero p{max-width:700px;color:#e0eae2}.btn{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:10px;padding:12px 17px;font-weight:800;text-decoration:none;cursor:pointer}.primary{background:var(--orange);color:#213326}.layout{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(250px,.8fr);gap:18px;margin-top:18px;align-items:start}.panel{background:white;border:1px solid var(--line);border-radius:15px;padding:clamp(18px,3vw,26px);margin-bottom:16px}.panel h2{font-size:21px;margin:0 0 9px}.muted{color:var(--muted)}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.field{display:grid;gap:6px;min-width:0}.field.full{grid-column:1/-1}.field label,.legend{font-size:13px;font-weight:800}.field input,.field textarea{width:100%;padding:11px 12px;border:1px solid #d5e0d7;border-radius:9px;background:white;color:var(--ink)}.field textarea{min-height:90px;resize:vertical}.choices{display:grid;gap:8px;margin-top:8px}.choice{display:flex;gap:10px;align-items:flex-start;padding:12px;border:1px solid var(--line);border-radius:10px;cursor:pointer}.choice:has(input:checked){background:var(--mint);border-color:#8eb69a}.choice input{margin-top:5px;accent-color:var(--green2)}.choice b{display:block;font-size:14px}.choice small{display:block;color:var(--muted);font-size:12px}.agree{display:flex;gap:9px;align-items:flex-start;font-size:12px;color:var(--muted);margin:14px 0}.agree input{margin-top:4px}.notice{background:#fff7e8;border:1px solid #f0d7a9;border-radius:10px;padding:12px 14px;font-size:12px;color:#654b21;margin-top:14px}.success{display:none;background:var(--mint);border:1px solid #b5d2bb;padding:13px;border-radius:10px;margin-top:13px}.success.show{display:block}.sidepoint{padding:14px;border-radius:11px;background:#f6f8f5;margin-top:10px}.sidepoint strong{display:block;margin-bottom:3px}footer{text-align:center;padding:22px;color:var(--muted);font-size:12px}
+@media(max-width:720px){header{align-items:flex-start}.nav{width:100%;gap:12px}.layout{grid-template-columns:1fr}.formgrid{grid-template-columns:1fr}.field.full{grid-column:auto}}
+</style>
+</head>
+<body>
+<header><a class="brand" href="index.html">♥ Јуначко срце <small>Идеје претварамо у дела</small></a><nav class="nav" aria-label="Главна навигација"><a href="index.html">Почетна</a><a href="kampanje.html">Кампање и акције</a><a href="predlog-akcije.html">Предложи акцију</a></nav></header>
+<main>
+<p class="crumb"><a href="index.html">Почетна</a> / Желим да помогнем</p>
+<section class="hero"><div class="eyebrow">Постани део Јуначког срца</div><h1>Желим да помогнем.</h1><p>Не мораш да имаш изабрану акцију да би се укључио. Остави нам контакт и реци шта можеш или желиш да понудиш. Када се појави потреба која ти одговара, можемо да ти се јавимо.</p></section>
+<div class="layout">
+<section class="panel">
+<h2>Пријави интересовање</h2><p class="muted">Ово је општа пријава за укључивање у рад Јуначког срца, а не пријава за једну конкретну акцију.</p>
+<form id="helpForm">
+<div class="formgrid">
+<div class="field"><label for="name">Име и презиме *</label><input id="name" name="name" autocomplete="name" required placeholder="Име и презиме"></div>
+<div class="field"><label for="contact">Телефон или имејл *</label><input id="contact" name="contact" required autocomplete="email" placeholder="Контакт на који можемо да се јавимо"></div>
+<div class="field full"><span class="legend">На који начин би желео/желела да помогнеш? *</span><div class="choices">
+<label class="choice"><input type="checkbox" name="help" value="teren"><span><b>Учешће на терену</b><small>Практичан рад, чишћење, уређивање простора и сличне активности.</small></span></label>
+<label class="choice"><input type="checkbox" name="help" value="organizacija"><span><b>Организација и повезивање људи</b><small>Помоћ у припреми акција, комуникацији и окупљању учесника.</small></span></label>
+<label class="choice"><input type="checkbox" name="help" value="oprema"><span><b>Алат, опрема или материјал</b><small>Могу да позајмим опрему или обезбедим потребне ствари.</small></span></label>
+<label class="choice"><input type="checkbox" name="help" value="strucno"><span><b>Знање и стручна помоћ</b><small>Могу да помогнем својим искуством, професијом или конкретном вештином.</small></span></label>
+<label class="choice"><input type="checkbox" name="help" value="podrska"><span><b>Подршка на други начин</b><small>Имам идеју или могу да помогнем на неки други начин.</small></span></label>
+</div></div>
+<div class="field full"><label for="availability">Када углавном могу да помогнем? (није обавезно)</label><input id="availability" name="availability" placeholder="Нпр. викендом, после посла, повремено"></div>
+<div class="field full"><label for="note">Још нешто што желиш да нам кажеш (није обавезно)</label><textarea id="note" name="note" placeholder="Напиши укратко шта те занима или шта можеш да понудиш."></textarea></div>
+</div>
+<label class="agree"><input type="checkbox" id="consent" required><span>Сагласан/сагласна сам да ме организатори Јуначког срца контактирају у вези са могућностима за учешће и помоћ. *</span></label>
+<button class="btn primary" type="submit">Желим да помогнем</button>
+<div class="success" id="success" role="status" aria-live="polite"></div>
+<div class="notice">Образац је тренутно прототип: пријава се не шаље и не чува у бази података. Пре објављивања као активне услуге треба повезати образац са базом и одредити ко обрађује пријаве.</div>
+</form>
+</section>
+<aside class="panel"><h2>Шта се дешава после пријаве?</h2><div class="sidepoint"><strong>1. Кажеш шта те занима</strong><span class="muted">Не мораш одмах да изабереш акцију.</span></div><div class="sidepoint"><strong>2. Остајеш у контакту</strong><span class="muted">Када буде прилике која одговара твојим могућностима, организатори могу да ти се јаве.</span></div><div class="sidepoint"><strong>3. Укључујеш се када можеш</strong><span class="muted">Сам одлучујеш да ли ти конкретна активност одговара.</span></div><p><a href="akcija-uredimo-planu.html">Или погледај пример конкретне акције →</a></p></aside>
+</div>
+</main>
+<footer>Јуначко срце · Није довољно знати. Треба и деловати.</footer>
+<script>
+const form=document.getElementById('helpForm');
+form.addEventListener('submit',event=>{event.preventDefault();if(!form.querySelector('input[name="help"]:checked')){alert('Изабери бар један начин на који би желео/желела да помогнеш.');return;}const success=document.getElementById('success');success.textContent='Хвала, '+document.getElementById('name').value.trim()+'! Образац је попуњен као пробни пример, али пријава још није послата јер страница није повезана са базом података.';success.classList.add('show');success.scrollIntoView({behavior:'smooth',block:'nearest'});});
+form.addEventListener('reset',()=>document.getElementById('success').classList.remove('show'));
+</script>
+</body>
+</html>
