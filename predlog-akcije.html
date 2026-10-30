@@ -3,118 +3,115 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Позив за Велику Плану — Јуначко срце</title>
+<meta name="theme-color" content="#061a35">
+<title>Предложи. Придружи се. — Јуначко срце</title>
 <style>
-:root{--ink:#061A35;--muted:#64748b;--line:#dbe4f0;--paper:#F1F5F9;--white:#fff;--accent:#2166F3;--soft:#eaf1ff;--warn:#fff6df}
-*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
-header{background:#061A35;color:white;padding:14px max(18px,calc((100% - 1120px)/2))}header a{color:#dbeafe;text-decoration:none;font-size:13px}header h1{font-size:clamp(23px,4vw,30px);line-height:1.15;margin:9px 0 6px}header p{margin:0;color:#dbeafe;max-width:720px;font-size:14px}.topnav{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}.topnav a{display:inline-block;padding:7px 11px;border:1px solid #ffffff40;border-radius:8px;font-size:13px}.topnav a:hover{background:#ffffff18}
-main{max-width:1160px;margin:14px auto;padding:0 14px 36px}.notice{background:var(--soft);border:1px solid #cbdccb;border-radius:10px;padding:10px 12px;margin-bottom:10px;font-size:13px}
-form{background:white;border:1px solid var(--line);border-radius:13px;padding:clamp(12px,2.5vw,19px);box-shadow:0 5px 18px #20302008;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 18px}
-.section{min-width:0;padding:0 0 14px;margin:0 0 14px;border-bottom:1px solid var(--line)}.section:last-of-type{border-bottom:0;margin-bottom:0}.section:nth-of-type(3),form>.notice,form>.actions,form>#result{grid-column:1/-1}.section:nth-of-type(1){grid-column:1}.section:nth-of-type(2){grid-column:2}.section:nth-of-type(4){grid-column:1/-1}
-h2{font-size:17px;margin:0 0 4px}.hint{font-size:12px;color:var(--muted);margin:0 0 10px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field{min-width:0}.full{grid-column:1/-1}
-label,.legend{display:block;font-weight:650;font-size:14px;margin:0 0 6px}
-input,textarea,select{width:100%;border:1px solid #cbd4c8;border-radius:8px;padding:9px 10px;font:inherit;font-size:14px;background:white;color:var(--ink);min-height:39px}
-textarea{min-height:76px;resize:vertical}input:focus,textarea:focus,select:focus{outline:3px solid #bfdbfe;border-color:var(--accent)}
-small{display:block;color:var(--muted);font-size:12px;margin-top:5px}
-.checks{display:grid;grid-template-columns:1fr 1fr;gap:10px}.check{display:flex;align-items:flex-start;gap:8px;padding:9px;border:1px solid var(--line);border-radius:10px;background:#fff}.check input{width:19px;min-height:19px;height:19px;margin:2px 0 0;flex:0 0 auto;accent-color:var(--accent)}.check label{margin:0;font-weight:550;cursor:pointer}.check span{display:block;font-size:12px;color:var(--muted);font-weight:400;margin-top:2px}
-.hidden{display:none!important}.subpanel{background:#f8faff;border:1px solid var(--line);border-radius:10px;padding:11px;margin-top:10px}.subpanel h3{font-size:16px;margin:0 0 12px}
-.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.btn{border:0;border-radius:10px;padding:13px 18px;font:inherit;font-weight:700;cursor:pointer}.primary{background:var(--accent);color:white}.secondary{background:#eaf1ff;color:var(--ink)}.status{margin-top:18px;padding:14px;border-radius:10px;background:var(--soft);border:1px solid #bfdbfe}.foot{font-size:12px;color:var(--muted);margin:16px 3px}.mobile-tools{display:none}.sheet-backdrop{display:none}
-@media(max-width:760px){main{max-width:650px}form{grid-template-columns:1fr;gap:0}.section:nth-of-type(1),.section:nth-of-type(2),.section:nth-of-type(3),.section:nth-of-type(4),form>.notice,form>.actions,form>#result{grid-column:1}.topnav{display:none}.mobile-tools{display:block;position:fixed;z-index:20;bottom:12px;left:12px;right:12px}.mobile-tools button{width:100%;box-shadow:0 5px 24px #10201535}.sheet-backdrop.open{display:flex;position:fixed;z-index:30;inset:0;background:#10181080;align-items:flex-end}.bottom-sheet{background:white;width:100%;padding:18px 16px calc(18px + env(safe-area-inset-bottom));border-radius:18px 18px 0 0;max-height:75vh;overflow:auto}.bottom-sheet h2{margin-bottom:12px}.sheet-links{display:grid;grid-template-columns:1fr 1fr;gap:8px}.sheet-links a{display:block;text-decoration:none;color:var(--ink);background:#eaf1ff;border:1px solid var(--line);border-radius:9px;padding:12px;font-weight:650}.sheet-close{width:100%;margin-top:12px}.actions .btn{width:100%}header{padding-top:16px;padding-bottom:22px}}@media(max-width:420px){.grid,.checks,.sheet-links{grid-template-columns:1fr}.full{grid-column:auto}}
+:root{--ink:#10233f;--muted:#66758b;--line:#dce4ee;--paper:#f3f6fa;--blue:#2166f3;--soft:#eaf1ff;--white:#fff}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+header{background:#061a35;color:#fff;padding:18px max(18px,calc((100% - 980px)/2)) 30px}
+header a{color:#dbeafe;text-decoration:none;font-size:14px}header h1{font-size:clamp(30px,6vw,48px);line-height:1.08;margin:24px 0 12px;letter-spacing:-1px}header h1 span{color:#8db4ff}header p{max-width:650px;color:#dbeafe;margin:0;font-size:16px}
+main{max-width:980px;margin:26px auto;padding:0 16px 60px}
+.intro{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:22px}
+.step{background:#fff;border:1px solid var(--line);border-radius:14px;padding:17px}.step b{display:block;font-size:20px;margin-bottom:4px}.step p{margin:0;color:var(--muted);font-size:14px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:clamp(17px,3vw,26px);margin:18px 0;box-shadow:0 8px 26px #14243a08}
+h2{font-size:23px;line-height:1.2;margin:0 0 7px}.sub{color:var(--muted);font-size:14px;margin:0 0 20px}
+label{display:block;font-weight:650;font-size:14px;margin:0 0 6px}
+input,textarea{width:100%;border:1px solid #cbd5e1;border-radius:9px;padding:12px;font:inherit;font-size:15px;color:var(--ink);background:#fff}
+textarea{min-height:110px;resize:vertical}input:focus,textarea:focus{outline:3px solid #d7e5ff;border-color:var(--blue)}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:14px}.full{grid-column:1/-1}.field small{display:block;color:var(--muted);font-size:12px;margin-top:5px}
+button{border:0;border-radius:10px;padding:13px 18px;font:inherit;font-weight:750;cursor:pointer}.primary{background:var(--blue);color:white}.primary:hover{background:#174fc2}.secondary{background:var(--soft);color:var(--ink)}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.notice{font-size:13px;color:var(--muted);margin-top:13px}
+#message{display:none;padding:12px 14px;border-radius:10px;margin-top:15px;font-size:14px;background:var(--soft)}#message.show{display:block}
+.list-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:14px}.list-head p{margin:4px 0 0;color:var(--muted);font-size:14px}
+.proposal{border:1px solid var(--line);border-radius:13px;padding:17px;margin:12px 0;background:#fff}.proposal h3{font-size:19px;margin:0 0 6px}.proposal p{margin:6px 0;color:#43536a;white-space:pre-wrap}.meta{font-size:13px;color:var(--muted);margin-top:8px}.proposal-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:15px;padding-top:12px;border-top:1px solid var(--line)}.count{font-size:14px;font-weight:700}.join-form{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:14px;padding:13px;background:#f7f9fc;border-radius:10px}.join-form button{grid-column:1/-1}.empty{padding:24px;text-align:center;border:1px dashed #cbd5e1;border-radius:12px;color:var(--muted);background:#fbfcfe}
+footer{text-align:center;color:var(--muted);font-size:13px;padding:20px}
+@media(max-width:620px){.intro,.fields,.join-form{grid-template-columns:1fr}.full{grid-column:auto}.list-head{display:block}.proposal-foot{align-items:flex-start;flex-direction:column}.join-form button{grid-column:auto}header{padding-bottom:26px}.panel{padding:17px}}
 </style>
 </head>
 <body>
 <header>
-<a href="kampanje.html">← Назад на Јуначко срце</a>
-<h1>Позив за Велику Плану</h1>
-<p>Шта можемо заједно да променимо у нашем месту? Предложи акцију, понуди помоћ или укључи комшије. Добре идеје почињу од људи који не чекају да неко други реши проблем.</p>
-<nav class="topnav" aria-label="Брза навигација"><a href="#proposal">Предлог акције</a><a href="#locationSection">Локација</a><a href="#waysSection">Начини помоћи</a><a href="#contactSection">Контакт</a></nav>
+<a href="index.html">← Назад на Јуначко срце</a>
+<h1>Предложи. <span>Придружи се.</span></h1>
+<p>Велика Плана припада свима нама. Имаш идеју шта можемо да урадимо? Предложи је. Када се предлог објави, други могу да му се придруже. Тако од идеје настаје заједничка акција.</p>
 </header>
 <main>
-<div class="notice"><strong>Важно:</strong> слањем предлога још не покрећеш јавну акцију. Предлог прво стиже на преглед и добија статус.</div>
-<form id="actionForm">
-<section class="section">
-<h2>Предложи шта можемо да урадимо</h2><p class="hint">Довољно је да за почетак попуниш назив, кратак опис и контакт. Остало можеш да допуниш ако је потребно.</p>
-<div class="grid">
-<div class="field full"><label for="title">Назив предлога *</label><input id="title" name="title" required maxlength="140" placeholder="Нпр. Уредимо парк у Великој Плани"></div>
-<div class="field full"><label for="description">Шта предлажеш и зашто? *</label><textarea id="description" name="description" required placeholder="Шта је проблем или идеја? Коме ће помоћи и шта бисмо могли заједно да урадимо?"></textarea></div>
-<div class="field"><label for="goal">Шта желимо да постигнемо?</label><input id="goal" name="goal" placeholder="Очекивани резултат"></div>
-<div class="field"><label for="campaign">Повезана кампања (ако постоји)</label><input id="campaign" name="campaign" placeholder="Назив кампање, ако је познат"></div>
-<div class="field"><label for="periodStart">Планирани почетак</label><input type="date" id="periodStart" name="periodStart"></div>
-<div class="field"><label for="periodEnd">Планирани завршетак</label><input type="date" id="periodEnd" name="periodEnd"></div>
-<div class="field"><label for="exactDate">Тачан датум акције (ако је познат)</label><input type="date" id="exactDate" name="exactDate"><small>Може да се одреди и касније.</small></div>
-<div class="field"><label for="exactTime">Време почетка (ако је познато)</label><input type="time" id="exactTime" name="exactTime"></div>
+<div class="intro">
+<div class="step"><b>01 · ПРЕДЛОЖИ</b><p>Напиши шта би требало урадити, где и зашто. Твој предлог прво прегледамо.</p></div>
+<div class="step"><b>02 · ПРИДРУЖИ СЕ</b><p>Када предлог буде објављен, свако ко жели може да се пријави и придружи.</p></div>
 </div>
-</section>
-<section class="section">
-<h2>Где? <span style="font-weight:400;color:var(--muted);font-size:13px">(ако је важно)</span></h2><p class="hint">Место или адреса у Великој Плани и околини.</p>
-<div class="grid">
-<div class="field"><label for="location">Место / адреса</label><input id="location" name="location" placeholder="Насеље, улица или место окупљања"></div>
-<div class="field"><label for="mapLink">Линк ка локацији на мапи</label><input id="mapLink" name="mapLink" type="url" placeholder="https://..."></div>
+
+<section class="panel" id="predlozi">
+<h2>Предложи акцију</h2>
+<p class="sub">Не мораш да имаш разрађен план. Довољно је да покренеш добру идеју.</p>
+<form id="proposalForm">
+<div class="fields">
+<div class="field full"><label for="title">Шта предлажеш? *</label><input id="title" name="title" maxlength="140" required placeholder="Нпр. Засадимо дрвеће у нашем насељу"></div>
+<div class="field full"><label for="description">Опиши идеју *</label><textarea id="description" name="description" minlength="10" maxlength="3000" required placeholder="Шта би требало урадити и зашто је то важно?"></textarea></div>
+<div class="field"><label for="location">Где би се акција одвијала?</label><input id="location" name="location" maxlength="180" placeholder="Насеље, улица, парк..."></div>
+<div class="field"><label for="name">Твоје име и презиме *</label><input id="name" name="name" maxlength="120" required autocomplete="name"></div>
+<div class="field full"><label for="email">Имејл адреса *</label><input id="email" name="email" type="email" required autocomplete="email" placeholder="За контакт поводом предлога"></div>
 </div>
-</section>
-<section class="section">
-<h2>Како људи могу да помогну?</h2><p class="hint">Изабери понуђене начине учешћа и опиши шта је потребно. Ако ниједна опција не одговара твојој идеји, додај свој начин. Администратор може касније да га уреди.</p>
-<div class="checks">
-<div class="check"><input type="checkbox" id="physical" name="ways" value="Физичко учешће"><label for="physical">Физичко учешће<span>Долазак на локацију и рад на терену.</span></label></div>
-<div class="check"><input type="checkbox" id="volunteer" name="ways" value="Волонтирање"><label for="volunteer">Волонтирање<span>Време, организација и помоћ.</span></label></div>
-<div class="check"><input type="checkbox" id="goods" name="ways" value="Донација ствари"><label for="goods">Донација ствари<span>Опрема, материјал или друге потребне ствари.</span></label></div>
-<div class="check"><input type="checkbox" id="money" name="ways" value="Новчана донација"><label for="money">Новчана донација<span>Приказ података за уплату.</span></label></div>
-<div class="check"><input type="checkbox" id="expert" name="ways" value="Стручна помоћ"><label for="expert">Стручна помоћ<span>Знање или професионалне услуге.</span></label></div>
-<div class="check"><input type="checkbox" id="other" name="ways" value="Други облик помоћи"><label for="other">Други облик помоћи<span>Дефиниши шта још може да се понуди.</span></label></div>
-</div>
-<div id="physicalPanel" class="subpanel hidden"><h3>Физичко учешће</h3><div class="grid"><div class="field full"><label for="physicalDetails">Шта ће учесници радити?</label><textarea id="physicalDetails" name="physicalDetails" placeholder="Нпр. окупљање на локацији, чишћење, уређивање, подела помоћи..."></textarea></div><div class="field"><label for="bringItems">Шта треба да понесу?</label><textarea id="bringItems" name="bringItems" placeholder="Нпр. рукавице, алат, воду..."></textarea></div><div class="field"><label for="meetingInfo">Упутство за долазак</label><textarea id="meetingInfo" name="meetingInfo" placeholder="Место окупљања, време, коме да се јаве..."></textarea></div></div></div>
-<div id="volunteerPanel" class="subpanel hidden"><h3>Волонтирање</h3><div class="grid"><div class="field"><label for="volunteerTasks">Каква помоћ је потребна?</label><textarea id="volunteerTasks" name="volunteerTasks" placeholder="Нпр. организација, телефонирање, превоз, комуникација..."></textarea></div><div class="field"><label for="volunteerTime">Када и колико времена?</label><textarea id="volunteerTime" name="volunteerTime" placeholder="Наведите дане, трајање или смене."></textarea></div></div></div>
-<div id="goodsPanel" class="subpanel hidden"><h3>Донација ствари</h3><div class="grid"><div class="field"><label for="goodsDetails">Које ствари су потребне?</label><textarea id="goodsDetails" name="goodsDetails" placeholder="Наведите ствари и, ако је могуће, количине."></textarea></div><div class="field"><label for="goodsDropoff">Где и како се предају?</label><textarea id="goodsDropoff" name="goodsDropoff" placeholder="Место преузимања, рок, контакт или договор о достави."></textarea></div></div></div>
-<div id="expertPanel" class="subpanel hidden"><h3>Стручна помоћ</h3><div class="grid"><div class="field"><label for="expertise">Која знања или услуге су потребне?</label><textarea id="expertise" name="expertise" placeholder="Нпр. правна помоћ, фотографисање, превоз, поправке..."></textarea></div><div class="field"><label for="expertHow">Како се стручњак укључује?</label><textarea id="expertHow" name="expertHow" placeholder="На који начин и у ком периоду може да помогне?"></textarea></div></div></div>
-<div id="moneyPanel" class="subpanel hidden"><h3>Подаци за новчане донације</h3><p class="hint">Попуни ако већ имаш одобрене податке за уплату. Ови подаци ће се користити за приказ донаторима када акција буде објављена.</p>
-<div class="grid">
-<div class="field"><label for="payee">Прималац уплате</label><input id="payee" name="payee"></div>
-<div class="field"><label for="bank">Банка</label><input id="bank" name="bank"></div>
-<div class="field"><label for="account">Број рачуна</label><input id="account" name="account"></div>
-<div class="field"><label for="iban">IBAN (ако се користи)</label><input id="iban" name="iban"></div>
-<div class="field"><label for="swift">SWIFT/BIC</label><input id="swift" name="swift"></div>
-<div class="field"><label for="currency">Валута</label><select id="currency" name="currency"><option value="RSD">RSD — динар</option><option value="EUR">EUR — евро</option><option value="USD">USD — амерички долар</option><option value="other">Друго</option></select></div>
-<div class="field"><label for="paymentModel">Модел плаћања</label><input id="paymentModel" name="paymentModel" placeholder="Нпр. 97"></div>
-<div class="field"><label for="reference">Позив на број</label><input id="reference" name="reference"></div>
-<div class="field full"><label for="purpose">Сврха уплате / инструкције</label><textarea id="purpose" name="purpose" placeholder="Инструкције за уплату"></textarea></div>
-</div></div>
-<div id="otherPanel" class="subpanel hidden"><h3>Други облик помоћи</h3><div class="grid"><div class="field"><label for="otherName">Назив начина прикључивања</label><input id="otherName" name="otherName" placeholder="Нпр. уступање простора"></div><div class="field"><label for="otherDetails">Како људи могу да помогну?</label><textarea id="otherDetails" name="otherDetails" placeholder="Опиши шта се нуди и шта је потребно."></textarea></div></div></div>
-<div class="subpanel"><h3>＋ Додај свој начин прикључивања</h3><p class="hint">Ако нешто недостаје у понуђеним опцијама, предложи нову. Ово је слободно поље — администратор ће проверити и по потреби уредити предлог.</p><div id="customWays"></div><button type="button" id="addCustomWay" class="btn secondary">＋ Додај начин прикључивања</button></div>
-<div class="field" style="margin-top:14px"><label for="participants">Очекивани број учесника (ако је познат)</label><input id="participants" name="participants" type="number" min="1" step="1" placeholder="Нпр. 10"></div>
-</section>
-<section class="section">
-<h2>Твој контакт</h2><p class="hint">Да можемо да се договоримо око следећих корака.</p>
-<div class="grid">
-<div class="field"><label for="name">Име и презиме *</label><input id="name" name="name" autocomplete="name" required></div>
-<div class="field"><label for="email">Имејл адреса *</label><input id="email" name="email" type="email" autocomplete="email" required></div>
-<div class="field"><label for="phone">Телефон (опционо)</label><input id="phone" name="phone" type="tel" autocomplete="tel"></div>
-<div class="field"><label for="note">Додатна напомена</label><input id="note" name="note" placeholder="Још нешто што треба да знамо"></div>
-</div>
-</section>
-<div class="notice"><strong>Статус након слања:</strong> Нови предлог — чека преглед администратора.</div>
-<div class="actions"><button type="submit" class="btn primary">Пошаљи предлог</button><button type="reset" class="btn secondary">Обриши образац</button></div>
-<div id="result" class="status hidden" role="status" aria-live="polite"></div>
+<div class="actions"><button class="primary" id="submitProposal" type="submit">Пошаљи предлог</button></div>
+<div class="notice">Предлог не постаје одмах јавна акција. Прво га прегледамо, па га објављујемо да би други могли да му се придруже.</div>
+<div id="message" role="status" aria-live="polite"></div>
 </form>
-<p class="foot">Напомена: образац је још у изради и тренутно не чува пријаву у бази података.</p>
+</section>
+
+<section class="panel" id="objavljeni">
+<div class="list-head"><div><h2>Предлози којима можеш да се придружиш</h2><p>Изабери идеју коју желиш да подржиш својим учешћем.</p></div></div>
+<div id="proposalList"><div class="empty">Учитавање предлога...</div></div>
+</section>
 </main>
-<div class="mobile-tools"><button type="button" class="btn primary" id="openSheet">☰ Отвори мени обрасца</button></div>
-<div class="sheet-backdrop" id="sheetBackdrop" aria-hidden="true"><div class="bottom-sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle"><h2 id="sheetTitle">Брзи прелаз на део обрасца</h2><div class="sheet-links"><a href="#proposal">Предлог акције</a><a href="#locationSection">Локација</a><a href="#waysSection">Начини помоћи</a><a href="#contactSection">Контакт</a></div><button type="button" class="btn secondary sheet-close" id="closeSheet">Затвори мени</button></div></div>
+<footer>Јуначко срце · Није довољно знати. Треба и деловати.</footer>
 <script>
-const byId=id=>document.getElementById(id);\nconst sheet=byId('sheetBackdrop');byId('openSheet').addEventListener('click',()=>{sheet.classList.add('open');sheet.setAttribute('aria-hidden','false')});function closeSheet(){sheet.classList.remove('open');sheet.setAttribute('aria-hidden','true')}byId('closeSheet').addEventListener('click',closeSheet);sheet.addEventListener('click',e=>{if(e.target===sheet)closeSheet()});sheet.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeSheet));document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSheet()});
-function togglePanel(checkId,panelId){byId(checkId).addEventListener('change',()=>byId(panelId).classList.toggle('hidden',!byId(checkId).checked));}
-togglePanel('physical','physicalPanel');togglePanel('volunteer','volunteerPanel');togglePanel('goods','goodsPanel');togglePanel('money','moneyPanel');togglePanel('expert','expertPanel');togglePanel('other','otherPanel');
-let customWayCount=0;
-byId('addCustomWay').addEventListener('click',()=>{customWayCount++;const box=document.createElement('div');box.className='subpanel';box.innerHTML='<div class="grid"><div class="field"><label>Назив начина прикључивања</label><input name="customWayName[]" required maxlength="100" placeholder="Нпр. уступање возила"></div><div class="field"><label>Шта је потребно / како се помаже?</label><textarea name="customWayDetails[]" required placeholder="Опиши шта човек може да понуди и како се то организује."></textarea></div><div class="field full"><button type="button" class="btn secondary removeWay">Уклони овај начин</button></div></div>';box.querySelector('.removeWay').addEventListener('click',()=>box.remove());byId('customWays').appendChild(box);box.scrollIntoView({behavior:'smooth',block:'nearest'});});
-byId('actionForm').addEventListener('submit',e=>{
- e.preventDefault();
- if(byId('periodStart').value && byId('periodEnd').value && byId('periodEnd').value<byId('periodStart').value){alert('Планирани завршетак не може бити пре почетка.');return;}
- const ways=[...document.querySelectorAll('input[name="ways"]:checked')].map(x=>x.value);
- const result=byId('result');result.classList.remove('hidden');
- result.textContent='Образац је проверен. Ово је прототип: предлог није послат нити сачуван у бази. За стварно слање потребно је повезивање са базом података.';
- result.scrollIntoView({behavior:'smooth',block:'nearest'});
+const SUPABASE_URL = "https://hmfeizkmpmxcnzhwxgbn.supabase.co";
+const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhtZmVpemttcG14Y256aHd4Z2JuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMzMjkyNzgsImV4cCI6MjEwODkwNTI3OH0.oTZopOJEGUnxK69BOYPP11CQoGrLqUJowqpPU2uiY-4";
+const headers = {'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json'};
+const el = id => document.getElementById(id);
+function showMessage(text, ok=true){const m=el('message');m.textContent=text;m.style.background=ok?'#eaf1ff':'#fff0ed';m.style.color=ok?'#173b78':'#9b2c1f';m.classList.add('show');}
+async function loadProposals(){
+ const list=el('proposalList');
+ try{
+  const [pRes,cRes]=await Promise.all([
+   fetch(SUPABASE_URL+'/rest/v1/action_proposals?select=id,title,description,location,created_at&status=eq.published&order=created_at.desc',{headers}),
+   fetch(SUPABASE_URL+'/rest/v1/action_proposal_support_counts?select=proposal_id,support_count',{headers})
+  ]);
+  if(!pRes.ok) throw new Error('Не могу да учитам предлоге.');
+  const proposals=await pRes.json(); const counts=cRes.ok?await cRes.json():[];
+  if(!proposals.length){list.innerHTML='<div class="empty">Још нема објављених предлога. Буди први који ће покренути идеју!</div>';return;}
+  list.innerHTML='';
+  proposals.forEach(p=>{
+   const count=counts.find(c=>c.proposal_id===p.id)?.support_count||0;
+   const card=document.createElement('article');card.className='proposal';
+   const h=document.createElement('h3');h.textContent=p.title;card.appendChild(h);
+   const d=document.createElement('p');d.textContent=p.description;card.appendChild(d);
+   if(p.location){const loc=document.createElement('div');loc.className='meta';loc.textContent='Локација: '+p.location;card.appendChild(loc);}
+   const foot=document.createElement('div');foot.className='proposal-foot';
+   const n=document.createElement('span');n.className='count';n.textContent=count+' '+(count===1?'особа се придружила':'особа се придружило');foot.appendChild(n);
+   const b=document.createElement('button');b.className='primary';b.type='button';b.textContent='Придружи се';b.addEventListener('click',()=>{const f=card.querySelector('.join-form');if(f){f.remove();return;}const form=document.createElement('form');form.className='join-form';form.innerHTML='<div><label>Име и презиме *</label><input name="full_name" required maxlength="120" autocomplete="name"></div><div><label>Имејл адреса *</label><input name="email" type="email" required autocomplete="email"></div><button class="primary" type="submit">Потврди придруживање</button>';form.addEventListener('submit',e=>joinProposal(e,p.id,form));card.appendChild(form);form.scrollIntoView({behavior:'smooth',block:'nearest'});});foot.appendChild(b);card.appendChild(foot);list.appendChild(card);
+  });
+ }catch(e){list.innerHTML='<div class="empty">Тренутно није могуће учитати предлоге. Покушај поново касније.</div>';console.error(e);}
+}
+el('proposalForm').addEventListener('submit',async e=>{
+ e.preventDefault();const b=el('submitProposal');b.disabled=true;b.textContent='Шаљем...';
+ const f=new FormData(e.currentTarget);
+ const body={title:String(f.get('title')).trim(),description:String(f.get('description')).trim(),location:String(f.get('location')||'').trim()||null,proposer_name:String(f.get('name')).trim(),proposer_email:String(f.get('email')).trim(),status:'pending'};
+ try{
+  const r=await fetch(SUPABASE_URL+'/rest/v1/action_proposals',{method:'POST',headers:{...headers,'Prefer':'return=minimal'},body:JSON.stringify(body)});
+  if(!r.ok){const t=await r.text();throw new Error(t||'Слање није успело.');}
+  e.currentTarget.reset();showMessage('Хвала! Твој предлог је успешно послат и чека преглед. Када буде објављен, други ће моћи да му се придруже.');
+ }catch(err){showMessage('Нисмо успели да пошаљемо предлог. Покушај поново. '+err.message,false);}
+ finally{b.disabled=false;b.textContent='Пошаљи предлог';}
 });
-byId('actionForm').addEventListener('reset',()=>setTimeout(()=>{['physicalPanel','volunteerPanel','goodsPanel','moneyPanel','expertPanel','otherPanel'].forEach(id=>byId(id).classList.add('hidden'));byId('customWays').innerHTML='';customWayCount=0;byId('result').classList.add('hidden')},0));
+async function joinProposal(e,id,form){
+ e.preventDefault();const b=form.querySelector('button');b.disabled=true;b.textContent='Пријављујем...';const f=new FormData(form);
+ try{
+  const r=await fetch(SUPABASE_URL+'/rest/v1/action_proposal_joins',{method:'POST',headers:{...headers,'Prefer':'return=minimal'},body:JSON.stringify({proposal_id:id,full_name:String(f.get('full_name')).trim(),email:String(f.get('email')).trim().toLowerCase()})});
+  if(!r.ok){const t=await r.text();if(t.includes('23505'))throw new Error('Са овом имејл адресом си већ придружен/а овом предлогу.');throw new Error(t||'Пријављивање није успело.');}
+  form.innerHTML='<strong>Успешно си се придружио/ла овом предлогу. Хвала!</strong>';await loadProposals();
+ }catch(err){const msg=document.createElement('p');msg.className='meta';msg.textContent=err.message;form.appendChild(msg);b.disabled=false;b.textContent='Потврди придруживање';}
+}
+loadProposals();
 </script>
 </body>
 </html>
