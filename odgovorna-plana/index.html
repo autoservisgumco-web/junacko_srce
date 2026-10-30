@@ -7,7 +7,7 @@
 :root{--navy:#061A35;--blue:#2166F3;--pale:#F1F5F9;--white:#fff;--text:#142844;--muted:#64748b;--line:#dce5f0}
 *{box-sizing:border-box}body{margin:0;background:var(--pale);color:var(--text);font:16px/1.6 system-ui,sans-serif}
 .wrap{width:min(900px,calc(100% - 32px));margin:auto}header{background:var(--navy);color:white;padding:18px 0}.brand{font-weight:900;letter-spacing:.4px}.brand small{display:block;color:#a9c5f5;font-size:10px;letter-spacing:1.5px}
-.hero{position:relative;isolation:isolate;background:linear-gradient(90deg,rgba(6,26,53,.98) 0%,rgba(6,26,53,.91) 38%,rgba(6,26,53,.58) 68%,rgba(6,26,53,.30) 100%),url('https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=1900&q=85') center 48%/cover no-repeat;color:white;padding:56px 0 62px;overflow:hidden}.hero:after{content:"";position:absolute;z-index:-1;inset:auto 0 0;height:5px;background:linear-gradient(90deg,#2166F3,rgba(33,102,243,0))}.eyebrow{color:#8db8ff;font-size:11px;font-weight:900;letter-spacing:2px}.hero h1{font-size:clamp(36px,7vw,58px);line-height:1.08;letter-spacing:-1.5px;margin:14px 0}.hero p{color:#d5e4f8;font-size:18px;max-width:690px;margin:0}
+.hero{background:linear-gradient(120deg,#061A35,#0d3263 68%,#2166F3);color:white;padding:38px 0 42px}.market-photo{background:var(--navy);padding:0 0 30px}.market-photo .wrap{width:min(1100px,calc(100% - 32px))}.market-photo img{display:block;width:100%;height:clamp(210px,38vw,390px);object-fit:cover;object-position:center 52%;border-radius:16px;box-shadow:0 18px 44px #061a3530}.community-intro{margin:10px 0 26px;padding:30px clamp(20px,4vw,38px);background:#e8f1fb;border:1px solid #d6e4f4;border-radius:18px}.community-kicker{font-size:11px;font-weight:900;letter-spacing:2px;color:var(--blue);margin-bottom:8px}.community-intro h2{font-size:clamp(25px,4vw,32px);margin:0 0 10px}.community-intro>p{max-width:780px;margin:0;color:#314967;font-size:16px}.community-points{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:24px}.community-points div{border-left:3px solid var(--blue);padding:4px 0 4px 13px}.community-points strong,.community-points span{display:block}.community-points strong{color:var(--navy);font-size:14px}.community-points span{color:var(--muted);font-size:13px;margin-top:3px}.hero:after{content:"";position:absolute;z-index:-1;inset:auto 0 0;height:5px;background:linear-gradient(90deg,#2166F3,rgba(33,102,243,0))}.eyebrow{color:#8db8ff;font-size:11px;font-weight:900;letter-spacing:2px}.hero h1{font-size:clamp(36px,7vw,58px);line-height:1.08;letter-spacing:-1.5px;margin:14px 0}.hero p{color:#d5e4f8;font-size:18px;max-width:690px;margin:0}
 main{padding:32px 0 64px}.intro{margin:0 0 22px;color:var(--muted)}.choices{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:0 0 28px}.choice{background:white;border:1px solid var(--line);border-radius:16px;padding:24px;box-shadow:0 12px 38px #061a3509}.choice h2{color:var(--navy);font-size:24px;margin:0 0 6px}.choice p{color:var(--muted);margin:0 0 12px}.btn{display:inline-block;background:var(--blue);color:white;padding:12px 19px;border:0;border-radius:10px;font-weight:850;font-size:15px;cursor:pointer}.btn.secondary{background:var(--navy)}.btn:disabled{opacity:.6;cursor:wait}
 .panel{background:white;border:1px solid var(--line);border-radius:17px;padding:clamp(18px,4vw,30px);box-shadow:0 12px 38px #061a3510;margin:0 0 18px}h2{color:var(--navy);font-size:26px;margin:0 0 5px}.hint{color:var(--muted);font-size:14px;margin:0 0 22px}
 .fields{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field.full{grid-column:1/-1}label{display:block;font-size:13px;font-weight:800;margin-bottom:6px}.field input,.field textarea{width:100%;border:1px solid #cbd8e8;border-radius:9px;padding:12px;background:#fbfdff;font:inherit;color:var(--text)}textarea{min-height:100px;resize:vertical}
@@ -30,18 +30,28 @@ body.sheet-open{overflow:hidden}
 .sheet-content>#actionsSection>h2,.sheet-content>#actionsSection>.hint{margin-left:2px;margin-right:2px}
 @media(min-width:700px){.bottom-sheet{left:50%;right:auto;width:min(900px,calc(100% - 40px));border-radius:20px 20px 0 0;transform:translate(-50%,105%)}.bottom-sheet.open{transform:translate(-50%,0)}.sheet-content{padding:18px 28px 30px}}
 
-@media(max-width:620px){.hero{padding:42px 0 48px;background-image:linear-gradient(90deg,rgba(6,26,53,.94),rgba(6,26,53,.78)),url('https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=1100&q=82');background-position:center;background-size:cover}.hero p{font-size:16px}.choices{grid-template-columns:1fr}.choice{padding:22px;box-shadow:0 14px 34px #061a3514}.choice h2{display:flex;align-items:center;gap:9px}.fields{grid-template-columns:1fr}.field.full{grid-column:auto}.panel{padding:18px}}
+@media(max-width:620px){.hero{padding:34px 0 36px}.market-photo{padding-bottom:22px}.market-photo img{height:230px;border-radius:12px}.choices{grid-template-columns:1fr}.choice{padding:22px;box-shadow:0 14px 34px #061a3514}.choice h2{display:flex;align-items:center;gap:9px}.community-intro{padding:23px 19px;margin-top:4px}.community-points{grid-template-columns:1fr;gap:13px}.fields{grid-template-columns:1fr}.field.full{grid-column:auto}.panel{padding:18px}}
 </style></head>
 <body>
 <header><div class="wrap"><div class="brand">ОДГОВОРНА ПЛАНА<small>МЕСТО ЗА ЗАЈЕДНИЧКО ДЕЛОВАЊЕ</small></div></div></header>
-<section class="hero"><div class="wrap"><div class="eyebrow">ВЕЛИКА ПЛАНА · ЗАЈЕДНИЧКО ДЕЛОВАЊЕ</div><h1>Промена почиње од нас.</h1><p>Један човек може да покрене. Заједница може да промени ствари. Предложи шта треба урадити или се придружи акцији која је већ покренута.</p></div></section>
+<section class="hero"><div class="wrap"><div class="eyebrow">ВЕЛИКА ПЛАНА · ЗАЈЕДНИЧКО ДЕЛОВАЊЕ</div><h1>Промена почиње од нас.</h1></div></section>
+<section class="market-photo" aria-label="Пијаца у Крњеву"><div class="wrap"><img src="https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=1800&q=88" alt="Пијаца са тезгама и свежим производима"></div></section>
 <main><div class="wrap">
-<p class="intro">Изабери како желиш да учествујеш.</p>
 <div id="sheetHome"></div>
 <div class="choices">
 <section class="choice"><h2>Предложи</h2><p>Имаш идеју, видиш проблем или знаш шта можемо заједно да урадимо? Покрени предлог.</p><button class="btn" id="showProposal">Предложи акцију →</button></section>
 <section class="choice"><h2>Придружи се</h2><p>Погледај акције које су отворене за учешће и пријави се да помогнеш.</p><button class="btn secondary" id="showActions">Погледај акције ↓</button></section>
 </div>
+<section class="community-intro">
+  <div class="community-kicker">ОДГОВОРНА ПЛАНА</div>
+  <h2>Заједно можемо више.</h2>
+  <p>Одговорна Плана је место за људе који желе да покрену добру идеју, реше проблем у свом окружењу или помогну да се нешто промени. Не морамо да чекамо да неко други направи први корак — можемо да се организујемо, повежемо и урадимо оно што је важно за нашу заједницу.</p>
+  <div class="community-points">
+    <div><strong>Грађани на првом месту</strong><span>Свако може да предложи и учествује.</span></div>
+    <div><strong>Конкретне акције</strong><span>Од идеје до видљиве промене у нашем месту.</span></div>
+    <div><strong>Заједно је лакше</strong><span>Повезујемо људе који желе да помогну.</span></div>
+  </div>
+</section>
 <section class="panel" id="proposalPanel" hidden>
 <h2>Предложи акцију</h2><p class="hint">Предлог прво прегледамо. Када буде одобрен, биће објављен у делу „Придружи се“.</p>
 <form id="proposalForm"><div class="fields">
