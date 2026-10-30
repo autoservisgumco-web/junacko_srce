@@ -8,15 +8,25 @@
 
 
 body.home-hero{min-height:100vh;overflow-x:hidden;background:#061A35}
-.hero-full{position:relative;min-height:100svh;height:100vh;height:100dvh;padding:32px 22px;display:flex;align-items:center;justify-content:center;background:linear-gradient(0deg,rgba(3,15,34,.68),rgba(3,15,34,.28)),url('https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=1800&q=88') center/cover no-repeat;text-align:center}
-.hero-content{width:min(900px,100%);margin:auto}
-.hero-full h1{color:#fff;text-shadow:0 3px 24px rgba(0,0,0,.3)}
-.hero-full .lead{display:none}
-.hero-buttons{display:flex;justify-content:center;gap:16px;margin:34px auto 0}
-.hero-buttons .btn{min-width:160px;padding:16px 28px;border-radius:12px}
-.hero-buttons .btn.secondary{background:#fff;color:#061A35}
+.hero-full{position:relative;min-height:100svh;height:100vh;height:100dvh;padding:54px max(6.8vw,24px) 42px;display:flex;align-items:center;justify-content:flex-start;background:linear-gradient(90deg,rgba(3,27,59,.98) 0%,rgba(3,35,73,.94) 34%,rgba(3,35,73,.58) 58%,rgba(3,20,42,.12) 100%),linear-gradient(0deg,rgba(3,15,34,.42),transparent 55%),url('https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=1800&q=88') center/cover no-repeat;text-align:left}
+.hero-inner{width:min(1320px,100%);margin:0 auto;display:flex;flex-direction:column;justify-content:center;min-height:calc(100svh - 96px)}
+.hero-copy{max-width:690px}
+.hero-full .eyebrow{font-size:13px;letter-spacing:2.6px;color:#8ecbff;margin-bottom:20px}
+.hero-full h1{color:#fff;text-shadow:0 3px 24px rgba(0,0,0,.3);font-size:clamp(48px,6.2vw,86px);line-height:1.04;letter-spacing:-2px;margin:0 0 24px;max-width:720px}
+.hero-full h1 span{color:#35a9ff}
+.hero-full .lead{display:block;color:#f0f6ff;font-size:clamp(17px,1.6vw,22px);line-height:1.62;max-width:560px;margin:0}
+.hero-buttons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;width:min(1120px,100%);margin:42px auto 0}
+.hero-cta{min-height:142px;display:flex;align-items:center;gap:22px;text-align:left;padding:22px 26px;border:1px solid rgba(48,164,255,.55);border-radius:20px;background:rgba(5,76,143,.78);color:#fff;box-shadow:0 12px 36px rgba(0,14,36,.2);backdrop-filter:blur(8px);cursor:pointer;transition:transform .2s ease,background .2s ease,border-color .2s ease}
+.hero-cta:hover{transform:translateY(-4px);background:rgba(7,100,178,.9);border-color:#39adff}
+.cta-icon{width:76px;height:76px;flex:0 0 76px;border:3px solid #64c4ff;border-radius:50%;display:grid;place-items:center;font-size:48px;line-height:1;color:#9bdcff}
+.people-icon{font-size:52px}
+.cta-copy{display:flex;flex:1;flex-direction:column;gap:7px}
+.cta-copy strong{font-size:clamp(21px,2vw,29px);line-height:1.15}
+.cta-copy small{font-size:16px;line-height:1.45;color:#d3eaff}
+.cta-arrow{width:54px;height:54px;flex:0 0 54px;border-radius:50%;display:grid;place-items:center;background:#32aaff;color:#fff;font-size:34px;line-height:1}
 .hidden-content{display:none}
-@media(max-width:600px){.hero-full{padding:24px 18px}.hero-buttons{gap:12px;width:100%}.hero-buttons .btn{min-width:0;flex:1;padding:15px 12px}}
+@media(max-width:760px){.hero-full{min-height:100svh;height:auto;padding:44px 20px 28px;background:linear-gradient(90deg,rgba(3,27,59,.94),rgba(3,35,73,.76)),linear-gradient(0deg,rgba(3,15,34,.55),transparent),url('https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=1800&q=88') center/cover no-repeat}.hero-inner{min-height:calc(100svh - 72px);justify-content:center}.hero-full h1{font-size:clamp(43px,12vw,66px)}.hero-full .lead{font-size:17px}.hero-buttons{grid-template-columns:1fr;gap:13px;margin-top:30px}.hero-cta{min-height:112px;padding:16px 18px;gap:15px;border-radius:16px}.cta-icon{width:58px;height:58px;flex-basis:58px;font-size:38px}.people-icon{font-size:42px}.cta-copy strong{font-size:21px}.cta-copy small{font-size:14px}.cta-arrow{width:44px;height:44px;flex-basis:44px;font-size:28px}}
+@media(max-width:380px){.hero-full{padding-left:15px;padding-right:15px}.hero-cta{gap:11px;padding:14px}.cta-icon{width:48px;height:48px;flex-basis:48px}.cta-arrow{width:38px;height:38px;flex-basis:38px}}
 .market-photo{background:#061A35;padding:0 22px 28px}.market-photo img{display:block;width:min(1100px,100%);height:clamp(190px,32vw,340px);object-fit:cover;object-position:center 52%;margin:auto;border-radius:16px;box-shadow:0 18px 44px #061a3530}
 body.sheet-open{overflow:hidden}.sheet-backdrop{position:fixed;inset:0;background:rgba(3,15,34,.48);z-index:1000;opacity:0;transition:opacity .28s ease}
 .bottom-sheet{position:fixed;z-index:1001;left:0;right:0;bottom:0;width:100%;max-height:min(88dvh,900px);background:#F1F5F9;border-radius:20px 20px 0 0;box-shadow:0 -16px 55px #061a3530;transform:translateY(105%);transition:transform .32s cubic-bezier(.2,.75,.25,1);display:flex;flex-direction:column;overflow:hidden}
@@ -30,12 +40,23 @@ body.sheet-open{overflow:hidden}.sheet-backdrop{position:fixed;inset:0;backgroun
 </head>
 <body class="home-hero">
 <section class="hero hero-full">
-<div class="hero-content">
+<div class="hero-inner">
+<div class="hero-copy">
 <p class="eyebrow">ЗАЈЕДНО МОЖЕМО ВИШЕ</p>
-<h1>Промене почињу<br>од нас.</h1>
+<h1>Промене почињу<br><span>од нас.</span></h1>
+<p class="lead">Предложи акцију, подржи постојеће иницијативе и придружи се људима који желе да ураде нешто добро за нашу заједницу.</p>
+</div>
 <div class="hero-buttons">
-<button class="btn" type="button" onclick="showPanel('akcije')">Подржи</button>
-<button class="btn secondary" type="button" onclick="showPanel('join')">Придружи се</button>
+<button class="hero-cta" type="button" onclick="showPanel('akcije')">
+<span class="cta-icon" aria-hidden="true">♡</span>
+<span class="cta-copy"><strong>Подржи</strong><small>Погледај покренуте акције и иницијативе којима је потребна подршка.</small></span>
+<span class="cta-arrow" aria-hidden="true">→</span>
+</button>
+<button class="hero-cta" type="button" onclick="showPanel('join')">
+<span class="cta-icon people-icon" aria-hidden="true">♧</span>
+<span class="cta-copy"><strong>Придружи се</strong><small>Укључи се, понуди своје време и постани део промене.</small></span>
+<span class="cta-arrow" aria-hidden="true">→</span>
+</button>
 </div>
 </div>
 </section>
