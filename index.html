@@ -81,11 +81,11 @@ body.sheet-open{overflow:hidden}.sheet-backdrop{position:fixed;inset:0;backgroun
 </section>
 <main class="hidden-content" aria-hidden="true">
 <section class="wrap" id="akcije"><div class="section-head"><h2>Акције којима можеш да се придружиш</h2><p>Изабери оно у чему желиш да помогнеш.</p></div>
-<div class="section-head"><h2>Активне акције</h2><p>Изабери акцију којој желиш да се придружиш.</p></div><div class="cards action-list"><article class="card action-card"><span class="tag">АКТИВНА АКЦИЈА</span><h3>Уређење пијаце у Крњеву</h3><p>Заједничко кречење, чишћење и сређивање простора пијаце. Свако може да допринесе.</p><button class="btn" onclick="showPanel('join')">Придружи се овој акцији →</button></article></div>
+<div class="section-head"><h2>Активне акције</h2><p>Изабери акцију којој желиш да се придружиш.</p></div><div class="cards action-list" id="activeActionsList"><p>Учитавање активних акција...</p></div>
 <div class="start-action"><div class="start-action-copy"><span class="tag">ИМАШ ИДЕЈУ?</span><h3>Покрени своју акцију</h3><p>Уочи проблем, предложи решење и позови људе из своје заједнице да ти се придруже.</p></div><button class="btn secondary" onclick="showPanel('proposal')">Предложи нову акцију →</button></div>
 <div class="panel" id="support"><button class="close" onclick="hidePanels()">×</button><h2>Подржи акцију</h2><p>Изабери иницијативу коју желиш да подржиш и напиши на који начин можеш да помогнеш.</p><form onsubmit="event.preventDefault();alert('Пријава подршке још није повезана са базом.');"><label>Твоје име и презиме</label><input required placeholder="Име и презиме"><label>Контакт телефон</label><input required type="tel" placeholder="Број телефона"><label>Коју акцију желиш да подржиш?</label><select required><option value="">Изабери акцију</option><option value="uredjenje-pijace">Уређење пијаце у Крњеву</option></select><label>Како желиш да подржиш акцију?</label><textarea required placeholder="Напиши како можеш да помогнеш..."></textarea><button class="btn" type="submit">Пошаљи подршку</button></form></div>
-<div class="panel" id="proposal"><button class="close" onclick="hidePanels()">×</button><h2>Предложи акцију</h2><p>Опиши шта треба урадити и где.</p><form onsubmit="event.preventDefault();alert('Ово је приказ почетне странице. Формулар још није повезан са базом.');"><label>Твоје име</label><input required placeholder="Име и презиме"><label>Viber број</label><input required placeholder="Број телефона"><label>Назив предлога</label><input required placeholder="Шта предлажеш?"><label>Опис и место</label><textarea required placeholder="Опиши идеју..."></textarea><label for="proposalPhotos">Фотографије (највише 5)</label><input id="proposalPhotos" name="photos" type="file" accept="image/*" multiple onchange="validateProposalPhotos(this)"><small class="file-help">Можеш да приложиш до пет фотографија које показују проблем или предлог.</small><p id="proposalPhotosError" class="file-error" role="alert" hidden></p><button class="btn" type="submit">Пошаљи предлог</button></form></div>
-<div class="panel" id="join"><button class="close" onclick="hidePanels()">×</button><h2>Придружи се акцији</h2><p>Уређење пијаце у Крњеву</p><form onsubmit="event.preventDefault();alert('Ово је приказ почетне странице. Пријава још није повезана са базом.');"><label>Твоје име</label><input required placeholder="Име и презиме"><label>Viber број</label><input required placeholder="Број телефона"><label>Како можеш да помогнеш?</label><textarea placeholder="Напиши шта можеш да урадиш..."></textarea><button class="btn" type="submit">Пријави се</button></form></div></section>
+<div class="panel" id="proposal"><button class="close" onclick="hidePanels()">×</button><h2>Предложи акцију</h2><p>Опиши шта треба урадити и где.</p><form id="proposalForm"><label>Твоје име</label><input required placeholder="Име и презиме"><label>Viber број</label><input required placeholder="Број телефона"><label>Назив предлога</label><input required placeholder="Шта предлажеш?"><label>Опис и место</label><textarea required placeholder="Опиши идеју..."></textarea><label for="proposalPhotos">Фотографије (највише 5)</label><input id="proposalPhotos" name="photos" type="file" accept="image/*" multiple onchange="validateProposalPhotos(this)"><small class="file-help">Можеш да приложиш до пет фотографија које показују проблем или предлог.</small><p id="proposalPhotosError" class="file-error" role="alert" hidden></p><button class="btn" type="submit">Пошаљи предлог</button><p id="proposalMessage" role="status" aria-live="polite"></p></form></div>
+<div class="panel" id="join"><button class="close" onclick="hidePanels()">×</button><h2>Придружи се акцији</h2><p>Уређење пијаце у Крњеву</p><form id="joinForm"><input type="hidden" id="joinActionId"><input type="hidden" id="joinActionTitle"><label>Твоје име</label><input id="joinName" required maxlength="120" placeholder="Име и презиме"><label>Viber број</label><input id="joinPhone" required type="tel" maxlength="60" placeholder="Број телефона"><label>Како можеш да помогнеш?</label><textarea id="joinHelp" maxlength="3000" placeholder="Напиши шта можеш да урадиш..."></textarea><button class="btn" type="submit">Пошаљи пријаву</button><p id="joinMessage" role="status" aria-live="polite"></p></form></div></section>
 </main>
 <div class="sheet-backdrop" id="sheetBackdrop" hidden></div>
 <section class="bottom-sheet" id="bottomSheet" role="dialog" aria-modal="true" aria-hidden="true" hidden>
@@ -95,7 +95,11 @@ body.sheet-open{overflow:hidden}.sheet-backdrop{position:fixed;inset:0;backgroun
 </section>
 
 <footer>Одговорна Велика Плана · Грађанске иницијативе и заједничко деловање</footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+const SUPABASE_URL='https://hmfeizkmpmxcnzhwxgbn.supabase.co';
+const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhtZmVpemttcG14Y256aHd4Z2JuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMzMjkyNzgsImV4cCI6MjEwODkwNTI3OH0.oTZopOJEGUnxK69BOYPP11CQoGrLqUJowqpPU2uiY-4';
+const civicDb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
 const bottomSheet=document.getElementById('bottomSheet'),sheetBackdrop=document.getElementById('sheetBackdrop'),sheetContent=document.getElementById('sheetContent');
 let sheetTarget=null,sheetParent=null,sheetNext=null,sheetTouchY=0;
 function validateProposalPhotos(input){
@@ -103,8 +107,9 @@ function validateProposalPhotos(input){
  if(input.files.length>5){input.value='';error.textContent='Можеш да изабереш највише 5 фотографија.';error.hidden=false;return false;}
  error.hidden=true;error.textContent='';return true;
 }
-function showPanel(id){
+function showPanel(id,actionId='',actionTitle=''){
  const target=document.getElementById(id);if(!target)return;
+ if(id==='join'){document.getElementById('joinActionId').value=actionId;document.getElementById('joinActionTitle').value=actionTitle;document.querySelector('#join h2').textContent='Придружи се акцији';document.querySelector('#join>p').textContent=actionTitle;document.getElementById('joinMessage').textContent='';}
  if(sheetTarget)hidePanels();
  sheetTarget=target;sheetParent=target.parentNode;sheetNext=target.nextSibling;sheetContent.appendChild(target);
  target.hidden=false;target.classList.add('active');
@@ -117,7 +122,44 @@ function hidePanels(){
  sheetTarget.classList.remove('active');if(sheetParent)sheetParent.insertBefore(sheetTarget,sheetNext&&sheetNext.parentNode===sheetParent?sheetNext:null);
  sheetTarget=null;sheetParent=null;sheetNext=null;setTimeout(()=>{bottomSheet.hidden=true;sheetBackdrop.hidden=true},330);
 }
-document.getElementById('closeSheet').addEventListener('click',hidePanels);sheetBackdrop.addEventListener('click',hidePanels);
+
+function renderActionCard(action){
+ const article=document.createElement('article');article.className='card action-card';
+ const tag=document.createElement('span');tag.className='tag';tag.textContent='АКТИВНА АКЦИЈА';
+ const title=document.createElement('h3');title.textContent=action.title||'Акција';
+ const desc=document.createElement('p');desc.textContent=action.summary||action.description||'Погледај детаље и пријави се да помогнеш.';
+ if(action.location){const place=document.createElement('p');place.textContent='Место: '+action.location;article.append(tag,title,desc,place);}else{article.append(tag,title,desc);}
+ const btn=document.createElement('button');btn.type='button';btn.className='btn';btn.textContent='Придружи се овој акцији →';btn.addEventListener('click',()=>showPanel('join',action.id,action.title));article.appendChild(btn);return article;
+}
+async function loadActiveActions(){
+ const list=document.getElementById('activeActionsList');if(!list)return;
+ const {data,error}=await civicDb.from('actions').select('id,title,summary,description,location,status').in('status',['planned','in_progress']).order('created_at',{ascending:false});
+ list.replaceChildren();
+ if(error){const msg=document.createElement('p');msg.textContent='Тренутно не можемо да учитамо акције. Покушај поново касније.';list.appendChild(msg);return;}
+ if(!data||!data.length){const msg=document.createElement('p');msg.textContent='Тренутно нема активних акција. Можеш да предложиш нову.';list.appendChild(msg);return;}
+ data.forEach(action=>list.appendChild(renderActionCard(action)));
+}
+function showSubmitMessage(id,text,isError=false){const el=document.getElementById(id);if(el){el.textContent=text;el.style.color=isError?'#b42318':'#176b3a';}}
+document.getElementById('joinForm').addEventListener('submit',async event=>{
+ event.preventDefault();const btn=event.currentTarget.querySelector('button[type="submit"]');btn.disabled=true;btn.textContent='Слање...';
+ const actionId=document.getElementById('joinActionId').value;const actionTitle=document.getElementById('joinActionTitle').value;
+ const payload={submission_type:'help',title:'Пријава за акцију: '+actionTitle,description:document.getElementById('joinHelp').value.trim()||'Жели да се придружи акцији.',full_name:document.getElementById('joinName').value.trim(),phone:document.getElementById('joinPhone').value.trim(),viber_phone:document.getElementById('joinPhone').value.trim(),support_type:'pridruzivanje_akciji',social_links:{action_id:actionId,action_title:actionTitle},status:'new'};
+ const {error}=await civicDb.from('civic_submissions').insert(payload);
+ btn.disabled=false;btn.textContent='Пошаљи пријаву';
+ if(error){showSubmitMessage('joinMessage','Пријава није послата. Проверите интернет везу и покушајте поново.',true);return;}
+ event.currentTarget.reset();showSubmitMessage('joinMessage','Пријава је успешно послата. Хвала ти! Администратор ће те контактирати.',false);
+});
+document.getElementById('proposalForm').addEventListener('submit',async event=>{
+ event.preventDefault();const form=event.currentTarget;const btn=form.querySelector('button[type="submit"]');btn.disabled=true;btn.textContent='Слање...';
+ const payload={submission_type:'action',title:form.querySelector('input[placeholder="Шта предлажеш?"]').value.trim(),description:form.querySelector('textarea[placeholder="Опиши идеју..."]').value.trim(),full_name:form.querySelector('input[placeholder="Име и презиме"]').value.trim(),phone:form.querySelector('input[placeholder="Број телефона"]').value.trim(),viber_phone:form.querySelector('input[placeholder="Број телефона"]').value.trim(),location:form.querySelector('textarea[placeholder="Опиши идеју..."]').value.trim(),status:'new'};
+ const {error}=await civicDb.from('civic_submissions').insert(payload);
+ btn.disabled=false;btn.textContent='Пошаљи предлог';
+ if(error){showSubmitMessage('proposalMessage','Предлог није послат. Проверите интернет везу и покушајте поново.',true);return;}
+ form.reset();showSubmitMessage('proposalMessage','Предлог је успешно послат администратору на разматрање. Хвала ти!',false);
+});
+
+document.getElementById('closeSheet').addEventListener('click',hidePanels);
+loadActiveActions();sheetBackdrop.addEventListener('click',hidePanels);
 document.addEventListener('keydown',e=>{if(e.key==='Escape')hidePanels()});
 bottomSheet.addEventListener('touchstart',e=>{sheetTouchY=e.touches[0].clientY},{passive:true});
 bottomSheet.addEventListener('touchend',e=>{if(e.changedTouches[0].clientY-sheetTouchY>90&&sheetContent.scrollTop===0)hidePanels()},{passive:true});
