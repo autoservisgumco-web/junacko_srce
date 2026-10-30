@@ -13,6 +13,23 @@ main{padding:32px 0 64px}.intro{margin:0 0 22px;color:var(--muted)}.choices{disp
 .fields{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field.full{grid-column:1/-1}label{display:block;font-size:13px;font-weight:800;margin-bottom:6px}.field input,.field textarea{width:100%;border:1px solid #cbd8e8;border-radius:9px;padding:12px;background:#fbfdff;font:inherit;color:var(--text)}textarea{min-height:100px;resize:vertical}
 .msg{display:none;background:#eaf1ff;color:#1648a1;border-radius:9px;padding:13px;margin-top:15px}.actions{display:grid;gap:14px}.action{background:white;border:1px solid var(--line);border-radius:15px;padding:20px}.action h3{margin:0 0 5px;color:var(--navy);font-size:21px}.action .meta{font-size:13px;color:var(--muted);margin-bottom:12px}.action p{margin:0 0 14px;white-space:pre-line}.joinbox{display:none;background:#f6f9ff;border:1px solid var(--line);border-radius:12px;padding:16px;margin-top:15px}.joinbox .fields{margin-bottom:12px}.empty{padding:24px;background:white;border:1px dashed #b9c9df;border-radius:14px;color:var(--muted)}
 footer{background:#041329;color:#d4e1f3;padding:24px 0;font-size:13px}
+/* Bottom Sheet: постојећи садржај и визуелни стил остају нетакнути */
+body.sheet-open{overflow:hidden}
+.sheet-backdrop{position:fixed;inset:0;background:rgba(3,15,34,.48);z-index:1000;opacity:0;transition:opacity .28s ease}
+.bottom-sheet{position:fixed;z-index:1001;left:0;right:0;bottom:0;width:100%;max-height:min(88dvh,900px);background:var(--pale);border-radius:20px 20px 0 0;box-shadow:0 -16px 55px #061a3530;transform:translateY(105%);transition:transform .32s cubic-bezier(.2,.75,.25,1);display:flex;flex-direction:column;overflow:hidden}
+.bottom-sheet.open{transform:translateY(0)}
+.sheet-backdrop.open{opacity:1}
+.sheet-handle{height:22px;flex:0 0 22px;display:flex;align-items:center;justify-content:center;touch-action:pan-y}
+.sheet-handle span{display:block;width:42px;height:5px;border-radius:8px;background:#b9c9df}
+.sheet-top{display:flex;align-items:center;justify-content:space-between;padding:0 20px 12px;border-bottom:1px solid var(--line);background:var(--white)}
+.sheet-title{font-size:17px;font-weight:850;color:var(--navy)}
+.sheet-close{border:0;background:transparent;color:var(--navy);font-size:30px;line-height:1;padding:2px 8px;cursor:pointer}
+.sheet-content{overflow-y:auto;overscroll-behavior:contain;padding:16px max(16px,calc((100% - 900px)/2)) 28px}
+.sheet-content>.panel{margin:0}
+.sheet-content>#actionsSection{padding:0}
+.sheet-content>#actionsSection>h2,.sheet-content>#actionsSection>.hint{margin-left:2px;margin-right:2px}
+@media(min-width:700px){.bottom-sheet{left:50%;right:auto;width:min(900px,calc(100% - 40px));border-radius:20px 20px 0 0;transform:translate(-50%,105%)}.bottom-sheet.open{transform:translate(-50%,0)}.sheet-content{padding:18px 28px 30px}}
+
 @media(max-width:620px){.hero{padding:42px 0 48px}.hero p{font-size:16px}.choices{grid-template-columns:1fr}.fields{grid-template-columns:1fr}.field.full{grid-column:auto}.panel{padding:18px}}
 </style></head>
 <body>
@@ -20,6 +37,7 @@ footer{background:#041329;color:#d4e1f3;padding:24px 0;font-size:13px}
 <section class="hero"><div class="wrap"><div class="eyebrow">ВЕЛИКА ПЛАНА · ЗАЈЕДНИЧКО ДЕЛОВАЊЕ</div><h1>Промена почиње од нас.</h1><p>Један човек може да покрене. Заједница може да промени ствари. Предложи шта треба урадити или се придружи акцији која је већ покренута.</p></div></section>
 <main><div class="wrap">
 <p class="intro">Изабери како желиш да учествујеш.</p>
+<div id="sheetHome"></div>
 <div class="choices">
 <section class="choice"><h2>Предложи</h2><p>Имаш идеју, видиш проблем или знаш шта можемо заједно да урадимо? Покрени предлог.</p><button class="btn" id="showProposal">Предложи акцију →</button></section>
 <section class="choice"><h2>Придружи се</h2><p>Погледај акције које су отворене за учешће и пријави се да помогнеш.</p><button class="btn secondary" id="showActions">Погледај акције ↓</button></section>
@@ -40,14 +58,47 @@ footer{background:#041329;color:#d4e1f3;padding:24px 0;font-size:13px}
 <div id="actionsList" class="actions"><div class="empty">Учитавање акција…</div></div><div class="msg" id="listMessage" role="status"></div>
 </section>
 </div></main>
+<div class="sheet-backdrop" id="sheetBackdrop" hidden></div>
+<section class="bottom-sheet" id="bottomSheet" aria-modal="true" role="dialog" aria-hidden="true" hidden>
+  <div class="sheet-handle" id="sheetHandle" aria-hidden="true"><span></span></div>
+  <div class="sheet-top"><span class="sheet-title" id="sheetTitle"></span><button class="sheet-close" id="closeSheet" type="button" aria-label="Затвори">×</button></div>
+  <div class="sheet-content" id="sheetContent"></div>
+</section>
 <footer><div class="wrap">ОДГОВОРНА ПЛАНА · Место за заједничко деловање · © <span id="year"></span></div></footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 document.getElementById('year').textContent=new Date().getFullYear();
 const db=window.supabase.createClient('https://hmfeizkmpmxcnzhwxgbn.supabase.co','sb_publishable_JPtLezaiIeq4MsQ2f3LSlg_nT01Chxe');
 const $=id=>document.getElementById(id);
-$('showProposal').addEventListener('click',()=>{const open=$('proposalPanel').hidden;$('actionsSection').hidden=true;$('proposalPanel').hidden=!open;});
-$('showActions').addEventListener('click',()=>{const open=$('actionsSection').hidden;$('proposalPanel').hidden=true;$('actionsSection').hidden=!open;});
+const sheet=$('bottomSheet'),backdrop=$('sheetBackdrop'),sheetContent=$('sheetContent');
+let activeSheet=null,touchStartY=0;
+function openSheet(which){
+ const target=which==='proposal'?$('proposalPanel'):$('actionsSection');
+ if(activeSheet===which){closeSheet();return;}
+ sheetContent.replaceChildren(target);
+ target.hidden=false;
+ $('sheetTitle').textContent=which==='proposal'?'Предложи акцију':'Акције којима можеш да се придружиш';
+ backdrop.hidden=false;sheet.hidden=false;sheet.setAttribute('aria-hidden','false');
+ requestAnimationFrame(()=>{backdrop.classList.add('open');sheet.classList.add('open');});
+ document.body.classList.add('sheet-open');activeSheet=which;
+}
+function closeSheet(){
+ if(!activeSheet)return;
+ sheet.classList.remove('open');backdrop.classList.remove('open');
+ sheet.setAttribute('aria-hidden','true');document.body.classList.remove('sheet-open');
+ const target=activeSheet==='proposal'?$('proposalPanel'):$('actionsSection');
+ target.hidden=true;
+ const home=$('sheetHome');if(home)home.appendChild(target);
+ activeSheet=null;
+ setTimeout(()=>{sheet.hidden=true;backdrop.hidden=true;},330);
+}
+$('showProposal').addEventListener('click',()=>openSheet('proposal'));
+$('showActions').addEventListener('click',()=>openSheet('actions'));
+$('closeSheet').addEventListener('click',closeSheet);
+backdrop.addEventListener('click',closeSheet);
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSheet();});
+sheet.addEventListener('touchstart',e=>{touchStartY=e.touches[0].clientY;},{passive:true});
+sheet.addEventListener('touchend',e=>{const delta=e.changedTouches[0].clientY-touchStartY;if(delta>90&&$('sheetContent').scrollTop===0)closeSheet();},{passive:true});
 $('proposalForm').addEventListener('submit',async e=>{
  e.preventDefault();const b=e.submitter;b.disabled=true;b.textContent='Шаљем…';const m=$('proposalMessage');m.style.display='none';
  const val=id=>$(id).value.trim();
