@@ -3,40 +3,40 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Предложи акцију — Јуначко срце</title>
+<title>Позив за Велику Плану — Јуначко срце</title>
 <style>
 :root{--ink:#20251f;--muted:#667064;--line:#dce3d8;--paper:#f5f7f2;--white:#fff;--accent:#245c3a;--soft:#e8f1e8;--warn:#fff6df}
 *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
-header{background:#173c29;color:white;padding:20px max(18px,calc((100% - 850px)/2))}header a{color:#e5f2e6;text-decoration:none;font-size:14px}header h1{font-size:clamp(25px,5vw,36px);line-height:1.15;margin:14px 0 8px}header p{margin:0;color:#d6e4d8;max-width:680px}
-main{max-width:850px;margin:22px auto;padding:0 14px 40px}.notice{background:var(--soft);border:1px solid #cbdccb;border-radius:12px;padding:13px 15px;margin-bottom:16px;font-size:14px}
-form{background:white;border:1px solid var(--line);border-radius:16px;padding:clamp(16px,4vw,28px);box-shadow:0 8px 28px #2030200a}
-.section{padding:0 0 23px;margin:0 0 22px;border-bottom:1px solid var(--line)}.section:last-of-type{border-bottom:0;margin-bottom:0}
-h2{font-size:19px;margin:0 0 5px}.hint{font-size:13px;color:var(--muted);margin:0 0 16px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field{min-width:0}.full{grid-column:1/-1}
+header{background:#173c29;color:white;padding:14px max(18px,calc((100% - 720px)/2))}header a{color:#e5f2e6;text-decoration:none;font-size:13px}header h1{font-size:clamp(23px,4vw,30px);line-height:1.15;margin:9px 0 6px}header p{margin:0;color:#d6e4d8;max-width:620px;font-size:14px}
+main{max-width:720px;margin:14px auto;padding:0 12px 28px}.notice{background:var(--soft);border:1px solid #cbdccb;border-radius:10px;padding:10px 12px;margin-bottom:10px;font-size:13px}
+form{background:white;border:1px solid var(--line);border-radius:13px;padding:clamp(12px,2.5vw,19px);box-shadow:0 5px 18px #20302008}
+.section{padding:0 0 14px;margin:0 0 14px;border-bottom:1px solid var(--line)}.section:last-of-type{border-bottom:0;margin-bottom:0}
+h2{font-size:17px;margin:0 0 4px}.hint{font-size:12px;color:var(--muted);margin:0 0 10px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.field{min-width:0}.full{grid-column:1/-1}
 label,.legend{display:block;font-weight:650;font-size:14px;margin:0 0 6px}
-input,textarea,select{width:100%;border:1px solid #cbd4c8;border-radius:9px;padding:12px;font:inherit;background:white;color:var(--ink);min-height:46px}
-textarea{min-height:108px;resize:vertical}input:focus,textarea:focus,select:focus{outline:3px solid #b8d5be;border-color:var(--accent)}
+input,textarea,select{width:100%;border:1px solid #cbd4c8;border-radius:8px;padding:9px 10px;font:inherit;font-size:14px;background:white;color:var(--ink);min-height:39px}
+textarea{min-height:76px;resize:vertical}input:focus,textarea:focus,select:focus{outline:3px solid #b8d5be;border-color:var(--accent)}
 small{display:block;color:var(--muted);font-size:12px;margin-top:5px}
-.checks{display:grid;grid-template-columns:1fr 1fr;gap:10px}.check{display:flex;align-items:flex-start;gap:10px;padding:12px;border:1px solid var(--line);border-radius:10px;background:#fff}.check input{width:19px;min-height:19px;height:19px;margin:2px 0 0;flex:0 0 auto;accent-color:var(--accent)}.check label{margin:0;font-weight:550;cursor:pointer}.check span{display:block;font-size:12px;color:var(--muted);font-weight:400;margin-top:2px}
-.hidden{display:none!important}.subpanel{background:#f8faf7;border:1px solid var(--line);border-radius:12px;padding:16px;margin-top:14px}.subpanel h3{font-size:16px;margin:0 0 12px}
-.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}.btn{border:0;border-radius:10px;padding:13px 18px;font:inherit;font-weight:700;cursor:pointer}.primary{background:var(--accent);color:white}.secondary{background:#edf1eb;color:var(--ink)}.status{margin-top:18px;padding:14px;border-radius:10px;background:var(--soft);border:1px solid #c4d9c6}.foot{font-size:12px;color:var(--muted);margin:16px 3px}
+.checks{display:grid;grid-template-columns:1fr 1fr;gap:10px}.check{display:flex;align-items:flex-start;gap:8px;padding:9px;border:1px solid var(--line);border-radius:10px;background:#fff}.check input{width:19px;min-height:19px;height:19px;margin:2px 0 0;flex:0 0 auto;accent-color:var(--accent)}.check label{margin:0;font-weight:550;cursor:pointer}.check span{display:block;font-size:12px;color:var(--muted);font-weight:400;margin-top:2px}
+.hidden{display:none!important}.subpanel{background:#f8faf7;border:1px solid var(--line);border-radius:10px;padding:11px;margin-top:10px}.subpanel h3{font-size:16px;margin:0 0 12px}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.btn{border:0;border-radius:10px;padding:13px 18px;font:inherit;font-weight:700;cursor:pointer}.primary{background:var(--accent);color:white}.secondary{background:#edf1eb;color:var(--ink)}.status{margin-top:18px;padding:14px;border-radius:10px;background:var(--soft);border:1px solid #c4d9c6}.foot{font-size:12px;color:var(--muted);margin:16px 3px}
 @media(max-width:580px){.grid,.checks{grid-template-columns:1fr}.full{grid-column:auto}.actions .btn{width:100%}header{padding-top:16px;padding-bottom:22px}}
 </style>
 </head>
 <body>
 <header>
 <a href="kampanje.html">← Назад на Јуначко срце</a>
-<h1>Предложи акцију</h1>
-<p>Имаш идеју шта можемо заједно да урадимо? Опиши предлог. Прегледаћемо га и јавити шта је следећи корак.</p>
+<h1>Позив за Велику Плану</h1>
+<p>Шта можемо заједно да променимо у нашем месту? Предложи акцију, понуди помоћ или укључи комшије. Добре идеје почињу од људи који не чекају да неко други реши проблем.</p>
 </header>
 <main>
 <div class="notice"><strong>Важно:</strong> слањем предлога још не покрећеш јавну акцију. Предлог прво стиже на преглед и добија статус.</div>
 <form id="actionForm">
 <section class="section">
-<h2>1. О акцији</h2><p class="hint">Основне информације о томе шта предлажеш.</p>
+<h2>Предложи шта можемо да урадимо</h2><p class="hint">Довољно је да за почетак попуниш назив, кратак опис и контакт. Остало можеш да допуниш ако је потребно.</p>
 <div class="grid">
-<div class="field full"><label for="title">Назив предлога *</label><input id="title" name="title" required maxlength="140" placeholder="Нпр. Очистимо парк у нашем насељу"></div>
-<div class="field full"><label for="description">Шта предлажеш и зашто? *</label><textarea id="description" name="description" required placeholder="Опиши шта треба урадити, коме ће помоћи и какав резултат желимо."></textarea></div>
+<div class="field full"><label for="title">Назив предлога *</label><input id="title" name="title" required maxlength="140" placeholder="Нпр. Уредимо парк у Великој Плани"></div>
+<div class="field full"><label for="description">Шта предлажеш и зашто? *</label><textarea id="description" name="description" required placeholder="Шта је проблем или идеја? Коме ће помоћи и шта бисмо могли заједно да урадимо?"></textarea></div>
 <div class="field"><label for="goal">Шта желимо да постигнемо?</label><input id="goal" name="goal" placeholder="Очекивани резултат"></div>
 <div class="field"><label for="campaign">Повезана кампања (ако постоји)</label><input id="campaign" name="campaign" placeholder="Назив кампање, ако је познат"></div>
 <div class="field"><label for="periodStart">Планирани почетак</label><input type="date" id="periodStart" name="periodStart"></div>
@@ -46,14 +46,14 @@ small{display:block;color:var(--muted);font-size:12px;margin-top:5px}
 </div>
 </section>
 <section class="section">
-<h2>2. Где ће се одржати?</h2><p class="hint">Ако акција има физичку локацију, наведи је. Тачно означавање на мапи може се додати у следећој верзији.</p>
+<h2>Где? <span style="font-weight:400;color:var(--muted);font-size:13px">(ако је важно)</span></h2><p class="hint">Место или адреса у Великој Плани и околини.</p>
 <div class="grid">
 <div class="field"><label for="location">Место / адреса</label><input id="location" name="location" placeholder="Насеље, улица или место окупљања"></div>
 <div class="field"><label for="mapLink">Линк ка локацији на мапи</label><input id="mapLink" name="mapLink" type="url" placeholder="https://..."></div>
 </div>
 </section>
 <section class="section">
-<h2>3. Како људи могу да се прикључе?</h2><p class="hint">Изабери понуђене начине учешћа и опиши шта је потребно. Ако ниједна опција не одговара твојој идеји, додај свој начин. Администратор може касније да га уреди.</p>
+<h2>Како људи могу да помогну?</h2><p class="hint">Изабери понуђене начине учешћа и опиши шта је потребно. Ако ниједна опција не одговара твојој идеји, додај свој начин. Администратор може касније да га уреди.</p>
 <div class="checks">
 <div class="check"><input type="checkbox" id="physical" name="ways" value="Физичко учешће"><label for="physical">Физичко учешће<span>Долазак на локацију и рад на терену.</span></label></div>
 <div class="check"><input type="checkbox" id="volunteer" name="ways" value="Волонтирање"><label for="volunteer">Волонтирање<span>Време, организација и помоћ.</span></label></div>
@@ -83,7 +83,7 @@ small{display:block;color:var(--muted);font-size:12px;margin-top:5px}
 <div class="field" style="margin-top:14px"><label for="participants">Очекивани број учесника (ако је познат)</label><input id="participants" name="participants" type="number" min="1" step="1" placeholder="Нпр. 10"></div>
 </section>
 <section class="section">
-<h2>4. Контакт предлагача</h2><p class="hint">Контакт служи да бисмо могли да поставимо питање или затражимо допуну предлога.</p>
+<h2>Твој контакт</h2><p class="hint">Да можемо да се договоримо око следећих корака.</p>
 <div class="grid">
 <div class="field"><label for="name">Име и презиме *</label><input id="name" name="name" autocomplete="name" required></div>
 <div class="field"><label for="email">Имејл адреса *</label><input id="email" name="email" type="email" autocomplete="email" required></div>
@@ -95,7 +95,7 @@ small{display:block;color:var(--muted);font-size:12px;margin-top:5px}
 <div class="actions"><button type="submit" class="btn primary">Пошаљи предлог</button><button type="reset" class="btn secondary">Обриши образац</button></div>
 <div id="result" class="status hidden" role="status" aria-live="polite"></div>
 </form>
-<p class="foot">Прототип обрасца: тренутно не шаље податке на сервер и не уписује их у базу. Слање ће бити повезано са базом података када се дефинишу табела, права приступа и обрада пријава.</p>
+<p class="foot">Напомена: образац је још у изради и тренутно не чува пријаву у бази података.</p>
 </main>
 <script>
 const byId=id=>document.getElementById(id);
