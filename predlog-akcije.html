@@ -74,7 +74,7 @@ async function loadProposals(){
  try{
   const [pRes,cRes]=await Promise.all([
    fetch(SUPABASE_URL+'/rest/v1/action_proposals?select=id,title,description,location,created_at&status=eq.published&order=created_at.desc',{headers}),
-   fetch(SUPABASE_URL+'/rest/v1/rpc/get_action_proposal_support_counts',{method:'POST',headers,body:'{}'})
+   fetch(SUPABASE_URL+'/rest/v1/action_proposal_support_totals?select=proposal_id,support_count',{headers})
   ]);
   if(!pRes.ok) throw new Error('Не могу да учитам предлоге.');
   const proposals=await pRes.json(); const counts=cRes.ok?await cRes.json():[];
