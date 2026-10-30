@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#061a35">
-<title>Предложи. Придружи се. — Јуначко срце</title>
+<title>Предложи. Придружи се. — Одговорна Плана</title>
 <style>
 :root{--ink:#10233f;--muted:#66758b;--line:#dce4ee;--paper:#f3f6fa;--blue:#2166f3;--soft:#eaf1ff;--white:#fff}
 *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
@@ -30,9 +30,9 @@ footer{text-align:center;color:var(--muted);font-size:13px;padding:20px}
 </head>
 <body>
 <header>
-<a href="index.html">← Назад на Јуначко срце</a>
+<a href="index.html">← Одговорна Плана</a>
 <h1>Предложи. <span>Придружи се.</span></h1>
-<p>Велика Плана припада свима нама. Имаш идеју шта можемо да урадимо? Предложи је. Када се предлог објави, други могу да му се придруже. Тако од идеје настаје заједничка акција.</p>
+<p>Заједно уређујемо место у ком живимо. Предложи шта треба да променимо, остави Viber број и укључи људе који желе да помогну.</p>
 </header>
 <main>
 <div class="intro">
@@ -49,7 +49,7 @@ footer{text-align:center;color:var(--muted);font-size:13px;padding:20px}
 <div class="field full"><label for="description">Опиши идеју *</label><textarea id="description" name="description" minlength="10" maxlength="3000" required placeholder="Шта би требало урадити и зашто је то важно?"></textarea></div>
 <div class="field"><label for="location">Где би се акција одвијала?</label><input id="location" name="location" maxlength="180" placeholder="Насеље, улица, парк..."></div>
 <div class="field"><label for="name">Твоје име и презиме *</label><input id="name" name="name" maxlength="120" required autocomplete="name"></div>
-<div class="field full"><label for="email">Имејл адреса *</label><input id="email" name="email" type="email" required autocomplete="email" placeholder="За контакт поводом предлога"></div>
+<div class="field"><label for="viber">Viber број телефона *</label><input id="viber" name="viber" type="tel" required autocomplete="tel" placeholder="+381 6x xxx xxxx"></div><div class="field"><label for="email">Имејл адреса</label><input id="email" name="email" type="email" autocomplete="email"></div><div class="field full"><label for="social">Линк ка друштвеној мрежи</label><input id="social" name="social" type="url" placeholder="Facebook / Instagram профил"></div>
 </div>
 <div class="actions"><button class="primary" id="submitProposal" type="submit">Пошаљи предлог</button></div>
 <div class="notice">Предлог не постаје одмах јавна акција. Прво га прегледамо, па га објављујемо да би други могли да му се придруже.</div>
@@ -61,7 +61,7 @@ footer{text-align:center;color:var(--muted);font-size:13px;padding:20px}
 <div class="list-head"><div><h2>Предлози којима можеш да се придружиш</h2><p>Изабери идеју коју желиш да подржиш својим учешћем.</p></div></div>
 <div id="proposalList"><div class="empty">Учитавање предлога...</div></div>
 </section>
-</main>
+<section class="panel" id="adminPanel"><h2>Администрација</h2><p class="sub">Приватни преглед пријава — само за администратора.</p><div id="adminLogin"><p>Пријава преко email линка на jefimijaorg@gmail.com.</p><button class="primary" id="adminSend">Пошаљи линк за пријаву</button><p id="adminMsg" class="notice"></p></div><div id="adminData" hidden><button class="secondary" id="adminLogout">Одјави се</button><div id="adminRows"></div></div></section></main>
 <footer>Јуначко срце · Није довољно знати. Треба и деловати.</footer>
 <script>
 const SUPABASE_URL = "https://hmfeizkmpmxcnzhwxgbn.supabase.co";
@@ -88,14 +88,14 @@ async function loadProposals(){
    if(p.location){const loc=document.createElement('div');loc.className='meta';loc.textContent='Локација: '+p.location;card.appendChild(loc);}
    const foot=document.createElement('div');foot.className='proposal-foot';
    const n=document.createElement('span');n.className='count';n.textContent=count+' '+(count===1?'особа се придружила':'особа се придружило');foot.appendChild(n);
-   const b=document.createElement('button');b.className='primary';b.type='button';b.textContent='Придружи се';b.addEventListener('click',()=>{const f=card.querySelector('.join-form');if(f){f.remove();return;}const form=document.createElement('form');form.className='join-form';form.innerHTML='<div><label>Име и презиме *</label><input name="full_name" required maxlength="120" autocomplete="name"></div><div><label>Имејл адреса *</label><input name="email" type="email" required autocomplete="email"></div><button class="primary" type="submit">Потврди придруживање</button>';form.addEventListener('submit',e=>joinProposal(e,p.id,form));card.appendChild(form);form.scrollIntoView({behavior:'smooth',block:'nearest'});});foot.appendChild(b);card.appendChild(foot);list.appendChild(card);
+   const b=document.createElement('button');b.className='primary';b.type='button';b.textContent='Придружи се';b.addEventListener('click',()=>{const f=card.querySelector('.join-form');if(f){f.remove();return;}const form=document.createElement('form');form.className='join-form';form.innerHTML='<div><label>Име и презиме *</label><input name="full_name" required maxlength="120" autocomplete="name"></div><div><label>Viber број телефона *</label><input name="viber_phone" type="tel" required placeholder="+381 6x xxx xxxx"></div><div><label>Email</label><input name="email" type="email"></div><div><label>Друштвена мрежа</label><input name="social" type="url"></div><button class="primary" type="submit">Потврди придруживање</button>';form.addEventListener('submit',e=>joinProposal(e,p.id,form));card.appendChild(form);form.scrollIntoView({behavior:'smooth',block:'nearest'});});foot.appendChild(b);card.appendChild(foot);list.appendChild(card);
   });
  }catch(e){list.innerHTML='<div class="empty">Тренутно није могуће учитати предлоге. Покушај поново касније.</div>';console.error(e);}
 }
 el('proposalForm').addEventListener('submit',async e=>{
  e.preventDefault();const b=el('submitProposal');b.disabled=true;b.textContent='Шаљем...';
  const f=new FormData(e.currentTarget);
- const body={title:String(f.get('title')).trim(),description:String(f.get('description')).trim(),location:String(f.get('location')||'').trim()||null,proposer_name:String(f.get('name')).trim(),proposer_email:String(f.get('email')).trim(),status:'pending'};
+ const body={title:String(f.get('title')).trim(),description:String(f.get('description')).trim(),location:String(f.get('location')||'').trim()||null,proposer_name:String(f.get('name')).trim(),proposer_email:String(f.get('email')||'').trim()||null,proposer_viber:String(f.get('viber')).trim(),proposer_social:{profile:String(f.get('social')||'').trim()||null},status:'pending'};
  try{
   const r=await fetch(SUPABASE_URL+'/rest/v1/action_proposals',{method:'POST',headers:{...headers,'Prefer':'return=minimal'},body:JSON.stringify(body)});
   if(!r.ok){const t=await r.text();throw new Error(t||'Слање није успело.');}
@@ -106,12 +106,17 @@ el('proposalForm').addEventListener('submit',async e=>{
 async function joinProposal(e,id,form){
  e.preventDefault();const b=form.querySelector('button');b.disabled=true;b.textContent='Пријављујем...';const f=new FormData(form);
  try{
-  const r=await fetch(SUPABASE_URL+'/rest/v1/action_proposal_joins',{method:'POST',headers:{...headers,'Prefer':'return=minimal'},body:JSON.stringify({proposal_id:id,full_name:String(f.get('full_name')).trim(),email:String(f.get('email')).trim().toLowerCase()})});
+  const r=await fetch(SUPABASE_URL+'/rest/v1/action_proposal_joins',{method:'POST',headers:{...headers,'Prefer':'return=minimal'},body:JSON.stringify({proposal_id:id,full_name:String(f.get('full_name')).trim(),email:String(f.get('email')||'').trim().toLowerCase()||null,viber_phone:String(f.get('viber_phone')).trim(),social_links:{profile:String(f.get('social')||'').trim()||null}})});
   if(!r.ok){const t=await r.text();if(t.includes('23505'))throw new Error('Са овом имејл адресом си већ придружен/а овом предлогу.');throw new Error(t||'Пријављивање није успело.');}
   form.innerHTML='<strong>Успешно си се придружио/ла овом предлогу. Хвала!</strong>';await loadProposals();
  }catch(err){const msg=document.createElement('p');msg.className='meta';msg.textContent=err.message;form.appendChild(msg);b.disabled=false;b.textContent='Потврди придруживање';}
 }
 loadProposals();
+const ADMIN_TOKEN='op_proposal_admin_token';
+async function adminLoad(){const token=sessionStorage.getItem(ADMIN_TOKEN);if(!token)return;const u=await fetch(SUPABASE_URL+'/auth/v1/user',{headers:{apikey:SUPABASE_KEY,Authorization:'Bearer '+token}});if(!u.ok){sessionStorage.removeItem(ADMIN_TOKEN);return;}const user=await u.json();if((user.email||'').toLowerCase()!=='jefimijaorg@gmail.com'){el('adminMsg').textContent='Налог нема администраторски приступ.';return;}el('adminLogin').hidden=true;el('adminData').hidden=false;const h={...headers,Authorization:'Bearer '+token};const [a,b]=await Promise.all([fetch(SUPABASE_URL+'/rest/v1/action_proposals?select=*&order=created_at.desc',{headers:h}),fetch(SUPABASE_URL+'/rest/v1/action_proposal_joins?select=*&order=created_at.desc',{headers:h})]);if(!a.ok||!b.ok){el('adminRows').textContent='Грешка при учитавању.';return;}const ps=await a.json(),js=await b.json();el('adminRows').innerHTML='';ps.forEach(p=>{const d=document.createElement('article');d.className='proposal';const title=document.createElement('h3');title.textContent=p.title+' · '+p.status;d.appendChild(title);const info=document.createElement('p');info.textContent=(p.proposer_name||'')+' · Viber: '+(p.proposer_viber||'')+' · '+(p.proposer_email||'');d.appendChild(info);if(p.proposer_viber){const a=document.createElement('a');a.href='viber://chat?number='+encodeURIComponent(p.proposer_viber.replace(/[^\\d+]/g,''));a.textContent='Отвори Viber';d.appendChild(a);}const desc=document.createElement('p');desc.textContent=p.description;d.appendChild(desc);if(p.status==='pending'){const btn=document.createElement('button');btn.className='primary';btn.textContent='Објави предлог';btn.onclick=async()=>{const r=await fetch(SUPABASE_URL+'/rest/v1/action_proposals?id=eq.'+p.id,{method:'PATCH',headers:{...h,Prefer:'return=minimal'},body:JSON.stringify({status:'published'})});if(r.ok)adminLoad();};d.appendChild(btn);}const members=js.filter(x=>x.proposal_id===p.id);const mh=document.createElement('h4');mh.textContent='Пријављени ('+members.length+')';d.appendChild(mh);members.forEach(x=>{const row=document.createElement('p');row.textContent=x.full_name+' · Viber: '+(x.viber_phone||'')+' · '+(x.email||'');d.appendChild(row);if(x.viber_phone){const v=document.createElement('a');v.href='viber://chat?number='+encodeURIComponent(x.viber_phone.replace(/[^\\d+]/g,''));v.textContent='Контактирај преко Viber-а';d.appendChild(v);}});el('adminRows').appendChild(d);});}
+el('adminSend').addEventListener('click',async()=>{const r=await fetch(SUPABASE_URL+'/auth/v1/otp',{method:'POST',headers:{apikey:SUPABASE_KEY,'Content-Type':'application/json'},body:JSON.stringify({email:'jefimijaorg@gmail.com',create_user:true,options:{emailRedirectTo:location.href}})});el('adminMsg').textContent=r.ok?'Линк је послат на jefimijaorg@gmail.com.':'Грешка: '+await r.text();});
+el('adminLogout').addEventListener('click',()=>{sessionStorage.removeItem(ADMIN_TOKEN);location.reload();});
+const cb=new URLSearchParams(location.hash.replace(/^#/,''));const at=new URL(location.href).searchParams.get('access_token')||cb.get('access_token');if(at){sessionStorage.setItem(ADMIN_TOKEN,at);adminLoad();}else if(sessionStorage.getItem(ADMIN_TOKEN))adminLoad();
 </script>
 </body>
 </html>
