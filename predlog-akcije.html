@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="sr-Cyrl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Предложи акцију — Јуначко срце</title>
+<style>
+:root{--ink:#20251f;--muted:#667064;--line:#dce3d8;--paper:#f5f7f2;--white:#fff;--accent:#245c3a;--soft:#e8f1e8;--warn:#fff6df}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
+header{background:#173c29;color:white;padding:20px max(18px,calc((100% - 850px)/2))}header a{color:#e5f2e6;text-decoration:none;font-size:14px}header h1{font-size:clamp(25px,5vw,36px);line-height:1.15;margin:14px 0 8px}header p{margin:0;color:#d6e4d8;max-width:680px}
+main{max-width:850px;margin:22px auto;padding:0 14px 40px}.notice{background:var(--soft);border:1px solid #cbdccb;border-radius:12px;padding:13px 15px;margin-bottom:16px;font-size:14px}
+form{background:white;border:1px solid var(--line);border-radius:16px;padding:clamp(16px,4vw,28px);box-shadow:0 8px 28px #2030200a}
+.section{padding:0 0 23px;margin:0 0 22px;border-bottom:1px solid var(--line)}.section:last-of-type{border-bottom:0;margin-bottom:0}
+h2{font-size:19px;margin:0 0 5px}.hint{font-size:13px;color:var(--muted);margin:0 0 16px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field{min-width:0}.full{grid-column:1/-1}
+label,.legend{display:block;font-weight:650;font-size:14px;margin:0 0 6px}
+input,textarea,select{width:100%;border:1px solid #cbd4c8;border-radius:9px;padding:12px;font:inherit;background:white;color:var(--ink);min-height:46px}
+textarea{min-height:108px;resize:vertical}input:focus,textarea:focus,select:focus{outline:3px solid #b8d5be;border-color:var(--accent)}
+small{display:block;color:var(--muted);font-size:12px;margin-top:5px}
+.checks{display:grid;grid-template-columns:1fr 1fr;gap:10px}.check{display:flex;align-items:flex-start;gap:10px;padding:12px;border:1px solid var(--line);border-radius:10px;background:#fff}.check input{width:19px;min-height:19px;height:19px;margin:2px 0 0;flex:0 0 auto;accent-color:var(--accent)}.check label{margin:0;font-weight:550;cursor:pointer}.check span{display:block;font-size:12px;color:var(--muted);font-weight:400;margin-top:2px}
+.hidden{display:none!important}.subpanel{background:#f8faf7;border:1px solid var(--line);border-radius:12px;padding:16px;margin-top:14px}.subpanel h3{font-size:16px;margin:0 0 12px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}.btn{border:0;border-radius:10px;padding:13px 18px;font:inherit;font-weight:700;cursor:pointer}.primary{background:var(--accent);color:white}.secondary{background:#edf1eb;color:var(--ink)}.status{margin-top:18px;padding:14px;border-radius:10px;background:var(--soft);border:1px solid #c4d9c6}.foot{font-size:12px;color:var(--muted);margin:16px 3px}
+@media(max-width:580px){.grid,.checks{grid-template-columns:1fr}.full{grid-column:auto}.actions .btn{width:100%}header{padding-top:16px;padding-bottom:22px}}
+</style>
+</head>
+<body>
+<header>
+<a href="kampanje.html">← Назад на Јуначко срце</a>
+<h1>Предложи акцију</h1>
+<p>Имаш идеју шта можемо заједно да урадимо? Опиши предлог. Прегледаћемо га и јавити шта је следећи корак.</p>
+</header>
+<main>
+<div class="notice"><strong>Важно:</strong> слањем предлога још не покрећеш јавну акцију. Предлог прво стиже на преглед и добија статус.</div>
+<form id="actionForm">
+<section class="section">
+<h2>1. О акцији</h2><p class="hint">Основне информације о томе шта предлажеш.</p>
+<div class="grid">
+<div class="field full"><label for="title">Назив предлога *</label><input id="title" name="title" required maxlength="140" placeholder="Нпр. Очистимо парк у нашем насељу"></div>
+<div class="field full"><label for="description">Шта предлажеш и зашто? *</label><textarea id="description" name="description" required placeholder="Опиши шта треба урадити, коме ће помоћи и какав резултат желимо."></textarea></div>
+<div class="field"><label for="goal">Шта желимо да постигнемо?</label><input id="goal" name="goal" placeholder="Очекивани резултат"></div>
+<div class="field"><label for="campaign">Повезана кампања (ако постоји)</label><input id="campaign" name="campaign" placeholder="Назив кампање, ако је познат"></div>
+<div class="field"><label for="periodStart">Планирани почетак</label><input type="date" id="periodStart" name="periodStart"></div>
+<div class="field"><label for="periodEnd">Планирани завршетак</label><input type="date" id="periodEnd" name="periodEnd"></div>
+<div class="field"><label for="exactDate">Тачан датум акције (ако је познат)</label><input type="date" id="exactDate" name="exactDate"><small>Може да се одреди и касније.</small></div>
+<div class="field"><label for="exactTime">Време почетка (ако је познато)</label><input type="time" id="exactTime" name="exactTime"></div>
+</div>
+</section>
+<section class="section">
+<h2>2. Где ће се одржати?</h2><p class="hint">Ако акција има физичку локацију, наведи је. Тачно означавање на мапи може се додати у следећој верзији.</p>
+<div class="grid">
+<div class="field"><label for="location">Место / адреса</label><input id="location" name="location" placeholder="Насеље, улица или место окупљања"></div>
+<div class="field"><label for="mapLink">Линк ка локацији на мапи</label><input id="mapLink" name="mapLink" type="url" placeholder="https://..."></div>
+</div>
+</section>
+<section class="section">
+<h2>3. Како људи могу да се прикључе?</h2><p class="hint">Изабери све начине помоћи који би били корисни. Касније могу да се измене.</p>
+<div class="checks">
+<div class="check"><input type="checkbox" id="physical" name="ways" value="Физичко учешће"><label for="physical">Физичко учешће<span>Долазак на локацију и рад на терену.</span></label></div>
+<div class="check"><input type="checkbox" id="volunteer" name="ways" value="Волонтирање"><label for="volunteer">Волонтирање<span>Време, организација и помоћ.</span></label></div>
+<div class="check"><input type="checkbox" id="goods" name="ways" value="Донација ствари"><label for="goods">Донација ствари<span>Опрема, материјал или друге потребне ствари.</span></label></div>
+<div class="check"><input type="checkbox" id="money" name="ways" value="Новчана донација"><label for="money">Новчана донација<span>Приказ података за уплату.</span></label></div>
+<div class="check"><input type="checkbox" id="expert" name="ways" value="Стручна помоћ"><label for="expert">Стручна помоћ<span>Знање или професионалне услуге.</span></label></div>
+<div class="check"><input type="checkbox" id="other" name="ways" value="Други облик помоћи"><label for="other">Други облик помоћи<span>Дефиниши шта још може да се понуди.</span></label></div>
+</div>
+<div id="goodsPanel" class="subpanel hidden"><h3>Потребне ствари</h3><div class="field"><label for="goodsDetails">Шта је потребно?</label><textarea id="goodsDetails" name="goodsDetails" placeholder="Наведите ствари, количине и услове преузимања."></textarea></div></div>
+<div id="moneyPanel" class="subpanel hidden"><h3>Подаци за новчане донације</h3><p class="hint">Попуни ако већ имаш одобрене податке за уплату. Ови подаци ће се користити за приказ донаторима када акција буде објављена.</p>
+<div class="grid">
+<div class="field"><label for="payee">Прималац уплате</label><input id="payee" name="payee"></div>
+<div class="field"><label for="bank">Банка</label><input id="bank" name="bank"></div>
+<div class="field"><label for="account">Број рачуна</label><input id="account" name="account"></div>
+<div class="field"><label for="iban">IBAN (ако се користи)</label><input id="iban" name="iban"></div>
+<div class="field"><label for="swift">SWIFT/BIC</label><input id="swift" name="swift"></div>
+<div class="field"><label for="currency">Валута</label><select id="currency" name="currency"><option value="RSD">RSD — динар</option><option value="EUR">EUR — евро</option><option value="USD">USD — амерички долар</option><option value="other">Друго</option></select></div>
+<div class="field"><label for="paymentModel">Модел плаћања</label><input id="paymentModel" name="paymentModel" placeholder="Нпр. 97"></div>
+<div class="field"><label for="reference">Позив на број</label><input id="reference" name="reference"></div>
+<div class="field full"><label for="purpose">Сврха уплате / инструкције</label><textarea id="purpose" name="purpose" placeholder="Инструкције за уплату"></textarea></div>
+</div></div>
+<div id="otherPanel" class="subpanel hidden"><h3>Други облик помоћи</h3><div class="field"><label for="otherDetails">Опиши како људи могу да помогну</label><textarea id="otherDetails" name="otherDetails"></textarea></div></div>
+<div class="field" style="margin-top:14px"><label for="participants">Очекивани број учесника (ако је познат)</label><input id="participants" name="participants" type="number" min="1" step="1" placeholder="Нпр. 10"></div>
+</section>
+<section class="section">
+<h2>4. Контакт предлагача</h2><p class="hint">Контакт служи да бисмо могли да поставимо питање или затражимо допуну предлога.</p>
+<div class="grid">
+<div class="field"><label for="name">Име и презиме *</label><input id="name" name="name" autocomplete="name" required></div>
+<div class="field"><label for="email">Имејл адреса *</label><input id="email" name="email" type="email" autocomplete="email" required></div>
+<div class="field"><label for="phone">Телефон (опционо)</label><input id="phone" name="phone" type="tel" autocomplete="tel"></div>
+<div class="field"><label for="note">Додатна напомена</label><input id="note" name="note" placeholder="Још нешто што треба да знамо"></div>
+</div>
+</section>
+<div class="notice"><strong>Статус након слања:</strong> Нови предлог — чека преглед администратора.</div>
+<div class="actions"><button type="submit" class="btn primary">Пошаљи предлог</button><button type="reset" class="btn secondary">Обриши образац</button></div>
+<div id="result" class="status hidden" role="status" aria-live="polite"></div>
+</form>
+<p class="foot">Прототип обрасца: тренутно не шаље податке на сервер и не уписује их у базу. Слање ће бити повезано са базом података када се дефинишу табела, права приступа и обрада пријава.</p>
+</main>
+<script>
+const byId=id=>document.getElementById(id);
+function togglePanel(checkId,panelId){byId(checkId).addEventListener('change',()=>byId(panelId).classList.toggle('hidden',!byId(checkId).checked));}
+togglePanel('goods','goodsPanel');togglePanel('money','moneyPanel');togglePanel('other','otherPanel');
+byId('actionForm').addEventListener('submit',e=>{
+ e.preventDefault();
+ if(byId('periodStart').value && byId('periodEnd').value && byId('periodEnd').value<byId('periodStart').value){alert('Планирани завршетак не може бити пре почетка.');return;}
+ const ways=[...document.querySelectorAll('input[name="ways"]:checked')].map(x=>x.value);
+ const result=byId('result');result.classList.remove('hidden');
+ result.textContent='Образац је проверен. Ово је прототип: предлог није послат нити сачуван у бази. За стварно слање потребно је повезивање са базом података.';
+ result.scrollIntoView({behavior:'smooth',block:'nearest'});
+});
+byId('actionForm').addEventListener('reset',()=>setTimeout(()=>{['goodsPanel','moneyPanel','otherPanel'].forEach(id=>byId(id).classList.add('hidden'));byId('result').classList.add('hidden')},0));
+</script>
+</body>
+</html>
