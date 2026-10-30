@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="sr-Cyrl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#173c29">
+<title>Уредимо Плану заједно — Јуначко срце</title>
+<style>
+:root{--green:#173c29;--green2:#246447;--mint:#eaf3ec;--paper:#f5f7f4;--line:#dce6de;--ink:#1e2b22;--muted:#66736a;--white:#fff;--orange:#e6a052}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:20px}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}a{color:inherit}button,input,select,textarea{font:inherit}
+header{background:var(--green);color:white;padding:16px max(18px,calc((100% - 1100px)/2));display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}.brand{font-weight:850;text-decoration:none;font-size:18px}.brand small{display:block;color:#c6d9cc;font-weight:450;font-size:12px}.nav{display:flex;gap:15px;flex-wrap:wrap}.nav a{color:#e6f0e8;text-decoration:none;font-size:13px}
+main{max-width:1100px;margin:auto;padding:24px 16px 80px}.crumb{font-size:13px;color:var(--muted);margin:0 0 18px}.crumb a{color:var(--green2)}.hero{background:var(--green);color:white;border-radius:18px;padding:clamp(24px,5vw,52px);position:relative;overflow:hidden}.eyebrow{font-size:11px;font-weight:850;letter-spacing:1.5px;color:#b9d8c4;text-transform:uppercase}.hero h1{font-size:clamp(32px,5vw,54px);line-height:1.08;letter-spacing:-1.5px;margin:12px 0;max-width:760px}.hero p{max-width:700px;color:#e0eae2;margin-bottom:20px}.hero-art{position:absolute;right:32px;bottom:0;font-size:110px;opacity:.12;pointer-events:none}.btn{display:inline-flex;align-items:center;justify-content:center;border:0;border-radius:10px;padding:12px 17px;font-weight:800;text-decoration:none;cursor:pointer}.primary{background:var(--orange);color:#213326}.secondary{background:var(--mint);color:var(--green)}.hero .primary{margin-top:4px}.layout{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(270px,.9fr);gap:18px;margin-top:18px;align-items:start}.panel{background:white;border:1px solid var(--line);border-radius:15px;padding:clamp(17px,3vw,25px);margin-bottom:16px}.panel h2{font-size:21px;margin:0 0 12px;letter-spacing:-.3px}.panel h3{font-size:16px;margin:0 0 7px}.muted{color:var(--muted)}.details{display:grid;grid-template-columns:1fr 1fr;gap:12px}.detail{background:#f6f8f5;border-radius:11px;padding:13px}.detail small{display:block;color:var(--muted);font-size:11px;font-weight:750;text-transform:uppercase;letter-spacing:.6px}.detail strong{display:block;margin-top:4px}.steps{display:grid;gap:12px}.step{display:flex;gap:12px;align-items:flex-start}.num{width:32px;height:32px;flex:0 0 32px;border-radius:10px;background:var(--mint);color:var(--green2);display:grid;place-items:center;font-weight:850}.step p{margin:0;color:var(--muted);font-size:14px}.join-panel{border:2px solid #c7dccb}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.field{display:grid;gap:6px;min-width:0}.field.full{grid-column:1/-1}.field label,.legend{font-size:13px;font-weight:800}.field input,.field select,.field textarea{width:100%;padding:11px 12px;border:1px solid #d5e0d7;border-radius:9px;background:white;color:var(--ink)}.field textarea{min-height:85px;resize:vertical}.choices{display:grid;gap:8px;margin-top:8px}.choice{display:flex;gap:10px;align-items:flex-start;padding:12px;border:1px solid var(--line);border-radius:10px;cursor:pointer}.choice:has(input:checked){background:var(--mint);border-color:#8eb69a}.choice input{margin-top:5px;accent-color:var(--green2)}.choice b{display:block;font-size:14px}.choice small{display:block;color:var(--muted);font-size:12px}.agree{display:flex;gap:9px;align-items:flex-start;font-size:12px;color:var(--muted);margin:14px 0}.agree input{margin-top:4px}.form-actions{display:flex;gap:9px;flex-wrap:wrap}.form-actions .btn{flex:1}.notice{background:#fff7e8;border:1px solid #f0d7a9;border-radius:10px;padding:12px 14px;font-size:12px;color:#654b21;margin-top:14px}.success{display:none;background:var(--mint);border:1px solid #b5d2bb;padding:13px;border-radius:10px;margin-top:13px}.success.show{display:block}.side-cta{position:sticky;top:16px}.side-cta .btn{width:100%}footer{text-align:center;padding:22px;color:var(--muted);font-size:12px}
+@media(max-width:760px){header{align-items:flex-start}.nav{width:100%;gap:12px}.layout{grid-template-columns:1fr}.side-cta{position:static}.hero-art{font-size:80px;right:12px}.details{grid-template-columns:1fr 1fr}}
+@media(max-width:460px){.formgrid,.details{grid-template-columns:1fr}.field.full{grid-column:auto}.hero h1{font-size:34px}.hero-art{display:none}.form-actions{display:grid}}
+</style>
+</head>
+<body>
+<header>
+<a class="brand" href="index.html">♥ Јуначко срце <small>Идеје претварамо у дела</small></a>
+<nav class="nav" aria-label="Главна навигација"><a href="index.html">Почетна</a><a href="kampanje.html">Кампање и акције</a><a href="predlog-akcije.html">Предложи акцију</a></nav>
+</header>
+<main>
+<p class="crumb"><a href="kampanje.html">Кампање и акције</a> / Уредимо Плану заједно</p>
+<section class="hero">
+<div class="eyebrow">Пример странице конкретне акције</div>
+<h1>Уредимо Плану заједно.</h1>
+<p>Хајде да уредимо запуштене делове нашег места — да уклонимо коров, покосимо траву и очистимо простор који сви користимо. Не мора свако да уради много. Довољно је да свако понуди оно што може.</p>
+<a class="btn primary" href="#prikljuci-se">Прикључи се овој акцији ↓</a>
+<div class="hero-art" aria-hidden="true">✿</div>
+</section>
+<div class="layout">
+<div>
+<section class="panel">
+<h2>Шта желимо да урадимо?</h2>
+<p>Заједно бирамо локацију, договарамо посао и делимо задатке. Неко може да ради на терену, неко да донесе алат, а неко да помогне у организацији или да обавести комшије.</p>
+<div class="details">
+<div class="detail"><small>Место</small><strong>Велика Плана</strong></div>
+<div class="detail"><small>Датум</small><strong>Биће договорен</strong></div>
+<div class="detail"><small>Време</small><strong>Биће договорено</strong></div>
+<div class="detail"><small>Локација окупљања</small><strong>Објављујемо након договора</strong></div>
+</div>
+</section>
+<section class="panel">
+<h2>Како акција функционише?</h2>
+<div class="steps">
+<div class="step"><span class="num">1</span><div><h3>Пријавиш како можеш да помогнеш</h3><p>Изабери један или више начина — теренски рад, алат, материјал или организацију.</p></div></div>
+<div class="step"><span class="num">2</span><div><h3>Усклађујемо људе и потребе</h3><p>Када видимо ко се прикључује, договорићемо конкретну локацију, време и шта треба понети.</p></div></div>
+<div class="step"><span class="num">3</span><div><h3>Добијаш информације за учешће</h3><p>Организатор потврђује договор и шаље наредне кораке.</p></div></div>
+</div>
+</section>
+<section class="panel join-panel" id="prikljuci-se">
+<h2>Прикључи се овој акцији</h2>
+<p class="muted">Остави контакт и означи шта можеш да понудиш. Не мораш да имаш посебно искуство — важни су добра воља и договор.</p>
+<form id="joinForm">
+<div class="formgrid">
+<div class="field"><label for="name">Име и презиме *</label><input id="name" name="name" autocomplete="name" required placeholder="Како да те ословимо?"></div>
+<div class="field"><label for="contact">Телефон или имејл *</label><input id="contact" name="contact" autocomplete="email" required placeholder="Како да те контактирамо?"></div>
+<div class="field full"><span class="legend">Како желиш да помогнеш? Изабери све што важи. *</span>
+<div class="choices">
+<label class="choice"><input type="checkbox" name="help" value="teren"><span><b>Рад на терену</b><small>Чишћење, сакупљање отпада, кошење или уређивање простора.</small></span></label>
+<label class="choice"><input type="checkbox" name="help" value="alat"><span><b>Алат и опрема</b><small>Могу да понесем рукавице, грабуље, метлу, тример или други алат.</small></span></label>
+<label class="choice"><input type="checkbox" name="help" value="materijal"><span><b>Материјал и освежење</b><small>Кесе, вода, средства за чишћење или други потребан материјал.</small></span></label>
+<label class="choice"><input type="checkbox" name="help" value="organizacija"><span><b>Организација и обавештавање</b><small>Помоћ у договору, фотографисању или позивању комшија.</small></span></label>
+<label class="choice"><input type="checkbox" name="help" value="predlog"><span><b>Имам предлог или другу врсту помоћи</b><small>Напиши у напомени шта предлажеш.</small></span></label>
+</div></div>
+<div class="field full"><label for="note">Напомена (није обавезно)</label><textarea id="note" name="note" placeholder="На пример: имам тример, могу да дођем после 10 часова или предлажем одређену локацију."></textarea></div>
+</div>
+<label class="agree"><input type="checkbox" id="consent" required><span>Сагласан/сагласна сам да ме организатор контактира у вези са овом акцијом. *</span></label>
+<div class="form-actions"><button class="btn primary" type="submit">Пријави моје учешће</button><button class="btn secondary" type="reset">Обриши унос</button></div>
+<div class="success" id="success" role="status" aria-live="polite"></div>
+<div class="notice">Ово је пробна верзија обрасца. Пријава се тренутно не шаље организатору и не чува у бази података. Пре стварног коришћења потребно је повезати образац са базом и одредити ко прима пријаве.</div>
+</form>
+</section>
+</div>
+<aside>
+<section class="panel side-cta">
+<h2>И ти можеш да допринесеш.</h2>
+<p class="muted">Не мораш да будеш слободан цео дан нити да имаш посебну опрему. Пријави шта можеш, па ћемо видети како да то уклопимо.</p>
+<a class="btn primary" href="#prikljuci-se">Прикључи се акцији</a>
+</section>
+<section class="panel">
+<h2>Имаш идеју за другу акцију?</h2>
+<p class="muted">Предложи шта би требало урадити у твом крају и окупи људе око конкретног циља.</p>
+<a class="btn secondary" href="predlog-akcije.html">Предложи акцију</a>
+</section>
+</aside>
+</div>
+</main>
+<footer>Јуначко срце · Заједно претварамо идеје у дела.</footer>
+<script>
+const form=document.getElementById('joinForm');
+form.addEventListener('submit',event=>{
+ event.preventDefault();
+ const selected=[...form.querySelectorAll('input[name="help"]:checked')];
+ if(!selected.length){alert('Изабери бар један начин на који можеш да помогнеш.');return;}
+ const name=document.getElementById('name').value.trim();
+ const success=document.getElementById('success');
+ success.textContent='Хвала, '+name+'! Образац је исправно попуњен као пробни пример. Пријава још није послата организатору јер страница није повезана са базом података.';
+ success.classList.add('show');
+ success.scrollIntoView({behavior:'smooth',block:'nearest'});
+});
+form.addEventListener('reset',()=>document.getElementById('success').classList.remove('show'));
+</script>
+</body>
+</html>
