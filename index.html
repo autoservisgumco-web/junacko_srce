@@ -71,7 +71,7 @@ body.sheet-open{overflow:hidden}.sheet-backdrop{position:fixed;inset:0;backgroun
 <span class="cta-copy"><strong>Предложи</strong><small>Имаш идеју? Предложи акцију која може да направи разлику.</small></span>
 <span class="cta-arrow" aria-hidden="true">→</span>
 </button>
-<button class="hero-cta" type="button" onclick="showPanel('akcije')">
+<button class="hero-cta" type="button" onclick="showPanel('support')">
 <span class="cta-icon people-icon" aria-hidden="true">♡</span>
 <span class="cta-copy"><strong>Подржи</strong><small>Погледај акције и иницијативе и подржи оно што је важно нашој заједници.</small></span>
 <span class="cta-arrow" aria-hidden="true">→</span>
@@ -82,6 +82,7 @@ body.sheet-open{overflow:hidden}.sheet-backdrop{position:fixed;inset:0;backgroun
 <main class="hidden-content" aria-hidden="true">
 <section class="wrap" id="akcije"><div class="section-head"><h2>Акције којима можеш да се придружиш</h2><p>Изабери оно у чему желиш да помогнеш.</p></div>
 <div class="cards"><article class="card"><span class="tag">ПРИМЕР ЗА ПРИКАЗ</span><h3>Уређење пијаце у Крњеву</h3><p>Заједничко кречење, чишћење и сређивање простора пијаце. Свако може да допринесе.</p><button class="btn" onclick="showPanel('join')">Придружи се акцији →</button></article><article class="card"><span class="tag">ПРЕДЛОГ НОВЕ АКЦИЈЕ</span><h3>Твоја идеја може бити следећа</h3><p>Предложи шта треба урадити у твом месту. Када предлог буде прихваћен и објављен, појавиће се међу акцијама.</p><button class="btn secondary" onclick="showPanel('proposal')">Предложи акцију →</button></article></div>
+<div class="panel" id="support"><button class="close" onclick="hidePanels()">×</button><h2>Подржи акцију</h2><p>Изабери иницијативу коју желиш да подржиш и напиши на који начин можеш да помогнеш.</p><form onsubmit="event.preventDefault();alert('Пријава подршке још није повезана са базом.');"><label>Твоје име и презиме</label><input required placeholder="Име и презиме"><label>Контакт телефон</label><input required type="tel" placeholder="Број телефона"><label>Коју акцију желиш да подржиш?</label><select required><option value="">Изабери акцију</option><option value="uredjenje-pijace">Уређење пијаце у Крњеву</option></select><label>Како желиш да подржиш акцију?</label><textarea required placeholder="Напиши како можеш да помогнеш..."></textarea><button class="btn" type="submit">Пошаљи подршку</button></form></div>
 <div class="panel" id="proposal"><button class="close" onclick="hidePanels()">×</button><h2>Предложи акцију</h2><p>Опиши шта треба урадити и где.</p><form onsubmit="event.preventDefault();alert('Ово је приказ почетне странице. Формулар још није повезан са базом.');"><label>Твоје име</label><input required placeholder="Име и презиме"><label>Viber број</label><input required placeholder="Број телефона"><label>Назив предлога</label><input required placeholder="Шта предлажеш?"><label>Опис и место</label><textarea required placeholder="Опиши идеју..."></textarea><button class="btn" type="submit">Пошаљи предлог</button></form></div>
 <div class="panel" id="join"><button class="close" onclick="hidePanels()">×</button><h2>Придружи се акцији</h2><p>Уређење пијаце у Крњеву</p><form onsubmit="event.preventDefault();alert('Ово је приказ почетне странице. Пријава још није повезана са базом.');"><label>Твоје име</label><input required placeholder="Име и презиме"><label>Viber број</label><input required placeholder="Број телефона"><label>Како можеш да помогнеш?</label><textarea placeholder="Напиши шта можеш да урадиш..."></textarea><button class="btn" type="submit">Пријави се</button></form></div></section>
 </main>
@@ -101,7 +102,7 @@ function showPanel(id){
  if(sheetTarget)hidePanels();
  sheetTarget=target;sheetParent=target.parentNode;sheetNext=target.nextSibling;sheetContent.appendChild(target);
  target.hidden=false;target.classList.add('active');
- document.getElementById('sheetTitle').textContent=id==='proposal'?'Предложи акцију':id==='join'?'Придружи се акцији':'Акције којима можеш да се придружиш';
+ document.getElementById('sheetTitle').textContent=id==='proposal'?'Предложи акцију':id==='join'?'Придружи се акцији':id==='support'?'Подржи акцију':'Акције којима можеш да се придружиш';
  sheetBackdrop.hidden=false;bottomSheet.hidden=false;bottomSheet.setAttribute('aria-hidden','false');
  requestAnimationFrame(()=>{sheetBackdrop.classList.add('open');bottomSheet.classList.add('open')});document.body.classList.add('sheet-open');
 }
