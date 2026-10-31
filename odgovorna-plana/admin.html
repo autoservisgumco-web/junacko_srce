@@ -69,7 +69,7 @@ document.getElementById('authForm').addEventListener('submit',async e=>{
 });
 document.getElementById('signup').addEventListener('click',async()=>{
  const email=document.getElementById('email').value.trim().toLowerCase(),password=document.getElementById('password').value;
- if(email!=='jefimijaorg@gmail.com'){showMessage('Регистрација је дозвољена само за одређену администраторску адресу.');return}
+ if(email!=='autoservisgumco@gmail.com'){showMessage('Регистрација је дозвољена само за одређену администраторску адресу.');return}
  if(password.length<8){showMessage('Унесите лозинку од најмање 8 карактера.');return}
  const {error}=await db.auth.signUp({email,password});
  if(error){showMessage('Регистрација није успела: '+error.message);return}
