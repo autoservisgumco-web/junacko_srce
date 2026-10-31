@@ -294,7 +294,7 @@ loadActiveActions();
 loadSingleAction().catch(error=>{
  console.error('Грешка при отварању Single акције:',error);
  const view=document.getElementById('singleAction');
- if(view){const main=document.querySelector('main.hidden-content');if(main){main.classList.remove('hidden-content');main.removeAttribute('aria-hidden');}view.hidden=false;view.innerHTML='<div class="single-action-loading">Дошло је до грешке при учитавању акције. Освежи страницу и покушај поново.</div>';}
+ if(view){const main=document.querySelector('main.hidden-content');if(main){main.classList.remove('hidden-content');main.removeAttribute('aria-hidden');}view.hidden=false;const detail=error&&error.message?String(error.message):String(error);view.innerHTML='<div class="single-action-loading"><strong>Грешка при учитавању акције.</strong><p>Детаљ: '+escapeActionText(detail)+'</p><p>Пошаљи ми снимак ове поруке.</p></div>';}
 });
 sheetBackdrop.addEventListener('click',hidePanels);
 document.addEventListener('keydown',e=>{if(e.key==='Escape')hidePanels()});
