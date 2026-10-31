@@ -43,25 +43,46 @@
 <main class="home-main"><div class="wrap">
 <div id="sheetHome"></div>
 
-<section class="community-intro">
-  <div class="community-kicker">ОДГОВОРНА ПЛАНА</div>
-  <h2>Заједно можемо више.</h2>
-  <p>Одговорна Плана је место за људе који желе да покрену добру идеју, реше проблем у свом окружењу или помогну да се нешто промени. Не морамо да чекамо да неко други направи први корак — можемо да се организујемо, повежемо и урадимо оно што је важно за нашу заједницу.</p>
-  <div class="community-points">
-    <div><strong>Грађани на првом месту</strong><span>Свако може да предложи и учествује.</span></div>
-    <div><strong>Конкретне акције</strong><span>Од идеје до видљиве промене у нашем месту.</span></div>
-    <div><strong>Заједно је лакше</strong><span>Повезујемо људе који желе да помогну.</span></div>
+<section class="home-actions">
+  <div class="home-actions-heading">
+    <div class="community-kicker">ТВОЈ КОРАК ЈЕ ВАЖАН</div>
+    <h2>Шта можеш да урадиш?</h2>
+    <p>Не мораш да чекаш да неко други направи први корак. Изабери како желиш да допринесеш.</p>
+  </div>
+  <div class="home-action-grid">
+    <article class="home-action-card">
+      <span class="home-action-icon">◎</span>
+      <h3>Пријави проблем</h3>
+      <p>Укажи на проблем у својој улици, насељу или општини.</p>
+      <button class="btn secondary" type="button" id="showProblem">Пријави проблем →</button>
+    </article>
+    <article class="home-action-card">
+      <span class="home-action-icon">＋</span>
+      <h3>Покрени акцију</h3>
+      <p>Предложи идеју и покрени људе да заједно нешто променимо.</p>
+      <button class="btn" type="button" id="showProposalInline">Покрени акцију →</button>
+    </article>
+    <article class="home-action-card">
+      <span class="home-action-icon">♡</span>
+      <h3>Придружи се акцији</h3>
+      <p>Подржи иницијативу која је већ покренута и укључи се.</p>
+      <button class="btn secondary" type="button" id="showActionsInline">Погледај акције →</button>
+    </article>
   </div>
 </section>
-<section class="community-intro about-project">
-  <div class="community-kicker">О ПРОЈЕКТУ</div>
-  <h2>Одговорна Плана припада свима нама.</h2>
-  <p>Одговорна Плана је простор за грађане који не желе да остану неми посматрачи проблема у својој заједници.</p>
-  <p>Покренули смо овај пројекат са једноставном идејом: Велика Плана може да буде боље место за живот ако грађани имају прилику да укажу на проблеме, предложе решења и учествују у њиховом решавању.</p>
-  <p>Овде можеш да пријавиш проблем, покренеш иницијативу, предложиш акцију, подржиш друге грађане и пратиш шта је предузето.</p>
-  <p>Не мораш да будеш члан организације, политичке странке или удружења. Довољно је да ти је стало до места у ком живиш и да желиш нешто да промениш.</p>
-  <p>Наш циљ није само да бележимо проблеме, већ да повезујемо људе, идеје и конкретне активности.</p>
-  <p><strong>Један човек може да покрене промену. Заједно можемо да је остваримо.</strong></p>
+<section class="project-link-panel">
+  <div>
+    <div class="community-kicker">ВИШЕ О ПРОЈЕКТУ</div>
+    <h2>Шта је Одговорна Плана?</h2>
+    <p>Упознај идеју, циљеве и начин рада. Прочитај како грађани могу да покрећу иницијативе, повезују се и заједно делују.</p>
+  </div>
+  <a class="btn project-link-button" href="o-projektu.html">Више о пројекту →</a>
+</section>
+<section class="community-join-panel">
+  <div class="community-kicker">ЗАЈЕДНИЦА</div>
+  <h2>Прикључи се покрету Одговорна Велика Плана.</h2>
+  <p>Не мораш да имаш своју акцију или конкретан проблем. Довољно је да желиш да будеш део заједнице људи који се повезују и доприносе бољем животу у Великој Плани.</p>
+  <button class="btn" id="joinCommunity" type="button">Прикључи се заједници →</button>
 </section>
 <section class="panel" id="proposalPanel" hidden>
 <h2>Предложи акцију</h2><p class="hint">Предлог прво прегледамо. Када буде одобрен, биће објављен у делу „Придружи се“.</p>
@@ -118,6 +139,10 @@ function closeSheet(){
  setTimeout(()=>{sheet.hidden=true;backdrop.hidden=true;},330);
 }
 $('showProposal').addEventListener('click',()=>openSheet('proposal'));
+$('showProposalInline').addEventListener('click',()=>openSheet('proposal'));
+$('showProblem').addEventListener('click',()=>openSheet('proposal'));
+$('showActionsInline').addEventListener('click',()=>openSheet('actions'));
+$('joinCommunity').addEventListener('click',()=>openSheet('proposal'));
 $('showActions').addEventListener('click',()=>openSheet('actions'));
 $('bottomSupport').addEventListener('click',()=>openSheet('proposal'));
 $('bottomJoin').addEventListener('click',()=>openSheet('actions'));
