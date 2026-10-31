@@ -195,7 +195,7 @@ if(new URLSearchParams(window.location.search).has('akcija')){
 <div class="sheet-content" id="sheetContent"></div>
 </section>
 
-<footer>Одговорна Велика Плана · Грађанске иницијативе и заједничко деловање</footer>
+<footer>Одговорна Велика Плана · Покретач: Јовица Вратница</footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const SUPABASE_URL='https://hmfeizkmpmxcnzhwxgbn.supabase.co';
@@ -250,7 +250,7 @@ async function loadSingleAction(){
  const intro=action.intro||action.description||action.summary||'';
  view.innerHTML='<a class="single-action-back" href="index.html#akcije">← Све акције</a>'+
  '<section class="single-action-cover" style="background-image:url(\''+cover+'\')"><span class="single-action-status '+(active?'is-active':'is-done')+'">'+(active?'▶ АКТИВНА':'✓ ЗАВРШЕНА')+'</span></section>'+
- '<section class="single-action-overview"><div class="single-action-main"><span class="single-action-kind">⚡ ГРАЂАНСКА АКЦИЈА</span><h1>'+escapeActionText(action.title)+'</h1><p class="single-action-summary">'+escapeActionText(action.summary||intro)+'</p><div class="single-action-meta">'+(date?'<div class="single-action-meta-item"><span>▣</span><div>Датум:<strong>'+escapeActionText(date)+'</strong></div></div>':'')+(location?'<div class="single-action-meta-item"><span>📍</span><div>Локација:<strong>'+escapeActionText(location)+'</strong></div></div>':'')+'<div class="single-action-meta-item"><span>♟</span><div>Покретач:<strong>Грађанска иницијатива</strong></div></div></div></div>'+
+ '<section class="single-action-overview"><div class="single-action-main"><span class="single-action-kind">⚡ ГРАЂАНСКА АКЦИЈА</span><h1>'+escapeActionText(action.title)+'</h1><p class="single-action-summary">'+escapeActionText(action.summary||intro)+'</p><div class="single-action-meta">'+(date?'<div class="single-action-meta-item"><span>▣</span><div>Датум:<strong>'+escapeActionText(date)+'</strong></div></div>':'')+(location?'<div class="single-action-meta-item"><span>📍</span><div>Локација:<strong>'+escapeActionText(location)+'</strong></div></div>':'')+'<div class="single-action-meta-item"><span>♟</span><div>Покретач:<strong>Јовица Вратница</strong></div></div></div></div>'+
  '<aside class="single-action-stat"><div class="single-action-stat-number">'+(participantCount===null?'—':participantCount)+'</div><div class="single-action-stat-label">пријављених</div>'+(active?'<button class="btn single-action-red" type="button" id="singleJoinTop">♟ Пријави се</button>':'<span>Акција је завршена</span>')+'</aside></section>'+
  section('uvod','О акцији',intro,'●')+
  section('zasto','Зашто покрећемо ову акцију?',action.reason,'●')+
