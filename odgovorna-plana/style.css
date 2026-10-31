@@ -87,3 +87,14 @@ body.sheet-open{overflow:hidden}
   .choice .btn{min-height:48px}
 }
 
+
+
+/* Фиксни доњи мени — користи постојећи изглед и Bottom Sheet форме. */
+.bottom-menu{display:none}
+@media(max-width:620px){
+  body{padding-bottom:calc(82px + env(safe-area-inset-bottom))}
+  .bottom-menu{position:fixed;z-index:900;left:0;right:0;bottom:0;display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(255,255,255,.97);border-top:1px solid var(--line);box-shadow:0 -8px 28px #061a3512;backdrop-filter:blur(12px)}
+  .bottom-menu-btn{min-height:48px;border:0;border-radius:11px;padding:10px 14px;font:800 15px/1.2 system-ui,sans-serif;cursor:pointer}
+  .bottom-menu-support{background:var(--pale);color:var(--navy);border:1px solid #cbd8e8}
+  .bottom-menu-join{background:var(--blue);color:white}
+}
