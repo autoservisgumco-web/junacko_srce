@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="sr-Cyrl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#102b4e">
+<title>Администрација — Одговорна Плана</title>
+<style>
+:root{--navy:#061A35;--blue:#2166F3;--sky:#F1F5F9;--ink:#142844;--muted:#64748b}
+*{box-sizing:border-box}body{margin:0;background:var(--sky);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+header{background:var(--navy);color:#fff;padding:22px max(5vw,20px);display:flex;justify-content:space-between;align-items:center;gap:15px}
+header a{color:#fff;text-decoration:none;font-weight:700}.brand{font-size:20px;font-weight:850}
+main{max-width:1000px;margin:38px auto;padding:0 18px 50px}
+h1{color:var(--navy);margin:0 0 8px;font-size:clamp(28px,5vw,38px)}.intro{color:var(--muted);margin:0 0 25px}
+.box,.submission{background:#fff;border:1px solid #e1eaf2;border-radius:15px;padding:22px;margin:16px 0}
+label{display:block;font-weight:700;margin:13px 0 6px;color:var(--navy)}
+input{width:100%;padding:12px;border:1px solid #cbd9e5;border-radius:9px;font:inherit}
+button{border:0;border-radius:9px;padding:11px 17px;font:inherit;font-weight:750;cursor:pointer}
+.primary{background:var(--blue);color:#fff}.secondary{background:var(--navy);color:#fff}.quiet{background:#e8eef5;color:var(--navy)}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}.status{font-size:13px;font-weight:800;padding:6px 10px;border-radius:20px;background:#edf2f7;color:#475569}
+.status.accepted{background:#e4f6e9;color:#176b3a}.status.rejected{background:#fff0ef;color:#b42318}
+.submission h2{font-size:20px;color:var(--navy);margin:10px 0}.meta{font-size:14px;color:var(--muted);line-height:1.6}
+.description{white-space:pre-wrap;line-height:1.6;margin:14px 0}
+.empty{padding:28px;text-align:center;color:var(--muted);background:#fff;border-radius:14px}
+#dashboard[hidden],#authBox[hidden]{display:none}
+.toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+#message{color:#b42318;margin-top:12px;font-size:14px}
+@media(max-width:600px){header{align-items:flex-start;flex-direction:column}.box,.submission{padding:17px}}
+</style>
+</head>
+<body>
+<header><a class="brand" href="./">♡ Одговорна Плана</a><a href="./">← Назад на сајт</a></header>
+<main>
+<h1>Администрација</h1>
+<p class="intro">Овде стижу предлози акција и пријаве грађана. За сада их прегледаш и означаваш да ли су прихваћени.</p>
+<section class="box" id="authBox">
+<h2>Пријава администратора</h2>
+<p class="meta">Приступ је ограничен на администраторски налог.</p>
+<form id="authForm">
+<label for="email">Е-пошта</label><input id="email" type="email" autocomplete="username" required>
+<label for="password">Лозинка</label><input id="password" type="password" autocomplete="current-password" required minlength="8>
+<div class="actions"><button class="primary" type="submit">Пријави се</button><button class="quiet" type="button" id="signup">Региструј администраторски налог</button></div>
+<p id="message" role="status"></p>
+</form>
+</section>
+<section id="dashboard" hidden>
+<div class="toolbar"><div><h2>Пристигле пријаве и предлози</h2><p class="meta">Статус можеш да промениш кад год желиш.</p></div><button class="quiet" id="logout">Одјави се</button></div>
+<div class="actions" style="margin:12px 0 20px"><button class="quiet" data-filter="all">Све</button><button class="quiet" data-filter="new">Нерешене</button><button class="quiet" data-filter="accepted">Прихваћене</button><button class="quiet" data-filter="rejected">Нису прихваћене</button></div>
+<div id="submissions"><p class="empty">Учитавање...</p></div>
+<p id="listMessage" class="meta" role="status"></p>
+</section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const db=window.supabase.createClient('https://hmfeizkmpmxcnzhwxgbn.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXAiLCJyZWYiOiJobWZlaXprbXBteGNuemh3eGdibnIiLCJyb2xlIjoiYW5vbiIsImlhdCI6MTc5MzMyOTI3OCwiZXhwIjoyMTA4OTA1Mjc4fQ.invalid');
+</script>
+</body></html>
