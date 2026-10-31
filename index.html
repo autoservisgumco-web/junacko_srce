@@ -70,6 +70,14 @@ body.action-page #akcije{display:none}
 .single-action-message{margin-top:14px;line-height:1.5}
 .single-action-back{display:inline-block;color:#2166F3;text-decoration:none;font-weight:750;margin-bottom:20px}
 @media(max-width:650px){body.action-page .site-header{height:88px;padding:12px 16px}.single-action{margin:26px auto 45px;padding:0 16px}.single-action-hero,.single-action-body{border-radius:15px}.single-action-hero{padding:26px 22px}}
+
+/* Леви навигациони мени */
+.menu-trigger{display:none;border:1px solid rgba(255,255,255,.45);background:rgba(4,35,72,.45);color:#fff;border-radius:10px;padding:9px 13px;font-size:25px;line-height:1;cursor:pointer}
+.menu-backdrop{position:fixed;inset:0;background:rgba(3,15,34,.5);z-index:1100;opacity:0;transition:opacity .25s ease}
+.side-menu{position:fixed;z-index:1101;top:0;bottom:0;left:0;width:min(340px,86vw);background:#061A35;color:#fff;padding:28px 24px;transform:translateX(-105%);transition:transform .28s ease;box-shadow:12px 0 40px #061a3530}
+.side-menu.open{transform:translateX(0)}.menu-backdrop.open{opacity:1}.side-menu nav{display:flex;flex-direction:column;align-items:stretch;gap:8px;margin-top:36px}.side-menu nav a{color:#fff;text-decoration:none;padding:15px 10px;border-bottom:1px solid #ffffff20;font-weight:700}.side-menu-head{display:flex;justify-content:space-between;align-items:center;font-size:20px;font-weight:850}.side-menu-close{border:0;background:transparent;color:#fff;font-size:30px;cursor:pointer}
+.single-action-join{margin-top:25px}
+@media(max-width:760px){.menu-trigger{display:block}.site-header .site-nav{display:none}}
 </style>
 </head>
 <body class="home-hero" id="pocetna">
@@ -80,7 +88,10 @@ body.action-page #akcije{display:none}
 <a href="#predlozi" onclick="showPanel('proposal');return false">Предложи</a>
 <a href="#akcije" onclick="showPanel('akcije');return false">Акције</a>
 </nav>
+<button class="menu-trigger" id="openMenu" type="button" aria-label="Отвори мени">☰</button>
 </header>
+<div class="menu-backdrop" id="menuBackdrop" hidden></div>
+<aside class="side-menu" id="sideMenu" aria-hidden="true"><div class="side-menu-head"><span>♡ Одговорна Плана</span><button class="side-menu-close" id="closeMenu" type="button" aria-label="Затвори мени">×</button></div><nav aria-label="Мени"><a href="index.html">Почетна</a><a href="#" onclick="closeSideMenu();showPanel('proposal');return false">Предложи акцију</a><a href="#" onclick="closeSideMenu();showPanel('akcije');return false">Акције</a></nav></aside>
 <section class="hero hero-full">
 <div class="hero-inner">
 <div class="hero-copy">
@@ -108,7 +119,7 @@ body.action-page #akcije{display:none}
 <div class="start-action"><div class="start-action-copy"><span class="tag">ИМАШ ИДЕЈУ?</span><h3>Покрени своју акцију</h3><p>Уочи проблем, предложи решење и позови људе из своје заједнице да ти се придруже.</p></div><button class="btn secondary" onclick="showPanel('proposal')">Предложи нову акцију →</button></div>
 <div class="panel" id="support"><button class="close" onclick="hidePanels()">×</button><h2>Подржи акцију</h2><p>Изабери иницијативу коју желиш да подржиш и напиши на који начин можеш да помогнеш.</p><form onsubmit="event.preventDefault();alert('Пријава подршке још није повезана са базом.');"><label>Твоје име и презиме</label><input required placeholder="Име и презиме"><label>Контакт телефон</label><input required type="tel" placeholder="Број телефона"><label>Коју акцију желиш да подржиш?</label><select required><option value="">Изабери акцију</option><option value="uredjenje-pijace">Уређење пијаце у Крњеву</option></select><label>Како желиш да подржиш акцију?</label><textarea required placeholder="Напиши како можеш да помогнеш..."></textarea><button class="btn" type="submit">Пошаљи подршку</button></form></div>
 <div class="panel" id="proposal"><button class="close" onclick="hidePanels()">×</button><h2>Предложи акцију</h2><p>Опиши шта треба урадити и где.</p><form id="proposalForm"><label>Твоје име</label><input required minlength="2" placeholder="Име и презиме"><label>Viber број</label><input required placeholder="Број телефона"><label>Назив предлога</label><input required minlength="3" placeholder="Шта предлажеш?"><label>Опис и место</label><textarea required minlength="10" placeholder="Опиши идеју..."></textarea><label for="proposalPhotos">Фотографије (највише 5)</label><input id="proposalPhotos" name="photos" type="file" accept="image/*" multiple onchange="validateProposalPhotos(this)"><small class="file-help">Можеш да приложиш до пет фотографија које показују проблем или предлог.</small><p id="proposalPhotosError" class="file-error" role="alert" hidden></p><button class="btn" type="submit">Пошаљи предлог</button><p id="proposalMessage" role="status" aria-live="polite"></p></form></div>
-<div class="panel" id="join"><button class="close" onclick="hidePanels()">×</button><h2>Придружи се акцији</h2><p>Уређење пијаце у Крњеву</p><form id="joinForm"><input type="hidden" id="joinActionId"><input type="hidden" id="joinActionTitle"><label>Твоје име</label><input id="joinName" required maxlength="120" placeholder="Име и презиме"><label>Viber број</label><input id="joinPhone" required type="tel" maxlength="60" placeholder="Број телефона"><label>Како можеш да помогнеш?</label><textarea id="joinHelp" minlength="10" maxlength="3000" placeholder="Напиши шта можеш да урадиш..."></textarea><button class="btn" type="submit">Пошаљи пријаву</button><p id="joinMessage" role="status" aria-live="polite"></p></form></div></section>
+<div class="panel" id="join"><button class="close" onclick="hidePanels()">×</button><h2>Придружи се акцији</h2><p>Уређење пијаце у Крњеву</p><form id="joinForm"><input type="hidden" id="joinActionId"><input type="hidden" id="joinActionTitle"><label>Твоје име</label><input id="joinName" required maxlength="120" placeholder="Име и презиме"><label>Viber број</label><input id="joinPhone" required type="tel" maxlength="60" placeholder="Број телефона"><label>Како желиш да се прикључиш?</label><select id="joinMethod" required><option value="">Изабери начин прикључења</option><option value="Практична помоћ и волонтирање">Практична помоћ и волонтирање</option><option value="Материјал или опрема">Материјал или опрема</option><option value="Стручна помоћ">Стручна помоћ</option><option value="Организација и промоција">Организација и промоција</option><option value="Друго">Друго</option></select><label>Додатна порука (није обавезно)</label><textarea id="joinHelp" maxlength="3000" placeholder="Напиши како конкретно можеш да помогнеш..."></textarea><button class="btn" type="submit">Пошаљи пријаву</button><p id="joinMessage" role="status" aria-live="polite"></p></form></div></section>
 </main>
 <div class="sheet-backdrop" id="sheetBackdrop" hidden></div>
 <section class="bottom-sheet" id="bottomSheet" role="dialog" aria-modal="true" aria-hidden="true" hidden>
@@ -161,16 +172,9 @@ async function loadSingleAction(){
  if(result.error||!action){view.querySelector('.single-action-body').textContent='Ова акција тренутно није доступна.';return;}
  document.title=action.title+' — Одговорна Плана';
  const date=action.action_date?new Date(action.action_date+'T12:00:00').toLocaleDateString('sr-RS'):'';
- view.innerHTML='<a class="single-action-back" href="index.html#akcije">← Све акције</a><section class="single-action-hero"><span class="tag">ГРАЂАНСКА АКЦИЈА</span><h1>'+escapeActionText(action.title)+'</h1><p>'+escapeActionText(action.summary||'')+'</p><div class="single-action-meta">'+(action.location?'<span>📍 '+escapeActionText(action.location)+'</span>':'')+(date?'<span>📅 '+escapeActionText(date)+'</span>':'')+'</div></section><section class="single-action-body"><h2>О акцији</h2><div class="single-action-description">'+escapeActionText(action.description||action.summary||'Више информација о овој акцији ускоро.')+'</div>'+(action.status==='completed'?'<p>Ова акција је завршена.</p>':'<button class="btn" type="button" id="singleJoinToggle" style="margin-top:25px">Придружи се овој акцији →</button><form class="single-action-form" id="singleJoinForm"><h2>Како желиш да се прикључиш?</h2><label for="singleJoinType">Изабери начин прикључења</label><select id="singleJoinType" required><option value="">Изабери начин помоћи</option><option>Практична помоћ и волонтирање</option><option>Материјал или опрема</option><option>Стручна помоћ</option><option>Организација и промоција</option><option>Друго</option></select><label for="singleJoinName">Име и презиме</label><input id="singleJoinName" required minlength="2" maxlength="120" placeholder="Име и презиме"><label for="singleJoinPhone">Viber број / телефон</label><input id="singleJoinPhone" required type="tel" maxlength="60" placeholder="Број телефона"><label for="singleJoinNote">Додатна порука (није обавезно)</label><textarea id="singleJoinNote" maxlength="3000" placeholder="Напиши како конкретно можеш да помогнеш..."></textarea><button class="btn" type="submit">Пошаљи пријаву</button><p id="singleJoinMessage" class="single-action-message" role="status" aria-live="polite"></p></form>')+'</section>';
- const toggle=document.getElementById('singleJoinToggle'),form=document.getElementById('singleJoinForm');
- if(toggle)toggle.addEventListener('click',()=>{form.classList.toggle('open');toggle.textContent=form.classList.contains('open')?'Затвори пријаву':'Придружи се овој акцији →';});
- if(form)form.addEventListener('submit',async e=>{
-  e.preventDefault();const button=form.querySelector('button[type="submit"]');button.disabled=true;button.textContent='Слање...';
-  const method=document.getElementById('singleJoinType').value,phone=document.getElementById('singleJoinPhone').value.trim(),note=document.getElementById('singleJoinNote').value.trim();
-  const payload={submission_type:'help',title:'Пријава за акцију: '+action.title,description:(note||'Жели да се придружи акцији.')+'\\nНачин прикључења: '+method,full_name:document.getElementById('singleJoinName').value.trim(),phone,viber_phone:phone,support_type:method,social_links:{action_id:action.id,action_slug:action.slug,action_title:action.title},status:'new'};
-  const {error}=await civicDb.from('civic_submissions').insert(payload);button.disabled=false;button.textContent='Пошаљи пријаву';
-  const msg=document.getElementById('singleJoinMessage');msg.textContent=error?'Пријава није послата. Покушај поново.':'Пријава је успешно послата. Хвала ти!';msg.style.color=error?'#b42318':'#176b3a';if(!error)form.reset();
- });
+ view.innerHTML='<a class="single-action-back" href="index.html#akcije">← Све акције</a><section class="single-action-hero"><span class="tag">ГРАЂАНСКА АКЦИЈА</span><h1>'+escapeActionText(action.title)+'</h1><p>'+escapeActionText(action.summary||'')+'</p><div class="single-action-meta">'+(action.location?'<span>📍 '+escapeActionText(action.location)+'</span>':'')+(date?'<span>📅 '+escapeActionText(date)+'</span>':'')+'</div></section><section class="single-action-body"><h2>О акцији</h2><div class="single-action-description">'+escapeActionText(action.description||action.summary||'Више информација о овој акцији ускоро.')+'</div>'+(action.status==='completed'?'<p>Ова акција је завршена.</p>':'<button class="btn single-action-join" type="button" id="singleJoinToggle">Придружи се овој акцији →</button>')+'</section>';
+ const toggle=document.getElementById('singleJoinToggle');
+ if(toggle)toggle.addEventListener('click',()=>showPanel('join',action.id,action.title));
 }
 function escapeActionText(value){return String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));}
 function renderActionCard(action){
@@ -193,7 +197,7 @@ function showSubmitMessage(id,text,isError=false){const el=document.getElementBy
 document.getElementById('joinForm').addEventListener('submit',async event=>{
  event.preventDefault();const btn=event.currentTarget.querySelector('button[type="submit"]');btn.disabled=true;btn.textContent='Слање...';
  const actionId=document.getElementById('joinActionId').value;const actionTitle=document.getElementById('joinActionTitle').value;
- const payload={submission_type:'help',title:'Пријава за акцију: '+actionTitle,description:document.getElementById('joinHelp').value.trim()||'Жели да се придружи акцији.',full_name:document.getElementById('joinName').value.trim(),phone:document.getElementById('joinPhone').value.trim(),viber_phone:document.getElementById('joinPhone').value.trim(),support_type:'pridruzivanje_akciji',social_links:{action_id:actionId,action_title:actionTitle},status:'new'};
+ const payload={submission_type:'help',title:'Пријава за акцију: '+actionTitle,description:(document.getElementById('joinHelp').value.trim()||'Жели да се придружи акцији.')+'\\nНачин прикључења: '+document.getElementById('joinMethod').value,full_name:document.getElementById('joinName').value.trim(),phone:document.getElementById('joinPhone').value.trim(),viber_phone:document.getElementById('joinPhone').value.trim(),support_type:document.getElementById('joinMethod').value,social_links:{action_id:actionId,action_title:actionTitle},status:'new'};
  const {error}=await civicDb.from('civic_submissions').insert(payload);
  btn.disabled=false;btn.textContent='Пошаљи пријаву';
  if(error){showSubmitMessage('joinMessage','Пријава није послата. Проверите интернет везу и покушајте поново.',true);return;}
@@ -209,6 +213,10 @@ document.getElementById('proposalForm').addEventListener('submit',async event=>{
 });
 
 document.getElementById('closeSheet').addEventListener('click',hidePanels);
+const sideMenu=document.getElementById('sideMenu'),menuBackdrop=document.getElementById('menuBackdrop');
+function closeSideMenu(){sideMenu.classList.remove('open');menuBackdrop.classList.remove('open');sideMenu.setAttribute('aria-hidden','true');document.body.classList.remove('sheet-open');setTimeout(()=>{menuBackdrop.hidden=true},260)}
+document.getElementById('openMenu').addEventListener('click',()=>{menuBackdrop.hidden=false;sideMenu.setAttribute('aria-hidden','false');requestAnimationFrame(()=>{sideMenu.classList.add('open');menuBackdrop.classList.add('open')});document.body.classList.add('sheet-open')});
+document.getElementById('closeMenu').addEventListener('click',closeSideMenu);menuBackdrop.addEventListener('click',closeSideMenu);
 loadActiveActions();loadSingleAction();sheetBackdrop.addEventListener('click',hidePanels);
 document.addEventListener('keydown',e=>{if(e.key==='Escape')hidePanels()});
 bottomSheet.addEventListener('touchstart',e=>{sheetTouchY=e.touches[0].clientY},{passive:true});
