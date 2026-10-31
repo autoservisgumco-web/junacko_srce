@@ -129,7 +129,7 @@ function renderActionCard(action){
  const title=document.createElement('h3');title.textContent=action.title||'Акција';
  const desc=document.createElement('p');desc.textContent=action.summary||action.description||'Погледај детаље и пријави се да помогнеш.';
  if(action.location){const place=document.createElement('p');place.textContent='Место: '+action.location;article.append(tag,title,desc,place);}else{article.append(tag,title,desc);}
- const btn=document.createElement('button');btn.type='button';btn.className='btn';btn.textContent='Придружи се овој акцији →';btn.addEventListener('click',()=>showPanel('join',action.id,action.title));article.appendChild(btn);return article;
+ const btn=document.createElement('a');btn.className='btn';btn.textContent='Погледај акцију →';btn.href='akcija.html?'+(action.slug?'slug='+encodeURIComponent(action.slug):'id='+encodeURIComponent(action.id));article.appendChild(btn);return article;
 }
 async function loadActiveActions(){
  const list=document.getElementById('activeActionsList');if(!list)return;
