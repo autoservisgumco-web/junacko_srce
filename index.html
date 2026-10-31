@@ -180,7 +180,7 @@ if(new URLSearchParams(window.location.search).has('akcija')){
 </div>
 </div>
 </section>
-<main class="hidden-content" aria-hidden="true">\n<section class="single-action" id="singleAction" hidden aria-live="polite"></section>
+<main class="hidden-content" aria-hidden="true"><section class="single-action" id="singleAction" hidden aria-live="polite"></section>
 <section class="wrap" id="akcije"><div class="section-head"><h2>Акције којима можеш да се придружиш</h2><p>Изабери оно у чему желиш да помогнеш.</p></div>
 <div class="section-head"><h2>Активне акције</h2><p>Изабери акцију којој желиш да се придружиш.</p></div><div class="cards action-list" id="activeActionsList"><p>Учитавање активних акција...</p></div>
 <div class="start-action"><div class="start-action-copy"><span class="tag">ИМАШ ИДЕЈУ?</span><h3>Покрени своју акцију</h3><p>Уочи проблем, предложи решење и позови људе из своје заједнице да ти се придруже.</p></div><button class="btn secondary" onclick="showPanel('proposal')">Предложи нову акцију →</button></div>
@@ -248,8 +248,7 @@ async function loadSingleAction(){
  const listSection=(id,heading,items,icon='●')=>Array.isArray(items)&&items.length?'<section class="single-action-panel" id="'+id+'"><h2><span>'+icon+'</span> '+heading+'</h2><ol class="single-action-list">'+items.map(item=>'<li>'+escapeActionText(item)+'</li>').join('')+'</ol></section>':'';
  const goals=Array.isArray(action.goal_items)?action.goal_items:(action.goal?[action.goal]:[]);
  const intro=action.intro||action.description||action.summary||'';
- view.innerHTML='<a class="single-action-back" href="index.html#akcije">← Све акције</a>'+
- '<section class="single-action-cover" style="background-image:url(\''+cover+'\')"><span class="single-action-status '+(active?'is-active':'is-done')+'">'+(active?'▶ АКТИВНА':'✓ ЗАВРШЕНА')+'</span></section>'+
+ view.innerHTML='<section class="single-action-cover" style="background-image:url(\''+cover+'\')"><span class="single-action-status '+(active?'is-active':'is-done')+'">'+(active?'▶ АКТИВНА':'✓ ЗАВРШЕНА')+'</span></section>'+
  '<section class="single-action-overview"><div class="single-action-main"><span class="single-action-kind">⚡ ГРАЂАНСКА АКЦИЈА</span><h1>'+escapeActionText(action.title)+'</h1><p class="single-action-summary">'+escapeActionText(action.summary||intro)+'</p><div class="single-action-meta">'+(date?'<div class="single-action-meta-item"><span>▣</span><div>Датум:<strong>'+escapeActionText(date)+'</strong></div></div>':'')+(location?'<div class="single-action-meta-item"><span>📍</span><div>Локација:<strong>'+escapeActionText(location)+'</strong></div></div>':'')+'<div class="single-action-meta-item"><span>♟</span><div>Покретач:<strong>Јовица Вратница</strong></div></div></div></div>'+
  '<aside class="single-action-stat"><div class="single-action-stat-number">'+(participantCount===null?'—':participantCount)+'</div><div class="single-action-stat-label">пријављених</div>'+(active?'<button class="btn single-action-red" type="button" id="singleJoinTop">♟ Пријави се</button>':'<span>Акција је завршена</span>')+'</aside></section>'+
  section('uvod','О акцији',intro,'●')+
