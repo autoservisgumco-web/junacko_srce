@@ -4,32 +4,47 @@
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#061A35">
 <title>Акција — Одговорна Плана</title>
 <style>
-:root{--navy:#061A35;--blue:#2166F3;--sky:#F1F5F9;--ink:#142844;--muted:#64748b}
-*{box-sizing:border-box}body{margin:0;background:var(--sky);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
-header{height:76px;background:var(--navy);display:flex;align-items:center;justify-content:space-between;padding:0 max(6vw,22px)}
-header a{color:#fff;text-decoration:none;font-weight:750}.brand{font-size:20px;font-style:italic}
-main{max-width:900px;margin:42px auto;padding:0 20px 60px}
-.back{display:inline-block;color:#2166F3;text-decoration:none;font-weight:700;margin-bottom:22px}
-.hero{background:linear-gradient(120deg,#061A35,#0d3263 68%,#2166F3);color:#fff;padding:clamp(28px,6vw,58px);border-radius:20px}
-.tag{display:inline-block;background:#d9edff;color:#135b99;border-radius:30px;padding:7px 12px;font-size:12px;font-weight:800;letter-spacing:.6px}
-.hero .tag{background:rgba(255,255,255,.14);color:#cce8ff}
-h1{font-size:clamp(32px,6vw,54px);line-height:1.1;letter-spacing:-1.2px;margin:18px 0}
-.summary{font-size:19px;line-height:1.65;color:#e0edf8;margin:0}
-.meta{display:flex;flex-wrap:wrap;gap:12px 24px;margin-top:25px;color:#d4e8fa;font-size:14px}
-.content{background:#fff;border:1px solid #e1eaf2;border-radius:18px;padding:clamp(22px,5vw,38px);margin-top:22px}
-.content h2{color:var(--navy);margin:0 0 14px}.description{white-space:pre-wrap;line-height:1.8;color:#42566d}
-.btn{border:0;border-radius:10px;background:var(--blue);color:#fff;padding:14px 22px;font-weight:750;font-size:16px;cursor:pointer}
-.join-toggle{margin-top:26px}.join-form{display:none;margin-top:26px;border-top:1px solid #e1eaf2;padding-top:24px}.join-form.open{display:block}
-label{display:block;font-weight:700;color:var(--navy);margin:15px 0 7px}
-input,select,textarea{width:100%;border:1px solid #cbd9e5;border-radius:9px;padding:12px;font:inherit;background:#fff}
-textarea{min-height:110px;resize:vertical}
-.message{margin:14px 0 0;line-height:1.5}.error{color:#b42318}.success{color:#176b3a}
+:root{--navy:#061426;--red:#d71920;--ink:#111827;--muted:#64748b;--line:#e5e7eb;--soft:#fff1f2}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#f7f8fa;color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+header{height:76px;background:var(--navy);display:flex;align-items:center;justify-content:space-between;padding:0 max(calc((100vw - 1400px)/2),24px);gap:20px}
+header a{color:#fff;text-decoration:none;font-weight:750}.brand{font-size:20px;letter-spacing:.2px;display:flex;align-items:center;gap:12px}.brand-mark{font-size:35px;color:#e21b2d;line-height:1}
+.header-links{display:flex;align-items:center;gap:clamp(12px,2.2vw,32px);font-size:14px}.header-links a{white-space:nowrap}
+main{max-width:1440px;margin:0 auto;padding:0 20px 44px}
+.back{display:inline-block;color:#334155;text-decoration:none;font-weight:700;margin:16px 0 12px}
+.action-cover{height:clamp(190px,27vw,350px);position:relative;overflow:hidden;border-radius:16px 16px 0 0;background:#dbe4ec}
+.action-cover img{width:100%;height:100%;object-fit:cover;display:block}
+.status-pill{position:absolute;top:24px;left:24px;background:#16a34a;color:white;border-radius:28px;padding:10px 19px;font-weight:850;font-size:15px;box-shadow:0 4px 15px #0002}
+.action-overview{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 238px;gap:24px;background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px 30px;margin-top:-1px;box-shadow:0 5px 20px #0f172a08}
+.overview-main{min-width:0}.kind{display:inline-flex;align-items:center;gap:8px;background:#f1f3f5;border-radius:22px;padding:6px 13px;font-size:13px;font-weight:850;color:#273244}
+h1{font-size:clamp(27px,3.2vw,46px);line-height:1.12;letter-spacing:-1.2px;margin:12px 0}
+.summary{font-size:clamp(16px,1.6vw,21px);line-height:1.42;color:#374151;margin:0;max-width:900px}
+.overview-meta{display:flex;flex-wrap:wrap;gap:12px 24px;border-top:1px solid var(--line);margin-top:20px;padding-top:17px}
+.meta-item{display:flex;align-items:center;gap:10px;padding-right:22px;border-right:1px solid var(--line);font-size:14px;color:#374151}
+.meta-item:last-child{border:0}.meta-icon{font-size:23px;color:var(--red)}.meta-item strong{display:block;color:#111827;font-size:15px}
+.join-stat{border-left:1px solid var(--line);padding:10px 0 10px 24px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.join-number{font-size:42px;line-height:1;font-weight:850}.join-label{font-size:14px;color:#475569;margin:5px 0 18px}
+.btn{border:0;border-radius:12px;background:var(--red);color:#fff;padding:13px 18px;font-weight:800;font-size:15px;cursor:pointer;text-decoration:none;display:inline-flex;justify-content:center;align-items:center;gap:8px;box-shadow:0 3px 8px #d719202b}
+.btn:hover{background:#b9151b}.join-stat .btn{width:100%}
+.content{background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px 26px;margin-top:16px}
+.content h2{color:#111827;margin:0 0 10px;font-size:22px;display:flex;align-items:center;gap:12px}.section-icon{color:var(--red);font-size:24px}
+.description{white-space:pre-wrap;line-height:1.5;color:#202938;font-size:17px}
+.place-row{display:grid;grid-template-columns:1fr minmax(280px,44%);gap:18px;align-items:stretch;min-height:118px}
+.place-map{width:100%;height:118px;border:0;border-radius:12px;background:#eef2f7}
+.callout{background:var(--soft);border:1px solid #f4d9dd;border-radius:16px;padding:18px 24px;margin-top:16px;display:flex;align-items:center;gap:18px}
+.callout-heart{font-size:40px;color:var(--red)}.callout-copy{flex:1}.callout h2{margin:0 0 3px;font-size:23px}.callout p{margin:0;color:#374151;line-height:1.4}.callout .btn{min-width:205px}
+.bottom-banner{margin:22px 4px 0;border-radius:16px;overflow:hidden;min-height:155px;padding:24px 30px;background:linear-gradient(90deg,#071321ed,#07132199),url('https://raw.githubusercontent.com/autoservisgumco-web/junacko_srce/refs/heads/main/Velika_Plana%2B.jpg') center 48%/cover;color:#fff}
+.bottom-banner h2{font-size:clamp(21px,2.5vw,30px);margin:0 0 4px}.bottom-banner p{margin:0 0 16px;font-size:17px}
+.join-form{display:none;margin-top:22px;border-top:1px solid var(--line);padding-top:18px}.join-form.open{display:block}
+label{display:block;font-weight:700;color:var(--navy);margin:13px 0 6px}
+input,select,textarea{width:100%;border:1px solid #cbd5e1;border-radius:9px;padding:11px;font:inherit;background:#fff}
+textarea{min-height:90px;resize:vertical}.message{margin:12px 0 0;line-height:1.5}.error{color:#b42318}.success{color:#176b3a}
 .empty{background:#fff;padding:28px;border-radius:16px;text-align:center;color:var(--muted)}
-@media(max-width:600px){header{height:66px}main{margin:26px auto}.hero{border-radius:15px}.content{border-radius:15px}}
+@media(max-width:760px){header{height:62px;padding:0 16px}.header-links{gap:12px;font-size:12px}.header-links a:nth-child(n+3){display:none}.brand{font-size:17px}main{padding:0 12px 28px}.action-cover{height:205px;border-radius:12px 12px 0 0}.status-pill{top:14px;left:14px;padding:8px 13px;font-size:13px}.action-overview{grid-template-columns:1fr;padding:18px;gap:14px}.join-stat{border-left:0;border-top:1px solid var(--line);padding:15px 0 0;display:grid;grid-template-columns:auto 1fr;column-gap:12px;text-align:left;justify-items:start}.join-number{grid-row:1/3;font-size:35px;align-self:center}.join-label{margin:0 0 8px}.join-stat .btn{grid-column:2;width:auto}.overview-meta{gap:12px}.meta-item{padding-right:12px}.content{padding:17px;margin-top:12px}.content h2{font-size:19px}.description{font-size:15px}.place-row{grid-template-columns:1fr;gap:10px}.place-map{height:145px}.callout{padding:15px;gap:10px;flex-wrap:wrap}.callout-heart{font-size:31px}.callout-copy{min-width:calc(100% - 55px)}.callout h2{font-size:20px}.callout p{font-size:14px}.callout .btn{width:100%}.bottom-banner{padding:20px;min-height:145px;margin:16px 0 0}}
+@media(max-width:420px){.header-links a:nth-child(2){display:none}.meta-item{font-size:12px}.meta-item strong{font-size:13px}h1{font-size:28px}}
 </style>
 </head>
 <body>
-<header><a class="brand" href="./">♡ Одговорна Плана</a><a href="./">← Почетна</a></header>
+<header><a class="brand" href="./"><span class="brand-mark">♡</span><span>ОДГОВОРНА ПЛАНА</span></a><nav class="header-links"><a href="./">⌂ Почетна</a><a href="./">⚡ Акције</a><a href="./">◈ Кампање</a><a href="./">☼ Иницијативе</a></nav></header>
 <main>
 <a class="back" href="./">← Све акције</a>
 <section id="actionContent" class="empty">Учитавање акције...</section>
@@ -50,11 +65,22 @@ async function loadAction(){
  if(error||!data){root.textContent='Ова акција тренутно није доступна.';return}
  currentAction=data;document.title=data.title+' — Одговорна Плана';
  const date=data.action_date?new Date(data.action_date+'T12:00:00').toLocaleDateString('sr-RS'):'';
+ let participants=0;
+ try{const countResult=await db.from('civic_submissions').select('id',{count:'exact',head:true}).eq('submission_type','help').contains('social_links',{action_id:data.id});if(!countResult.error)participants=countResult.count||0;}catch(_){}
+ const active=data.status!=='completed';
+ const cover=data.image_url?'<img src="'+esc(data.image_url)+'" alt="'+esc(data.title)+'">':'';
+ const mapUrl=data.location?'https://www.openstreetmap.org/export/embed.html?search='+encodeURIComponent(data.location):'';
  root.className='';
- root.innerHTML='<section class="hero"><span class="tag">'+(data.status==='completed'?'ЗАВРШЕНА АКЦИЈА':'ГРАЂАНСКА АКЦИЈА')+'</span><h1>'+esc(data.title)+'</h1><p class="summary">'+esc(data.summary||'')+'</p><div class="meta">'+(data.location?'<span>📍 '+esc(data.location)+'</span>':'')+(date?'<span>📅 '+esc(date)+'</span>':'')+'</div></section>'+
- '<section class="content"><h2>О акцији</h2><div class="description">'+esc(data.description||data.summary||'Више информација о овој акцији ускоро.')+'</div>'+
- (data.status==='completed'?'<p class="message">Ова акција је завршена.</p>':'<button class="btn join-toggle" id="joinToggle" type="button">Придружи се овој акцији →</button>'+
- '<form class="join-form" id="joinForm"><h2>Како желиш да се прикључиш?</h2><label for="joinType">Изабери начин прикључења</label><select id="joinType" required><option value="">Изабери начин помоћи</option><option value="Практична помоћ и волонтирање">Практична помоћ и волонтирање</option><option value="Материјал или опрема">Обезбеђивање материјала или опреме</option><option value="Стручна помоћ">Стручна помоћ и знање</option><option value="Организација и промоција">Организација и промоција</option><option value="Друго">Други начин помоћи</option></select><label for="joinName">Име и презиме</label><input id="joinName" required minlength="2" maxlength="120" placeholder="Име и презиме"><label for="joinPhone">Viber број / телефон</label><input id="joinPhone" required type="tel" maxlength="60" placeholder="Број телефона"><label for="joinNote">Додатна порука (није обавезно)</label><textarea id="joinNote" maxlength="3000" placeholder="Напиши како конкретно можеш да помогнеш..."></textarea><button class="btn" type="submit">Пошаљи пријаву</button><p id="joinMessage" class="message" role="status" aria-live="polite"></p></form>')+'</section>';
+ root.innerHTML='<section class="action-cover">'+cover+'<span class="status-pill">'+(active?'▶ АКТИВНА':'✓ ЗАВРШЕНА')+'</span></section>'+
+ '<section class="action-overview"><div class="overview-main"><span class="kind">⚡ АКЦИЈА</span><h1>'+esc(data.title)+'</h1><p class="summary">'+esc(data.summary||'')+'</p><div class="overview-meta">'+(date?'<div class="meta-item"><span class="meta-icon">▣</span><span>Почетак:<strong>'+esc(date)+'</strong></span></div>':'')+(data.location?'<div class="meta-item"><span class="meta-icon">📍</span><span>Локација:<strong>'+esc(data.location)+'</strong></span></div>':'')+'<div class="meta-item"><span class="meta-icon">♟</span><span>Покретач:<strong>Грађанска иницијатива</strong></span></div></div></div>'+
+ '<aside class="join-stat"><div class="join-number">'+participants+'</div><div class="join-label">пријављених</div>'+(active?'<button class="btn" type="button" id="joinTop">♟ Придружи се</button>':'<span>Акција је завршена</span>')+'</aside></section>'+
+ '<section class="content"><h2><span class="section-icon">●</span> Опис акције</h2><div class="description">'+esc(data.description||data.summary||'Више информација о овој акцији ускоро.')+'</div></section>'+
+ (data.location?'<section class="content place-row"><div><h2><span class="section-icon">📍</span> Место</h2><div class="description">'+esc(data.location)+'</div></div>'+(mapUrl?'<iframe class="place-map" title="Мапа локације акције" loading="lazy" src="'+mapUrl+'"></iframe>':'')+'</section>':'')+
+ (active?'<section class="callout"><div class="callout-heart">♥</div><div class="callout-copy"><h2>Укључи се!</h2><p>Заједно можемо више. Пријави се, подржи акцију и помози да наше место буде боље.</p></div><button class="btn" type="button" id="joinBottom">♟ Придружи се</button></section>'+
+ '<section class="content"><form class="join-form" id="joinForm"><h2>Како желиш да се прикључиш?</h2><label for="joinType">Изабери начин прикључења</label><select id="joinType" required><option value="">Изабери начин помоћи</option><option value="Практична помоћ и волонтирање">Практична помоћ и волонтирање</option><option value="Материјал или опрема">Обезбеђивање материјала или опреме</option><option value="Стручна помоћ">Стручна помоћ и знање</option><option value="Организација и промоција">Организација и промоција</option><option value="Друго">Други начин помоћи</option></select><label for="joinName">Име и презиме</label><input id="joinName" required minlength="2" maxlength="120" placeholder="Име и презиме"><label for="joinPhone">Viber број / телефон</label><input id="joinPhone" required type="tel" maxlength="60" placeholder="Број телефона"><label for="joinNote">Додатна порука (није обавезно)</label><textarea id="joinNote" maxlength="3000" placeholder="Напиши како конкретно можеш да помогнеш..."></textarea><button class="btn" type="submit">Пошаљи пријаву</button><p id="joinMessage" class="message" role="status" aria-live="polite"></p></form></section>':'')+
+ '<section class="bottom-banner"><h2>Имаш проблем који не треба да остане само прича?</h2><p>Покрени акцију и заједно тражимо решење.</p><a class="btn" href="./">⚡ Покрени акцију</a></section>';
+ const showJoin=()=>{const form=document.getElementById('joinForm');if(form){form.classList.add('open');form.scrollIntoView({behavior:'smooth',block:'center'});}};
+ ['joinTop','joinBottom'].forEach(id=>{const button=document.getElementById(id);if(button)button.addEventListener('click',showJoin);});
  const toggle=document.getElementById('joinToggle');
  if(toggle)toggle.addEventListener('click',()=>{document.getElementById('joinForm').classList.toggle('open');toggle.textContent=document.getElementById('joinForm').classList.contains('open')?'Затвори пријаву':'Придружи се овој акцији →';});
  const form=document.getElementById('joinForm');
