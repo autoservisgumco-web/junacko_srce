@@ -115,6 +115,7 @@ function renderSubmission(item){
 }
 async function loadSubmissions(){
  list.innerHTML='<p class="empty">Учитавање пријава...</p>';
+ await loadParticipants();
  const {data,error}=await db.from('civic_submissions').select('id,submission_type,title,description,full_name,email,phone,viber_phone,location,support_type,status,created_at,social_links').order('created_at',{ascending:false});
  if(error){list.innerHTML='<p class="empty">Не могу да учитам пријаве. Проверите да ли сте пријављени администраторским налогом.</p>';return}
  submissions=(data||[]).filter(x=>x.submission_type!=='help');renderList();
