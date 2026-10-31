@@ -52,7 +52,10 @@ body.sheet-open{overflow:hidden}.sheet-backdrop{position:fixed;inset:0;backgroun
 body.action-page{background:#F1F5F9;min-height:100vh;overflow-x:hidden}
 body.action-page .site-header{position:relative;background:#061A35;height:100px;padding:14px max(6.8vw,24px);box-shadow:0 2px 16px #102b4e20}
 body.action-page .site-nav a[href="#akcije"]{color:#8ecbff}
-body.action-page .hero-full{display:none}
+body.action-page .hero-full{display:none!important}
+body.action-page main.hidden-content{display:block!important}
+body.action-page #singleAction[hidden]{display:none!important}
+body.action-page #singleAction:not([hidden]){display:block!important}
 body.action-page main.hidden-content{display:block;min-height:65vh}
 body.action-page #akcije{display:none}
 .single-action{max-width:940px;margin:42px auto 65px;padding:0 22px}
@@ -117,6 +120,12 @@ body.action-page .single-action-back{margin:0 0 14px;color:#2166f3}
 </style>
 </head>
 <body class="home-hero" id="pocetna">
+<script>
+if(new URLSearchParams(window.location.search).has('akcija')){
+ document.body.classList.remove('home-hero');
+ document.body.classList.add('action-page');
+}
+</script>
 <header class="site-header">
 <a class="site-brand" href="#pocetna" aria-label="Одговорна Плана — почетна"><span class="brand-heart">♡</span><span>Одговорна<br>Плана</span></a>
 <nav class="site-nav" aria-label="Главна навигација">
