@@ -259,7 +259,7 @@ async function loadSingleAction(){
  section('potrebno','Шта је потребно понети?',action.materials,'＋')+
  section('okupljanje','Када и где се окупљамо?',action.meeting_info,'📍')+
  section('poziv','Позив на акцију',action.call_to_action,'♥')+
- section('rezultati','Резултати акције',action.results,'✓')+
+ (action.results&&action.results.trim()?section('rezultati','Резултати акције',action.results,'✓'):'')+
  (location?'<section class="single-action-panel single-action-place"><div><h2><span>📍</span> Место</h2><p>'+escapeActionText(location)+'</p></div><iframe title="Мапа локације акције" loading="lazy" src="'+map+'"></iframe></section>':'')+
  (active?'<div class="single-action-sticky-join"><span>♥</span><div><strong>Укључи се у акцију</strong><small>Заједно можемо више.</small></div><button class="btn single-action-red" type="button" id="singleJoinBottom">Прикључи се</button></div>':'')+
  '<section class="single-action-banner"><h2>Имаш проблем који не треба да остане само прича?</h2><p>Покрени акцију и заједно тражимо решење.</p><a class="btn single-action-red" href="predlog-akcije.html">⚡ Покрени акцију</a></section>';
