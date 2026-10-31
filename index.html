@@ -203,7 +203,7 @@ function hidePanels(){
 }
 
 async function loadSingleAction(){
- const key=new URLSearchParams(location.search).get('akcija');if(!key)return;
+ const key=new URLSearchParams(window.location.search).get('akcija');if(!key)return;
  document.body.classList.remove('home-hero');document.body.classList.add('action-page');
  const main=document.querySelector('main.hidden-content');main.classList.remove('hidden-content');main.removeAttribute('aria-hidden');
  document.getElementById('akcije').style.display='none';
