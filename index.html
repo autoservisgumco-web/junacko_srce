@@ -141,6 +141,25 @@ body.action-page .single-action-cover{width:calc(100% + 40px);margin-left:-20px;
  .single-action-stat{border-left:0;border-top:1px solid #e5e7eb;padding:15px 0 0}
  .single-action-sticky-join{padding-left:14px;padding-right:14px}
 }
+
+/* Почетна — издвојене главне могућности и кратак увод у пројекат. */
+.hero-buttons{grid-template-columns:repeat(3,minmax(0,1fr));width:min(1180px,100%);gap:16px}
+.hero-cta{min-height:128px;padding:18px 20px;gap:15px}
+.cta-icon{width:62px;height:62px;flex-basis:62px;font-size:40px}
+.people-icon{font-size:44px}
+.cta-copy strong{font-size:clamp(18px,1.7vw,25px)}
+.cta-copy small{font-size:14px}
+.cta-arrow{width:42px;height:42px;flex-basis:42px;font-size:28px}
+.home-project-summary{position:relative;background:#f1f5f9;padding:clamp(28px,5vw,54px) 24px}
+.home-project-inner{width:min(1120px,100%);margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:32px;padding:clamp(22px,4vw,38px);background:#fff;border:1px solid #dce5f0;border-radius:18px;box-shadow:0 12px 38px #061a350b}
+.home-project-copy{max-width:790px}
+.home-project-kicker{font-size:11px;font-weight:900;letter-spacing:2px;color:#2166f3;margin-bottom:9px}
+.home-project-copy h2{font-size:clamp(24px,3.2vw,36px);line-height:1.18;letter-spacing:-.7px;color:#061a35;margin:0 0 11px}
+.home-project-copy p{font-size:16px;line-height:1.65;color:#526780;margin:0}
+.home-project-link{flex:0 0 auto;display:inline-flex;align-items:center;gap:12px;padding:14px 19px;border-radius:11px;background:#2166f3;color:#fff;text-decoration:none;font-weight:850;white-space:nowrap}
+.home-project-link span{font-size:22px}
+@media(max-width:900px){.hero-buttons{grid-template-columns:1fr;max-width:720px;margin-top:28px}.hero-cta{min-height:100px}.home-project-inner{align-items:flex-start;flex-direction:column;gap:18px}.home-project-link{width:100%;justify-content:center}}
+@media(max-width:760px){.hero-full{height:auto;min-height:100svh;padding:105px 18px 28px}.hero-inner{min-height:0;justify-content:center}.hero-full h1{font-size:clamp(42px,11vw,62px)}.hero-buttons{gap:11px;margin-top:24px}.hero-cta{min-height:88px;padding:13px 14px;gap:12px}.cta-icon{width:48px;height:48px;flex-basis:48px;font-size:31px}.people-icon{font-size:34px}.cta-copy strong{font-size:18px}.cta-copy small{font-size:12px}.cta-arrow{width:34px;height:34px;flex-basis:34px;font-size:23px}.home-project-summary{padding:22px 15px}.home-project-inner{padding:22px 18px}.home-project-copy p{font-size:14px}}
 </style>
 </head>
 <body class="home-hero" id="pocetna">
@@ -160,7 +179,7 @@ if(new URLSearchParams(window.location.search).has('akcija')){
 <button class="menu-trigger" id="openMenu" type="button" aria-label="Отвори мени">☰</button>
 </header>
 <div class="menu-backdrop" id="menuBackdrop" hidden></div>
-<aside class="side-menu" id="sideMenu" aria-hidden="true"><div class="side-menu-head"><span>♡ Одговорна Плана</span><button class="side-menu-close" id="closeMenu" type="button" aria-label="Затвори мени">×</button></div><nav aria-label="Мени"><a href="index.html">Почетна</a><a href="#" onclick="closeSideMenu();showPanel('proposal');return false">Предложи акцију</a><a href="#" onclick="closeSideMenu();showPanel('akcije');return false">Акције</a><a href="#" onclick="closeSideMenu();showPanel('membership');return false">Пријави се за чланство</a></nav></aside>
+<aside class="side-menu" id="sideMenu" aria-hidden="true"><div class="side-menu-head"><span>♡ Одговорна Плана</span><button class="side-menu-close" id="closeMenu" type="button" aria-label="Затвори мени">×</button></div><nav aria-label="Мени"><a href="index.html">Почетна</a><a href="#" onclick="closeSideMenu();showPanel('proposal');return false">Предложи акцију</a><a href="#" onclick="closeSideMenu();showPanel('akcije');return false">Акције</a><a href="#" onclick="closeSideMenu();showPanel('membership');return false">Прикључи се заједници</a><a href="o-projektu.html">Више о пројекту</a></nav></aside>
 <section class="hero hero-full">
 <div class="hero-inner">
 <div class="hero-copy">
@@ -170,18 +189,32 @@ if(new URLSearchParams(window.location.search).has('akcija')){
 </div>
 <div class="hero-buttons">
 <button class="hero-cta" type="button" onclick="showPanel('proposal')">
-<span class="cta-icon" aria-hidden="true">✎</span>
-<span class="cta-copy"><strong>Предложи</strong><small>Имаш идеју? Предложи акцију која може да направи разлику.</small></span>
+<span class="cta-icon" aria-hidden="true">＋</span>
+<span class="cta-copy"><strong>Покрени акцију</strong><small>Имаш идеју или уочаваш проблем? Предложи шта можемо да урадимо заједно.</small></span>
 <span class="cta-arrow" aria-hidden="true">→</span>
 </button>
-<button class="hero-cta" type="button" onclick="showPanel('membership')"><span class="cta-icon" aria-hidden="true">♡</span><span class="cta-copy"><strong>Пријави се</strong><small>Постани део Одговорне Плане и укључи се у рад организације, независно од појединачних акција.</small></span><span class="cta-arrow" aria-hidden="true">→</span></button>
 <button class="hero-cta" type="button" onclick="showPanel('akcije')">
 <span class="cta-icon people-icon" aria-hidden="true">♡</span>
-<span class="cta-copy"><strong>Подржи</strong><small>Погледај акције и иницијативе и подржи оно што је важно нашој заједници.</small></span>
+<span class="cta-copy"><strong>Придружи се акцији</strong><small>Погледај иницијативе које су већ покренуте и укључи се.</small></span>
+<span class="cta-arrow" aria-hidden="true">→</span>
+</button>
+<button class="hero-cta" type="button" onclick="showPanel('membership')">
+<span class="cta-icon" aria-hidden="true">◎</span>
+<span class="cta-copy"><strong>Прикључи се заједници</strong><small>Постани део Одговорне Плане и доприноси раду заједнице, и ван појединачних акција.</small></span>
 <span class="cta-arrow" aria-hidden="true">→</span>
 </button>
 </div>
 </div>
+</section>
+<section class="home-project-summary" aria-labelledby="homeProjectTitle">
+ <div class="home-project-inner">
+  <div class="home-project-copy">
+   <div class="home-project-kicker">МЕСТО ЗА ЗАЈЕДНИЧКО ДЕЛОВАЊЕ</div>
+   <h2 id="homeProjectTitle">Одговорна Плана повезује људе који желе да мењају своје окружење.</h2>
+   <p>Ово је простор у ком грађани могу да укажу на проблем, предложе идеју, покрену акцију и пронађу друге који желе да помогну. Не мораш све сам — важно је да направимо први корак и повежемо се.</p>
+  </div>
+  <a class="home-project-link" href="o-projektu.html">Више о пројекту <span aria-hidden="true">→</span></a>
+ </div>
 </section>
 <main class="hidden-content" aria-hidden="true"><section class="single-action" id="singleAction" hidden aria-live="polite"></section>
 <section class="wrap" id="akcije"><div class="section-head"><h2>Акције којима можеш да се придружиш</h2><p>Изабери оно у чему желиш да помогнеш.</p></div>
