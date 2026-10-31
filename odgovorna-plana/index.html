@@ -140,7 +140,7 @@ function safe(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&
 async function loadActions(){
  const root=$('actionsList');
  try{
-  const {data,error}=await db.from('civic_submissions').select('id,title,description,location,created_at').eq('submission_type','action').in('status',['accepted','published']).order('created_at',{ascending:false});
+  const {data,error}=await db.from('civic_submissions').select('id,title,description,location,created_at').eq('submission_type','action').eq('status','published').order('created_at',{ascending:false});
   if(error)throw error;
   if(!data?.length){root.innerHTML='<div class="empty">Тренутно нема објављених акција. Предложи своју — можда баш она буде следећа.</div>';return;}
   root.innerHTML=data.map(a=>'<article class="action" data-id="'+safe(a.id)+'"><h3>'+safe(a.title)+'</h3><div class="meta">'+(a.location?'📍 '+safe(a.location):'')+'</div><p>'+safe(a.description)+'</p><button class="btn secondary joinToggle" type="button">Придружи се овој акцији →</button><form class="joinbox joinForm"><div class="fields"><div class="field"><label>Име и презиме *</label><input name="full_name" required minlength="2" maxlength="120"></div><div class="field"><label>Имејл *</label><input name="email" type="email" required></div><div class="field full"><label>Телефон / Viber (није обавезно)</label><input name="viber_phone" type="tel"></div></div><button class="btn" type="submit">Пошаљи пријаву</button><div class="msg joinMessage" role="status"></div></form></article>').join('');
