@@ -51,6 +51,67 @@ button{border:0;border-radius:9px;padding:11px 17px;font:inherit;font-weight:750
 </main>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const db=window.supabase.createClient('https://hmfeizkmpmxcnzhwxgbn.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXAiLCJyZWYiOiJobWZlaXprbXBteGNuemh3eGdibnIiLCJyb2xlIjoiYW5vbiIsImlhdCI6MTc5MzMyOTI3OCwiZXhwIjoyMTA4OTA1Mjc4fQ.invalid');
+const db=window.supabase.createClient('https://hmfeizkmpmxcnzhwxgbn.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhtZmVpemttcG14Y256aHd4Z2JuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMzMjkyNzgsImV4cCI6MjEwODkwNTI3OH0.oTZopOJEGUnxK69BOYPP11CQoGrLqUJowqpPU2uiY-4');
+
+const authBox=document.getElementById('authBox'),dashboard=document.getElementById('dashboard'),message=document.getElementById('message'),list=document.getElementById('submissions');
+let submissions=[],currentFilter='all';
+function showMessage(text,error=true){message.textContent=text;message.style.color=error?'#b42318':'#176b3a'}
+async function refreshSession(){
+ const {data:{session}}=await db.auth.getSession();
+ if(session){authBox.hidden=true;dashboard.hidden=false;await loadSubmissions()}
+ else{authBox.hidden=false;dashboard.hidden=true}
+}
+document.getElementById('authForm').addEventListener('submit',async e=>{
+ e.preventDefault();const email=document.getElementById('email').value.trim().toLowerCase(),password=document.getElementById('password').value;
+ const {error}=await db.auth.signInWithPassword({email,password});
+ if(error){showMessage('Пријава није успела. Проверите е-пошту и лозинку.');return}
+ showMessage('',false);await refreshSession();
+});
+document.getElementById('signup').addEventListener('click',async()=>{
+ const email=document.getElementById('email').value.trim().toLowerCase(),password=document.getElementById('password').value;
+ if(email!=='jefimijaorg@gmail.com'){showMessage('Регистрација је дозвољена само за одређену администраторску адресу.');return}
+ if(password.length<8){showMessage('Унесите лозинку од најмање 8 карактера.');return}
+ const {error}=await db.auth.signUp({email,password});
+ if(error){showMessage('Регистрација није успела: '+error.message);return}
+ showMessage('Захтев за регистрацију је послат. Проверите е-пошту ради потврде налога.',false);
+});
+document.getElementById('logout').addEventListener('click',async()=>{await db.auth.signOut();await refreshSession()});
+function esc(value){return String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]))}
+function statusLabel(status){return status==='accepted'?'Прихваћено':status==='rejected'?'Није прихваћено':'Чека одлуку'}
+function renderSubmission(item){
+ const card=document.createElement('article');card.className='submission';
+ const date=item.created_at?new Date(item.created_at).toLocaleString('sr-RS'):'';
+ const kind=item.submission_type==='action'?'Предлог акције':item.submission_type==='help'?'Пријава за акцију':'Пријава';
+ const person=item.full_name||'Није наведено',phone=item.viber_phone||item.phone||'Није наведен';
+ const actionTitle=item.social_links&&item.social_links.action_title?'За акцију: '+item.social_links.action_title:'';
+ card.innerHTML='<div class="toolbar"><span class="tag">'+esc(kind)+'</span><span class="status '+(item.status==='accepted'?'accepted':item.status==='rejected'?'rejected':'')+'">'+esc(statusLabel(item.status))+'</span></div>'+
+ '<h2>'+esc(item.title)+'</h2><div class="meta"><strong>'+esc(person)+'</strong> · '+esc(phone)+'<br>'+esc(date)+'<br>'+esc(actionTitle)+'</div>'+
+ '<div class="description">'+esc(item.description)+'</div>'+
+ '<div class="actions"><button class="primary" data-status="accepted">✓ Прихвати</button><button class="quiet" data-status="rejected">✕ Не прихватај</button><button class="quiet" data-status="new">Врати на чекање</button></div>';
+ card.querySelectorAll('button[data-status]').forEach(btn=>btn.addEventListener('click',()=>updateStatus(item.id,btn.dataset.status,btn)));
+ return card;
+}
+async function loadSubmissions(){
+ list.innerHTML='<p class="empty">Учитавање пријава...</p>';
+ const {data,error}=await db.from('civic_submissions').select('id,submission_type,title,description,full_name,phone,viber_phone,status,created_at,social_links').order('created_at',{ascending:false});
+ if(error){list.innerHTML='<p class="empty">Не могу да учитам пријаве. Проверите да ли сте пријављени администраторским налогом.</p>';return}
+ submissions=data||[];renderList();
+}
+function renderList(){
+ const rows=currentFilter==='all'?submissions:submissions.filter(x=>currentFilter==='new'?(!x.status||x.status==='new'):x.status===currentFilter);
+ list.replaceChildren();
+ if(!rows.length){list.innerHTML='<p class="empty">Нема пријава у овој категорији.</p>';return}
+ rows.forEach(item=>list.appendChild(renderSubmission(item)));
+}
+async function updateStatus(id,status,button){
+ button.disabled=true;const {error}=await db.from('civic_submissions').update({status}).eq('id',id);
+ button.disabled=false;
+ const note=document.getElementById('listMessage');
+ if(error){note.textContent='Статус није сачуван. Покушајте поново.';return}
+ note.textContent='Статус је сачуван.';const row=submissions.find(x=>x.id===id);if(row)row.status=status;renderList();
+}
+document.querySelectorAll('[data-filter]').forEach(btn=>btn.addEventListener('click',()=>{currentFilter=btn.dataset.filter;renderList()}));
+db.auth.onAuthStateChange(()=>{refreshSession()});
+refreshSession();
 </script>
 </body></html>
