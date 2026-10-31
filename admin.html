@@ -85,11 +85,21 @@ function renderParticipant(item){
  const actionTitle=item.social_links&&item.social_links.action_title?item.social_links.action_title:(item.title||'Акција није наведена').replace(/^Пријава за акцију:\s*/i,'');
  const details=document.createElement('div');
  const phoneHref=phone?'tel:'+phone.replace(/[^+\d]/g,''):'';const emailHref=email?'mailto:'+email:'';
- card.innerHTML='<div class="toolbar"><span class="status">Пријава за учешће</span><span class="meta">'+esc(date)+'</span></div><h2>'+esc(person)+'</h2><div class="meta"><strong>Акција:</strong> '+esc(actionTitle)+'</div><div class="actions"><button class="primary" type="button">Погледај пријаву</button></div>';
+ const status=item.status||'new';
+ const statusText=status==='accepted'?'Одобрен':status==='rejected'?'Одбијен':'Пријављен';
+ card.innerHTML='<div class="toolbar"><span class="status '+(status==='accepted'?'accepted':status==='rejected'?'rejected':'')+'">'+statusText+'</span><span class="meta">'+esc(date)+'</span></div><h2>'+esc(person)+'</h2><div class="meta"><strong>Акција:</strong> '+esc(actionTitle)+'</div><div class="actions"><button class="primary" type="button">Погледај пријаву</button>'+(status!=='accepted'?'<button class="primary" type="button" data-participant-status="accepted">Одобри учешће</button>':'')+(status!=='rejected'?'<button class="quiet" type="button" data-participant-status="rejected">Одбиј</button>':'')+(status!=='new'?'<button class="quiet" type="button" data-participant-status="new">Врати на пријаву</button>':'')+'</div>';
  details.className='participant-details';details.hidden=true;
  details.innerHTML='<div class="meta"><strong>Име и презиме:</strong> '+esc(item.full_name||'Није наведено')+'<br><strong>Акција:</strong> '+esc(actionTitle)+'<br><strong>Телефон:</strong> '+esc(phone||'Није наведен')+'<br><strong>Имејл:</strong> '+esc(email||'Није наведен')+'<br><strong>Начин учешћа:</strong> '+esc(item.support_type||'Није наведен')+'<br><strong>Место:</strong> '+esc(item.location||'Није наведено')+'</div><div class="description">'+esc(item.description||'Особа није унела додатну поруку.')+'</div><div class="contact-links">'+(phoneHref?'<a href="'+esc(phoneHref)+'">Позови</a>':'')+(emailHref?'<a href="'+esc(emailHref)+'">Пошаљи имејл</a>':'')+'</div>';
- card.querySelector('button').addEventListener('click',()=>{details.hidden=!details.hidden;card.querySelector('button').textContent=details.hidden?'Погледај пријаву':'Затвори детаље';});
+ card.querySelector('button:not([data-participant-status])').addEventListener('click',()=>{details.hidden=!details.hidden;card.querySelector('button:not([data-participant-status])').textContent=details.hidden?'Погледај пријаву':'Затвори детаље';});
+ card.querySelectorAll('button[data-participant-status]').forEach(btn=>btn.addEventListener('click',()=>updateParticipantStatus(item.id,btn.dataset.participantStatus,btn)));
  card.appendChild(details);return card;
+}
+async function updateParticipantStatus(id,status,button){
+ button.disabled=true;
+ const {error}=await db.from('civic_submissions').update({status}).eq('id',id);
+ button.disabled=false;
+ if(error){alert('Статус није сачуван. Покушајте поново.');return;}
+ await loadParticipants();
 }
 async function loadParticipants(){
  participantsList.innerHTML='<p class="empty">Учитавање пријава...</p>';
