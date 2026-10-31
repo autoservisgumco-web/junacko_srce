@@ -22,7 +22,7 @@ button{border:0;border-radius:9px;padding:11px 17px;font:inherit;font-weight:750
 .description{white-space:pre-wrap;line-height:1.6;margin:14px 0}
 .empty{padding:28px;text-align:center;color:var(--muted);background:#fff;border-radius:14px}
 #dashboard[hidden],#authBox[hidden]{display:none}
-.toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.category-nav{display:flex;gap:9px;flex-wrap:wrap;margin:18px 0 8px}.contact-row{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:10px}.contact-row a{display:inline-flex;align-items:center;text-decoration:none;border-radius:8px;padding:7px 11px;font-size:13px;font-weight:750;background:#e8eef5;color:#102b4e}.contact-row a.viber{background:#7360a8;color:#fff}.contact-number{font-weight:750;color:var(--ink)}.submission .tag{font-size:13px;font-weight:800;color:#2166F3}
 #message{color:#b42318;margin-top:12px;font-size:14px}
 @media(max-width:600px){header{align-items:flex-start;flex-direction:column}.box,.submission{padding:17px}}
 </style>
@@ -37,14 +37,14 @@ button{border:0;border-radius:9px;padding:11px 17px;font:inherit;font-weight:750
 <p class="meta">Приступ је ограничен на администраторски налог.</p>
 <form id="authForm">
 <label for="email">Е-пошта</label><input id="email" type="email" autocomplete="username" required>
-<label for="password">Лозинка</label><input id="password" type="password" autocomplete="current-password" required minlength="8>
+<label for="password">Лозинка</label><input id="password" type="password" autocomplete="current-password" required minlength="8">
 <div class="actions"><button class="primary" type="submit">Пријави се</button><button class="quiet" type="button" id="signup">Региструј администраторски налог</button></div>
 <p id="message" role="status"></p>
 </form>
 </section>
 <section id="dashboard" hidden>
 <div class="toolbar"><div><h2>Пристигле пријаве и предлози</h2><p class="meta">Статус можеш да промениш кад год желиш.</p></div><button class="quiet" id="logout">Одјави се</button></div>
-<div class="actions" style="margin:12px 0 20px"><button class="quiet" data-filter="all">Све</button><button class="quiet" data-filter="new">Нерешене</button><button class="quiet" data-filter="accepted">Прихваћене</button><button class="quiet" data-filter="rejected">Нису прихваћене</button></div>
+<nav class="category-nav" aria-label="Врста пријаве"><button class="primary" type="button" data-category="participation">Пријаве за учешће</button><button class="quiet" type="button" data-category="proposals">Предлози пројеката</button></nav><div class="actions" style="margin:12px 0 20px"><button class="quiet" data-filter="all">Све</button><button class="quiet" data-filter="new">Нерешене</button><button class="quiet" data-filter="accepted">Прихваћене</button><button class="quiet" data-filter="rejected">Одбијене</button></div>
 <div id="submissions"><p class="empty">Учитавање...</p></div>
 <p id="listMessage" class="meta" role="status"></p>
 </section>
@@ -54,7 +54,7 @@ button{border:0;border-radius:9px;padding:11px 17px;font:inherit;font-weight:750
 const db=window.supabase.createClient('https://hmfeizkmpmxcnzhwxgbn.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhtZmVpemttcG14Y256aHd4Z2JuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMzMjkyNzgsImV4cCI6MjEwODkwNTI3OH0.oTZopOJEGUnxK69BOYPP11CQoGrLqUJowqpPU2uiY-4');
 
 const authBox=document.getElementById('authBox'),dashboard=document.getElementById('dashboard'),message=document.getElementById('message'),list=document.getElementById('submissions');
-let submissions=[],currentFilter='all';
+let submissions=[],currentFilter='all',currentCategory='participation';
 function showMessage(text,error=true){message.textContent=text;message.style.color=error?'#b42318':'#176b3a'}
 async function refreshSession(){
  const {data:{session}}=await db.auth.getSession();
@@ -86,9 +86,9 @@ function renderSubmission(item){
  const actionTitle=item.social_links&&item.social_links.action_title?'За акцију: '+item.social_links.action_title:'';
  const extra=[item.support_type?'Врста подршке: '+item.support_type:'',item.location?'Локација: '+item.location:''].filter(Boolean).join(' · ');
  card.innerHTML='<div class="toolbar"><span class="tag">'+esc(kind)+'</span><span class="status '+(item.status==='accepted'?'accepted':item.status==='rejected'?'rejected':'')+'">'+esc(statusLabel(item.status))+'</span></div>'+
- '<h2>'+esc(item.title)+'</h2><div class="meta"><strong>'+esc(person)+'</strong><br>Имејл: '+esc(email)+' · Телефон: '+esc(phone)+'<br>'+esc(date)+'<br>'+esc(actionTitle)+'<br>'+esc(extra)+'</div>'+
+ '<h2>'+esc(item.title)+'</h2><div class="meta"><strong>'+esc(person)+'</strong><br>Имејл: '+esc(email)+'<br>'+esc(date)+'<br>'+esc(actionTitle)+'<br>'+esc(extra)+'</div>'+(item.phone||item.viber_phone||item.email?'<div class="contact-row">'+((item.phone||item.viber_phone)?'<span class="contact-number">'+esc(item.viber_phone||item.phone)+'</span><a href="tel:'+esc((item.phone||item.viber_phone).replace(/[^0-9+]/g,''))+'">Позови</a><a class="viber" href="viber://chat?number='+encodeURIComponent((item.viber_phone||item.phone).replace(/[^0-9+]/g,''))+'">Viber</a>':'')+(item.email?'<a href="mailto:'+esc(item.email)+'">Email</a>':'')+'</div>':'')+
  '<div class="description">'+esc(item.description)+'</div>'+
- '<div class="actions">'+(item.submission_type==='action'?'<button class="primary" data-status="published">Објави акцију</button>':'')+'<button class="primary" data-status="accepted">✓ Прихвати</button><button class="quiet" data-status="rejected">✕ Не прихватај</button><button class="quiet" data-status="new">Врати на чекање</button></div>';
+ '<div class="actions">'+(item.submission_type==='action'&&item.status!=='published'?'<button class="secondary" data-status="published">Објави акцију</button>':'')+(item.status!=='accepted'&&item.status!=='published'?'<button class="primary" data-status="accepted">✓ Прихвати</button>':'')+(item.status!=='rejected'?'<button class="quiet" data-status="rejected">✕ Одбиј</button>':'')+(item.status&&item.status!=='new'?'<button class="quiet" data-status="new">Врати на чекање</button>':'')+'</div>';
  card.querySelectorAll('button[data-status]').forEach(btn=>btn.addEventListener('click',()=>updateStatus(item.id,btn.dataset.status,btn)));
  return card;
 }
@@ -99,7 +99,7 @@ async function loadSubmissions(){
  submissions=data||[];renderList();
 }
 function renderList(){
- const rows=currentFilter==='all'?submissions:submissions.filter(x=>currentFilter==='new'?(!x.status||x.status==='new'):x.status===currentFilter);
+ const participationTypes=['membership','help','adoption'];const proposalTypes=['action','campaign','problem'];const types=currentCategory==='participation'?participationTypes:proposalTypes;const grouped=submissions.filter(x=>types.includes(x.submission_type));const rows=currentFilter==='all'?grouped:grouped.filter(x=>currentFilter==='new'?(!x.status||x.status==='new'):currentFilter==='accepted'?(x.status==='accepted'||x.status==='published'):x.status===currentFilter);
  list.replaceChildren();
  if(!rows.length){list.innerHTML='<p class="empty">Нема пријава у овој категорији.</p>';return}
  rows.forEach(item=>list.appendChild(renderSubmission(item)));
@@ -111,7 +111,7 @@ async function updateStatus(id,status,button){
  if(error){note.textContent='Статус није сачуван. Покушајте поново.';return}
  note.textContent='Статус је сачуван.';const row=submissions.find(x=>x.id===id);if(row)row.status=status;renderList();
 }
-document.querySelectorAll('[data-filter]').forEach(btn=>btn.addEventListener('click',()=>{currentFilter=btn.dataset.filter;renderList()}));
+document.querySelectorAll('[data-filter]').forEach(btn=>btn.addEventListener('click',()=>{currentFilter=btn.dataset.filter;renderList()}));document.querySelectorAll('[data-category]').forEach(btn=>btn.addEventListener('click',()=>{currentCategory=btn.dataset.category;document.querySelectorAll('[data-category]').forEach(b=>{b.className=b===btn?'primary':'quiet'});renderList()}));
 db.auth.onAuthStateChange(()=>{refreshSession()});
 refreshSession();
 </script>
