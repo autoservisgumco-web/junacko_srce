@@ -69,7 +69,7 @@ async function loadAction(){
  try{const countResult=await db.from('civic_submissions').select('id',{count:'exact',head:true}).eq('submission_type','help').contains('social_links',{action_id:data.id});if(!countResult.error)participants=countResult.count||0;}catch(_){}
  const active=data.status!=='completed';
  const cover=data.image_url?'<img src="'+esc(data.image_url)+'" alt="'+esc(data.title)+'">':'';
- const mapUrl=data.location?'https://www.openstreetmap.org/export/embed.html?search='+encodeURIComponent(data.location):'';
+ const mapUrl=data.location?'https://maps.google.com/maps?q='+encodeURIComponent(data.location)+'&output=embed':'';
  root.className='';
  root.innerHTML='<section class="action-cover">'+cover+'<span class="status-pill">'+(active?'▶ АКТИВНА':'✓ ЗАВРШЕНА')+'</span></section>'+
  '<section class="action-overview"><div class="overview-main"><span class="kind">⚡ АКЦИЈА</span><h1>'+esc(data.title)+'</h1><p class="summary">'+esc(data.summary||'')+'</p><div class="overview-meta">'+(date?'<div class="meta-item"><span class="meta-icon">▣</span><span>Почетак:<strong>'+esc(date)+'</strong></span></div>':'')+(data.location?'<div class="meta-item"><span class="meta-icon">📍</span><span>Локација:<strong>'+esc(data.location)+'</strong></span></div>':'')+'<div class="meta-item"><span class="meta-icon">♟</span><span>Покретач:<strong>Грађанска иницијатива</strong></span></div></div></div>'+
