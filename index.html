@@ -71,6 +71,7 @@ body.action-page #akcije{display:none}
 .single-action-form.open{display:block}
 .single-action-form select{width:100%;border:1px solid #cbd9e5;border-radius:9px;padding:12px;font:inherit;background:#fff}
 .single-action-message{margin-top:14px;line-height:1.5}
+.submit-success{margin-top:18px;padding:22px;border:1px solid #d8e8df;border-radius:14px;background:#f4faf6;color:#183b2a;line-height:1.6}.submit-success-mark{width:42px;height:42px;display:grid;place-items:center;border-radius:50%;background:#d9f2e2;color:#18723b;font-size:25px;font-weight:850;margin-bottom:12px}.submit-success h3{margin:0 0 8px;color:#123b29;font-size:22px}.submit-success p{margin:0 0 12px;color:#315844}.submit-success ul{margin:8px 0 14px;padding-left:21px}.submit-success .submit-signoff{font-weight:750;margin:0;color:#183b2a}
 .single-action-back{display:inline-block;color:#2166F3;text-decoration:none;font-weight:750;margin-bottom:20px}
 @media(max-width:650px){body.action-page .site-header{height:88px;padding:12px 16px}.single-action{margin:26px auto 45px;padding:0 16px}.single-action-hero,.single-action-body{border-radius:15px}.single-action-hero{padding:26px 22px}}
 
@@ -292,7 +293,11 @@ async function loadActiveActions(){
  if(!data||!data.length){const msg=document.createElement('p');msg.textContent='Тренутно нема активних акција. Можеш да предложиш нову.';list.appendChild(msg);return;}
  data.forEach(action=>list.appendChild(renderActionCard(action)));
 }
-function showSubmitMessage(id,text,isError=false){const el=document.getElementById(id);if(el){el.textContent=text;el.style.color=isError?'#b42318':'#176b3a';}}
+function showSubmitMessage(id,text,isError=false){
+ const el=document.getElementById(id);if(!el)return;
+ if(isError){el.textContent=text;el.style.color='#b42318';return;}
+ el.style.color='';el.innerHTML='<section class="submit-success" role="status" aria-live="polite"><div class="submit-success-mark" aria-hidden="true">✓</div><h3>Пријава је успешно послата!</h3><p>Хвала вам на поверењу.</p><p>Ваша порука је стигла до нас. Обавестићемо вас о нашем деловању и могућностима за укључивање.</p><strong>Шта следи?</strong><ul><li>Прегледаћемо вашу пријаву.</li><li>Јавићемо вам се ако су потребне додатне информације или договор.</li><li>По потреби ћемо вас упутити у начин даљег укључивања.</li></ul><p class="submit-signoff">Хвала што сте део промене.</p></section>';
+}
 document.getElementById('joinForm').addEventListener('submit',async event=>{
  event.preventDefault();const btn=event.currentTarget.querySelector('button[type="submit"]');btn.disabled=true;btn.textContent='Слање...';
  const actionId=document.getElementById('joinActionId').value;const actionTitle=document.getElementById('joinActionTitle').value;
@@ -300,7 +305,7 @@ document.getElementById('joinForm').addEventListener('submit',async event=>{
  const {error}=await civicDb.from('civic_submissions').insert(payload);
  btn.disabled=false;btn.textContent='Пошаљи пријаву';
  if(error){showSubmitMessage('joinMessage','Пријава није послата. Проверите интернет везу и покушајте поново.',true);return;}
- event.currentTarget.reset();showSubmitMessage('joinMessage','Пријава је успешно послата. Хвала ти! Администратор ће те контактирати.',false);
+ event.currentTarget.reset();showSubmitMessage('joinMessage','success',false);
 });
 document.getElementById('proposalForm').addEventListener('submit',async event=>{
  event.preventDefault();const form=event.currentTarget;const btn=form.querySelector('button[type="submit"]');btn.disabled=true;btn.textContent='Слање...';
@@ -308,7 +313,7 @@ document.getElementById('proposalForm').addEventListener('submit',async event=>{
  const {error}=await civicDb.from('civic_submissions').insert(payload);
  btn.disabled=false;btn.textContent='Пошаљи предлог';
  if(error){showSubmitMessage('proposalMessage','Предлог није послат. Проверите интернет везу и покушајте поново.',true);return;}
- form.reset();showSubmitMessage('proposalMessage','Предлог је успешно послат администратору на разматрање. Хвала ти!',false);
+ form.reset();showSubmitMessage('proposalMessage','success',false);
 });
 
 document.getElementById('closeSheet').addEventListener('click',hidePanels);
