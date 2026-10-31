@@ -78,6 +78,10 @@
 <div id="actionsList" class="actions"><div class="empty">Учитавање акција…</div></div><div class="msg" id="listMessage" role="status"></div>
 </section>
 </div></main>
+<nav class="bottom-menu" aria-label="Брзи мени">
+  <button class="bottom-menu-btn bottom-menu-support" id="bottomSupport" type="button">Подржи</button>
+  <button class="bottom-menu-btn bottom-menu-join" id="bottomJoin" type="button">Придружи се</button>
+</nav>
 <div class="sheet-backdrop" id="sheetBackdrop" hidden></div>
 <section class="bottom-sheet" id="bottomSheet" aria-modal="true" role="dialog" aria-hidden="true" hidden>
   <div class="sheet-handle" id="sheetHandle" aria-hidden="true"><span></span></div>
@@ -114,6 +118,8 @@ function closeSheet(){
 }
 $('showProposal').addEventListener('click',()=>openSheet('proposal'));
 $('showActions').addEventListener('click',()=>openSheet('actions'));
+$('bottomSupport').addEventListener('click',()=>openSheet('proposal'));
+$('bottomJoin').addEventListener('click',()=>openSheet('actions'));
 $('closeSheet').addEventListener('click',closeSheet);
 backdrop.addEventListener('click',closeSheet);
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSheet();});
