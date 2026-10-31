@@ -231,7 +231,7 @@ async function loadSingleAction(){
  document.getElementById('akcije').style.display='none';
  const view=document.getElementById('singleAction');view.hidden=false;
  view.innerHTML='<div class="single-action-loading">Учитавање акције...</div>';
- const fields='id,title,slug,summary,description,location,status,action_date,intro,reason,goal,goal_items,activities,participation,materials,meeting_info,call_to_action,results';
+ const fields='id,title,slug,summary,description,location,status,action_date,image_url,intro,reason,goal,goal_items,activities,participation,materials,meeting_info,call_to_action,results';
  let result=await civicDb.from('actions').select(fields).eq('slug',key).maybeSingle();
  if(!result.data&&!result.error){result=await civicDb.from('actions').select(fields).eq('id',key).maybeSingle();}
  const action=result.data;
@@ -243,7 +243,7 @@ async function loadSingleAction(){
  const active=action.status!=='completed';
  const location=action.location||'';
  const map=location?'https://maps.google.com/maps?q='+encodeURIComponent(location)+'&output=embed':'';
- const cover='https://raw.githubusercontent.com/autoservisgumco-web/junacko_srce/main/Velika_Plana%2B.jpg';
+ const cover=action.image_url||'https://raw.githubusercontent.com/autoservisgumco-web/junacko_srce/main/Velika_Plana%2B.jpg';
  const section=(id,heading,content,icon='●')=>content?'<section class="single-action-panel" id="'+id+'"><h2><span>'+icon+'</span> '+heading+'</h2><div class="single-action-description">'+escapeActionText(content)+'</div></section>':'';
  const listSection=(id,heading,items,icon='●')=>Array.isArray(items)&&items.length?'<section class="single-action-panel" id="'+id+'"><h2><span>'+icon+'</span> '+heading+'</h2><ol class="single-action-list">'+items.map(item=>'<li>'+escapeActionText(item)+'</li>').join('')+'</ol></section>':'';
  const goals=Array.isArray(action.goal_items)?action.goal_items:(action.goal?[action.goal]:[]);
