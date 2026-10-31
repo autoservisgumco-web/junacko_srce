@@ -117,6 +117,28 @@ body.action-page .single-action-back{margin:0 0 14px;color:#2166f3}
 .single-action-list{margin:10px 0 0;padding-left:28px;color:#202938;font-size:17px;line-height:1.65}
 .single-action-list li{padding:5px 0 5px 7px}
 @media(max-width:760px){.single-action-list{font-size:15px;padding-left:24px}}
+
+/* Single action — full bleed cover, section shortcuts and fixed join bar */
+body.action-page .single-action{max-width:none;margin:0 auto 90px;padding:0 20px}
+body.action-page .single-action-cover{width:calc(100% + 40px);margin-left:-20px;height:clamp(210px,30vw,380px);border-radius:0 0 20px 20px}
+.single-action-nav{position:sticky;top:0;z-index:30;display:flex;gap:8px;overflow-x:auto;white-space:nowrap;padding:12px 2px;background:#f7f8faeF;backdrop-filter:blur(10px);scrollbar-width:none}
+.single-action-nav::-webkit-scrollbar{display:none}
+.single-action-nav a{flex:0 0 auto;text-decoration:none;color:#243044;background:#fff;border:1px solid #e1e5eb;border-radius:22px;padding:9px 14px;font-size:14px;font-weight:750}
+.single-action-nav a:active,.single-action-nav a:focus{background:#d71920;color:#fff}
+.single-action-panel[id],.single-action-overview{scroll-margin-top:76px}
+.single-action-sticky-join{position:fixed;z-index:80;left:0;right:0;bottom:0;display:flex;align-items:center;gap:12px;padding:12px max(16px,env(safe-area-inset-right)) calc(12px + env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));background:#fff;border-top:1px solid #e1e5eb;box-shadow:0 -5px 22px #0f172a18}
+.single-action-sticky-join>span{font-size:27px;color:#d71920}
+.single-action-sticky-join>div{display:flex;flex:1;min-width:0;flex-direction:column;color:#111827}
+.single-action-sticky-join small{font-size:12px;color:#64748b}
+.single-action-sticky-join .btn{white-space:nowrap}
+@media(max-width:760px){
+ body.action-page .single-action{padding:0 14px;margin-top:0;margin-bottom:105px}
+ body.action-page .single-action-cover{width:calc(100% + 28px);margin-left:-14px;height:220px}
+ .single-action-nav{margin:0 -14px;padding:10px 14px}
+ .single-action-overview{grid-template-columns:1fr;padding:20px 18px;gap:15px}
+ .single-action-stat{border-left:0;border-top:1px solid #e5e7eb;padding:15px 0 0}
+ .single-action-sticky-join{padding-left:14px;padding-right:14px}
+}
 </style>
 </head>
 <body class="home-hero" id="pocetna">
@@ -222,26 +244,31 @@ async function loadSingleAction(){
  const location=action.location||'';
  const map=location?'https://maps.google.com/maps?q='+encodeURIComponent(location)+'&output=embed':'';
  const cover='https://raw.githubusercontent.com/autoservisgumco-web/junacko_srce/main/Velika_Plana%2B.jpg';
- const section=(heading,content,icon='●')=>content?'<section class="single-action-panel"><h2><span>'+icon+'</span> '+heading+'</h2><div class="single-action-description">'+escapeActionText(content)+'</div></section>':'';
- const listSection=(heading,items,icon='●')=>Array.isArray(items)&&items.length?'<section class="single-action-panel"><h2><span>'+icon+'</span> '+heading+'</h2><ol class="single-action-list">'+items.map(item=>'<li>'+escapeActionText(item)+'</li>').join('')+'</ol></section>':'';
+ const section=(id,heading,content,icon='●')=>content?'<section class="single-action-panel" id="'+id+'"><h2><span>'+icon+'</span> '+heading+'</h2><div class="single-action-description">'+escapeActionText(content)+'</div></section>':'';
+ const listSection=(id,heading,items,icon='●')=>Array.isArray(items)&&items.length?'<section class="single-action-panel" id="'+id+'"><h2><span>'+icon+'</span> '+heading+'</h2><ol class="single-action-list">'+items.map(item=>'<li>'+escapeActionText(item)+'</li>').join('')+'</ol></section>':'';
  const goals=Array.isArray(action.goal_items)?action.goal_items:(action.goal?[action.goal]:[]);
  const intro=action.intro||action.description||action.summary||'';
  view.innerHTML='<a class="single-action-back" href="index.html#akcije">← Све акције</a>'+
  '<section class="single-action-cover" style="background-image:url(\''+cover+'\')"><span class="single-action-status '+(active?'is-active':'is-done')+'">'+(active?'▶ АКТИВНА':'✓ ЗАВРШЕНА')+'</span></section>'+
  '<section class="single-action-overview"><div class="single-action-main"><span class="single-action-kind">⚡ ГРАЂАНСКА АКЦИЈА</span><h1>'+escapeActionText(action.title)+'</h1><p class="single-action-summary">'+escapeActionText(action.summary||intro)+'</p><div class="single-action-meta">'+(date?'<div class="single-action-meta-item"><span>▣</span><div>Датум:<strong>'+escapeActionText(date)+'</strong></div></div>':'')+(location?'<div class="single-action-meta-item"><span>📍</span><div>Локација:<strong>'+escapeActionText(location)+'</strong></div></div>':'')+'<div class="single-action-meta-item"><span>♟</span><div>Покретач:<strong>Грађанска иницијатива</strong></div></div></div></div>'+
  '<aside class="single-action-stat"><div class="single-action-stat-number">'+(participantCount===null?'—':participantCount)+'</div><div class="single-action-stat-label">пријављених</div>'+(active?'<button class="btn single-action-red" type="button" id="singleJoinTop">♟ Пријави се</button>':'<span>Акција је завршена</span>')+'</aside></section>'+
- section('О акцији',intro,'●')+
- section('Зашто покрећемо ову акцију?',action.reason,'●')+
- listSection('Циљеви акције',goals,'◎')+
- section('Шта ћемо радити?',action.activities,'✓')+
- section('Како можеш да учествујеш?',action.participation,'♟')+
- section('Шта је потребно понети?',action.materials,'＋')+
- section('Када и где се окупљамо?',action.meeting_info,'📍')+
- section('Позив на акцију',action.call_to_action,'♥')+
- section('Резултати акције',action.results,'✓')+
+ section('uvod','О акцији',intro,'●')+
+ section('zasto','Зашто покрећемо ову акцију?',action.reason,'●')+
+ listSection('ciljevi','Циљеви акције',goals,'◎')+
+ section('aktivnosti','Шта ћемо радити?',action.activities,'✓')+
+ section('ucesce','Како можеш да учествујеш?',action.participation,'♟')+
+ section('potrebno','Шта је потребно понети?',action.materials,'＋')+
+ section('okupljanje','Када и где се окупљамо?',action.meeting_info,'📍')+
+ section('poziv','Позив на акцију',action.call_to_action,'♥')+
+ section('rezultati','Резултати акције',action.results,'✓')+
  (location?'<section class="single-action-panel single-action-place"><div><h2><span>📍</span> Место</h2><p>'+escapeActionText(location)+'</p></div><iframe title="Мапа локације акције" loading="lazy" src="'+map+'"></iframe></section>':'')+
- (active?'<section class="single-action-callout"><span class="single-action-heart">♥</span><div><h2>Укључи се!</h2><p>Заједно можемо више. Пријави се, подржи акцију и помози да наше место буде боље.</p></div><button class="btn single-action-red" type="button" id="singleJoinBottom">♟ Пријави се</button></section>':'')+
+ (active?'<div class="single-action-sticky-join"><span>♥</span><div><strong>Укључи се у акцију</strong><small>Заједно можемо више.</small></div><button class="btn single-action-red" type="button" id="singleJoinBottom">Прикључи се</button></div>':'')+
  '<section class="single-action-banner"><h2>Имаш проблем који не треба да остане само прича?</h2><p>Покрени акцију и заједно тражимо решење.</p><a class="btn single-action-red" href="predlog-akcije.html">⚡ Покрени акцију</a></section>';
+ const navItems=[['uvod','Увод'],['zasto','Зашто'],['ciljevi','Циљеви'],['aktivnosti','Активности'],['ucesce','Учешће'],['okupljanje','Окупљање']];
+ const navHtml=navItems.filter(([id])=>view.querySelector('#'+id)).map(([id,label])=>'<a href="#'+id+'">'+label+'</a>').join('');
+ const nav=document.createElement('nav');nav.className='single-action-nav';nav.setAttribute('aria-label','Преглед садржаја акције');nav.innerHTML=navHtml;
+ const coverElement=view.querySelector('.single-action-cover');if(coverElement)coverElement.insertAdjacentElement('afterend',nav);
+ nav.querySelectorAll('a').forEach(link=>link.addEventListener('click',event=>{event.preventDefault();const target=view.querySelector(link.getAttribute('href'));if(target)target.scrollIntoView({behavior:'smooth',block:'start'});}));
  const join=()=>showPanel('join',action.id,action.title);
  ['singleJoinTop','singleJoinBottom'].forEach(id=>{const button=document.getElementById(id);if(button)button.addEventListener('click',join);});
 }
