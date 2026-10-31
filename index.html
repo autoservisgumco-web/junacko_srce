@@ -44,6 +44,7 @@ body.sheet-open{overflow:hidden}.sheet-backdrop{position:fixed;inset:0;backgroun
 .bottom-sheet.open{transform:translateY(0)}.sheet-backdrop.open{opacity:1}.sheet-handle{height:22px;flex:0 0 22px;display:flex;align-items:center;justify-content:center;touch-action:pan-y}.sheet-handle span{display:block;width:42px;height:5px;border-radius:8px;background:#b9c9df}
 .sheet-top{display:flex;align-items:center;justify-content:space-between;padding:0 20px 12px;border-bottom:1px solid #dce5f0;background:#fff}.sheet-title{font-size:17px;font-weight:850;color:#061A35}.sheet-close{border:0;background:transparent;color:#061A35;font-size:30px;line-height:1;padding:2px 8px;cursor:pointer}
 .sheet-content{overflow-y:auto;overscroll-behavior:contain;padding:16px max(16px,calc((100% - 900px)/2)) 28px}.sheet-content>.panel,.sheet-content>#akcije{margin:0}.sheet-content>#akcije{padding:0}
+.signup-success-overlay{position:fixed;inset:0;z-index:1200;background:#F1F5F9;display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;visibility:hidden;transition:opacity .2s ease,visibility .2s ease}.signup-success-overlay.open{opacity:1;visibility:visible}.signup-success-card{position:relative;width:min(520px,100%);min-height:260px;background:#fff;border-radius:22px;padding:54px 28px 36px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;box-shadow:0 18px 60px #061a3520;color:#061A35}.signup-success-close{position:absolute;top:14px;right:16px;border:0;background:transparent;color:#061A35;font-size:34px;line-height:1;padding:4px 10px;cursor:pointer}.signup-success-icon{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:#e2f3e9;color:#247348;font-size:32px;font-weight:800;margin-bottom:22px}.signup-success-card h2{font-size:clamp(22px,5vw,30px);line-height:1.25;margin:0;color:#061A35}.signup-success-card p{font-size:16px;color:#52677d;margin:12px 0 0}
 @media(min-width:700px){.bottom-sheet{left:50%;right:auto;width:min(900px,calc(100% - 40px));border-radius:20px 20px 0 0;transform:translate(-50%,105%)}.bottom-sheet.open{transform:translate(-50%,0)}.sheet-content{padding:18px 28px 30px}}
 @media(max-width:650px){.market-photo{padding:0 16px 22px}.market-photo img{height:210px;border-radius:12px}}
 
@@ -196,6 +197,7 @@ if(new URLSearchParams(window.location.search).has('akcija')){
 <div class="sheet-content" id="sheetContent"></div>
 </section>
 
+<section class="signup-success-overlay" id="signupSuccessOverlay" role="dialog" aria-modal="true" aria-labelledby="signupSuccessTitle" aria-hidden="true" hidden><div class="signup-success-card"><button class="signup-success-close" id="closeSignupSuccess" type="button" aria-label="Затвори">×</button><div class="signup-success-icon" aria-hidden="true">✓</div><h2 id="signupSuccessTitle">Ваша пријава је успешно завршена.</h2></div></section>
 <footer>Одговорна Велика Плана · Покретач: Јовица Вратница</footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
@@ -293,6 +295,17 @@ async function loadActiveActions(){
  if(!data||!data.length){const msg=document.createElement('p');msg.textContent='Тренутно нема активних акција. Можеш да предложиш нову.';list.appendChild(msg);return;}
  data.forEach(action=>list.appendChild(renderActionCard(action)));
 }
+function showJoinSuccess(){
+ const overlay=document.getElementById('signupSuccessOverlay');if(!overlay)return;
+ overlay.hidden=false;overlay.setAttribute('aria-hidden','false');document.body.classList.add('sheet-open');
+ requestAnimationFrame(()=>overlay.classList.add('open'));
+}
+function closeJoinSuccess(){
+ const overlay=document.getElementById('signupSuccessOverlay');if(!overlay)return;
+ overlay.classList.remove('open');overlay.setAttribute('aria-hidden','true');document.body.classList.remove('sheet-open');
+ setTimeout(()=>{overlay.hidden=true},220);
+}
+document.getElementById('closeSignupSuccess').addEventListener('click',closeJoinSuccess);
 function showSubmitMessage(id,text,isError=false){
  const el=document.getElementById(id);if(!el)return;
  if(isError){el.textContent=text;el.style.color='#b42318';return;}
@@ -306,7 +319,7 @@ document.getElementById('joinForm').addEventListener('submit',async event=>{
  const {error}=await civicDb.from('civic_submissions').insert(payload);
  btn.disabled=false;btn.textContent='Пошаљи пријаву';
  if(error){showSubmitMessage('joinMessage','Пријава није послата. Проверите интернет везу и покушајте поново.',true);return;}
- form.reset();showSubmitMessage('joinMessage','success',false);
+ form.reset();showJoinSuccess();
 });
 document.getElementById('proposalForm').addEventListener('submit',async event=>{
  event.preventDefault();const form=event.currentTarget;const btn=form.querySelector('button[type="submit"]');btn.disabled=true;btn.textContent='Слање...';
