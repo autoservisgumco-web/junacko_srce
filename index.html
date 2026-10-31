@@ -250,7 +250,7 @@ async function loadSingleAction(){
  const intro=action.intro||action.description||action.summary||'';
  view.innerHTML='<section class="single-action-cover" style="background-image:url(\''+cover+'\')"><span class="single-action-status '+(active?'is-active':'is-done')+'">'+(active?'▶ АКТИВНА':'✓ ЗАВРШЕНА')+'</span></section>'+
  '<section class="single-action-overview"><div class="single-action-main"><span class="single-action-kind">⚡ ГРАЂАНСКА АКЦИЈА</span><h1>'+escapeActionText(action.title)+'</h1><p class="single-action-summary">'+escapeActionText(action.summary||intro)+'</p><div class="single-action-meta">'+(date?'<div class="single-action-meta-item"><span>▣</span><div>Датум:<strong>'+escapeActionText(date)+'</strong></div></div>':'')+(location?'<div class="single-action-meta-item"><span>📍</span><div>Локација:<strong>'+escapeActionText(location)+'</strong></div></div>':'')+'<div class="single-action-meta-item"><span>♟</span><div>Покретач:<strong>Јовица Вратница</strong></div></div></div></div>'+
- '<aside class="single-action-stat"><div class="single-action-stat-number">'+(participantCount===null?'—':participantCount)+'</div><div class="single-action-stat-label">пријављених</div>'+(active?'<button class="btn single-action-red" type="button" id="singleJoinTop">♟ Пријави се</button>':'<span>Акција је завршена</span>')+'</aside></section>'+
+ (participantCount>0?'<aside class="single-action-stat"><div class="single-action-stat-number">'+participantCount+'</div><div class="single-action-stat-label">пријављених</div></aside>':'')+'</section>'+
  section('uvod','О акцији',intro,'●')+
  section('zasto','Зашто покрећемо ову акцију?',action.reason,'●')+
  listSection('ciljevi','Циљеви акције',goals,'◎')+
@@ -269,7 +269,7 @@ async function loadSingleAction(){
  const coverElement=view.querySelector('.single-action-cover');if(coverElement)coverElement.insertAdjacentElement('afterend',nav);
  nav.querySelectorAll('a').forEach(link=>link.addEventListener('click',event=>{event.preventDefault();const target=view.querySelector(link.getAttribute('href'));if(target)target.scrollIntoView({behavior:'smooth',block:'start'});}));
  const join=()=>showPanel('join',action.id,action.title);
- ['singleJoinTop','singleJoinBottom'].forEach(id=>{const button=document.getElementById(id);if(button)button.addEventListener('click',join);});
+ ['singleJoinBottom'].forEach(id=>{const button=document.getElementById(id);if(button)button.addEventListener('click',join);});
 }
 function escapeActionText(value){return String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));}
 function renderActionCard(action){
