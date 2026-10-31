@@ -113,7 +113,7 @@ $('proposalForm').addEventListener('submit',async e=>{
  e.preventDefault();const b=e.submitter;b.disabled=true;b.textContent='Шаљем…';const m=$('proposalMessage');m.style.display='none';
  const val=id=>$(id).value.trim();
  try{
-  const {error}=await db.from('action_proposals').insert({title:val('pTitle'),description:val('pDescription'),location:val('pLocation')||null,proposer_name:val('pName'),proposer_email:val('pEmail'),proposer_viber:val('pPhone')||null,status:'pending'});
+  const {error}=await db.from('civic_submissions').insert({submission_type:'action',title:val('pTitle'),description:val('pDescription'),full_name:val('pName'),email:val('pEmail'),phone:val('pPhone')||null,viber_phone:val('pPhone')||null,location:val('pLocation')||null,status:'new'});
   if(error)throw error;
   m.textContent='Хвала! Предлог је успешно послат. Биће прегледан пре објављивања.';m.style.display='block';e.target.reset();
  }catch(err){console.error(err);m.textContent='Слање није успело. Проверите податке и покушајте поново.';m.style.display='block'}
@@ -123,7 +123,7 @@ function safe(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&
 async function loadActions(){
  const root=$('actionsList');
  try{
-  const {data,error}=await db.from('action_proposals').select('id,title,description,location,created_at').eq('status','published').order('created_at',{ascending:false});
+  const {data,error}=await db.from('civic_submissions').select('id,title,description,location,created_at').eq('submission_type','action').eq('status','published').order('created_at',{ascending:false});
   if(error)throw error;
   if(!data?.length){root.innerHTML='<div class="empty">Тренутно нема објављених акција. Предложи своју — можда баш она буде следећа.</div>';return;}
   root.innerHTML=data.map(a=>'<article class="action" data-id="'+safe(a.id)+'"><h3>'+safe(a.title)+'</h3><div class="meta">'+(a.location?'📍 '+safe(a.location):'')+'</div><p>'+safe(a.description)+'</p><button class="btn secondary joinToggle" type="button">Придружи се овој акцији →</button><form class="joinbox joinForm"><div class="fields"><div class="field"><label>Име и презиме *</label><input name="full_name" required minlength="2" maxlength="120"></div><div class="field"><label>Имејл *</label><input name="email" type="email" required></div><div class="field full"><label>Телефон / Viber (није обавезно)</label><input name="viber_phone" type="tel"></div></div><button class="btn" type="submit">Пошаљи пријаву</button><div class="msg joinMessage" role="status"></div></form></article>').join('');
@@ -131,7 +131,7 @@ async function loadActions(){
   root.querySelectorAll('.joinForm').forEach(form=>form.addEventListener('submit',async e=>{
    e.preventDefault();const f=e.currentTarget,btn=f.querySelector('button[type=submit]'),msg=f.querySelector('.joinMessage'),article=f.closest('.action');btn.disabled=true;btn.textContent='Шаљем…';msg.style.display='none';
    const fd=new FormData(f);const v=n=>String(fd.get(n)||'').trim();
-   try{const {error}=await db.from('action_proposal_joins').insert({proposal_id:article.dataset.id,full_name:v('full_name'),email:v('email'),viber_phone:v('viber_phone')||null});if(error)throw error;msg.textContent='Пријава је послата. Хвала што желиш да учествујеш!';msg.style.display='block';f.reset();}
+   try{const actionTitle=article.querySelector('h3')?.textContent||'изабрану акцију';const {error}=await db.from('civic_submissions').insert({submission_type:'help',title:'Пријава за акцију: '+actionTitle,description:'Жели да се придружи акцији: '+actionTitle,full_name:v('full_name'),email:v('email'),phone:v('viber_phone')||null,viber_phone:v('viber_phone')||null,support_type:'Учешће у акцији',social_links:{action_id:article.dataset.id,action_title:actionTitle},status:'new'});if(error)throw error;msg.textContent='Пријава је послата. Хвала што желиш да учествујеш!';msg.style.display='block';f.reset();}
    catch(err){console.error(err);msg.textContent='Пријава није успела. Покушај поново.';msg.style.display='block';}
    finally{btn.disabled=false;btn.textContent='Пошаљи пријаву';}
   }));
