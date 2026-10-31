@@ -239,7 +239,7 @@ async function loadSingleAction(){
  if(result.error||!action){view.innerHTML='<div class="single-action-loading">Ова акција тренутно није доступна.</div>';return;}
  document.title=action.title+' — Одговорна Плана';
  let participantCount=null;
- try{const countResult=await civicDb.from('civic_submissions').select('id',{count:'exact',head:true}).eq('submission_type','help').contains('social_links',{action_id:action.id});if(!countResult.error)participantCount=countResult.count||0;}catch(_){}
+ try{const countResult=await civicDb.from('civic_submissions').select('id',{count:'exact',head:true}).eq('submission_type','help').contains('social_links',{action_id:action.id}).eq('status','accepted');if(!countResult.error)participantCount=countResult.count||0;}catch(_){}
  const date=action.action_date?new Date(action.action_date+'T12:00:00').toLocaleDateString('sr-RS'):'';
  const active=action.status!=='completed';
  const location=action.location||'';
