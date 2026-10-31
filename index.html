@@ -47,6 +47,29 @@ body.sheet-open{overflow:hidden}.sheet-backdrop{position:fixed;inset:0;backgroun
 @media(min-width:700px){.bottom-sheet{left:50%;right:auto;width:min(900px,calc(100% - 40px));border-radius:20px 20px 0 0;transform:translate(-50%,105%)}.bottom-sheet.open{transform:translate(-50%,0)}.sheet-content{padding:18px 28px 30px}}
 @media(max-width:650px){.market-photo{padding:0 16px 22px}.market-photo img{height:210px;border-radius:12px}}
 
+
+/* Појединачна акција приказује се унутар постојећег изгледа сајта. */
+body.action-page{background:#F1F5F9;min-height:100vh;overflow-x:hidden}
+body.action-page .site-header{position:relative;background:#061A35;height:100px;padding:14px max(6.8vw,24px);box-shadow:0 2px 16px #102b4e20}
+body.action-page .site-nav a[href="#akcije"]{color:#8ecbff}
+body.action-page .hero-full{display:none}
+body.action-page main.hidden-content{display:block;min-height:65vh}
+body.action-page #akcije{display:none}
+.single-action{max-width:940px;margin:42px auto 65px;padding:0 22px}
+.single-action-hero{background:linear-gradient(120deg,#061A35,#0d3263 68%,#2166F3);color:#fff;border-radius:20px;padding:clamp(30px,6vw,58px);box-shadow:0 14px 36px #061a3520}
+.single-action-hero .tag{background:rgba(255,255,255,.15);color:#d5eaff}
+.single-action-hero h1{font-size:clamp(34px,6vw,58px);line-height:1.08;letter-spacing:-1.5px;margin:18px 0;max-width:800px}
+.single-action-hero p{color:#e0edf8;line-height:1.7;font-size:18px;margin:0}
+.single-action-meta{display:flex;flex-wrap:wrap;gap:12px 24px;margin-top:22px;color:#d5eaff;font-size:14px}
+.single-action-body{background:#fff;border:1px solid #e1eaf2;border-radius:18px;padding:clamp(22px,5vw,38px);margin-top:20px}
+.single-action-body h2{color:#061A35;margin:0 0 14px}
+.single-action-description{white-space:pre-wrap;line-height:1.8;color:#52677d}
+.single-action-form{display:none;border-top:1px solid #e1eaf2;margin-top:26px;padding-top:24px}
+.single-action-form.open{display:block}
+.single-action-form select{width:100%;border:1px solid #cbd9e5;border-radius:9px;padding:12px;font:inherit;background:#fff}
+.single-action-message{margin-top:14px;line-height:1.5}
+.single-action-back{display:inline-block;color:#2166F3;text-decoration:none;font-weight:750;margin-bottom:20px}
+@media(max-width:650px){body.action-page .site-header{height:88px;padding:12px 16px}.single-action{margin:26px auto 45px;padding:0 16px}.single-action-hero,.single-action-body{border-radius:15px}.single-action-hero{padding:26px 22px}}
 </style>
 </head>
 <body class="home-hero" id="pocetna">
@@ -79,7 +102,7 @@ body.sheet-open{overflow:hidden}.sheet-backdrop{position:fixed;inset:0;backgroun
 </div>
 </div>
 </section>
-<main class="hidden-content" aria-hidden="true">
+<main class="hidden-content" aria-hidden="true">\n<section class="single-action" id="singleAction" hidden aria-live="polite"></section>
 <section class="wrap" id="akcije"><div class="section-head"><h2>Акције којима можеш да се придружиш</h2><p>Изабери оно у чему желиш да помогнеш.</p></div>
 <div class="section-head"><h2>Активне акције</h2><p>Изабери акцију којој желиш да се придружиш.</p></div><div class="cards action-list" id="activeActionsList"><p>Учитавање активних акција...</p></div>
 <div class="start-action"><div class="start-action-copy"><span class="tag">ИМАШ ИДЕЈУ?</span><h3>Покрени своју акцију</h3><p>Уочи проблем, предложи решење и позови људе из своје заједнице да ти се придруже.</p></div><button class="btn secondary" onclick="showPanel('proposal')">Предложи нову акцију →</button></div>
@@ -123,17 +146,44 @@ function hidePanels(){
  sheetTarget=null;sheetParent=null;sheetNext=null;setTimeout(()=>{bottomSheet.hidden=true;sheetBackdrop.hidden=true},330);
 }
 
+async function loadSingleAction(){
+ const key=new URLSearchParams(location.search).get('akcija');if(!key)return;
+ document.body.classList.remove('home-hero');document.body.classList.add('action-page');
+ const main=document.querySelector('main.hidden-content');main.classList.remove('hidden-content');main.removeAttribute('aria-hidden');
+ document.getElementById('akcije').style.display='none';
+ const view=document.getElementById('singleAction');view.hidden=false;
+ view.innerHTML='<a class="single-action-back" href="index.html#akcije">← Све акције</a><div class="single-action-body">Учитавање акције...</div>';
+ let query=civicDb.from('actions').select('id,title,slug,summary,description,location,status');
+ query=query.eq('slug',key);
+ let result=await query.maybeSingle();
+ if(!result.data&&!result.error){result=await civicDb.from('actions').select('id,title,slug,summary,description,location,status').eq('id',key).maybeSingle();}
+ const action=result.data;
+ if(result.error||!action){view.querySelector('.single-action-body').textContent='Ова акција тренутно није доступна.';return;}
+ document.title=action.title+' — Одговорна Плана';
+ const date=action.action_date?new Date(action.action_date+'T12:00:00').toLocaleDateString('sr-RS'):'';
+ view.innerHTML='<a class="single-action-back" href="index.html#akcije">← Све акције</a><section class="single-action-hero"><span class="tag">ГРАЂАНСКА АКЦИЈА</span><h1>'+escapeActionText(action.title)+'</h1><p>'+escapeActionText(action.summary||'')+'</p><div class="single-action-meta">'+(action.location?'<span>📍 '+escapeActionText(action.location)+'</span>':'')+(date?'<span>📅 '+escapeActionText(date)+'</span>':'')+'</div></section><section class="single-action-body"><h2>О акцији</h2><div class="single-action-description">'+escapeActionText(action.description||action.summary||'Више информација о овој акцији ускоро.')+'</div>'+(action.status==='completed'?'<p>Ова акција је завршена.</p>':'<button class="btn" type="button" id="singleJoinToggle" style="margin-top:25px">Придружи се овој акцији →</button><form class="single-action-form" id="singleJoinForm"><h2>Како желиш да се прикључиш?</h2><label for="singleJoinType">Изабери начин прикључења</label><select id="singleJoinType" required><option value="">Изабери начин помоћи</option><option>Практична помоћ и волонтирање</option><option>Материјал или опрема</option><option>Стручна помоћ</option><option>Организација и промоција</option><option>Друго</option></select><label for="singleJoinName">Име и презиме</label><input id="singleJoinName" required minlength="2" maxlength="120" placeholder="Име и презиме"><label for="singleJoinPhone">Viber број / телефон</label><input id="singleJoinPhone" required type="tel" maxlength="60" placeholder="Број телефона"><label for="singleJoinNote">Додатна порука (није обавезно)</label><textarea id="singleJoinNote" maxlength="3000" placeholder="Напиши како конкретно можеш да помогнеш..."></textarea><button class="btn" type="submit">Пошаљи пријаву</button><p id="singleJoinMessage" class="single-action-message" role="status" aria-live="polite"></p></form>')+'</section>';
+ const toggle=document.getElementById('singleJoinToggle'),form=document.getElementById('singleJoinForm');
+ if(toggle)toggle.addEventListener('click',()=>{form.classList.toggle('open');toggle.textContent=form.classList.contains('open')?'Затвори пријаву':'Придружи се овој акцији →';});
+ if(form)form.addEventListener('submit',async e=>{
+  e.preventDefault();const button=form.querySelector('button[type="submit"]');button.disabled=true;button.textContent='Слање...';
+  const method=document.getElementById('singleJoinType').value,phone=document.getElementById('singleJoinPhone').value.trim(),note=document.getElementById('singleJoinNote').value.trim();
+  const payload={submission_type:'help',title:'Пријава за акцију: '+action.title,description:(note||'Жели да се придружи акцији.')+'\\nНачин прикључења: '+method,full_name:document.getElementById('singleJoinName').value.trim(),phone,viber_phone:phone,support_type:method,social_links:{action_id:action.id,action_slug:action.slug,action_title:action.title},status:'new'};
+  const {error}=await civicDb.from('civic_submissions').insert(payload);button.disabled=false;button.textContent='Пошаљи пријаву';
+  const msg=document.getElementById('singleJoinMessage');msg.textContent=error?'Пријава није послата. Покушај поново.':'Пријава је успешно послата. Хвала ти!';msg.style.color=error?'#b42318':'#176b3a';if(!error)form.reset();
+ });
+}
+function escapeActionText(value){return String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));}
 function renderActionCard(action){
  const article=document.createElement('article');article.className='card action-card';
  const tag=document.createElement('span');tag.className='tag';tag.textContent='АКТИВНА АКЦИЈА';
  const title=document.createElement('h3');title.textContent=action.title||'Акција';
  const desc=document.createElement('p');desc.textContent=action.summary||action.description||'Погледај детаље и пријави се да помогнеш.';
  if(action.location){const place=document.createElement('p');place.textContent='Место: '+action.location;article.append(tag,title,desc,place);}else{article.append(tag,title,desc);}
- const btn=document.createElement('a');btn.className='btn';btn.textContent='Погледај акцију →';btn.href='akcija.html?'+(action.slug?'slug='+encodeURIComponent(action.slug):'id='+encodeURIComponent(action.id));article.appendChild(btn);return article;
+ const btn=document.createElement('a');btn.className='btn';btn.textContent='Погледај акцију →';btn.href='index.html?akcija='+(action.slug?encodeURIComponent(action.slug):encodeURIComponent(action.id));article.appendChild(btn);return article;
 }
 async function loadActiveActions(){
  const list=document.getElementById('activeActionsList');if(!list)return;
- const {data,error}=await civicDb.from('actions').select('id,title,summary,description,location,status').in('status',['planned','in_progress']).order('created_at',{ascending:false});
+ const {data,error}=await civicDb.from('actions').select('id,title,slug,summary,description,location,status').in('status',['planned','in_progress']).order('created_at',{ascending:false});
  list.replaceChildren();
  if(error){const msg=document.createElement('p');msg.textContent='Тренутно не можемо да учитамо акције. Покушај поново касније.';list.appendChild(msg);return;}
  if(!data||!data.length){const msg=document.createElement('p');msg.textContent='Тренутно нема активних акција. Можеш да предложиш нову.';list.appendChild(msg);return;}
@@ -159,7 +209,7 @@ document.getElementById('proposalForm').addEventListener('submit',async event=>{
 });
 
 document.getElementById('closeSheet').addEventListener('click',hidePanels);
-loadActiveActions();sheetBackdrop.addEventListener('click',hidePanels);
+loadActiveActions();loadSingleAction();sheetBackdrop.addEventListener('click',hidePanels);
 document.addEventListener('keydown',e=>{if(e.key==='Escape')hidePanels()});
 bottomSheet.addEventListener('touchstart',e=>{sheetTouchY=e.touches[0].clientY},{passive:true});
 bottomSheet.addEventListener('touchend',e=>{if(e.changedTouches[0].clientY-sheetTouchY>90&&sheetContent.scrollTop===0)hidePanels()},{passive:true});
