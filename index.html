@@ -110,6 +110,10 @@ body.action-page .single-action-back{margin:0 0 14px;color:#2166f3}
 .single-action-loading{background:#fff;border-radius:16px;padding:28px}
 @media(max-width:760px){body.action-page .single-action{margin:20px auto 35px;padding:0 12px}.single-action-cover{height:205px;border-radius:12px 12px 0 0}.single-action-status{top:14px;left:14px;padding:8px 13px;font-size:13px}.single-action-overview{grid-template-columns:1fr;padding:18px;gap:14px}.single-action-stat{border-left:0;border-top:1px solid #e5e7eb;padding:14px 0 0;display:grid;grid-template-columns:auto 1fr;column-gap:12px;text-align:left;justify-items:start}.single-action-stat-number{grid-row:1/3;font-size:35px;align-self:center}.single-action-stat-label{margin:0 0 8px}.single-action-stat .btn{grid-column:2;width:auto}.single-action-meta{gap:12px}.single-action-meta-item{padding-right:12px}.single-action-panel{padding:17px;margin-top:12px}.single-action-panel h2{font-size:19px}.single-action-description{font-size:15px}.single-action-place{grid-template-columns:1fr;gap:10px}.single-action-place iframe{height:145px}.single-action-callout{padding:15px;gap:10px;flex-wrap:wrap}.single-action-heart{font-size:31px}.single-action-callout>div{min-width:calc(100% - 55px)}.single-action-callout h2{font-size:20px}.single-action-callout p{font-size:14px}.single-action-callout .btn{width:100%}.single-action-banner{padding:20px;min-height:145px;margin:16px 0 0}}
 @media(max-width:420px){.single-action-meta-item{font-size:12px}.single-action-meta-item strong{font-size:13px}.single-action-main h1{font-size:28px}}
+
+.single-action-list{margin:10px 0 0;padding-left:28px;color:#202938;font-size:17px;line-height:1.65}
+.single-action-list li{padding:5px 0 5px 7px}
+@media(max-width:760px){.single-action-list{font-size:15px;padding-left:24px}}
 </style>
 </head>
 <body class="home-hero" id="pocetna">
@@ -196,10 +200,9 @@ async function loadSingleAction(){
  document.getElementById('akcije').style.display='none';
  const view=document.getElementById('singleAction');view.hidden=false;
  view.innerHTML='<div class="single-action-loading">Учитавање акције...</div>';
- let query=civicDb.from('actions').select('id,title,slug,summary,description,location,status');
- query=query.eq('slug',key);
- let result=await query.maybeSingle();
- if(!result.data&&!result.error){result=await civicDb.from('actions').select('id,title,slug,summary,description,location,status').eq('id',key).maybeSingle();}
+ const fields='id,title,slug,summary,description,location,status,action_date,intro,reason,goal,goal_items,activities,participation,materials,meeting_info,call_to_action,results';
+ let result=await civicDb.from('actions').select(fields).eq('slug',key).maybeSingle();
+ if(!result.data&&!result.error){result=await civicDb.from('actions').select(fields).eq('id',key).maybeSingle();}
  const action=result.data;
  if(result.error||!action){view.innerHTML='<div class="single-action-loading">Ова акција тренутно није доступна.</div>';return;}
  document.title=action.title+' — Одговорна Плана';
@@ -210,11 +213,23 @@ async function loadSingleAction(){
  const location=action.location||'';
  const map=location?'https://maps.google.com/maps?q='+encodeURIComponent(location)+'&output=embed':'';
  const cover='https://raw.githubusercontent.com/autoservisgumco-web/junacko_srce/main/Velika_Plana%2B.jpg';
+ const section=(heading,content,icon='●')=>content?'<section class="single-action-panel"><h2><span>'+icon+'</span> '+heading+'</h2><div class="single-action-description">'+escapeActionText(content)+'</div></section>':'';
+ const listSection=(heading,items,icon='●')=>Array.isArray(items)&&items.length?'<section class="single-action-panel"><h2><span>'+icon+'</span> '+heading+'</h2><ol class="single-action-list">'+items.map(item=>'<li>'+escapeActionText(item)+'</li>').join('')+'</ol></section>':'';
+ const goals=Array.isArray(action.goal_items)?action.goal_items:(action.goal?[action.goal]:[]);
+ const intro=action.intro||action.description||action.summary||'';
  view.innerHTML='<a class="single-action-back" href="index.html#akcije">← Све акције</a>'+
  '<section class="single-action-cover" style="background-image:url(\''+cover+'\')"><span class="single-action-status '+(active?'is-active':'is-done')+'">'+(active?'▶ АКТИВНА':'✓ ЗАВРШЕНА')+'</span></section>'+
- '<section class="single-action-overview"><div class="single-action-main"><span class="single-action-kind">⚡ ГРАЂАНСКА АКЦИЈА</span><h1>'+escapeActionText(action.title)+'</h1><p class="single-action-summary">'+escapeActionText(action.summary||'')+'</p><div class="single-action-meta">'+(date?'<div class="single-action-meta-item"><span>▣</span><div>Почетак:<strong>'+escapeActionText(date)+'</strong></div></div>':'')+(location?'<div class="single-action-meta-item"><span>📍</span><div>Локација:<strong>'+escapeActionText(location)+'</strong></div></div>':'')+'<div class="single-action-meta-item"><span>♟</span><div>Покретач:<strong>Грађанска иницијатива</strong></div></div></div></div>'+
+ '<section class="single-action-overview"><div class="single-action-main"><span class="single-action-kind">⚡ ГРАЂАНСКА АКЦИЈА</span><h1>'+escapeActionText(action.title)+'</h1><p class="single-action-summary">'+escapeActionText(action.summary||intro)+'</p><div class="single-action-meta">'+(date?'<div class="single-action-meta-item"><span>▣</span><div>Датум:<strong>'+escapeActionText(date)+'</strong></div></div>':'')+(location?'<div class="single-action-meta-item"><span>📍</span><div>Локација:<strong>'+escapeActionText(location)+'</strong></div></div>':'')+'<div class="single-action-meta-item"><span>♟</span><div>Покретач:<strong>Грађанска иницијатива</strong></div></div></div></div>'+
  '<aside class="single-action-stat"><div class="single-action-stat-number">'+(participantCount===null?'—':participantCount)+'</div><div class="single-action-stat-label">пријављених</div>'+(active?'<button class="btn single-action-red" type="button" id="singleJoinTop">♟ Пријави се</button>':'<span>Акција је завршена</span>')+'</aside></section>'+
- '<section class="single-action-panel"><h2><span>●</span> Опис акције</h2><div class="single-action-description">'+escapeActionText(action.description||action.summary||'Више информација о овој акцији ускоро.')+'</div></section>'+
+ section('О акцији',intro,'●')+
+ section('Зашто покрећемо ову акцију?',action.reason,'●')+
+ listSection('Циљеви акције',goals,'◎')+
+ section('Шта ћемо радити?',action.activities,'✓')+
+ section('Како можеш да учествујеш?',action.participation,'♟')+
+ section('Шта је потребно понети?',action.materials,'＋')+
+ section('Када и где се окупљамо?',action.meeting_info,'📍')+
+ section('Позив на акцију',action.call_to_action,'♥')+
+ section('Резултати акције',action.results,'✓')+
  (location?'<section class="single-action-panel single-action-place"><div><h2><span>📍</span> Место</h2><p>'+escapeActionText(location)+'</p></div><iframe title="Мапа локације акције" loading="lazy" src="'+map+'"></iframe></section>':'')+
  (active?'<section class="single-action-callout"><span class="single-action-heart">♥</span><div><h2>Укључи се!</h2><p>Заједно можемо више. Пријави се, подржи акцију и помози да наше место буде боље.</p></div><button class="btn single-action-red" type="button" id="singleJoinBottom">♟ Пријави се</button></section>':'')+
  '<section class="single-action-banner"><h2>Имаш проблем који не треба да остане само прича?</h2><p>Покрени акцију и заједно тражимо решење.</p><a class="btn single-action-red" href="predlog-akcije.html">⚡ Покрени акцију</a></section>';
