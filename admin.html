@@ -82,10 +82,11 @@ function renderSubmission(item){
  const card=document.createElement('article');card.className='submission';
  const date=item.created_at?new Date(item.created_at).toLocaleString('sr-RS'):'';
  const kind=({action:'Предлог акције',problem:'Пријава проблема',campaign:'Предлог кампање',membership:'Пријава за чланство',help:'Пријава за акцију',adoption:'Пријава за удомљавање'})[item.submission_type]||'Пријава';
- const person=item.full_name||'Није наведено',phone=item.viber_phone||item.phone||'Није наведен';
+ const person=item.full_name||'Није наведено',phone=item.viber_phone||item.phone||'Није наведен',email=item.email||'Није наведен';
  const actionTitle=item.social_links&&item.social_links.action_title?'За акцију: '+item.social_links.action_title:'';
+ const extra=[item.support_type?'Врста подршке: '+item.support_type:'',item.location?'Локација: '+item.location:''].filter(Boolean).join(' · ');
  card.innerHTML='<div class="toolbar"><span class="tag">'+esc(kind)+'</span><span class="status '+(item.status==='accepted'?'accepted':item.status==='rejected'?'rejected':'')+'">'+esc(statusLabel(item.status))+'</span></div>'+
- '<h2>'+esc(item.title)+'</h2><div class="meta"><strong>'+esc(person)+'</strong> · '+esc(phone)+'<br>'+esc(date)+'<br>'+esc(actionTitle)+'</div>'+
+ '<h2>'+esc(item.title)+'</h2><div class="meta"><strong>'+esc(person)+'</strong><br>Имејл: '+esc(email)+' · Телефон: '+esc(phone)+'<br>'+esc(date)+'<br>'+esc(actionTitle)+'<br>'+esc(extra)+'</div>'+
  '<div class="description">'+esc(item.description)+'</div>'+
  '<div class="actions">'+(item.submission_type==='action'?'<button class="primary" data-status="published">Објави акцију</button>':'')+'<button class="primary" data-status="accepted">✓ Прихвати</button><button class="quiet" data-status="rejected">✕ Не прихватај</button><button class="quiet" data-status="new">Врати на чекање</button></div>';
  card.querySelectorAll('button[data-status]').forEach(btn=>btn.addEventListener('click',()=>updateStatus(item.id,btn.dataset.status,btn)));
@@ -93,7 +94,7 @@ function renderSubmission(item){
 }
 async function loadSubmissions(){
  list.innerHTML='<p class="empty">Учитавање пријава...</p>';
- const {data,error}=await db.from('civic_submissions').select('id,submission_type,title,description,full_name,phone,viber_phone,status,created_at,social_links').order('created_at',{ascending:false});
+ const {data,error}=await db.from('civic_submissions').select('id,submission_type,title,description,full_name,email,phone,viber_phone,location,support_type,status,created_at,social_links').order('created_at',{ascending:false});
  if(error){list.innerHTML='<p class="empty">Не могу да учитам пријаве. Проверите да ли сте пријављени администраторским налогом.</p>';return}
  submissions=data||[];renderList();
 }
