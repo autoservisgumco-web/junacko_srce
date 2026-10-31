@@ -22,9 +22,9 @@ button{border:0;border-radius:9px;padding:11px 17px;font:inherit;font-weight:750
 .description{white-space:pre-wrap;line-height:1.6;margin:14px 0}
 .empty{padding:28px;text-align:center;color:var(--muted);background:#fff;border-radius:14px}
 #dashboard[hidden],#authBox[hidden]{display:none}
-.toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.category-nav{display:flex;gap:9px;flex-wrap:wrap;margin:18px 0 8px}.contact-row{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:10px}.contact-row a{display:inline-flex;align-items:center;text-decoration:none;border-radius:8px;padding:7px 11px;font-size:13px;font-weight:750;background:#e8eef5;color:#102b4e}.contact-row a.viber{background:#7360a8;color:#fff}.contact-number{font-weight:750;color:var(--ink)}.submission .tag{font-size:13px;font-weight:800;color:#2166F3}
+.toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.stats-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin:18px 0}.stat-card{background:#fff;border:1px solid #e1eaf2;border-radius:13px;padding:15px}.stat-card span{display:block;color:var(--muted);font-size:13px;font-weight:700}.stat-card strong{display:block;color:var(--navy);font-size:30px;line-height:1.25;margin-top:5px}.category-nav{display:flex;gap:9px;flex-wrap:wrap;margin:18px 0 8px}.contact-row{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:10px}.contact-row a{display:inline-flex;align-items:center;text-decoration:none;border-radius:8px;padding:7px 11px;font-size:13px;font-weight:750;background:#e8eef5;color:#102b4e}.contact-row a.viber{background:#7360a8;color:#fff}.contact-number{font-weight:750;color:var(--ink)}.submission .tag{font-size:13px;font-weight:800;color:#2166F3}
 #message{color:#b42318;margin-top:12px;font-size:14px}
-@media(max-width:600px){header{align-items:flex-start;flex-direction:column}.box,.submission{padding:17px}}
+@media(max-width:700px){.stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.stat-card:first-child{grid-column:span 2}}@media(max-width:600px){header{align-items:flex-start;flex-direction:column}.box,.submission{padding:17px}}
 </style>
 </head>
 <body>
@@ -44,7 +44,7 @@ button{border:0;border-radius:9px;padding:11px 17px;font:inherit;font-weight:750
 </section>
 <section id="dashboard" hidden>
 <div class="toolbar"><div><h2>Пристигле пријаве и предлози</h2><p class="meta">Статус можеш да промениш кад год желиш.</p></div><button class="quiet" id="logout">Одјави се</button></div>
-<nav class="category-nav" aria-label="Врста пријаве"><button class="primary" type="button" data-category="participation">Пријаве за учешће</button><button class="quiet" type="button" data-category="proposals">Предлози пројеката</button></nav><div class="actions" style="margin:12px 0 20px"><button class="quiet" data-filter="all">Све</button><button class="quiet" data-filter="new">Нерешене</button><button class="quiet" data-filter="accepted">Прихваћене</button><button class="quiet" data-filter="rejected">Одбијене</button></div>
+<section class="stats-grid" aria-label="Статистика пријава"><article class="stat-card"><span>Укупно пријава</span><strong id="statTotal">0</strong></article><article class="stat-card"><span>Одобрене</span><strong id="statApproved">0</strong></article><article class="stat-card"><span>Одбијене</span><strong id="statRejected">0</strong></article><article class="stat-card"><span>На чекању</span><strong id="statPending">0</strong></article><article class="stat-card"><span>Завршене</span><strong id="statCompleted">0</strong></article></section><nav class="category-nav" aria-label="Врста пријаве"><button class="primary" type="button" data-category="participation">Пријаве за учешће</button><button class="quiet" type="button" data-category="proposals">Предлози пројеката</button></nav><div class="actions" style="margin:12px 0 20px"><button class="quiet" data-filter="all">Све</button><button class="quiet" data-filter="new">Нерешене</button><button class="quiet" data-filter="accepted">Прихваћене</button><button class="quiet" data-filter="rejected">Одбијене</button></div>
 <div id="submissions"><p class="empty">Учитавање...</p></div>
 <p id="listMessage" class="meta" role="status"></p>
 </section>
@@ -96,7 +96,18 @@ async function loadSubmissions(){
  list.innerHTML='<p class="empty">Учитавање пријава...</p>';
  const {data,error}=await db.from('civic_submissions').select('id,submission_type,title,description,full_name,email,phone,viber_phone,location,support_type,status,created_at,social_links').order('created_at',{ascending:false});
  if(error){list.innerHTML='<p class="empty">Не могу да учитам пријаве. Проверите да ли сте пријављени администраторским налогом.</p>';return}
- submissions=data||[];renderList();
+ submissions=data||[];renderStats();renderList();
+}
+function renderStats(){
+ const approved=submissions.filter(x=>x.status==='accepted'||x.status==='published').length;
+ const rejected=submissions.filter(x=>x.status==='rejected').length;
+ const completed=submissions.filter(x=>x.status==='completed').length;
+ const pending=submissions.length-approved-rejected-completed;
+ document.getElementById('statTotal').textContent=submissions.length;
+ document.getElementById('statApproved').textContent=approved;
+ document.getElementById('statRejected').textContent=rejected;
+ document.getElementById('statPending').textContent=pending;
+ document.getElementById('statCompleted').textContent=completed;
 }
 function renderList(){
  const participationTypes=['membership','help','adoption'];const proposalTypes=['action','campaign','problem'];const types=currentCategory==='participation'?participationTypes:proposalTypes;const grouped=submissions.filter(x=>types.includes(x.submission_type));const rows=currentFilter==='all'?grouped:grouped.filter(x=>currentFilter==='new'?(!x.status||x.status==='new'):currentFilter==='accepted'?(x.status==='accepted'||x.status==='published'):x.status===currentFilter);
