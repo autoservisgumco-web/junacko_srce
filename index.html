@@ -243,7 +243,11 @@ function renderActionCard(action){
  const title=document.createElement('h3');title.textContent=action.title||'Акција';
  const desc=document.createElement('p');desc.textContent=action.summary||action.description||'Погледај детаље и пријави се да помогнеш.';
  if(action.location){const place=document.createElement('p');place.textContent='Место: '+action.location;article.append(tag,title,desc,place);}else{article.append(tag,title,desc);}
- const btn=document.createElement('a');btn.className='btn';btn.textContent='Погледај акцију →';btn.href='index.html?akcija='+(action.slug?encodeURIComponent(action.slug):encodeURIComponent(action.id));article.appendChild(btn);return article;
+ const actionKey=action.slug||action.id;
+ const actionUrl=new URL('index.html',window.location.href);actionUrl.searchParams.set('akcija',actionKey);
+ const btn=document.createElement('a');btn.className='btn';btn.textContent='Погледај акцију →';btn.href=actionUrl.href;
+ btn.addEventListener('click',event=>{event.preventDefault();window.location.assign(actionUrl.href);});
+ article.appendChild(btn);return article;
 }
 async function loadActiveActions(){
  const list=document.getElementById('activeActionsList');if(!list)return;
@@ -277,7 +281,13 @@ const sideMenu=document.getElementById('sideMenu'),menuBackdrop=document.getElem
 function closeSideMenu(){sideMenu.classList.remove('open');menuBackdrop.classList.remove('open');sideMenu.setAttribute('aria-hidden','true');document.body.classList.remove('sheet-open');setTimeout(()=>{menuBackdrop.hidden=true},260)}
 document.getElementById('openMenu').addEventListener('click',()=>{menuBackdrop.hidden=false;sideMenu.setAttribute('aria-hidden','false');requestAnimationFrame(()=>{sideMenu.classList.add('open');menuBackdrop.classList.add('open')});document.body.classList.add('sheet-open')});
 document.getElementById('closeMenu').addEventListener('click',closeSideMenu);menuBackdrop.addEventListener('click',closeSideMenu);
-loadActiveActions();loadSingleAction();sheetBackdrop.addEventListener('click',hidePanels);
+loadActiveActions();
+loadSingleAction().catch(error=>{
+ console.error('Грешка при отварању Single акције:',error);
+ const view=document.getElementById('singleAction');
+ if(view){const main=document.querySelector('main.hidden-content');if(main){main.classList.remove('hidden-content');main.removeAttribute('aria-hidden');}view.hidden=false;view.innerHTML='<div class="single-action-loading">Дошло је до грешке при учитавању акције. Освежи страницу и покушај поново.</div>';}
+});
+sheetBackdrop.addEventListener('click',hidePanels);
 document.addEventListener('keydown',e=>{if(e.key==='Escape')hidePanels()});
 bottomSheet.addEventListener('touchstart',e=>{sheetTouchY=e.touches[0].clientY},{passive:true});
 bottomSheet.addEventListener('touchend',e=>{if(e.changedTouches[0].clientY-sheetTouchY>90&&sheetContent.scrollTop===0)hidePanels()},{passive:true});
