@@ -134,3 +134,21 @@ body.sheet-open{overflow:hidden}
 
 
 @media(max-width:620px){body{padding-bottom:0}.bottom-menu{display:none!important}}
+
+/* Dodatne celine početne stranice — scoped, bez menjanja postojećih komponenti. */
+.home-actions{margin:10px 0 24px;padding:clamp(20px,4vw,34px);background:#fff;border:1px solid var(--line);border-radius:18px}
+.home-actions-heading h2,.project-link-panel h2,.community-join-panel h2{font-size:clamp(23px,3.5vw,30px);margin:0 0 7px;color:var(--navy)}
+.home-actions-heading>p,.project-link-panel p,.community-join-panel p{margin:0;color:#526780;line-height:1.55}
+.home-action-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;margin-top:20px}
+.home-action-card{display:flex;flex-direction:column;align-items:flex-start;padding:19px;border:1px solid var(--line);border-radius:14px;background:#f8fbff;min-width:0}
+.home-action-icon{display:grid;place-items:center;width:38px;height:38px;border-radius:11px;background:#e5efff;color:var(--blue);font-size:25px;font-weight:900;margin-bottom:10px}
+.home-action-card h3{margin:0 0 5px;color:var(--navy);font-size:18px}
+.home-action-card p{flex:1;margin:0 0 14px;color:var(--muted);font-size:14px;line-height:1.45}
+.home-action-card .btn{font-size:13px;padding:10px 12px}
+.project-link-panel{display:flex;align-items:center;justify-content:space-between;gap:24px;margin:0 0 20px;padding:24px clamp(20px,4vw,34px);background:#e8f1fb;border:1px solid #d6e4f4;border-radius:18px}
+.project-link-panel>div{max-width:720px}
+.project-link-button{flex:none;text-decoration:none;white-space:nowrap}
+.community-join-panel{margin:0 0 26px;padding:clamp(22px,4vw,34px);border-radius:18px;background:var(--navy);color:#fff}
+.community-join-panel h2{color:#fff;max-width:760px}
+.community-join-panel p{color:#d5e4f8;max-width:780px;margin-bottom:17px}
+@media(max-width:700px){.home-action-grid{grid-template-columns:1fr}.home-action-card{padding:17px}.project-link-panel{align-items:flex-start;flex-direction:column;gap:15px}.project-link-button{white-space:normal;width:100%;text-align:center}.home-actions{padding:21px 17px}}
