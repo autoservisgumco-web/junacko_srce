@@ -300,13 +300,13 @@ function showSubmitMessage(id,text,isError=false){
  el.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 document.getElementById('joinForm').addEventListener('submit',async event=>{
- event.preventDefault();const btn=event.currentTarget.querySelector('button[type="submit"]');btn.disabled=true;btn.textContent='Слање...';
+ event.preventDefault();const form=event.currentTarget;const btn=form.querySelector('button[type="submit"]');btn.disabled=true;btn.textContent='Слање...';
  const actionId=document.getElementById('joinActionId').value;const actionTitle=document.getElementById('joinActionTitle').value;
  const payload={submission_type:'help',title:'Пријава за акцију: '+actionTitle,description:(document.getElementById('joinHelp').value.trim()||'Жели да се придружи акцији.')+'\\nНачин прикључења: '+document.getElementById('joinMethod').value,full_name:document.getElementById('joinName').value.trim(),phone:document.getElementById('joinPhone').value.trim(),viber_phone:document.getElementById('joinPhone').value.trim(),support_type:document.getElementById('joinMethod').value,social_links:{action_id:actionId,action_title:actionTitle},status:'new'};
  const {error}=await civicDb.from('civic_submissions').insert(payload);
  btn.disabled=false;btn.textContent='Пошаљи пријаву';
  if(error){showSubmitMessage('joinMessage','Пријава није послата. Проверите интернет везу и покушајте поново.',true);return;}
- event.currentTarget.reset();showSubmitMessage('joinMessage','success',false);
+ form.reset();showSubmitMessage('joinMessage','success',false);
 });
 document.getElementById('proposalForm').addEventListener('submit',async event=>{
  event.preventDefault();const form=event.currentTarget;const btn=form.querySelector('button[type="submit"]');btn.disabled=true;btn.textContent='Слање...';
