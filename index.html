@@ -224,9 +224,9 @@ if(new URLSearchParams(window.location.search).has('akcija')){
 }
 </script>
 <header class="site-header">
-<a class="site-brand" href="#pocetna" aria-label="Одговорна Плана — почетна"><span class="brand-heart">♡</span><span>Одговорна<br>Плана</span></a>
+<a class="site-brand" href="#pocetna" onclick="hideShopPage();return true" aria-label="Одговорна Плана — почетна"><span class="brand-heart">♡</span><span>Одговорна<br>Плана</span></a>
 <nav class="site-nav" aria-label="Главна навигација">
-<a class="active" href="#pocetna">Почетна</a>
+<a class="active" href="#pocetna" onclick="hideShopPage();return true">Почетна</a>
 <a href="#predlozi" onclick="showPanel('proposal');return false">Предложи</a>
 <a href="#akcije" onclick="showPanel('akcije');return false">Акције</a>
 <a href="#prodavnica" onclick="showShopPage();return false">Продавница</a>
