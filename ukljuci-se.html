@@ -15,6 +15,22 @@ details{border-top:1px solid #e3eaf2;margin-top:18px;padding-top:14px}summary{cu
 .support{background:#e8f1fb;border:1px solid #d6e4f4;border-radius:18px;padding:clamp(22px,4vw,34px);margin-top:22px}.support h2{color:#061a35;margin:0 0 10px;font-size:28px}.support p{color:#314967;margin:0;max-width:820px}
 footer{background:#041329;color:#d4e1f3;text-align:center;padding:24px;font-size:13px}
 @media(max-width:600px){.hero{padding:46px 20px}.hero p{font-size:16px}.choice{padding:21px}.buttons{display:grid}.buttons .btn{width:100%}}
+.live-list{margin:24px 0 8px;padding:20px;background:#f6f9fd;border:1px solid #e1eaf4;border-radius:14px}
+.live-list-heading h3{margin:0;color:#061a35;font-size:20px}.live-list-heading p{margin:5px 0 16px;color:#60748b;font-size:14px}
+.live-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr));gap:14px}
+.live-card{background:#fff;border:1px solid #dce5f0;border-radius:13px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.live-card img{width:100%;height:155px;object-fit:cover;background:#e7edf5}
+.live-card-body{padding:16px;display:flex;flex-direction:column;align-items:flex-start;gap:9px;flex:1}
+.live-tag{font-size:10px;font-weight:850;letter-spacing:1px;color:#2166f3;background:#eaf2ff;padding:5px 8px;border-radius:20px}
+.live-card h4{font-size:18px;line-height:1.3;color:#061a35;margin:0}
+.live-card p{font-size:14px;color:#526780;margin:0;line-height:1.55}
+.live-card .live-meta{font-size:12px;color:#6b7f95}
+.live-card details{width:100%;margin-top:2px;padding-top:9px}
+.live-card details p{margin-top:9px}
+.live-card .btn{margin-top:auto;font-size:13px;padding:10px 13px}
+.loading,.empty{padding:15px;margin:0;color:#60748b;font-size:14px;background:#fff;border:1px dashed #cbd8e7;border-radius:10px}
+@media(max-width:600px){.live-list{padding:14px}.live-cards{grid-template-columns:1fr}.live-card img{height:180px}}
+
 </style>
 </head>
 <body>
@@ -24,19 +40,27 @@ footer{background:#041329;color:#d4e1f3;text-align:center;padding:24px;font-size
 <p class="intro">Покренули смо овај простор да повежемо људе који не желе само да говоре о проблемима, већ желе да покрену нешто у својој заједници. Не мораш све сам. Можеш да започнеш, да се придружиш другима или да подржиш њихов рад.</p>
 <section class="choice">
  <div class="choice-top"><span class="num">01</span><h2>Покрени или се придружи акцији</h2></div>
+ <div class="live-list">
+  <div class="live-list-heading"><h3>Акције у које можеш да се укључиш</h3><p>Погледај шта су други покренули у својој заједници.</p></div>
+  <div id="guideActions" class="live-cards"><p class="loading">Учитавање акција...</p></div>
+ </div>
  <p>Ако приметиш проблем у својој улици, насељу или месту и желиш нешто да промениш, можеш да покренеш акцију и позовеш друге да ти се придруже. Ако је неко већ покренуо акцију у којој желиш да учествујеш, можеш једноставно да јој се прикључиш.</p>
  <div class="example"><strong>Шта је акција?</strong><br>Акција је конкретан корак који предузимамо да бисмо нешто променили у својој заједници. Има јасан циљ, задатке и временски оквир. На пример, уређење запуштеног јавног простора, помоћ комшији или решавање комуналног проблема.</div>
  <details><summary>Како функционише акција?</summary><ol><li>Приметиш проблем или нешто што желиш да промениш.</li><li>Покренеш акцију и објасниш шта желиш да постигнеш.</li><li>Позовеш друге људе да ти се придруже.</li><li>Договорите се око задатака, времена и начина учешћа.</li><li>Заједно спроведете акцију.</li></ol></details>
  <details><summary>Да ли морам ја да покренем акцију?</summary><p>Не. Можеш да погледаш акције које су други већ покренули и да се придружиш оној у којој желиш да учествујеш.</p></details>
- <div class="buttons"><a class="btn" href="predlog-akcije.html">Покрени нову акцију →</a><a class="btn secondary" href="index.html#akcije">Погледај постојеће акције</a></div>
+ <div class="buttons"><a class="btn" href="predlog-akcije.html">Покрени нову акцију →</a><a class="btn secondary" href="#guideActions">Погледај постојеће акције</a></div>
 </section>
 <section class="choice">
  <div class="choice-top"><span class="num">02</span><h2>Покрени или подржи кампању</h2></div>
+ <div class="live-list">
+  <div class="live-list-heading"><h3>Кампање које су већ покренуте</h3><p>Упознај циљеве постојећих кампања и пронађи где желиш да допринесеш.</p></div>
+  <div id="guideCampaigns" class="live-cards"><p class="loading">Учитавање кампања...</p></div>
+ </div>
  <p>Понекад један конкретан корак није довољан. Ако желиш да окупиш људе око ширег проблема или циља, можеш да покренеш кампању. Кампања може да траје дуже и да обухвати више различитих акција које воде ка истом циљу.</p>
  <div class="example"><strong>Шта је кампања?</strong><br>Кампања је шира прича око које окупљамо људе да бисмо постигли заједнички циљ. Кроз њу повезујемо више активности, идеја и људи.</div>
  <details><summary>Која је разлика између акције и кампање?</summary><p>Акција је конкретна активност коју спроводимо. Кампања је шири циљ који може да обухвати више акција. Једна кампања, на пример, може да укључи уређење више јавних простора, разговор са надлежнима и информисање грађана.</p></details>
  <details><summary>Могу ли да се прикључим већ постојећој кампањи?</summary><p>Да. Можеш да подржиш циљ кампање, укључиш се у њене активности или предложиш начин на који можеш да помогнеш.</p></details>
- <div class="buttons"><a class="btn" href="index.html#homeCampaigns">Погледај кампање →</a><a class="btn secondary" href="index.html#campaignProposal">Предложи кампању</a></div>
+ <div class="buttons"><a class="btn" href="#guideCampaigns">Погледај кампање →</a><a class="btn secondary" href="index.html">Предложи кампању</a></div>
 </section>
 <section class="support">
  <h2>Подржи наш рад</h2>
@@ -45,4 +69,33 @@ footer{background:#041329;color:#d4e1f3;text-align:center;padding:24px;font-size
 </section>
 </main>
 <footer>ОДГОВОРНА ВЕЛИКА ПЛАНА · Место за заједничко деловање</footer>
-</body></html>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(function(){
+ const SUPABASE_URL='https://hmfeizkmpmxcnzhwxgbn.supabase.co';
+ const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhbGciOiJIUzI1NiIsInJlZiI6ImhtZmVpemttcG14Y256aHd4Z2JuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMzMjkyNzgsImV4cCI6MjEwODkwNTI3OH0.oTZopOJEGUnxK69BOYPP11CQoGrLqUJowqpPU2uiY-4';
+ const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+ const safe=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ function message(id,text,cls){const el=document.getElementById(id);if(el)el.innerHTML='<p class="'+cls+'">'+safe(text)+'</p>';}
+ async function actions(){
+  const el=document.getElementById('guideActions');
+  const {data,error}=await db.from('actions').select('id,title,slug,summary,description,location,status,action_date,image_url').in('status',['planned','in_progress','completed']).order('created_at',{ascending:false}).limit(50);
+  if(error){message('guideActions','Акције тренутно нису доступне. Покушај поново касније.','empty');return;}
+  if(!data||!data.length){message('guideActions','Тренутно нема објављених акција. Можеш да покренеш прву.','empty');return;}
+  el.innerHTML=data.map(a=>{
+   const url=new URL('index.html',location.href);url.searchParams.set('akcija',a.slug||a.id);
+   const status=a.status==='completed'?'ЗАВРШЕНА АКЦИЈА':a.status==='planned'?'ПЛАНИРАНА АКЦИЈА':'АКТИВНА АКЦИЈА';
+   return '<article class="live-card">'+(a.image_url?'<img loading="lazy" src="'+safe(a.image_url)+'" alt="">':'')+'<div class="live-card-body"><span class="live-tag">'+status+'</span><h4>'+safe(a.title||'Акција')+'</h4><p>'+safe(a.summary||a.description||'Погледај детаље ове акције.')+'</p>'+(a.location?'<span class="live-meta">Место: '+safe(a.location)+'</span>':'')+'<a class="btn" href="'+safe(url.href)+'">Погледај акцију →</a></div></article>';
+  }).join('');
+ }
+ async function campaigns(){
+  const el=document.getElementById('guideCampaigns');
+  const {data,error}=await db.from('campaigns').select('id,title,slug,description,goal,hero_image,status,is_published').eq('is_published',true).order('created_at',{ascending:false}).limit(50);
+  if(error){message('guideCampaigns','Кампање тренутно нису доступне. Покушај поново касније.','empty');return;}
+  if(!data||!data.length){message('guideCampaigns','Тренутно нема објављених кампања.','empty');return;}
+  el.innerHTML=data.map(c=>'<article class="live-card">'+(c.hero_image?'<img loading="lazy" src="'+safe(c.hero_image)+'" alt="">':'')+'<div class="live-card-body"><span class="live-tag">КАМПАЊА</span><h4>'+safe(c.title||'Кампања')+'</h4><p>'+safe(c.description||'Упознај заједнички циљ и види како можеш да допринесеш.')+'</p>'+(c.goal?'<details><summary>Шта желимо да постигнемо?</summary><p>'+safe(c.goal)+'</p></details>':'')+'</div></article>').join('');
+ }
+ actions();campaigns();
+})();
+</script></body></html>
