@@ -12,7 +12,7 @@
   items.forEach(([href,icon,label,target])=>{
     const a=document.createElement('a');a.href=href;
     a.innerHTML=icon+'<span>'+label+'</span>';
-    if(path===target && !(label==='Подршка' && !location.hash)) a.setAttribute('aria-current','page');
+    if(path===target) a.setAttribute('aria-current','page');
     nav.appendChild(a);
   });
   document.querySelectorAll('.mobile-bottom-nav').forEach(el=>el.remove());
