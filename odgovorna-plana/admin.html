@@ -89,8 +89,27 @@ function renderSubmission(item){
  '<h2>'+esc(item.title)+'</h2><div class="meta"><strong>'+esc(person)+'</strong><br>Имејл: '+esc(email)+'<br>'+esc(date)+'<br>'+esc(actionTitle)+'<br>'+esc(extra)+'</div>'+(item.phone||item.viber_phone||item.email?'<div class="contact-row">'+((item.phone||item.viber_phone)?'<span class="contact-number">'+esc(item.viber_phone||item.phone)+'</span><a href="tel:'+esc((item.phone||item.viber_phone).replace(/[^0-9+]/g,''))+'">Позови</a><a class="viber" href="viber://chat?number='+encodeURIComponent((item.viber_phone||item.phone).replace(/[^0-9+]/g,''))+'">Viber</a>':'')+(item.email?'<a href="mailto:'+esc(item.email)+'">Email</a>':'')+'</div>':'')+
  '<div class="description">'+esc(item.description)+'</div>'+
  '<div class="actions">'+(item.submission_type==='action'&&item.status!=='published'?'<button class="secondary" data-status="published">Објави акцију</button>':'')+(item.status!=='accepted'&&item.status!=='published'?'<button class="primary" data-status="accepted">✓ Прихвати</button>':'')+(item.status!=='rejected'?'<button class="quiet" data-status="rejected">✕ Одбиј</button>':'')+(item.status&&item.status!=='new'?'<button class="quiet" data-status="new">Врати на чекање</button>':'')+'</div>';
+ renderAttachments(item,card);
  card.querySelectorAll('button[data-status]').forEach(btn=>btn.addEventListener('click',()=>updateStatus(item.id,btn.dataset.status,btn)));
  return card;
+}
+async function renderAttachments(item,card){
+ const files=item.social_links&&Array.isArray(item.social_links.attachments)?item.social_links.attachments:[];
+ if(!files.length)return;
+ const section=document.createElement('section');section.className='box';section.style.marginTop='14px';
+ const heading=document.createElement('h3');heading.textContent='Приложени фајлови ('+files.length+')';heading.style.margin='0 0 10px';section.appendChild(heading);
+ const list=document.createElement('div');list.className='actions';section.appendChild(list);card.appendChild(section);
+ for(const file of files){
+  const row=document.createElement('div');row.className='meta';row.textContent=file.name||'Прилог';
+  const {data,error}=await db.storage.from('action-proposal-files').createSignedUrl(file.path,3600);
+  if(!error&&data&&data.signedUrl){
+   const link=document.createElement('a');link.href=data.signedUrl;link.target='_blank';link.rel='noopener noreferrer';link.className='quiet';link.textContent='Прегледај / преузми';link.style.textDecoration='none';link.style.borderRadius='8px';link.style.padding='8px 11px';link.style.fontWeight='750';row.appendChild(link);
+  }else{
+   const unavailable=document.createElement('span');unavailable.textContent=' · Фајл тренутно није доступан';row.appendChild(unavailable);
+  }
+  if(file.size){const size=document.createElement('span');size.textContent=' · '+(file.size/1024/1024).toFixed(2)+' MB';row.appendChild(size);}
+  list.appendChild(row);
+ }
 }
 async function loadSubmissions(){
  list.innerHTML='<p class="empty">Учитавање пријава...</p>';
