@@ -166,3 +166,25 @@ body.sheet-open{overflow:hidden}
 .proposal-guide-content li{padding:2px 0}
 .proposal-guide-content strong{color:var(--navy)}
 .proposal-guide-content .proposal-guide-note{margin:0;padding-top:9px;border-top:1px solid #d6e4f4;font-weight:650;color:var(--navy)}
+
+/* Заједничка навигација секције Одговорна Плана */
+.op-header{background:#061A35;color:#fff;padding:14px 0;position:relative;z-index:20}
+.op-header-inner{display:flex;align-items:center;justify-content:space-between;gap:28px}
+.op-brand{display:block;flex:0 0 auto;color:#fff;text-decoration:none}
+.op-top-nav{display:flex;align-items:center;justify-content:flex-end;gap:clamp(12px,2.1vw,28px)}
+.op-top-nav a{color:#e2edff;text-decoration:none;font-size:13px;font-weight:800;white-space:nowrap;padding:9px 0;position:relative}
+.op-top-nav a:hover,.op-top-nav a.active{color:#8ecbff}
+.op-top-nav a.active:after{content:"";position:absolute;left:0;right:0;bottom:1px;height:2px;border-radius:4px;background:#35a9ff}
+.op-bottom-nav{display:none}
+@media(max-width:850px){.op-header-inner{gap:12px}.op-top-nav{gap:12px}.op-top-nav a{font-size:12px}}
+@media(max-width:620px){
+ .op-header{padding:13px 0}
+ .op-header-inner{width:calc(100% - 32px)}
+ .op-top-nav{display:none}
+ body{padding-bottom:calc(76px + env(safe-area-inset-bottom))}
+ .op-bottom-nav{position:fixed;z-index:950;left:0;right:0;bottom:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:2px;padding:7px 7px calc(7px + env(safe-area-inset-bottom));background:rgba(255,255,255,.97);border-top:1px solid var(--line);box-shadow:0 -8px 28px #061a3512;backdrop-filter:blur(12px)}
+ .op-bottom-link{min-width:0;min-height:50px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;color:#526780;text-decoration:none;border-radius:9px}
+ .op-bottom-link span{font-size:20px;line-height:1.1;font-weight:800}
+ .op-bottom-link small{font-size:10px;line-height:1.2;font-weight:800;white-space:nowrap}
+ .op-bottom-link.active{color:var(--blue);background:#edf4ff}
+}
