@@ -23,6 +23,19 @@
 .support-btn.dark{background:#061A35}
 .support-note{margin-top:22px;padding:24px;border-radius:16px;background:#e7f0fb;color:#314967}
 .support-note h2{color:#061A35;margin:0 0 7px;font-size:22px}.support-note>p{margin:0;line-height:1.65}
+.support-shop{margin-top:24px;padding:clamp(24px,4vw,38px);border-radius:0 0 28px 28px;background:linear-gradient(115deg,#061a35 0%,#0b3263 72%,#123e75 100%);color:#fff;box-shadow:0 18px 38px #061a3518}
+.support-shop-copy{max-width:820px;color:#e0edf8;font-size:clamp(16px,2vw,19px);line-height:1.7;margin:0 0 26px}
+.support-shop-actions{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:28px}
+.support-shop-actions a{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;border-radius:11px;padding:13px 20px;font-weight:850}
+.support-shop-actions .shop-primary{background:#2166f3;color:#fff}
+.support-shop-actions .shop-secondary{background:#041a36;color:#fff}
+.support-product-link{display:flex;align-items:center;gap:20px;background:#fff;color:#061a35;text-decoration:none;border-radius:22px;padding:18px 22px;max-width:820px;box-shadow:0 8px 22px #0002}
+.support-product-icon{width:92px;height:92px;flex:0 0 92px;border-radius:20px;background:#e8f1ff;color:#2166f3;display:grid;place-items:center;font-size:48px}
+.support-product-info{display:flex;align-items:center;justify-content:space-between;gap:18px;flex:1;flex-wrap:wrap}
+.support-product-info strong{display:block;font-size:clamp(17px,2.2vw,23px);text-decoration:underline;text-underline-offset:3px}
+.support-product-info small{display:block;color:#718096;font-size:15px;margin-top:5px;text-decoration:underline;text-underline-offset:3px}
+.support-product-info b{color:#c3263b;font-size:clamp(20px,2.5vw,26px);white-space:nowrap}
+@media(max-width:600px){.support-shop{padding:23px 18px}.support-product-link{align-items:flex-start;gap:13px;padding:14px}.support-product-icon{width:64px;height:64px;flex-basis:64px;font-size:36px;border-radius:15px}.support-product-info{align-items:flex-start;flex-direction:column;gap:7px}.support-product-info small{font-size:13px}}
 .support-form{margin-top:22px;background:#fff;border:1px solid #dce5f0;border-radius:14px;padding:clamp(18px,3vw,26px)}
 .support-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
 .support-field label{display:block;font-size:14px;font-weight:750;color:#061A35;margin:0 0 6px}
@@ -51,9 +64,20 @@
 <div class="support-grid">
 <article class="support-card"><div class="support-icon">↗</div><h2>Постани део Покрета</h2><p>Желиш да будеш део заједнице људи који преузимају одговорност и покрећу промене у свом окружењу? Остави пријаву и повежимо се.</p><a class="support-btn" href="#prijava-podrske">Придружи се →</a></article>
 <article class="support-card"><div class="support-icon">＋</div><h2>Укључи се у акције</h2><p>Имаш времена и желиш да помогнеш на терену? Погледај шта је тренутно покренуто и прикључи се.</p><a class="support-btn dark" href="/akcije.html">Погледај акције →</a></article>
-<article class="support-card"><div class="support-icon">♡</div><h2>Подржи рад куповином</h2><p>Не мораш да будеш на терену да би помогао. Куповином наших производа директно подржаваш рад Покрета Одговорна Плана и омогућаваш да наставимо да покрећемо акције и повезујемо људе.</p><a class="support-btn" href="/prodavnica.html">Посети продавницу →</a></article>
+
 <article class="support-card"><div class="support-icon">✦</div><h2>Помози знањем, временом или ресурсима</h2><p>Ако не можеш физички да учествујеш, можеш да помогнеш материјалом, алатом, опремом, новчаним доприносом или својим знањем.</p><a class="support-btn dark" href="#prijava-podrske">Пријави подршку ↓</a></article>
 </div>
+<section class="support-shop" aria-labelledby="supportShopTitle">
+ <div class="support-kicker">И ПОДРШКА ЈЕ ДОПРИНОС</div>
+ <h2 id="supportShopTitle" style="color:#fff;font-size:clamp(27px,4vw,38px);line-height:1.15;margin:10px 0 12px">Не мораш увек да будеш на терену.</h2>
+ <p class="support-shop-copy">Рад можеш да подржиш куповином производа које припремамо. На тај начин помажеш да организујемо нове активности и наставимо заједнички рад.</p>
+ <div class="support-shop-actions"><a class="shop-primary" href="/prodavnica.html">Отвори продавницу →</a><a class="shop-secondary" href="#prijava-podrske">Подржи на други начин</a></div>
+ <a class="support-product-link" href="/prodavnica.html" aria-label="Привезак Одговорна Плана, 150 динара — отвори продавницу">
+  <span class="support-product-icon" aria-hidden="true">♡</span>
+  <span class="support-product-info"><span><strong>Привезак Одговорна Плана</strong><small>Привезак Одговорна Плана. Цена 150 динара.</small></span><b>150 дин.</b></span>
+ </a>
+</section>
+<section class="support-note" style="margin-top:28px"><div class="support-kicker" style="color:#2166f3">ТВОЈ ДОПРИНОС ЈЕ ВАЖАН</div><h2>Не мораш да чекаш да неко други направи први корак.</h2><p>Предложи идеју, прикључи се постојећој акцији, помогни организацији или подржи рад куповином производа. Свако може да допринесе на свој начин.</p><div class="support-shop-actions" style="margin:20px 0 0"><a class="shop-primary" href="/predlog-akcije.html">Предложи акцију</a><a class="shop-secondary" href="/kampanje.html">Погледај кампање</a></div></section>
 <section class="support-note" id="prijava-podrske"><h2>Желиш да будеш део Одговорне Плане?</h2><p>Остави нам контакт и напиши на који начин желиш да се укључиш. Јавићемо ти се да се упознамо и договоримо како можемо заједно да делујемо.</p>
 <form id="supportForm" class="support-form">
 <div class="support-fields">
