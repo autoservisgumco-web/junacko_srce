@@ -198,7 +198,8 @@ async function updateStatus(id,status,button){
  note.textContent='Статус је сачуван.';const row=submissions.find(x=>x.id===id);if(row)row.status=status;renderMembershipList();renderList();
 }
 document.getElementById('refreshParticipants').addEventListener('click',loadParticipants);
-document.getElementById('refreshMembership').addEventListener('click',loadSubmissions);\ndocument.querySelectorAll('[data-filter]').forEach(btn=>btn.addEventListener('click',()=>{currentFilter=btn.dataset.filter;renderList()}));
+document.getElementById('refreshMembership').addEventListener('click',loadSubmissions);
+document.querySelectorAll('[data-filter]').forEach(btn=>btn.addEventListener('click',()=>{currentFilter=btn.dataset.filter;renderList()}));
 db.auth.onAuthStateChange(()=>{refreshSession()});
 refreshSession();
 </script>
