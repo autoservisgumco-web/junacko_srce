@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#061A35">
-<title>Подршка — Одговорна Плана</title>
-<meta name="description" content="Подржи рад Покрета Одговорна Плана на начин који ти одговара.">
+<title>Подржи Одговорну Плану</title>
+<meta name="description" content="Пријави се да подржиш рад Покрета Одговорна Плана — физички или материјално.">
 <link rel="stylesheet" href="stranice.css"><link rel="stylesheet" href="bottom-nav.css">
 <style>
 .support-hero{background:linear-gradient(120deg,#061A35,#0d3263 68%,#2166F3);color:#fff;padding:clamp(38px,7vw,76px) 22px}
@@ -22,7 +22,14 @@
 .support-btn{display:inline-flex;align-items:center;justify-content:center;align-self:flex-start;background:#2166F3;color:#fff;text-decoration:none;border-radius:10px;padding:12px 18px;font-weight:800}
 .support-btn.dark{background:#061A35}
 .support-note{margin-top:22px;padding:24px;border-radius:16px;background:#e7f0fb;color:#314967}
-.support-note h2{color:#061A35;margin:0 0 7px;font-size:22px}.support-note p{margin:0;line-height:1.65}
+.support-note h2{color:#061A35;margin:0 0 7px;font-size:22px}.support-note>p{margin:0;line-height:1.65}
+.support-form{margin-top:22px;background:#fff;border:1px solid #dce5f0;border-radius:14px;padding:clamp(18px,3vw,26px)}
+.support-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+.support-field label{display:block;font-size:14px;font-weight:750;color:#061A35;margin:0 0 6px}
+.support-field input,.support-field select,.support-field textarea{width:100%;border:1px solid #cbd9e5;border-radius:9px;padding:12px;font:inherit;background:#fff;color:#142844}
+.support-field textarea{resize:vertical;min-height:110px}.support-full{grid-column:1/-1}
+.support-message{margin:12px 0 0;font-weight:650}.support-message:empty{display:none}
+@media(max-width:650px){.support-fields{grid-template-columns:1fr}.support-full{grid-column:auto}}
 @media(max-width:650px){.support-main{padding:27px 16px 60px}.support-grid{grid-template-columns:1fr}.support-hero{padding:42px 18px}.support-hero p{font-size:16px}}
 </style></head>
 <body class="content-page-body">
@@ -32,19 +39,44 @@
 <button class="menu-trigger" id="openMenu" type="button" aria-label="Отвори мени">☰</button></header>
 <div class="menu-backdrop" id="menuBackdrop" hidden></div>
 <aside class="side-menu" id="sideMenu" aria-hidden="true"><div class="side-menu-head"><span>♡ Одговорна Плана</span><button class="side-menu-close" id="closeMenu" type="button" aria-label="Затвори мени">×</button></div><nav aria-label="Мени"><a href="index.html">Почетна</a><a href="kampanje.html">Кампање</a><a href="akcije.html">Акције</a><a class="active" href="podrska.html">Подршка</a></nav></aside>
-<section class="support-hero"><div class="support-hero-inner"><div class="support-kicker">СВАКО МОЖЕ ДА ДОПРИНЕСЕ</div><h1>Подршка почиње од онога што можеш.</h1><p>Не морамо сви да радимо исту ствар. Неко покреће акцију, неко се придружи на терену, неко помогне знањем, опремом или куповином производа. Важно је да свако пронађе свој начин да допринесе.</p></div></section>
+<section class="support-hero"><div class="support-hero-inner"><div class="support-kicker">СВАКО МОЖЕ ДА ДОПРИНЕСЕ</div><h1>Подржи рад Одговорне Плане.</h1><p>Не може свако да буде на терену. Али свако може да помогне на свој начин — својим временом, знањем, опремом, материјалом или финансијском подршком.</p></div></section>
 <main class="support-main"><div class="support-wrap">
-<p class="support-intro">Изабери начин који ти највише одговара. Сваки допринос помаже да идеје претворимо у конкретне промене у нашој заједници.</p>
+<p class="support-intro">Одговорна Плана се гради заједничким радом. Ако желиш да будеш део тог рада, пријави на који начин можеш да помогнеш.</p>
 <div class="support-grid">
-<article class="support-card"><div class="support-icon">↗</div><h2>Прикључи се акцији</h2><p>Погледај шта је већ покренуто у Великој Плани и околним местима. Изабери акцију и пријави се да учествујеш.</p><a class="support-btn" href="akcije.html">Погледај акције →</a></article>
+<article class="support-card"><div class="support-icon">↗</div><h2>Укључи се на терену</h2><p>Ако можеш да издвојиш време и учествујеш у конкретним активностима, погледај акције које су већ покренуте.</p><a class="support-btn" href="akcije.html">Погледај акције →</a></article>
 <article class="support-card"><div class="support-icon">＋</div><h2>Покрени нешто своје</h2><p>Приметио си проблем или имаш идеју? Предложи акцију и окупи људе који желе да помогну.</p><a class="support-btn dark" href="predlog-akcije.html">Предложи акцију →</a></article>
 <article class="support-card"><div class="support-icon">♡</div><h2>Подржи рад куповином</h2><p>Куповином производа из наше понуде помажеш да одржимо и развијамо рад Покрета Одговорна Плана.</p><a class="support-btn" href="prodavnica.html">Посети продавницу →</a></article>
-<article class="support-card"><div class="support-icon">✦</div><h2>Помози својим знањем и могућностима</h2><p>Можеш да помогнеш организацијом, промоцијом, стручним знањем, алатом, опремом или другим конкретним доприносом.</p><a class="support-btn dark" href="ukljuci-se.html">Види како можеш да помогнеш →</a></article>
+<article class="support-card"><div class="support-icon">✦</div><h2>Помози знањем, опремом или средствима</h2><p>Ако не можеш физички да учествујеш, можеш да помогнеш материјалом, алатом, опремом, новчаним доприносом или својим знањем.</p><a class="support-btn dark" href="ukljuci-se.html">Пријави подршку ↓</a></article>
 </div>
-<section class="support-note"><h2>Није важно колико можеш. Важно је да учествујеш.</h2><p>Заједнички рад не зависи од једног човека. Градимо га тако што свако преузме део одговорности и уради оно што може.</p></section>
+<section class="support-note" id="prijava-podrske"><h2>На који начин можеш да подржиш рад?</h2><p>Попуни пријаву. Јавићемо ти се да се договоримо око конкретног начина подршке.</p>
+<form id="supportForm" class="support-form">
+<div class="support-fields">
+<div class="support-field"><label for="supportName">Име и презиме *</label><input id="supportName" name="full_name" required maxlength="120" autocomplete="name"></div>
+<div class="support-field"><label for="supportPhone">Телефон *</label><input id="supportPhone" name="phone" type="tel" required maxlength="50" autocomplete="tel" placeholder="06x xxx xxxx"></div>
+<div class="support-field"><label for="supportEmail">Имејл адреса</label><input id="supportEmail" name="email" type="email" maxlength="180" autocomplete="email"></div>
+<div class="support-field"><label for="supportLocation">Место</label><input id="supportLocation" name="location" maxlength="180" placeholder="Насеље или место"></div>
+<div class="support-field support-full"><label for="supportType">Како желиш да помогнеш? *</label><select id="supportType" name="support_type" required><option value="">Изабери начин подршке</option><option value="Физичко учешће">Физичким учешћем и својим временом</option><option value="Знање и стручна помоћ">Знањем и стручном помоћи</option><option value="Материјална подршка">Материјалом, алатом или опремом</option><option value="Финансијска подршка">Финансијском подршком</option><option value="Друго">На други начин</option></select></div>
+<div class="support-field support-full"><label for="supportDescription">Напиши како конкретно можеш да помогнеш</label><textarea id="supportDescription" name="description" rows="4" maxlength="2500" placeholder="На пример: могу да помогнем превозом, алатом, материјалом, стручним знањем..."></textarea></div>
+</div><button class="support-btn" id="supportSubmit" type="submit">Пошаљи пријаву</button><p id="supportMessage" class="support-message" role="status" aria-live="polite"></p>
+</form></section>
 </div></main>
 <footer class="content-footer"><div class="content-footer-inner">ОДГОВОРНА ПЛАНА · Место за заједничко деловање</div></footer>
 <script>
 const menu=document.getElementById('sideMenu'),back=document.getElementById('menuBackdrop');function closeSideMenu(){menu.classList.remove('open');back.classList.remove('open');menu.setAttribute('aria-hidden','true');setTimeout(()=>back.hidden=true,260)}document.getElementById('openMenu').addEventListener('click',()=>{back.hidden=false;menu.setAttribute('aria-hidden','false');requestAnimationFrame(()=>{back.classList.add('open');menu.classList.add('open')})});document.getElementById('closeMenu').addEventListener('click',closeSideMenu);back.addEventListener('click',closeSideMenu);
+</script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const supportDb=window.supabase.createClient('https://hmfeizkmpmxcnzhwxgbn.supabase.co','sb_publishable_JPtLezaiIeq4MsQ2f3LSlg_nT01Chxe');
+document.getElementById('supportForm').addEventListener('submit',async e=>{
+ e.preventDefault();
+ const form=e.currentTarget,button=document.getElementById('supportSubmit'),message=document.getElementById('supportMessage'),data=new FormData(form);
+ button.disabled=true;button.textContent='Шаљем пријаву...';message.textContent='';
+ const fullName=String(data.get('full_name')||'').trim(),phone=String(data.get('phone')||'').trim(),email=String(data.get('email')||'').trim(),location=String(data.get('location')||'').trim(),supportType=String(data.get('support_type')||'').trim(),description=String(data.get('description')||'').trim();
+ try{
+  const {error}=await supportDb.from('civic_submissions').insert({submission_type:'help',title:'Подршка раду Покрета Одговорна Плана',description:description||'Пријава за подршку раду Покрета Одговорна Плана.',full_name:fullName,phone,email:email||null,location:location||null,support_type:supportType,status:'new',social_links:{source:'podrska',scope:'project'}});
+  if(error)throw error;
+  form.reset();message.style.color='#176b3a';message.textContent='Хвала ти! Пријава је послата. Јавићемо ти се да договоримо како можеш да помогнеш.';
+ }catch(err){console.error(err);message.style.color='#b42318';message.textContent='Пријава није послата. Покушај поново или нам се јави директно.';}
+ finally{button.disabled=false;button.textContent='Пошаљи пријаву';}
+});
 </script><script src="bottom-nav.js"></script>
 </body></html>
