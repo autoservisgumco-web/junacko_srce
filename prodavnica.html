@@ -33,12 +33,11 @@ footer{background:#041329;color:#d4e1f3;text-align:center;padding:24px 18px;font
 @media(max-width:390px){header{flex-direction:column}.brand{font-size:20px}nav{width:100%;justify-content:space-between}}
 </style>
   <link rel="stylesheet" href="bottom-nav.css">
+<link rel="stylesheet" href="/stranice.css"><link rel="stylesheet" href="/bottom-nav.css">
 </head>
 <body>
-<header>
-<a class="brand" href="index.html"><span class="brand-mark">♡</span><span>Одговорна<br>Плана<small>МЕСТО ЗА ЗАЈЕДНИЧКО ДЕЛОВАЊЕ</small></span></a>
-<nav aria-label="Главна навигација"><a href="index.html">Почетна</a><a href="o-projektu.html">О пројекту</a><a href="prodavnica.html" aria-current="page">Продавница</a><a href="podrska.html">Подршка</a></nav>
-</header>
+<header class="site-header"><a class="site-brand" href="/index.html" aria-label="Одговорна Плана — почетна"><span class="brand-heart">♡</span><span>Одговорна<br>Плана</span></a><nav class="site-nav" aria-label="Главна навигација"><a href="/index.html">Почетна</a><a href="/kampanje.html">Кампање</a><a href="/akcije.html">Акције</a><a href="/podrska.html">Подршка</a></nav><button class="menu-trigger" id="openMenu" type="button" aria-label="Отвори мени">☰</button></header><div class="menu-backdrop" id="menuBackdrop" hidden></div><aside class="side-menu" id="sideMenu" aria-hidden="true"><div class="side-menu-head"><span>♡ Одговорна Плана</span><button class="side-menu-close" id="closeMenu" type="button" aria-label="Затвори мени">×</button></div><nav aria-label="Мени"><a href="/index.html">Почетна</a><a href="/kampanje.html">Кампање</a><a href="/akcije.html">Акције</a><a href="/o-projektu.html">О пројекту</a><a href="/podrska.html">Подршка</a><a href="/prodavnica.html">Продавница</a></nav></aside>
+<section class="hero hero-full"><div class="hero-inner"><div class="hero-copy"><p class="eyebrow">ОДГОВОРНА ВЕЛИКА ПЛАНА</p><h1>Простор за<br><span>заједничко деловање.</span></h1><p class="lead">Повезујемо људе који желе да учествују у животу своје заједнице, покрену идеју и заједно раде на променама.</p></div><div class="hero-buttons"><a class="hero-cta" href="/ukljuci-se.html"><span class="cta-icon people-icon" aria-hidden="true">♡</span><span class="cta-copy"><strong>Види како можеш да се укључиш</strong><small>Изабери свој начин да допринесеш.</small></span><span class="cta-arrow" aria-hidden="true">→</span></a><a class="hero-cta" href="/o-projektu.html"><span class="cta-icon" aria-hidden="true">ⓘ</span><span class="cta-copy"><strong>Види више о пројекту</strong><small>Упознај идеју, циљеве и начин рада.</small></span><span class="cta-arrow" aria-hidden="true">→</span></a></div></div></section>
 <main>
 <section class="intro">
 <div class="kicker">ПОДРЖИ ЗАЈЕДНИЦУ</div>
@@ -88,7 +87,7 @@ footer{background:#041329;color:#d4e1f3;text-align:center;padding:24px 18px;font
 </section>
 <section class="closing"><h2>Заједно можемо више.</h2><p>Није ствар само у привеску. Ствар је у људима који желе да учествују, помогну и оставе нешто добро иза себе.</p></section>
 </main>
-<footer>ОДГОВОРНА ПЛАНА · Место за заједничко деловање · <a href="index.html" style="color:#d4e1f3">Почетна</a></footer>
+<footer>ОДГОВОРНА ПЛАНА · Место за заједничко деловање · <a href="/index.html" style="color:#d4e1f3">Почетна</a></footer>
 <div class="modal-backdrop" id="orderModal" role="dialog" aria-modal="true" aria-labelledby="formTitle">
 <div class="modal">
 <div class="modal-head"><h2 id="formTitle">Подаци за наруџбину</h2><button class="close" type="button" id="closeModal" aria-label="Затвори">×</button></div>
@@ -118,4 +117,5 @@ $('orderForm').addEventListener('submit',e=>{e.preventDefault();const form=e.cur
 $('finishOrder').addEventListener('click',()=>{close();$('orderForm').reset();qty=1;render()});render();})();
 </script>
   <script src="bottom-nav.js"></script>
+<script>(function(){const menu=document.getElementById('sideMenu'),back=document.getElementById('menuBackdrop');if(!menu||!back)return;function close(){menu.classList.remove('open');back.classList.remove('open');menu.setAttribute('aria-hidden','true');setTimeout(()=>back.hidden=true,260)}document.getElementById('openMenu').addEventListener('click',()=>{back.hidden=false;menu.setAttribute('aria-hidden','false');requestAnimationFrame(()=>{back.classList.add('open');menu.classList.add('open')})});document.getElementById('closeMenu').addEventListener('click',close);back.addEventListener('click',close)})();</script><script src="/bottom-nav.js"></script>
 </body></html>
