@@ -281,6 +281,7 @@ body.shop-page #prodavnica{display:block}
 body.action-page,body.shop-page{padding-bottom:0}
 
 </style>
+  <link rel="stylesheet" href="bottom-nav.css">
 </head>
 <body class="home-hero" id="pocetna">
 <script>
@@ -444,7 +445,7 @@ if(new URLSearchParams(window.location.search).has('akcija')){
 </section>
 
 <section class="signup-success-overlay" id="signupSuccessOverlay" role="dialog" aria-modal="true" aria-labelledby="signupSuccessTitle" aria-hidden="true" hidden><div class="signup-success-card"><button class="signup-success-close" id="closeSignupSuccess" type="button" aria-label="Затвори">×</button><div class="signup-success-icon" aria-hidden="true">✓</div><h2 id="signupSuccessTitle">Ваша пријава је успешно завршена.</h2></div></section>
-<nav class="mobile-bottom-nav" aria-label="Брза навигација"><a href="#pocetna" onclick="hideShopPage()">⌂<span>Почетна</span></a><a href="#homeActions">✓<span>Акције</span></a><a href="#homeCampaigns">◎<span>Кампање</span></a><a href="#homeSupport">♡<span>Подршка</span></a><button type="button" onclick="document.getElementById('openMenu').click()">☰<span>Мени</span></button></nav>
+
 <footer>Одговорна Велика Плана · Покретач: Јовица Вратница</footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
@@ -761,4 +762,5 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')hidePanels()});
 bottomSheet.addEventListener('touchstart',e=>{sheetTouchY=e.touches[0].clientY},{passive:true});
 bottomSheet.addEventListener('touchend',e=>{if(e.changedTouches[0].clientY-sheetTouchY>90&&sheetContent.scrollTop===0)hidePanels()},{passive:true});
 </script>
+  <script src="bottom-nav.js"></script>
 </body></html>
