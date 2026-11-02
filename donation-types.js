@@ -58,17 +58,34 @@
   }
 
   function renderPayment(settings) {
-    if (!settings || (!settings.bank_account && !settings.paypal_email && !settings.payment_instructions)) {
-      return '<div class="donation-empty">Подаци за уплату још нису објављени. Пре уплате се јави контакт особи.</div>';
-    }
-    let html = '<div class="donation-payment-card"><div class="donation-contact-title">Подаци за уплату</div>';
-    if (settings.recipient_name) html += '<div class="donation-detail-row"><span>Прималац</span><strong>' + esc(settings.recipient_name) + '</strong></div>';
-    if (settings.bank_account) html += '<div class="donation-detail-row"><span>Динарски рачун</span><strong>' + esc(settings.bank_account) + '</strong><button type="button" class="donation-copy" data-copy="' + esc(settings.bank_account) + '">Копирај</button></div>';
-    if (settings.payment_purpose) html += '<div class="donation-detail-row"><span>Сврха уплате</span><strong>' + esc(settings.payment_purpose) + '</strong></div>';
-    if (settings.reference_number) html += '<div class="donation-detail-row"><span>Позив на број</span><strong>' + esc(settings.reference_number) + '</strong></div>';
-    if (settings.paypal_email) html += '<div class="donation-detail-row"><span>PayPal</span><strong>' + esc(settings.paypal_email) + '</strong><button type="button" class="donation-copy" data-copy="' + esc(settings.paypal_email) + '">Копирај</button></div>';
-    if (settings.payment_instructions) html += '<p class="donation-payment-note">' + esc(settings.payment_instructions) + '</p>';
-    html += '</div>';
+    const s = settings || {};
+    const paypalUrl = s.paypal_url || s.paypal_link || s.paypal_me_url || "";
+    const hasBank = !!(s.bank_account || s.recipient_name || s.payment_purpose || s.reference_number);
+    const hasSlip = !!(s.recipient_name || s.bank_account || s.payment_purpose || s.reference_number);
+    const row = (label, value) => value ? '<div class="donation-detail-row"><span>' + esc(label) + '</span><strong>' + esc(value) + '</strong><button type="button" class="donation-copy" data-copy="' + esc(value) + '">Копирај</button></div>' : "";
+    let html = '<div class="donation-methods">';
+    html += '<section class="donation-method"><h4>Банковни трансфер</h4>';
+    html += hasBank ? '<div class="donation-payment-card">' +
+      row("Прималац", s.recipient_name) + row("Број рачуна", s.bank_account) +
+      row("Сврха уплате", s.payment_purpose) + row("Позив на број", s.reference_number) +
+      (s.payment_instructions ? '<p class="donation-payment-note">' + esc(s.payment_instructions) + '</p>' : '') +
+      '</div>' : '<div class="donation-empty">Подаци за банковни трансфер још нису унети.</div>';
+    html += '</section>';
+    html += '<section class="donation-method"><h4>PayPal</h4>';
+    html += paypalUrl
+      ? '<a class="donation-paypal-button" href="' + esc(paypalUrl) + '" target="_blank" rel="noopener noreferrer"><i class="fab fa-paypal"></i> Донирај преко PayPal-а</a>'
+      : '<div class="donation-empty">PayPal линк за ову кампању још није подешен.</div>';
+    if (s.paypal_email) html += '<div class="donation-paypal-email">PayPal налог: <strong>' + esc(s.paypal_email) + '</strong> <button type="button" class="donation-copy" data-copy="' + esc(s.paypal_email) + '">Копирај</button></div>';
+    html += '</section>';
+    html += '<section class="donation-method"><h4>Уплатница</h4>';
+    html += hasSlip ? '<div class="donation-payment-card donation-slip">' +
+      '<div class="donation-slip-heading">НАЛОГ ЗА УПЛАТУ</div>' +
+      row("Уплатилац", "") + row("Прималац", s.recipient_name) +
+      row("Рачун примаоца", s.bank_account) + row("Сврха уплате", s.payment_purpose) +
+      row("Модел / позив на број", s.reference_number) +
+      '<p class="donation-payment-note">Упиши износ који желиш да донираш и ове податке пренеси на уплатницу.</p></div>'
+      : '<div class="donation-empty">Подаци за попуњавање уплатнице још нису унети.</div>';
+    html += '</section></div>';
     return html;
   }
 
