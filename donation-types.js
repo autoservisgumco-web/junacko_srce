@@ -74,6 +74,19 @@
       { id: "slip", label: "Уплатница", content: slipContent }
     ];
     if (paypalUrl) tabs.push({ id: "paypal", label: "PayPal", content: '<div class="donation-payment-card"><a class="donation-paypal-button" href="' + esc(paypalUrl) + '" target="_blank" rel="noopener noreferrer"><i class="fab fa-paypal"></i> Донирај преко PayPal-а</a>' + (s.paypal_email ? '<div class="donation-paypal-email">PayPal налог: <strong>' + esc(s.paypal_email) + '</strong> <button type="button" class="donation-copy" data-copy="' + esc(s.paypal_email) + '">Копирај</button></div>' : '') + '</div>' });
+    const wuFirst = String(s.western_union_first_name || "").trim();
+    const wuLast = String(s.western_union_last_name || "").trim();
+    const wuName = [wuFirst, wuLast].filter(Boolean).join(" ");
+    const hasWesternUnion = s.show_western_union === true && !!wuFirst && !!wuLast;
+    if (hasWesternUnion) {
+      const wuRow = (label, value) => value ? '<div class="donation-detail-row"><span>' + esc(label) + '</span><strong>' + esc(value) + '</strong><button type="button" class="donation-copy" data-copy="' + esc(value) + '">Копирај</button></div>' : "";
+      const wuContent = '<div class="donation-payment-card"><p class="donation-payment-note">Подаци примаоца за слање новца преко Western Union-а. Пре слања проверите да ли је овај начин пријема доступан за конкретног примаоца.</p>' +
+        wuRow("Име и презиме", wuName) + wuRow("Држава", s.western_union_country || "Србија") +
+        wuRow("Град", s.western_union_city) + wuRow("Телефон", s.western_union_phone) +
+        (s.western_union_instructions ? '<p class="donation-payment-note">' + esc(s.western_union_instructions) + '</p>' : '') +
+        '<p class="donation-payment-note">Након слања, пошиљалац треба да достави примаоцу контролни број трансфера (MTCN) без слања фотографије личног документа или података платне картице.</p></div>';
+      tabs.push({ id: "western-union", label: "Western Union", content: wuContent });
+    }
     return '<div class="donation-payment-tabs" data-donation-tabs><div class="donation-tab-list" role="tablist" aria-label="Начин новчане донације">' +
       tabs.map((tab, index) => '<button type="button" class="donation-tab' + (index === 0 ? ' is-active' : '') + '" role="tab" aria-selected="' + (index === 0 ? 'true' : 'false') + '" aria-controls="donation-panel-' + tab.id + '" data-donation-tab="' + tab.id + '">' + tab.label + '</button>').join('') +
       '</div>' + tabs.map((tab, index) => '<section class="donation-tab-panel' + (index === 0 ? ' is-active' : '') + '" id="donation-panel-' + tab.id + '" role="tabpanel" data-donation-panel="' + tab.id + '"' + (index === 0 ? '' : ' hidden') + '>' + tab.content + '</section>').join('') + '</div>';
