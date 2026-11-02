@@ -298,7 +298,7 @@ if(new URLSearchParams(window.location.search).has('akcija')){
 <button class="menu-trigger" id="openMenu" type="button" aria-label="Отвори мени">☰</button>
 </header>
 <div class="menu-backdrop" id="menuBackdrop" hidden></div>
-<aside class="side-menu" id="sideMenu" aria-hidden="true"><div class="side-menu-head"><span>♡ Одговорна Плана</span><button class="side-menu-close" id="closeMenu" type="button" aria-label="Затвори мени">×</button></div><nav aria-label="Мени"><a href="index.html">Почетна</a><a href="#" onclick="closeSideMenu();showPanel('proposal');return false">Предложи акцију</a><a href="#" onclick="closeSideMenu();showPanel('akcije');return false">Акције</a><a href="#" onclick="closeSideMenu();showPanel('membership');return false">Прикључи се заједници</a><a href="o-projektu.html">Више о пројекту</a><a href="#prodavnica" onclick="closeSideMenu();showShopPage();return false">Продавница</a></nav></aside>
+<aside class="side-menu" id="sideMenu" aria-hidden="true"><div class="side-menu-head"><span>♡ Одговорна Плана</span><button class="side-menu-close" id="closeMenu" type="button" aria-label="Затвори мени">×</button></div><nav aria-label="Мени"><a href="index.html">Почетна</a><a href="#" onclick="closeSideMenu();showPanel('proposal');return false">Предложи акцију</a><a href="#" onclick="closeSideMenu();showPanel('akcije');return false">Акције</a><a href="#" onclick="closeSideMenu();showPanel('membership');return false">Прикључи се заједници</a><a href="o-projektu.html">Више о пројекту</a><a href="#prodavnica" onclick="closeSideMenu();showShopPage();return false">Продавница</a><button id="installAppBtn" class="btn" type="button" hidden style="width:100%;margin-top:18px">Инсталирај апликацију</button></nav></aside>
 <section class="hero hero-full">
 <div class="hero-inner">
 <div class="hero-copy">
@@ -634,6 +634,17 @@ document.getElementById('closeMenu').addEventListener('click',closeSideMenu);men
 loadActiveActions();
 initShopPage();
 
+let deferredInstallPrompt=null;
+window.addEventListener('beforeinstallprompt',event=>{
+ event.preventDefault();deferredInstallPrompt=event;
+ const button=document.getElementById('installAppBtn');if(button)button.hidden=false;
+});
+document.getElementById('installAppBtn')?.addEventListener('click',async()=>{
+ if(!deferredInstallPrompt)return;
+ deferredInstallPrompt.prompt();await deferredInstallPrompt.userChoice;
+ deferredInstallPrompt=null;const button=document.getElementById('installAppBtn');if(button)button.hidden=true;closeSideMenu();
+});
+window.addEventListener('appinstalled',()=>{const button=document.getElementById('installAppBtn');if(button)button.hidden=true;deferredInstallPrompt=null;});
 /* PWA: региструј service worker и учитај живе акције и кампање */
 if('serviceWorker' in navigator && location.protocol.startsWith('http')) {
  window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(err=>console.warn('PWA service worker:',err)));
