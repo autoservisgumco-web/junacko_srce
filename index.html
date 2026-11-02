@@ -20,6 +20,8 @@
 @media(max-width:760px){.site-header{height:100px;padding:14px 18px}.brand-heart{font-size:54px}.site-brand{font-size:23px}.site-nav{gap:14px}.site-nav a{font-size:13px}.hero-full{padding-top:112px}.hero-inner{min-height:calc(100svh - 130px)}}
 @media(max-width:390px){.site-header{align-items:flex-start;height:94px}.site-nav{gap:10px;padding-top:10px}.site-nav a{font-size:11px}.brand-heart{font-size:43px}.site-brand{font-size:19px}}
 body.home-hero{min-height:100vh;overflow-x:hidden;background:#061A35}
+/* Почетна је улазни екран: додатни садржаји отварају се на засебним страницама. */
+body.home-hero .home-project-summary,body.home-hero .contribute-section,body.home-hero .home-live-section,body.home-hero .bottom,body.home-hero footer{display:none!important}
 .hero-full{position:relative;min-height:100svh;height:100vh;height:100dvh;padding:54px max(6.8vw,24px) 42px;display:flex;align-items:center;justify-content:flex-start;background:linear-gradient(90deg,rgba(3,27,59,.98) 0%,rgba(3,35,73,.94) 34%,rgba(3,35,73,.58) 58%,rgba(3,20,42,.12) 100%),linear-gradient(0deg,rgba(3,15,34,.42),transparent 55%),url('https://raw.githubusercontent.com/autoservisgumco-web/junacko_srce/refs/heads/main/Velika_Plana%2B.jpg') center/cover no-repeat;text-align:left}
 .hero-inner{width:min(1320px,100%);margin:0 auto;display:flex;flex-direction:column;justify-content:center;min-height:calc(100svh - 96px)}
 .hero-copy{max-width:690px}
@@ -298,23 +300,23 @@ if(new URLSearchParams(window.location.search).has('akcija')){
 <button class="menu-trigger" id="openMenu" type="button" aria-label="Отвори мени">☰</button>
 </header>
 <div class="menu-backdrop" id="menuBackdrop" hidden></div>
-<aside class="side-menu" id="sideMenu" aria-hidden="true"><div class="side-menu-head"><span>♡ Одговорна Плана</span><button class="side-menu-close" id="closeMenu" type="button" aria-label="Затвори мени">×</button></div><nav aria-label="Мени"><a href="index.html">Почетна</a><a href="#" onclick="closeSideMenu();showPanel('proposal');return false">Предложи акцију</a><a href="#" onclick="closeSideMenu();showPanel('akcije');return false">Акције</a><a href="#" onclick="closeSideMenu();showPanel('membership');return false">Прикључи се заједници</a><a href="o-projektu.html">Више о пројекту</a><a href="#prodavnica" onclick="closeSideMenu();showShopPage();return false">Продавница</a><button id="installAppBtn" class="btn" type="button" hidden style="width:100%;margin-top:18px">Инсталирај апликацију</button></nav></aside>
+<aside class="side-menu" id="sideMenu" aria-hidden="true"><div class="side-menu-head"><span>♡ Одговорна Плана</span><button class="side-menu-close" id="closeMenu" type="button" aria-label="Затвори мени">×</button></div><nav aria-label="Мени"><a href="index.html">Почетна</a><a href="#" onclick="closeSideMenu();showPanel('proposal');return false">Предложи акцију</a><a href="#" onclick="closeSideMenu();showPanel('akcije');return false">Акције</a><a href="#" onclick="closeSideMenu();showPanel('membership');return false">Прикључи се заједници</a><a href="o-projektu.html">Више о пројекту</a><a href="ukljuci-se.html">Како можеш да се укључиш</a><a href="#prodavnica" onclick="closeSideMenu();showShopPage();return false">Продавница</a><button id="installAppBtn" class="btn" type="button" hidden style="width:100%;margin-top:18px">Инсталирај апликацију</button></nav></aside>
 <section class="hero hero-full">
 <div class="hero-inner">
 <div class="hero-copy">
-<p class="eyebrow">ЗАЈЕДНО МОЖЕМО ВИШЕ</p>
-<h1>Промене почињу<br><span>од нас.</span></h1>
-<p class="lead">Предложи акцију, подржи постојеће иницијативе и заједно урадимо нешто добро за нашу заједницу.</p>
+<p class="eyebrow">ОДГОВОРНА ВЕЛИКА ПЛАНА</p>
+<h1>Простор за<br><span>заједничко деловање.</span></h1>
+<p class="lead">Повезујемо људе који желе да учествују у животу своје заједнице, покрену идеју и заједно раде на променама.</p>
 </div>
 <div class="hero-buttons">
-<a class="hero-cta" href="#opWays">
+<a class="hero-cta" href="ukljuci-se.html">
 <span class="cta-icon people-icon" aria-hidden="true">♡</span>
-<span class="cta-copy"><strong>Погледај како можеш да помогнеш</strong><small>Пронађи начин да се укључиш и допринесеш.</small></span>
+<span class="cta-copy"><strong>Види како можеш да се укључиш</strong><small>Изабери свој начин да допринесеш.</small></span>
 <span class="cta-arrow" aria-hidden="true">→</span>
 </a>
-<a class="hero-cta" href="#homeProjectTitle">
+<a class="hero-cta" href="o-projektu.html">
 <span class="cta-icon" aria-hidden="true">ⓘ</span>
-<span class="cta-copy"><strong>Види више о пројекту</strong><small>Упознај Одговорну Плану и идеју која нас повезује.</small></span>
+<span class="cta-copy"><strong>Види више о пројекту</strong><small>Упознај идеју, циљеве и начин рада.</small></span>
 <span class="cta-arrow" aria-hidden="true">→</span>
 </a>
 </div>
