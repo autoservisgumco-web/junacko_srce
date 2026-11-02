@@ -5,6 +5,15 @@
 <title>Како можеш да се укључиш — Одговорна Велика Плана</title>
 <meta name="description" content="Покрени или се придружи акцији, покрени или подржи кампању и podrži рад Одговорне Велике Плане.">
 <style>
+/* Заглавље наслеђује изглед почетне странице, али остаје пуно плаво на овој страници. */
+.site-header{position:relative!important;top:auto!important;left:auto!important;right:auto!important;width:100%;height:100px!important;padding:14px max(6.8vw,24px)!important;background:#061A35!important;box-shadow:0 2px 16px #102b4e20!important;display:flex;align-items:center;justify-content:space-between;z-index:20}
+.site-brand{display:flex;align-items:center;gap:12px;color:#fff;text-decoration:none;font-size:clamp(22px,2.6vw,34px);font-weight:850;font-style:italic;line-height:.92;letter-spacing:-1.2px;text-shadow:0 2px 12px #00152c}
+.brand-heart{font-size:54px;line-height:1;color:#fff;text-shadow:3px 0 #e83c50,-2px 0 #42b8ff}
+.site-nav{display:flex;align-items:center;gap:clamp(18px,3vw,42px)}
+.site-nav a{color:#fff;text-decoration:none;font-size:15px;font-weight:700;padding:12px 0;position:relative;text-shadow:0 1px 8px #00152c}
+.site-nav a:hover:after{content:"";position:absolute;left:0;right:0;bottom:3px;height:3px;border-radius:4px;background:#35a9ff}
+@media(max-width:760px){.site-header{height:88px!important;padding:12px 18px!important}.brand-heart{font-size:48px}.site-brand{font-size:23px}.site-nav{display:none!important}.menu-trigger{display:block!important}}
+@media(max-width:390px){.site-header{height:82px!important}.brand-heart{font-size:43px}.site-brand{font-size:21px}}
 *{box-sizing:border-box}body{margin:0;background:#f1f5f9;color:#142844;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.65}
 header{background:#061a35;color:#fff;padding:16px 22px}.head{width:min(1080px,100%);margin:auto;display:flex;align-items:center;justify-content:space-between;gap:15px}.brand{font-weight:900;line-height:1.2}.brand small{display:block;color:#a9c5f5;font-size:10px;letter-spacing:1.5px;margin-top:4px}.back{color:#dceaff;text-decoration:none;font-weight:750;font-size:14px}
 .hero{background:linear-gradient(115deg,#061a35,#0d3263 70%,#2166f3);color:#fff;padding:62px 22px 56px}.hero-inner{width:min(1080px,100%);margin:auto}.eyebrow{color:#9dcaff;font-size:12px;font-weight:850;letter-spacing:2px}.hero h1{font-size:clamp(36px,6vw,60px);line-height:1.08;letter-spacing:-1.5px;max-width:800px;margin:12px 0 16px}.hero p{color:#e0edf8;max-width:740px;font-size:18px;margin:0}
@@ -36,7 +45,7 @@ footer{background:#041329;color:#d4e1f3;text-align:center;padding:24px;font-size
 
 </head>
 <body>
-<header class="site-header"><a class="site-brand" href="/index.html" aria-label="Одговорна Плана — почетна"><span class="brand-heart">♡</span><span>Одговорна<br>Плана</span></a><nav class="site-nav" aria-label="Главна навигација"><a href="/index.html">Почетна</a><a href="/kampanje.html">Кампање</a><a href="/akcije.html">Акције</a><a href="/podrska.html">Подршка</a></nav><button class="menu-trigger" id="openMenu" type="button" aria-label="Отвори мени">☰</button></header><div class="menu-backdrop" id="menuBackdrop" hidden></div><aside class="side-menu" id="sideMenu" aria-hidden="true"><div class="side-menu-head"><span>♡ Одговорна Плана</span><button class="side-menu-close" id="closeMenu" type="button" aria-label="Затвори мени">×</button></div><nav aria-label="Мени"><a href="/index.html">Почетна</a><a href="/kampanje.html">Кампање</a><a href="/akcije.html">Акције</a><a href="/o-projektu.html">О пројекту</a><a href="/podrska.html">Подршка</a><a href="/prodavnica.html">Продавница</a></nav></aside>
+<header class="site-header"><a class="site-brand" href="/index.html" aria-label="Одговорна Плана — почетна"><span class="brand-heart">♡</span><span>Одговорна<br>Плана</span></a><nav class="site-nav" aria-label="Главна навигација"><a href="/index.html">Почетна</a><a href="/kampanje.html">Кампање</a><a href="/akcije.html">Акције</a><a href="/ukljuci-se.html" aria-current="page">Укључи се</a></nav><button class="menu-trigger" id="openMenu" type="button" aria-label="Отвори мени">☰</button></header><div class="menu-backdrop" id="menuBackdrop" hidden></div><aside class="side-menu" id="sideMenu" aria-hidden="true"><div class="side-menu-head"><span>♡ Одговорна Плана</span><button class="side-menu-close" id="closeMenu" type="button" aria-label="Затвори мени">×</button></div><nav aria-label="Мени"><a href="/index.html">Почетна</a><a href="/kampanje.html">Кампање</a><a href="/akcije.html">Акције</a><a href="/o-projektu.html">О пројекту</a><a href="/podrska.html">Подршка</a><a href="/prodavnica.html">Продавница</a></nav></aside>
 <main>
 <p class="intro">Покренули смо овај простор да повежемо људе који не желе само да говоре о проблемима, већ желе да покрену нешто у својој заједници. Не мораш све сам. Можеш да започнеш, да се придружиш другима или да подржиш њихов рад.</p>
 <section class="choice">
