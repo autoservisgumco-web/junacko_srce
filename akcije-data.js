@@ -1,9 +1,13 @@
-(function(){
- const URL='https://hmfeizkmpmxcnzhwxgbn.supabase.co';
- const KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhbGciOiJIUzI1NiIsInJlZiI6ImhtZmVpemttcG14Y256aHd4Z2JuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMzMjkyNzgsImV4cCI6MjEwODkwNTI3OH0.oTZopOJEGUnxK69BOYPP11CQoGrLqUJowqpPU2uiY-4';
- const client=window.supabase.createClient(URL,KEY);
- window.odgovornaPlanaDB=client;
- window.ucitajAkcije=async function(){
-  return await client.from('actions').select('*').eq('is_published',true).order('created_at',{ascending:false});
- };
+/* Заједничко учитавање објављених акција. */
+(function () {
+  const client = window.odgovornaPlanaDB;
+  if (!client) throw new Error('Supabase конекција није иницијализована.');
+
+  window.ucitajAkcije = async function () {
+    return await client
+      .from('actions')
+      .select('*')
+      .eq('is_published', true)
+      .order('created_at', { ascending: false });
+  };
 })();
