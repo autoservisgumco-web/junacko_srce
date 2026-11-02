@@ -280,7 +280,7 @@ document.addEventListener('click',event=>{
  if(event.target.id==='closeForm'||event.target.id==='formBackdrop')closeForm();
 });
 window.OPForms.init({db,getContext:()=>formContext,getAction:id=>actionData.find(a=>a.id===id)});
-document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!$('formBackdrop').hidden)closeForm();});
+document.addEventListener('keydown',event=>{const backdrop=$('formBackdrop');if(event.key==='Escape'&&backdrop&&!backdrop.hidden)closeForm();});
 loadPageData();
 </script>
 <nav class="op-bottom-nav" aria-label="Доња навигација"><a class="op-bottom-link" href="index.html"><span>⌂</span><small>Почетна</small></a><a class="op-bottom-link" href="kampanje.html"><span>◫</span><small>Кампање</small></a><a class="op-bottom-link" href="akcije.html"><span>✳</span><small>Акције</small></a><a class="op-bottom-link active" href="kako-mozemo-zajedno.html"><span>♡</span><small>Заједно</small></a><a class="op-bottom-link" href="o-projektu.html"><span>ⓘ</span><small>О пројекту</small></a></nav>
