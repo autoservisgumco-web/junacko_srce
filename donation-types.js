@@ -60,38 +60,20 @@
   function renderPayment(settings) {
     const s = settings || {};
     const paypalCandidate = String(s.paypal_url || s.paypal_link || s.paypal_me_url || "");
-    const paypalUrl = paypalCandidate.startsWith("https://") || paypalCandidate.startsWith("http://") ? paypalCandidate : "";
+    const paypalUrl = /^https?:\/\//i.test(paypalCandidate) ? paypalCandidate : "";
     const hasBank = !!(s.bank_account || s.recipient_name || s.payment_purpose || s.reference_number);
     const row = (label, value) => value ? '<div class="donation-detail-row"><span>' + esc(label) + '</span><strong>' + esc(value) + '</strong><button type="button" class="donation-copy" data-copy="' + esc(value) + '">Копирај</button></div>' : "";
-    const bankContent = hasBank
-      ? '<div class="donation-payment-card">' + row("Прималац", s.recipient_name) + row("Број рачуна", s.bank_account) + row("Сврха уплате", s.payment_purpose) + row("Позив на број", s.reference_number) + (s.payment_instructions ? '<p class="donation-payment-note">' + esc(s.payment_instructions) + '</p>' : '') + '</div>'
-      : '<div class="donation-empty">Подаци за банковни трансфер још нису унети.</div>';
-    const slipContent = hasBank
-      ? '<div class="donation-payment-card donation-slip"><div class="donation-slip-heading">НАЛОГ ЗА УПЛАТУ</div><div class="donation-slip-fields"><div><span>Уплатилац</span><strong>Уписује уплатилац</strong></div><div><span>Сврха уплате</span><strong>' + esc(s.payment_purpose || "Донација") + '</strong></div><div><span>Прималац</span><strong>' + esc(s.recipient_name || "—") + '</strong></div><div><span>Рачун примаоца</span><strong>' + esc(s.bank_account || "—") + '</strong></div><div><span>Позив на број</span><strong>' + esc(s.reference_number || "—") + '</strong></div></div><p class="donation-payment-note">Упиши износ који желиш да донираш и своје податке као уплатилац.</p><button type="button" class="donation-print-slip" onclick="window.print()">Одштампај / сачувај као PDF</button></div>'
-      : '<div class="donation-empty">Подаци за попуњавање уплатнице још нису унети.</div>';
-    const tabs = [
-      { id: "bank", label: "Банковни трансфер", content: bankContent },
-      { id: "slip", label: "Уплатница", content: slipContent }
-    ];
-    if (paypalUrl) tabs.push({ id: "paypal", label: "PayPal", content: '<div class="donation-payment-card"><a class="donation-paypal-button" href="' + esc(paypalUrl) + '" target="_blank" rel="noopener noreferrer"><i class="fab fa-paypal"></i> Донирај преко PayPal-а</a>' + (s.paypal_email ? '<div class="donation-paypal-email">PayPal налог: <strong>' + esc(s.paypal_email) + '</strong> <button type="button" class="donation-copy" data-copy="' + esc(s.paypal_email) + '">Копирај</button></div>' : '') + '</div>' });
-    const wuFirst = String(s.western_union_first_name || "").trim();
-    const wuLast = String(s.western_union_last_name || "").trim();
-    const wuName = [wuFirst, wuLast].filter(Boolean).join(" ");
-    const hasWesternUnion = s.show_western_union === true && !!wuFirst && !!wuLast;
-    if (hasWesternUnion) {
-      const wuRow = (label, value) => value ? '<div class="donation-detail-row"><span>' + esc(label) + '</span><strong>' + esc(value) + '</strong><button type="button" class="donation-copy" data-copy="' + esc(value) + '">Копирај</button></div>' : "";
-      const wuContent = '<div class="donation-payment-card"><p class="donation-payment-note">Подаци примаоца за слање новца преко Western Union-а. Пре слања проверите да ли је овај начин пријема доступан за конкретног примаоца.</p>' +
-        wuRow("Име и презиме", wuName) + wuRow("Држава", s.western_union_country || "Србија") +
-        wuRow("Град", s.western_union_city) + wuRow("Телефон", s.western_union_phone) +
-        (s.western_union_instructions ? '<p class="donation-payment-note">' + esc(s.western_union_instructions) + '</p>' : '') +
-        '<p class="donation-payment-note">Након слања, пошиљалац треба да достави примаоцу контролни број трансфера (MTCN) без слања фотографије личног документа или података платне картице.</p></div>';
-      tabs.push({ id: "western-union", label: "Western Union", content: wuContent });
+    const bankContent = hasBank ? '<div class="donation-payment-card"><p class="donation-payment-note">Износ донације: <strong data-donation-amount>—</strong></p>' + row("Прималац", s.recipient_name) + row("Број рачуна", s.bank_account) + row("Сврха уплате", s.payment_purpose) + row("Позив на број", s.reference_number) + (s.payment_instructions ? '<p class="donation-payment-note">' + esc(s.payment_instructions) + '</p>' : "") + '</div>' : '<div class="donation-empty">Подаци за банковни трансфер још нису унети.</div>';
+    const slipContent = hasBank ? '<div class="donation-payment-card donation-slip"><div class="donation-slip-heading">НАЛОГ ЗА УПЛАТУ</div><div class="donation-slip-fields"><div><span>Уплатилац</span><strong>Уписује уплатилац</strong></div><div><span>Износ</span><strong data-donation-amount>—</strong></div><div><span>Сврха уплате</span><strong>' + esc(s.payment_purpose || "Донација") + '</strong></div><div><span>Прималац</span><strong>' + esc(s.recipient_name || "—") + '</strong></div><div><span>Рачун примаоца</span><strong>' + esc(s.bank_account || "—") + '</strong></div><div><span>Позив на број</span><strong>' + esc(s.reference_number || "—") + '</strong></div></div><button type="button" class="donation-print-slip" onclick="window.print()">Одштампај / сачувај као PDF</button></div>' : '<div class="donation-empty">Подаци за уплатницу још нису унети.</div>';
+    const tabs = [{ id: "bank", label: "Банковни трансфер", content: bankContent }, { id: "slip", label: "Уплатница", content: slipContent }];
+    if (paypalUrl) tabs.push({ id: "paypal", label: "PayPal", content: '<div class="donation-payment-card"><p>Износ донације: <strong data-donation-amount>—</strong></p><a class="donation-paypal-button" data-paypal-donate data-base-url="' + esc(paypalUrl) + '" href="' + esc(paypalUrl) + '" target="_blank" rel="noopener noreferrer">Донирај преко PayPal-а</a><p class="donation-payment-note">Пре потврде плаћања проверите да ли је износ исправно приказан на PayPal-у.</p></div>' });
+    const first = String(s.western_union_first_name || "").trim(), last = String(s.western_union_last_name || "").trim();
+    if (s.show_western_union === true && first && last) {
+      const name = first + " " + last;
+      tabs.push({ id: "western-union", label: "Western Union", content: '<div class="donation-payment-card"><p>Износ донације: <strong data-donation-amount>—</strong></p>' + row("Име и презиме", name) + row("Држава", s.western_union_country || "Србија") + row("Град", s.western_union_city) + row("Телефон", s.western_union_phone) + (s.western_union_instructions ? '<p>' + esc(s.western_union_instructions) + '</p>' : "") + '<p class="donation-payment-note">Пре слања проверите доступност услуге за конкретног примаоца.</p></div>' });
     }
-    return '<div class="donation-payment-tabs" data-donation-tabs><div class="donation-tab-list" role="tablist" aria-label="Начин новчане донације">' +
-      tabs.map((tab, index) => '<button type="button" class="donation-tab' + (index === 0 ? ' is-active' : '') + '" role="tab" aria-selected="' + (index === 0 ? 'true' : 'false') + '" aria-controls="donation-panel-' + tab.id + '" data-donation-tab="' + tab.id + '">' + tab.label + '</button>').join('') +
-      '</div>' + tabs.map((tab, index) => '<section class="donation-tab-panel' + (index === 0 ? ' is-active' : '') + '" id="donation-panel-' + tab.id + '" role="tabpanel" data-donation-panel="' + tab.id + '"' + (index === 0 ? '' : ' hidden') + '>' + tab.content + '</section>').join('') + '</div>';
+    return '<div class="donation-amount-step" data-donation-checkout><h4>Изабери износ донације</h4><div class="donation-amount-options">' + [200,500,1000,2000].map(v => '<button type="button" class="donation-amount-choice" data-amount-choice="' + v + '">' + v.toLocaleString("sr-RS") + ' дин.</button>').join("") + '</div><label class="donation-amount-custom-label">Други износ (РСД)<input type="number" min="1" step="1" inputmode="numeric" data-donation-amount-input placeholder="Унеси износ"></label><p data-amount-error hidden>Унеси цео износ већи од нуле.</p><div data-donation-methods hidden><h4>Изабери начин уплате</h4><div class="donation-payment-tabs"><div class="donation-tab-list" role="tablist">' + tabs.map((t,i) => '<button type="button" class="donation-tab' + (i===0 ? " is-active" : "") + '" role="tab" aria-selected="' + (i===0 ? "true" : "false") + '" data-donation-tab="' + t.id + '">' + t.label + '</button>').join("") + '</div>' + tabs.map((t,i) => '<section class="donation-tab-panel' + (i===0 ? " is-active" : "") + '" data-donation-panel="' + t.id + '"' + (i===0 ? "" : " hidden") + '>' + t.content + '</section>').join("") + '</div></div></div>';
   }
-
   function renderPanel(settings, items) {
     const moneyItems = items.filter(item => item.type === "money");
     const materialItems = items.filter(item => item.type !== "money");
@@ -107,7 +89,32 @@
   }
 
   window.DonationTypes = Object.freeze({ list: TYPES, getType, renderItems, renderPanel });
-  document.addEventListener("click", async event => {
+  function updateDonationAmount(root, raw) {
+    const amount = Number(String(raw).replace(",", "."));
+    const valid = Number.isFinite(amount) && amount > 0 && Number.isInteger(amount);
+    const methods = root.querySelector("[data-donation-methods]");
+    const error = root.querySelector("[data-amount-error]");
+    if (methods) methods.hidden = !valid;
+    if (error) error.hidden = valid || !raw;
+    root.querySelectorAll("[data-donation-amount]").forEach(el => el.textContent = valid ? amount.toLocaleString("sr-RS") + " RSD" : "—");
+    const paypal = root.querySelector("[data-paypal-donate]");
+    if (paypal && valid) {
+      const base = paypal.dataset.baseUrl || paypal.href;
+      try { const url = new URL(base); if (url.hostname.toLowerCase() === "paypal.me") { const handle = url.pathname.split("/").filter(Boolean)[0] || ""; url.pathname = "/" + handle + "/" + amount + "/RSD"; paypal.href = url.toString(); } } catch (_) {}
+    }
+  }
+  document.addEventListener("input", event => {
+    if (!event.target.matches("[data-donation-amount-input]")) return;
+    const root = event.target.closest("[data-donation-checkout]");
+    if (root) { root.querySelectorAll("[data-amount-choice]").forEach(x => x.classList.remove("is-active")); updateDonationAmount(root, event.target.value); }
+  });
+    document.addEventListener("click", async event => {
+    const amountChoice = event.target.closest("[data-amount-choice]");
+    if (amountChoice) {
+      const root = amountChoice.closest("[data-donation-checkout]");
+      if (root) { root.querySelectorAll("[data-amount-choice]").forEach(x => x.classList.toggle("is-active", x === amountChoice)); const input = root.querySelector("[data-donation-amount-input]"); if (input) input.value = amountChoice.dataset.amountChoice; updateDonationAmount(root, amountChoice.dataset.amountChoice); }
+      return;
+    }
     const tab = event.target.closest("[data-donation-tab]");
     if (tab) {
       const root = tab.closest("[data-donation-tabs]");
