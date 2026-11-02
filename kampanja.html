@@ -73,7 +73,7 @@ body.campaign-page .content-back{display:none}
   const progress=Math.max(0,Math.min(100,Number(c.progress_percent)||0));
   const cover=c.hero_image?(String(c.hero_image).startsWith('http')?c.hero_image:'/'+String(c.hero_image).replace(/^\//,'')):'';
   let html='<div class="campaign-cover"'+(cover?' style="background-image:url(&quot;'+esc(cover)+'&quot;)"':'')+'><span class="campaign-status '+(c.status==='completed'?'completed':c.status==='draft'?'draft':'')+'">'+esc(statusLabel(c.status))+'</span></div>';
-  html+='<section class="campaign-overview"><div class="campaign-main"><span class="campaign-kind">КАМПАЊА</span><h1>'+esc(c.title)+'</h1><p class="campaign-summary">'+esc(c.intro_text||c.description||'')+'</p><div class="campaign-meta">'+(c.start_date?'<span>📅 Почетак: '+esc(dateFmt(c.start_date))+'</span>':'')+(c.end_date?'<span>🏁 Завршетак: '+esc(dateFmt(c.end_date))+'</span>':'')+'</div><div class="campaign-cta-row"><a class="campaign-cta" href="/ukljuci-se.html">'+esc(c.cta_primary||'Укључи се')+'</a><a class="campaign-cta secondary" href="/podrska.html">'+esc(c.cta_secondary||'Подржи кампању')+'</a></div></div><aside class="campaign-progress"><strong>'+progress+'%</strong><small>Напредак кампање</small><div class="campaign-progress-track"><span style="width:'+progress+'%"></span></div><div class="campaign-progress-note">Приказ напретка према податку у кампањи</div></aside></section>';
+  html+='<section class="campaign-overview"><div class="campaign-main"><span class="campaign-kind">КАМПАЊА</span><h1>'+esc(c.title)+'</h1><p class="campaign-summary">'+esc(c.intro_text||c.description||'')+'</p><div class="campaign-meta">'+(c.start_date?'<span>📅 Почетак: '+esc(dateFmt(c.start_date))+'</span>':'')+(c.end_date?'<span>🏁 Завршетак: '+esc(dateFmt(c.end_date))+'</span>':'')+'</div><div class="campaign-cta-row"><button class="campaign-cta" type="button" onclick="openSupportChooser()">'+esc(c.cta_primary||'Укључи се')+'</button><a class="campaign-cta secondary" href="/podrska.html">'+esc(c.cta_secondary||'Подржи кампању')+'</a></div></div><aside class="campaign-progress"><strong>'+progress+'%</strong><small>Напредак кампање</small><div class="campaign-progress-track"><span style="width:'+progress+'%"></span></div><div class="campaign-progress-note">Приказ напретка према податку у кампањи</div></aside></section>';
   const addText=(title,value)=>{if(value)html+='<section class="campaign-section"><h2>'+title+'</h2><p>'+esc(value)+'</p></section>';};
   addText('Проблем који решавамо',c.problem_text);
   addText('Циљ кампање',c.goal_text||c.goal);
@@ -87,6 +87,14 @@ body.campaign-page .content-back{display:none}
   html+='<section class="campaign-section"><h2>Кампања се гради заједно</h2><p>Имаш предлог, знање, време или желиш да помогнеш? Укључи се и постани део заједничког рада.</p><div class="campaign-cta-row"><a class="campaign-cta" href="/ukljuci-se.html">Укључи се</a><a class="campaign-cta secondary" href="/kampanje.html">Све кампање</a></div></section>';
 
   window.__campaignRoles=roles;window.__campaignVolunteerOptions=options;
+  window.openSupportChooser=()=>{
+    if(!roles.length){
+      showSheet('Како можеш да помогнеш','Начини укључивања за ову кампању још нису објављени.','<div class="donation-empty">Администратор још није објавио начине укључивања за ову кампању.</div>');
+      return;
+    }
+    const cards=roles.map((r,i)=>'<button class="support-launch" type="button" onclick="openSupportForm('+i+')"><span class="support-icon"><i class="fas '+esc(r.icon||'fa-heart')+'"></i></span><span><strong>'+esc(r.label)+'</strong><small>'+esc(r.description||'Погледај детаље и начин укључивања.')+'</small></span></button>').join('');
+    showSheet('Како желиш да помогнеш?','Изабери начин на који можеш да допринесеш овој кампањи.','<div class="support-options">'+cards+'</div>');
+  };
   window.openSupportForm=(idx)=>{
     const r=roles[idx];
     const type=String(r?.role_type||r?.route||'other').toLowerCase();
@@ -109,7 +117,7 @@ body.campaign-page .content-back{display:none}
   window.submitPrototype=e=>{e.preventDefault();if(!e.target.reportValidity())return;e.target.innerHTML='<h3 style="color:#16834b">Пријава је попуњена.</h3><p>Ово је прототип; повезивање са базом података следи.</p><button type="button" onclick="closeCampaignSheet()">Затвори</button>'};
 
   root.innerHTML=html;
-  const bar=document.createElement('div');bar.className='campaign-joinbar';bar.innerHTML='<div><strong>'+esc(c.title)+'</strong><small>Постани део промене</small></div><a class="campaign-cta" href="/ukljuci-se.html">Укључи се</a>';document.body.appendChild(bar);
+  const bar=document.createElement('div');bar.className='campaign-joinbar';bar.innerHTML='<div><strong>'+esc(c.title)+'</strong><small>Постани део промене</small></div><button class="campaign-cta" type="button" onclick="openSupportChooser()">Начини помоћи</button>';document.body.appendChild(bar);
  }catch(e){console.error('Campaign detail error:',e);root.innerHTML='<div class="campaign-empty">Детаљи кампање нису учитани: '+esc(e.message||String(e))+'</div>';}
 })();
 </script>  <script src="/bottom-nav.js"></script>
