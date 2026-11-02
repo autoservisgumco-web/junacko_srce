@@ -6,7 +6,7 @@
     ['/index.html','⌂','Почетна','/index.html'],
     ['/akcije.html','✓','Акције','/akcije.html'],
     ['/kampanje.html','◎','Кампање','/kampanje.html'],
-    ['/podrska.html','♡','Буди нам подршка','/podrska.html']
+    ['/ukljuci-se.html','♡','Укључи се','/ukljuci-se.html']
   ];
   const path='/'+(location.pathname.split('/').pop()||'index.html');
   items.forEach(([href,icon,label,target])=>{
