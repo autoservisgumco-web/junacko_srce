@@ -80,7 +80,7 @@ footer{background:#041329;color:#d4e1f3;text-align:center;padding:24px;font-size
 </main>
 <footer>ОДГОВОРНА ВЕЛИКА ПЛАНА · Место за заједничко деловање</footer>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="/akcije-data.js"></script>
 <script>
 (function(){
  const SUPABASE_URL='https://hmfeizkmpmxcnzhwxgbn.supabase.co';
@@ -92,7 +92,7 @@ footer{background:#041329;color:#d4e1f3;text-align:center;padding:24px;font-size
   const el=document.getElementById('guideActions');
   if(!el)return;
   try{
-   const {data,error}=await db.from('actions').select('*').eq('is_published',true).order('created_at',{ascending:false});
+   const {data,error}=await window.ucitajAkcije();
    if(error)throw error;
    if(!data||!data.length){message('guideActions','База је доступна, али тренутно нема објављених акција.','empty');return;}
    el.innerHTML=data.map(a=>{
