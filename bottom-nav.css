@@ -1,0 +1,8 @@
+/* Заједнички доњи мени — све јавне странице */
+.site-bottom-nav{position:fixed;z-index:9999;left:0;right:0;bottom:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;padding:8px 10px calc(8px + env(safe-area-inset-bottom));background:rgba(255,255,255,.97);border-top:1px solid #dce5f0;box-shadow:0 -5px 22px rgba(6,26,53,.10);backdrop-filter:blur(12px)}
+.site-bottom-nav a{display:flex;min-width:0;min-height:48px;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#17375e;text-decoration:none;font:800 20px/1.1 inherit;border-radius:10px}
+.site-bottom-nav a span{font:700 11px/1.2 inherit}
+.site-bottom-nav a[aria-current="page"]{background:#eaf2fc;color:#102b4e}
+body{padding-bottom:78px!important}
+@media(min-width:761px){.site-bottom-nav{padding-left:max(10px,calc((100vw - 760px)/2));padding-right:max(10px,calc((100vw - 760px)/2))}.site-bottom-nav a{min-height:44px}}
+@media(prefers-reduced-motion:no-preference){.site-bottom-nav a{transition:background .15s ease,color .15s ease}.site-bottom-nav a:hover{background:#eaf2fc}}
