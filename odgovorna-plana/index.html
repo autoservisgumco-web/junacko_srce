@@ -31,7 +31,7 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header><div class="wrap"><div class="brand">ОДГОВОРНА ПЛАНА<small>МЕСТО ЗА ЗАЈЕДНИЧКО ДЕЛОВАЊЕ</small></div></div></header>
+<header class="op-header"><div class="wrap op-header-inner"><a class="brand op-brand" href="index.html">ОДГОВОРНА ПЛАНА<small>МЕСТО ЗА ЗАЈЕДНИЧКО ДЕЛОВАЊЕ</small></a><nav class="op-top-nav" aria-label="Главна навигација"><a class="active" href="index.html" aria-current="page">Почетна</a><a href="kampanje.html">Кампање</a><a href="akcije.html">Акције</a><a href="kako-mozemo-zajedno.html">Како можемо заједно?</a><a href="o-projektu.html">О пројекту</a></nav></div></header>
 <div class="hero-stage">
 <section class="market-photo" aria-label="Центар Велике Плане"><img src="https://raw.githubusercontent.com/autoservisgumco-web/junacko_srce/refs/heads/main/Velika_Plana%2B.jpg" alt="Центар Велике Плане"></section>
 <section class="hero"><div class="wrap"><div class="eyebrow">ВЕЛИКА ПЛАНА · ЗАЈЕДНИЧКО ДЕЛОВАЊЕ</div><h1>Промена почиње од нас.</h1></div></section>
@@ -105,9 +105,12 @@
 <div id="actionsList" class="actions"><div class="empty">Учитавање акција…</div></div><div class="msg" id="listMessage" role="status"></div>
 </section>
 </div></main>
-<nav class="bottom-menu" aria-label="Брзи мени">
-  <button class="bottom-menu-btn bottom-menu-support" id="bottomSupport" type="button">Подржи</button>
-  <button class="bottom-menu-btn bottom-menu-join" id="bottomJoin" type="button">Придружи се</button>
+<nav class="bottom-menu op-bottom-nav" aria-label="Навигација по Одговорној Плани">
+  <a class="op-bottom-link active" href="index.html" aria-current="page"><span aria-hidden="true">⌂</span><small>Почетна</small></a>
+  <a class="op-bottom-link" href="kampanje.html"><span aria-hidden="true">◎</span><small>Кампање</small></a>
+  <a class="op-bottom-link" href="akcije.html"><span aria-hidden="true">✳</span><small>Акције</small></a>
+  <a class="op-bottom-link" href="kako-mozemo-zajedno.html"><span aria-hidden="true">♡</span><small>Заједно</small></a>
+  <a class="op-bottom-link" href="o-projektu.html"><span aria-hidden="true">ⓘ</span><small>О пројекту</small></a>
 </nav>
 <div class="sheet-backdrop" id="sheetBackdrop" hidden></div>
 <section class="bottom-sheet" id="bottomSheet" aria-modal="true" role="dialog" aria-hidden="true" hidden>
@@ -149,8 +152,6 @@ $('showProblem').addEventListener('click',()=>openSheet('proposal'));
 $('showActionsInline').addEventListener('click',()=>openSheet('actions'));
 $('joinCommunity').addEventListener('click',()=>openSheet('proposal'));
 $('showActions').addEventListener('click',()=>openSheet('actions'));
-$('bottomSupport').addEventListener('click',()=>openSheet('proposal'));
-$('bottomJoin').addEventListener('click',()=>openSheet('actions'));
 $('closeSheet').addEventListener('click',closeSheet);
 backdrop.addEventListener('click',closeSheet);
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSheet();});
