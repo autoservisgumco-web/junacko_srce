@@ -6,7 +6,7 @@
     ['index.html','⌂','Почетна','index.html'],
     ['akcije.html','✓','Акције','akcije.html'],
     ['kampanje.html','◎','Кампање','kampanje.html'],
-    ['index.html#homeSupport','♡','Подршка','index.html']
+    ['podrska.html','♡','Подршка','podrska.html']
   ];
   const path=location.pathname.split('/').pop()||'index.html';
   items.forEach(([href,icon,label,target])=>{
