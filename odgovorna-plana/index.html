@@ -93,13 +93,24 @@
 <div class="field"><label for="pEmail">Имејл *</label><input id="pEmail" type="email" required></div>
 <div class="field"><label for="pPhone">Телефон / Viber</label><input id="pPhone" type="tel"></div>
 <div class="field"><label for="pLocation">Где треба спровести акцију?</label><input id="pLocation" placeholder="Насеље, улица, парк…"></div>
-<div class="field full"><label for="pDescription">Опиши предлог и шта је потребно *</label><textarea id="pDescription" required minlength="10" maxlength="3000" placeholder="Шта је проблем? Шта предлажеш? Која помоћ, алат или материјал су потребни?"></textarea></div>
+<div class="field full"><label for="pGoal">Шта желиш да постигнеш овом акцијом? *</label><textarea id="pGoal" required minlength="5" maxlength="1000" placeholder="Који резултат желиш да постигнемо?"></textarea></div><div class="field full"><label for="pDescription">Опиши предлог и шта је потребно *</label><textarea id="pDescription" required minlength="10" maxlength="3000" placeholder="Шта је проблем? Шта предлажеш? Која помоћ, алат или материјал су потребни?"></textarea></div>
 <div class="field full"><label for="pFiles">Приложи фотографије или документа (није обавезно)</label><input id="pFiles" type="file" multiple accept="image/jpeg,image/png,image/webp,application/pdf,.doc,.docx"><small class="hint">До 5 фајлова, највише 15 MB по фајлу. Дозвољени су JPG, PNG, WEBP, PDF, DOC и DOCX.</small><div class="hint" id="pFilesList" aria-live="polite"></div></div>
 </div><button class="btn" type="submit">Пошаљи предлог →</button><div class="msg" id="proposalMessage" role="status"></div></form>
 </section>
 <section id="actionsSection" hidden>
-<h2>Акције којима можеш да се придружиш</h2><p class="hint">Овде се приказују само објављени предлози.</p>
+<h2>Кампање које смо покренули</h2><p class="hint">Теме и иницијативе на којима радимо заједно.</p>
+<div id="campaignsList" class="actions"><div class="empty">Учитавање кампања…</div></div>
+<h2 style="margin-top:26px">Акције</h2><p class="hint">Конкретне активности које можеш да подржиш или предложиш.</p>
 <div id="actionsList" class="actions"><div class="empty">Учитавање акција…</div></div><div class="msg" id="listMessage" role="status"></div>
+</section>
+<section class="panel" id="joinPanel" hidden>
+<h2>Придружи се</h2><p class="hint" id="joinIntro">Напиши како и на који начин желиш да помогнеш. Сваки допринос је важан.</p>
+<form id="joinForm"><div class="fields">
+<div class="field full"><label for="jName">Име и презиме *</label><input id="jName" required minlength="2" maxlength="120"></div>
+<div class="field"><label for="jEmail">Имејл</label><input id="jEmail" type="email" autocomplete="email"></div>
+<div class="field"><label for="jPhone">Телефон / Viber</label><input id="jPhone" type="tel" autocomplete="tel"></div>
+<div class="field full"><label for="jDescription">Како и на који начин желиш да помогнеш? *</label><textarea id="jDescription" required minlength="5" maxlength="2000" placeholder="Напиши шта можеш и желиш да допринесеш — време, знање, рад, опрема, организација, промоција или нешто друго."></textarea></div>
+</div><button class="btn" type="submit">Пошаљи пријаву →</button><div class="msg" id="joinMessage" role="status"></div></form>
 </section>
 </div></main>
 <nav class="bottom-menu" aria-label="Брзи мени">
@@ -119,13 +130,17 @@ document.getElementById('year').textContent=new Date().getFullYear();
 const db=window.supabase.createClient('https://hmfeizkmpmxcnzhwxgbn.supabase.co','sb_publishable_JPtLezaiIeq4MsQ2f3LSlg_nT01Chxe');
 const $=id=>document.getElementById(id);
 const sheet=$('bottomSheet'),backdrop=$('sheetBackdrop'),sheetContent=$('sheetContent');
-let activeSheet=null,touchStartY=0;
-function openSheet(which){
- const target=which==='proposal'?$('proposalPanel'):$('actionsSection');
+let activeSheet=null,touchStartY=0,joinTarget=null;
+function openSheet(which,targetInfo=null){
+ const target=which==='proposal'?$('proposalPanel'):which==='join'?$('joinPanel'):$('actionsSection');
+ if(which==='join'){
+  joinTarget=targetInfo||{type:'membership',id:null,title:'Покрет Одговорна Плана'};
+  $('joinIntro').textContent=joinTarget.id?'Придружујеш се: '+joinTarget.title+'. Напиши како и на који начин желиш да помогнеш.':'Желиш да будеш део покрета Одговорна Плана? Напиши како и на који начин желиш да помогнеш.';
+ }
  if(activeSheet===which){closeSheet();return;}
  sheetContent.replaceChildren(target);
  target.hidden=false;
- $('sheetTitle').textContent=which==='proposal'?'Предложи акцију':'Акције којима можеш да се придружиш';
+ $('sheetTitle').textContent=which==='proposal'?'Предложи акцију':which==='join'?'Придружи се':'Кампање и акције';
  backdrop.hidden=false;sheet.hidden=false;sheet.setAttribute('aria-hidden','false');
  requestAnimationFrame(()=>{backdrop.classList.add('open');sheet.classList.add('open');});
  document.body.classList.add('sheet-open');activeSheet=which;
@@ -134,7 +149,7 @@ function closeSheet(){
  if(!activeSheet)return;
  sheet.classList.remove('open');backdrop.classList.remove('open');
  sheet.setAttribute('aria-hidden','true');document.body.classList.remove('sheet-open');
- const target=activeSheet==='proposal'?$('proposalPanel'):$('actionsSection');
+ const target=activeSheet==='proposal'?$('proposalPanel'):activeSheet==='join'?$('joinPanel'):$('actionsSection');
  target.hidden=true;
  const home=$('sheetHome');if(home)home.appendChild(target);
  activeSheet=null;
@@ -144,7 +159,7 @@ $('showProposal').addEventListener('click',()=>openSheet('proposal'));
 $('showProposalInline').addEventListener('click',()=>openSheet('proposal'));
 $('showProblem').addEventListener('click',()=>openSheet('proposal'));
 $('showActionsInline').addEventListener('click',()=>openSheet('actions'));
-$('joinCommunity').addEventListener('click',()=>openSheet('proposal'));
+$('joinCommunity').addEventListener('click',()=>openSheet('join'));
 $('showActions').addEventListener('click',()=>openSheet('actions'));
 $('bottomSupport').addEventListener('click',()=>openSheet('proposal'));
 $('bottomJoin').addEventListener('click',()=>openSheet('actions'));
@@ -174,29 +189,65 @@ $('proposalForm').addEventListener('submit',async e=>{
     attachments.push({path,name:file.name,size:file.size,type:file.type});
    }
   }
-  const {error}=await db.from('civic_submissions').insert({submission_type:'action',title:val('pTitle'),description:val('pDescription'),full_name:val('pName'),email:val('pEmail'),phone:val('pPhone')||null,viber_phone:val('pPhone')||null,location:val('pLocation')||null,social_links:{attachments},status:'new'});
+  const fullDescription='Циљ акције:\n'+val('pGoal')+'\n\nОпис предлога и потребне помоћи:\n'+val('pDescription');
+  const {error}=await db.from('civic_submissions').insert({submission_type:'action',title:val('pTitle'),description:fullDescription,full_name:val('pName'),email:val('pEmail'),phone:val('pPhone')||null,viber_phone:val('pPhone')||null,location:val('pLocation')||null,social_links:{attachments},status:'new'});
   if(error)throw error;
   m.textContent='Хвала! Предлог је успешно послат. Биће прегледан пре објављивања.';m.style.display='block';e.target.reset();$('pFilesList').textContent='';
  }catch(err){console.error(err);m.textContent=err.message&&(/фајл|прилог|величин|Дозвољени/.test(err.message))?err.message:'Слање није успело. Проверите податке и покушајте поново.';m.style.display='block'}
  finally{b.disabled=false;b.textContent='Пошаљи предлог →'}
 });
 function safe(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-async function loadActions(){
- const root=$('actionsList');
- try{
-  const {data,error}=await db.from('civic_submissions').select('id,title,description,location,created_at').eq('submission_type','action').eq('status','published').order('created_at',{ascending:false});
-  if(error)throw error;
-  if(!data?.length){root.innerHTML='<div class="empty">Тренутно нема објављених акција. Предложи своју — можда баш она буде следећа.</div>';return;}
-  root.innerHTML=data.map(a=>'<article class="action" data-id="'+safe(a.id)+'"><h3>'+safe(a.title)+'</h3><div class="meta">'+(a.location?'📍 '+safe(a.location):'')+'</div><p>'+safe(a.description)+'</p><button class="btn secondary joinToggle" type="button">Придружи се овој акцији →</button><form class="joinbox joinForm"><div class="fields"><div class="field"><label>Име и презиме *</label><input name="full_name" required minlength="2" maxlength="120"></div><div class="field"><label>Имејл *</label><input name="email" type="email" required></div><div class="field full"><label>Телефон / Viber (није обавезно)</label><input name="viber_phone" type="tel"></div></div><button class="btn" type="submit">Пошаљи пријаву</button><div class="msg joinMessage" role="status"></div></form></article>').join('');
-  root.querySelectorAll('.joinToggle').forEach(btn=>btn.addEventListener('click',()=>{const f=btn.nextElementSibling;f.style.display=f.style.display==='block'?'none':'block';}));
-  root.querySelectorAll('.joinForm').forEach(form=>form.addEventListener('submit',async e=>{
-   e.preventDefault();const f=e.currentTarget,btn=f.querySelector('button[type=submit]'),msg=f.querySelector('.joinMessage'),article=f.closest('.action');btn.disabled=true;btn.textContent='Шаљем…';msg.style.display='none';
-   const fd=new FormData(f);const v=n=>String(fd.get(n)||'').trim();
-   try{const actionTitle=article.querySelector('h3')?.textContent||'изабрану акцију';const {error}=await db.from('civic_submissions').insert({submission_type:'help',title:'Пријава за акцију: '+actionTitle,description:'Жели да се придружи акцији: '+actionTitle,full_name:v('full_name'),email:v('email'),phone:v('viber_phone')||null,viber_phone:v('viber_phone')||null,support_type:'Учешће у акцији',social_links:{action_id:article.dataset.id,action_title:actionTitle},status:'new'});if(error)throw error;msg.textContent='Пријава је послата. Хвала што желиш да учествујеш!';msg.style.display='block';f.reset();}
-   catch(err){console.error(err);msg.textContent='Пријава није успела. Покушај поново.';msg.style.display='block';}
-   finally{btn.disabled=false;btn.textContent='Пошаљи пријаву';}
-  }));
- }catch(err){console.error(err);root.innerHTML='<div class="empty">Акције тренутно нису могле да се учитају. Покушај поново касније.</div>';}
+function renderPublicCards(rows,root,kind){
+ if(!rows?.length){root.innerHTML='<div class="empty">'+(kind==='campaign'?'Тренутно нема објављених кампања.':'Тренутно нема објављених акција. Предложи своју — можда баш она буде следећа.')+'</div>';return;}
+ root.innerHTML=rows.map(item=>'<article class="action" data-id="'+safe(item.id)+'" data-kind="'+kind+'"><h3>'+safe(item.title)+'</h3><div class="meta">'+(item.location?'📍 '+safe(item.location):'')+'</div><p>'+safe(item.description)+'</p><button class="btn secondary joinPublic" type="button">Придружи се →</button></article>').join('');
+ root.querySelectorAll('.joinPublic').forEach(btn=>btn.addEventListener('click',()=>{
+  const card=btn.closest('.action');
+  openSheet('join',{type:kind,id:card.dataset.id,title:card.querySelector('h3')?.textContent||''});
+ }));
 }
+async function loadActions(){
+ const campaignsRoot=$('campaignsList'),actionsRoot=$('actionsList');
+ try{
+  const [campaignResult,actionResult]=await Promise.all([
+   db.from('civic_submissions').select('id,title,description,location,created_at').eq('submission_type','campaign').eq('status','published').order('created_at',{ascending:false}),
+   db.from('civic_submissions').select('id,title,description,location,created_at').eq('submission_type','action').eq('status','published').order('created_at',{ascending:false})
+  ]);
+  if(campaignResult.error)throw campaignResult.error;
+  if(actionResult.error)throw actionResult.error;
+  renderPublicCards(campaignResult.data,campaignsRoot,'campaign');
+  renderPublicCards(actionResult.data,actionsRoot,'action');
+ }catch(err){
+  console.error(err);
+  campaignsRoot.innerHTML='<div class="empty">Кампање тренутно нису могле да се учитају.</div>';
+  actionsRoot.innerHTML='<div class="empty">Акције тренутно нису могле да се учитају. Покушај поново касније.</div>';
+ }
+}
+$('joinForm').addEventListener('submit',async e=>{
+ e.preventDefault();
+ const button=e.submitter,msg=$('joinMessage');
+ const name=$('jName').value.trim(),email=$('jEmail').value.trim(),phone=$('jPhone').value.trim(),description=$('jDescription').value.trim();
+ msg.style.display='none';
+ if(!email&&!phone){msg.textContent='Унеси имејл или телефон како бисмо могли да те контактирамо.';msg.style.display='block';return;}
+ button.disabled=true;button.textContent='Шаљем…';
+ try{
+  const target=joinTarget||{type:'membership',id:null,title:'Покрет Одговорна Плана'};
+  const isGeneral=target.type==='membership'||!target.id;
+  const payload={
+   submission_type:isGeneral?'membership':'help',
+   title:isGeneral?'Пријава за придруживање покрету Одговорна Плана':'Пријава за придруживање: '+target.title,
+   description:description,
+   full_name:name,email:email||null,phone:phone||null,viber_phone:phone||null,
+   support_type:isGeneral?'Придруживање покрету':target.type==='campaign'?'Подршка кампањи':'Учешће у акцији',
+   social_links:{target_id:target.id||null,target_type:target.type||'membership',target_title:target.title||'Покрет Одговорна Плана',action_id:target.type==='action'?target.id:null,action_title:target.title||null},
+   status:'new'
+  };
+  const {error}=await db.from('civic_submissions').insert(payload);
+  if(error)throw error;
+  msg.textContent='Пријава је послата. Хвала ти што желиш да помогнеш!';
+  msg.style.display='block';e.target.reset();
+ }catch(err){console.error(err);msg.textContent='Пријава није успела. Покушај поново.';msg.style.display='block';}
+ finally{button.disabled=false;button.textContent='Пошаљи пријаву →';}
+});
+
 loadActions();
 </script></body></html>
