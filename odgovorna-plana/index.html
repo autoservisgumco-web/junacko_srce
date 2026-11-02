@@ -138,6 +138,11 @@ function openSheet(which,targetInfo=null){
   $('joinIntro').textContent=joinTarget.id?'Придружујеш се: '+joinTarget.title+'. Напиши како и на који начин желиш да помогнеш.':'Желиш да будеш део покрета Одговорна Плана? Напиши како и на који начин желиш да помогнеш.';
  }
  if(activeSheet===which){closeSheet();return;}
+ if(activeSheet){
+  const previous=activeSheet==='proposal'?$('proposalPanel'):activeSheet==='join'?$('joinPanel'):$('actionsSection');
+  previous.hidden=true;
+  const home=$('sheetHome');if(home)home.appendChild(previous);
+ }
  sheetContent.replaceChildren(target);
  target.hidden=false;
  $('sheetTitle').textContent=which==='proposal'?'Предложи акцију':which==='join'?'Придружи се':'Кампање и акције';
