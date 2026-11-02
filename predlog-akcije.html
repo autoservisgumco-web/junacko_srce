@@ -28,13 +28,11 @@ footer{text-align:center;color:var(--muted);font-size:13px;padding:20px}
 @media(max-width:620px){.intro,.fields,.join-form{grid-template-columns:1fr}.full{grid-column:auto}.list-head{display:block}.proposal-foot{align-items:flex-start;flex-direction:column}.join-form button{grid-column:auto}header{padding-bottom:26px}.panel{padding:17px}}
 </style>
   <link rel="stylesheet" href="bottom-nav.css">
+<link rel="stylesheet" href="/stranice.css"><link rel="stylesheet" href="/bottom-nav.css">
 </head>
 <body>
-<header>
-<a href="index.html">← Одговорна Плана</a>
-<h1>Предложи. <span>Придружи се.</span></h1>
-<p>Заједно уређујемо место у ком живимо. Предложи шта треба да променимо, остави Viber број и укључи људе који желе да помогну.</p>
-</header>
+<header class="site-header"><a class="site-brand" href="/index.html" aria-label="Одговорна Плана — почетна"><span class="brand-heart">♡</span><span>Одговорна<br>Плана</span></a><nav class="site-nav" aria-label="Главна навигација"><a href="/index.html">Почетна</a><a href="/kampanje.html">Кампање</a><a href="/akcije.html">Акције</a><a href="/podrska.html">Подршка</a></nav><button class="menu-trigger" id="openMenu" type="button" aria-label="Отвори мени">☰</button></header><div class="menu-backdrop" id="menuBackdrop" hidden></div><aside class="side-menu" id="sideMenu" aria-hidden="true"><div class="side-menu-head"><span>♡ Одговорна Плана</span><button class="side-menu-close" id="closeMenu" type="button" aria-label="Затвори мени">×</button></div><nav aria-label="Мени"><a href="/index.html">Почетна</a><a href="/kampanje.html">Кампање</a><a href="/akcije.html">Акције</a><a href="/o-projektu.html">О пројекту</a><a href="/podrska.html">Подршка</a><a href="/prodavnica.html">Продавница</a></nav></aside>
+<section class="hero hero-full"><div class="hero-inner"><div class="hero-copy"><p class="eyebrow">ОДГОВОРНА ВЕЛИКА ПЛАНА</p><h1>Простор за<br><span>заједничко деловање.</span></h1><p class="lead">Повезујемо људе који желе да учествују у животу своје заједнице, покрену идеју и заједно раде на променама.</p></div><div class="hero-buttons"><a class="hero-cta" href="/ukljuci-se.html"><span class="cta-icon people-icon" aria-hidden="true">♡</span><span class="cta-copy"><strong>Види како можеш да се укључиш</strong><small>Изабери свој начин да допринесеш.</small></span><span class="cta-arrow" aria-hidden="true">→</span></a><a class="hero-cta" href="/o-projektu.html"><span class="cta-icon" aria-hidden="true">ⓘ</span><span class="cta-copy"><strong>Види више о пројекту</strong><small>Упознај идеју, циљеве и начин рада.</small></span><span class="cta-arrow" aria-hidden="true">→</span></a></div></div></section>
 <main>
 <div class="intro">
 <div class="step"><b>01 · ПРЕДЛОЖИ</b><p>Напиши шта би требало урадити, где и зашто. Твој предлог прво прегледамо.</p></div>
@@ -120,5 +118,6 @@ el('adminLogout').addEventListener('click',()=>{sessionStorage.removeItem(ADMIN_
 const cb=new URLSearchParams(location.hash.replace(/^#/,''));const at=new URL(location.href).searchParams.get('access_token')||cb.get('access_token');if(at){sessionStorage.setItem(ADMIN_TOKEN,at);adminLoad();}else if(sessionStorage.getItem(ADMIN_TOKEN))adminLoad();
 </script>
   <script src="bottom-nav.js"></script>
+<script>(function(){const menu=document.getElementById('sideMenu'),back=document.getElementById('menuBackdrop');if(!menu||!back)return;function close(){menu.classList.remove('open');back.classList.remove('open');menu.setAttribute('aria-hidden','true');setTimeout(()=>back.hidden=true,260)}document.getElementById('openMenu').addEventListener('click',()=>{back.hidden=false;menu.setAttribute('aria-hidden','false');requestAnimationFrame(()=>{back.classList.add('open');menu.classList.add('open')})});document.getElementById('closeMenu').addEventListener('click',close);back.addEventListener('click',close)})();</script><script src="/bottom-nav.js"></script>
 </body>
 </html>
