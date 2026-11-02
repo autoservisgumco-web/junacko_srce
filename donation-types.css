@@ -47,3 +47,17 @@
   .donation-tab-list{grid-template-columns:repeat(2,minmax(0,1fr))}
   .donation-tab{min-height:42px;font-size:12px}
 }
+
+/* Izbor iznosa pre izbora načina plaćanja */
+.donation-amount-step{display:grid;gap:14px;margin:18px 0}
+.donation-amount-step h4{margin:0;color:#102b4e;font-size:17px}
+.donation-amount-options{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.donation-amount-choice{min-height:46px;padding:9px 6px;border:1px solid #d5dfeb;border-radius:10px;background:#fff;color:#17365f;font:inherit;font-weight:800;cursor:pointer}
+.donation-amount-choice.is-active{border-color:#174ea6;background:#eaf2ff;color:#123b70;box-shadow:inset 0 0 0 1px #174ea6}
+.donation-amount-custom-label{display:grid;gap:7px;color:#334155;font-size:14px;font-weight:700}
+.donation-amount-custom-label input{box-sizing:border-box;width:100%;min-height:46px;padding:10px 12px;border:1px solid #cbd5e1;border-radius:10px;font:inherit}
+.donation-methods-wrap{margin-top:6px}
+.donation-methods-wrap[hidden]{display:none}
+.donation-amount-error{margin:0;color:#b42318;font-size:13px}
+.donation-amount-error[hidden]{display:none}
+@media(max-width:520px){.donation-amount-options{grid-template-columns:repeat(2,minmax(0,1fr))}}
