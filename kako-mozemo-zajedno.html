@@ -202,26 +202,7 @@
 </main>
 <footer><div class="wrap">ОДГОВОРНА ПЛАНА · Место за заједничко деловање · © <span id="year"></span></div></footer>
 
-<div class="modal-backdrop" id="formBackdrop" hidden>
- <section class="form-modal" role="dialog" aria-modal="true" aria-labelledby="formTitle">
-  <div class="modal-head"><h2 id="formTitle">Пријави се</h2><button class="modal-close" id="closeForm" type="button" aria-label="Затвори">×</button></div>
-  <p class="modal-lead" id="formLead">Попуни основне податке. Јавићемо ти се ради договора око учешћа.</p>
-  <form id="participationForm">
-   <input type="hidden" name="submission_type" id="submissionType">
-   <input type="hidden" name="support_type" id="supportType">
-   <div class="form-grid">
-    <div class="form-field full" id="proposalTitleField"><label for="proposalTitle">Назив *</label><input id="proposalTitle" name="title" maxlength="180"></div>
-    <div class="form-field"><label for="personName">Име и презиме *</label><input id="personName" name="full_name" required minlength="2" maxlength="120" autocomplete="name"></div>
-    <div class="form-field"><label for="personEmail">Имејл</label><input id="personEmail" name="email" type="email" maxlength="180" autocomplete="email"></div>
-    <div class="form-field"><label for="personPhone">Телефон / Viber</label><input id="personPhone" name="phone" type="tel" maxlength="50" autocomplete="tel"></div>
-    <div class="form-field" id="locationField"><label for="personLocation">Место / локација</label><input id="personLocation" name="location" maxlength="180" placeholder="Насеље, улица или место"></div>
-    <div class="form-field full"><label for="personDescription" id="descriptionLabel">Опиши идеју или начин на који можеш да помогнеш *</label><textarea id="personDescription" name="description" required minlength="10" maxlength="5000" placeholder="Напиши неколико реченица…"></textarea></div>
-   </div>
-   <div class="form-message" id="modalMessage" role="status" aria-live="polite"></div>
-   <div class="modal-actions"><button class="page-btn" id="sendForm" type="submit">Пошаљи пријаву →</button></div>
-  </form>
- </section>
-</div>
+<div id="sharedFormsMount"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="forms.js"></script>
