@@ -162,7 +162,9 @@ html+='<aside class="campaign-side"><div class="campaign-side-card"><h2>'+esc(pr
 content.innerHTML=html;
 const share=shareActiveCampaign;
 document.getElementById('shareCampaign')?.addEventListener('click',share);document.getElementById('shareCampaignSide')?.addEventListener('click',share);
-document.getElementById('mobileCta').innerHTML='<button class="campaign-btn" type="button" data-open-support>'+esc(primary)+' →</button>';\n document.querySelectorAll('[data-open-support]').forEach(btn=>btn.addEventListener('click',openSupportSheet));\n logSupportEvent(c.id,'campaign_page_viewed');
+document.getElementById('mobileCta').innerHTML='<button class="campaign-btn" type="button" data-open-support>'+esc(primary)+' →</button>';
+ document.querySelectorAll('[data-open-support]').forEach(btn=>btn.addEventListener('click',openSupportSheet));
+ logSupportEvent(c.id,'campaign_page_viewed');
 }catch(e){console.error('Campaign page error:',e);hero.innerHTML='<div class="campaign-hero-content"><div class="campaign-loading">Дошло је до грешке при учитавању кампање. Покушај поново или се врати на <a href="kampanje.html">списак кампања</a>.</div></div>';content.innerHTML='';}
 })();
 </script>
