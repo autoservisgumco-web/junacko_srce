@@ -21,6 +21,15 @@ button{border:0;border-radius:9px;padding:11px 17px;font:inherit;font-weight:750
 .submission h2{font-size:20px;color:var(--navy);margin:10px 0}.meta{font-size:14px;color:var(--muted);line-height:1.6}
 .description{white-space:pre-wrap;line-height:1.6;margin:14px 0}
 .empty{padding:28px;text-align:center;color:var(--muted);background:#fff;border-radius:14px}
+.order-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:15px 0}
+.order-stat{background:#f1f5f9;border-radius:12px;padding:13px}.order-stat strong{display:block;font-size:23px;color:var(--navy)}.order-stat span{font-size:13px;color:var(--muted)}
+.order-card{background:#fff;border:1px solid #e1eaf2;border-radius:12px;padding:16px;margin:12px 0}
+.order-card-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap}
+.order-card h3{margin:0 0 5px;color:var(--navy)}.order-detail{border-top:1px solid #e1eaf2;margin-top:13px;padding-top:13px;line-height:1.7}
+.order-status{padding:9px 11px;border:1px solid #cbd9e5;border-radius:9px;background:#fff;font:inherit;max-width:100%}
+.order-items{margin:8px 0;padding-left:20px}
+@media(max-width:520px){.order-stats{grid-template-columns:1fr 1fr}.order-card{padding:13px}}
+
 #dashboard[hidden],#authBox[hidden]{display:none}
 .toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
 #message{color:#b42318;margin-top:12px;font-size:14px}
@@ -44,6 +53,9 @@ button{border:0;border-radius:9px;padding:11px 17px;font:inherit;font-weight:750
 </section>
 <section id="dashboard" hidden>
 <div class="toolbar"><div><h2>Пристигле пријаве и предлози</h2><p class="meta">Статус можеш да промениш кад год желиш.</p></div><button class="quiet" id="logout">Одјави се</button></div>
+<section class="box" id="ordersBox"><div class="toolbar"><div><h2>Продавница — наруџбине</h2><p class="meta">Наруџбине купаца, производи, количине и статуси.</p></div><button class="quiet" id="refreshOrders" type="button">Освежи наруџбине</button></div>
+<div class="order-stats"><div class="order-stat"><strong id="ordersTotalCount">0</strong><span>Укупно наруџбина</span></div><div class="order-stat"><strong id="ordersNewCount">0</strong><span>Нове наруџбине</span></div><div class="order-stat"><strong id="ordersValue">0 дин.</strong><span>Укупна вредност</span></div></div>
+<div id="ordersList"><p class="empty">Учитавање наруџбина...</p></div></section>
 <section class="box" id="membershipBox"><div class="toolbar"><div><h2>Пријаве за чланство и укључивање</h2><p class="meta">Грађани који желе да буду део Одговорне Плане, независно од конкретних акција.</p></div><button class="quiet" id="refreshMembership" type="button">Освежи</button></div><div id="membershipApplications"><p class="empty">Учитавање пријава...</p></div></section>
 <section class="box" id="participantsBox"><div class="toolbar"><div><h2>Пријављени за учешће</h2><p class="meta">Најновије пријаве за конкретне акције су на врху. Отвори пријаву да видиш контакт и унете податке.</p></div><button class="quiet" id="refreshParticipants" type="button">Освежи</button></div><div id="participants"><p class="empty">Учитавање пријава...</p></div></section><h2>Остале пријаве и предлози</h2><div class="actions" style="margin:12px 0 20px"><button class="quiet" data-filter="all">Све</button><button class="quiet" data-filter="new">Нерешене</button><button class="quiet" data-filter="accepted">Прихваћене</button><button class="quiet" data-filter="rejected">Нису прихваћене</button></div>
 <div id="submissions"><p class="empty">Учитавање...</p></div>
@@ -55,11 +67,11 @@ button{border:0;border-radius:9px;padding:11px 17px;font:inherit;font-weight:750
 const db=window.supabase.createClient('https://hmfeizkmpmxcnzhwxgbn.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhtZmVpemttcG14Y256aHd4Z2JuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMzMjkyNzgsImV4cCI6MjEwODkwNTI3OH0.oTZopOJEGUnxK69BOYPP11CQoGrLqUJowqpPU2uiY-4');
 
 const authBox=document.getElementById('authBox'),dashboard=document.getElementById('dashboard'),message=document.getElementById('message'),list=document.getElementById('submissions'),participantsList=document.getElementById('participants'),membershipList=document.getElementById('membershipApplications');
-let submissions=[],participants=[],currentFilter='all';
+let submissions=[],participants=[],currentFilter='all',orders=[];
 function showMessage(text,error=true){message.textContent=text;message.style.color=error?'#b42318':'#176b3a'}
 async function refreshSession(){
  const {data:{session}}=await db.auth.getSession();
- if(session){authBox.hidden=true;dashboard.hidden=false;await loadSubmissions()}
+ if(session){authBox.hidden=true;dashboard.hidden=false;await loadSubmissions();await loadOrders()}
  else{authBox.hidden=false;dashboard.hidden=true}
 }
 document.getElementById('authForm').addEventListener('submit',async e=>{
@@ -77,6 +89,41 @@ document.getElementById('signup').addEventListener('click',async()=>{
  showMessage('Захтев за регистрацију је послат. Проверите е-пошту ради потврде налога.',false);
 });
 document.getElementById('logout').addEventListener('click',async()=>{await db.auth.signOut();await refreshSession()});
+
+const ordersList=document.getElementById('ordersList');
+const orderStatuses=[['new','Нова'],['confirmed','Потврђена'],['processing','У обради'],['shipped','Послата'],['completed','Завршена'],['cancelled','Отказана']];
+function moneyRsd(value){return new Intl.NumberFormat('sr-RS',{maximumFractionDigits:0}).format(Number(value)||0)+' дин.'}
+async function loadOrders(){
+ if(!ordersList)return;
+ ordersList.innerHTML='<p class="empty">Учитавање наруџбина...</p>';
+ const {data,error}=await db.from('orders').select('id,order_number,customer_name,phone,city,customer_note,subtotal,delivery_fee,total,currency,status,payment_status,created_at').order('created_at',{ascending:false});
+ if(error){ordersList.innerHTML='<p class="empty">Наруџбине нису доступне. Проверите администраторски приступ бази.</p>';return}
+ const rows=data||[];orders=rows;
+ document.getElementById('ordersTotalCount').textContent=rows.length;
+ document.getElementById('ordersNewCount').textContent=rows.filter(x=>x.status==='new').length;
+ document.getElementById('ordersValue').textContent=moneyRsd(rows.reduce((sum,x)=>sum+Number(x.total||0),0));
+ if(!rows.length){ordersList.innerHTML='<p class="empty">Још нема наруџбина из продавнице.</p>';return}
+ const ids=rows.map(x=>x.id);
+ const {data:itemsData,error:itemsError}=await db.from('order_items').select('id,order_id,product_name,product_slug,quantity,unit_price,line_total').in('order_id',ids);
+ if(itemsError){ordersList.innerHTML='<p class="empty">Наруџбине су учитане, али ставке производа нису доступне.</p>';return}
+ const grouped={};(itemsData||[]).forEach(item=>(grouped[item.order_id]??=[]).push(item));
+ ordersList.replaceChildren();
+ rows.forEach(order=>{
+  const card=document.createElement('article');card.className='order-card';
+  const date=order.created_at?new Date(order.created_at).toLocaleString('sr-RS'):'';
+  const itemRows=grouped[order.id]||[];
+  const statusOptions=orderStatuses.map(([value,label])=>'<option value="'+value+'" '+(order.status===value?'selected':'')+'>'+label+'</option>').join('');
+  const itemsHtml=itemRows.map(item=>'<li>'+esc(item.product_name)+' — '+Number(item.quantity)+' × '+moneyRsd(item.unit_price)+' = <strong>'+moneyRsd(item.line_total)+'</strong></li>').join('');
+  card.innerHTML='<div class="order-card-head"><div><h3>Наруџбина #'+esc(order.order_number)+'</h3><div class="meta">'+esc(date)+' · '+esc(order.customer_name)+' · '+esc(order.city||'Место није наведено')+'</div></div><strong>'+moneyRsd(order.total)+'</strong></div><div class="actions"><label style="margin:0;display:flex;align-items:center;gap:8px">Статус <select class="order-status" aria-label="Статус наруџбине">'+statusOptions+'</select></label><button class="quiet order-details-toggle" type="button">Детаљи</button></div><div class="order-detail" hidden><div><strong>Купац:</strong> '+esc(order.customer_name)+'</div><div><strong>Телефон:</strong> '+esc(order.phone||'Није унет')+'</div><div><strong>Место преузимања:</strong> '+esc(order.city||'Није наведено')+'</div><div><strong>Напомена:</strong> '+esc(order.customer_note||'Нема напомене')+'</div><div><strong>Плаћање:</strong> '+esc(order.payment_status==='paid'?'Плаћено':order.payment_status==='refunded'?'Рефундирано':order.payment_status==='pending'?'На чекању':'Није плаћено')+'</div><ul class="order-items">'+(itemsHtml||'<li>Нема ставки</li>')+'</ul><div><strong>Укупно:</strong> '+moneyRsd(order.total)+'</div></div>';
+  const select=card.querySelector('.order-status');
+  select.addEventListener('change',async()=>{const next=select.value;select.disabled=true;const {error:updateError}=await db.from('orders').update({status:next}).eq('id',order.id);select.disabled=false;if(updateError){alert('Статус није сачуван.');select.value=order.status;return;}order.status=next;document.getElementById('ordersNewCount').textContent=orders.filter(x=>x.status==='new').length;});
+  const toggle=card.querySelector('.order-details-toggle'),detail=card.querySelector('.order-detail');
+  toggle.addEventListener('click',()=>{detail.hidden=!detail.hidden;toggle.textContent=detail.hidden?'Детаљи':'Затвори детаље';});
+  ordersList.appendChild(card);
+ });
+}
+document.getElementById('refreshOrders').addEventListener('click',loadOrders);
+
 function esc(value){return String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]))}
 function statusLabel(status){return status==='published'?'Објављено':status==='accepted'?'Прихваћено':status==='reviewing'?'У прегледу':status==='completed'?'Завршено':status==='rejected'?'Није прихваћено':'Чека одлуку'}
 function renderParticipant(item){
