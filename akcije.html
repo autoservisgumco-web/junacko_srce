@@ -22,7 +22,7 @@ const root=document.getElementById('actionList'),diag=document.getElementById('d
 const report=lines=>{diag.replaceChildren();lines.forEach(line=>{const p=document.createElement('p');p.textContent=line;diag.appendChild(p);});};
 try{
  if(!window.supabase)throw new Error('Supabase библиотека није учитана.');
- const {data,error}=await db.from('actions').select('*').order('created_at',{ascending:false});
+ const {data,error}=await db.from('actions').select('*').eq('is_published',true).order('created_at',{ascending:false});
  if(error)throw error;
  report(['Веза са Supabase: успостављена.','Табела actions: читање успешно.','Број акција видљивих јавном налогу: '+(data?.length??0)+'.','Ако недостају акције, проверити RLS SELECT правила и да ли су редови у табели actions.']);
  if(!data?.length){root.innerHTML='<div class="content-empty">База је доступна, али јавни налог не види ниједну акцију. Проверите RLS SELECT правила.</div>';return;}
