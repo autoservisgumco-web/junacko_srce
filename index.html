@@ -517,8 +517,8 @@ async function loadSingleAction(){
  const view=document.getElementById('singleAction');view.hidden=false;
  view.innerHTML='<div class="single-action-loading">Учитавање акције...</div>';
  const fields='id,title,slug,summary,description,location,status,action_date,image_url,intro,reason,goal,goal_items,activities,participation,materials,meeting_info,call_to_action,results';
- let result=await civicDb.from('actions').select(fields).eq('slug',key).maybeSingle();
- if(!result.data&&!result.error){result=await civicDb.from('actions').select(fields).eq('id',key).maybeSingle();}
+ let result=await civicDb.from('actions').select(fields).eq('slug',key).eq('is_published',true).maybeSingle();
+ if(!result.data&&!result.error){result=await civicDb.from('actions').select(fields).eq('id',key).eq('is_published',true).maybeSingle();}
  const action=result.data;
  if(result.error||!action){view.innerHTML='<div class="single-action-loading">Ова акција тренутно није доступна.</div>';return;}
  document.title=action.title+' — Одговорна Плана';
@@ -571,7 +571,7 @@ function renderActionCard(action){
 }
 async function loadActiveActions(){
  const list=document.getElementById('activeActionsList');if(!list)return;
- const {data,error}=await civicDb.from('actions').select('id,title,slug,summary,description,location,status').in('status',['planned','in_progress']).order('created_at',{ascending:false});
+ const {data,error}=await civicDb.from('actions').select('id,title,slug,summary,description,location,status').eq('is_published',true).order('created_at',{ascending:false});
  list.replaceChildren();
  if(error){const msg=document.createElement('p');msg.textContent='Тренутно не можемо да учитамо акције. Покушај поново касније.';list.appendChild(msg);return;}
  if(!data||!data.length){const msg=document.createElement('p');msg.textContent='Тренутно нема активних акција. Можеш да предложиш нову.';list.appendChild(msg);return;}
@@ -666,7 +666,7 @@ function homeActionCard(action){
 }
 async function loadHomeActions(){
  const list=document.getElementById('homeActionCards');if(!list)return;
- const {data,error}=await civicDb.from('actions').select('id,title,slug,summary,description,location,status,action_date,image_url').in('status',['planned','in_progress','completed']).order('created_at',{ascending:false}).limit(3);
+ const {data,error}=await civicDb.from('actions').select('id,title,slug,summary,description,location,status,action_date,image_url').eq('is_published',true).order('created_at',{ascending:false}).limit(3);
  list.replaceChildren();
  if(error||!data){list.innerHTML='<p class="home-live-loading">Акције тренутно нису доступне. Покушај поново касније.</p>';return;}
  if(!data.length){list.innerHTML='<p class="home-live-loading">Тренутно нема објављених акција. Можеш да покренеш нову.</p>';return;}
