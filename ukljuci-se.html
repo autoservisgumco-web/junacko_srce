@@ -80,12 +80,10 @@ footer{background:#041329;color:#d4e1f3;text-align:center;padding:24px;font-size
 </main>
 <footer>ОДГОВОРНА ВЕЛИКА ПЛАНА · Место за заједничко деловање</footer>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="/akcije-data.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="/config.js"></script><script src="/database.js"></script><script src="/akcije-data.js"></script>
 <script>
 (function(){
- const SUPABASE_URL='https://hmfeizkmpmxcnzhwxgbn.supabase.co';
- const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhbGciOiJIUzI1NiIsInJlZiI6ImhtZmVpemttcG14Y256aHd4Z2JuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMzMjkyNzgsImV4cCI6MjEwODkwNTI3OH0.oTZopOJEGUnxK69BOYPP11CQoGrLqUJowqpPU2uiY-4';
- const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+ const db=window.db;
  const safe=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  function message(id,text,cls){const el=document.getElementById(id);if(el)el.innerHTML='<p class="'+cls+'">'+safe(text)+'</p>';}
  async function actions(){
