@@ -80,9 +80,11 @@ footer{background:#041329;color:#d4e1f3;text-align:center;padding:24px;font-size
  function message(id,text,cls){const el=document.getElementById(id);if(el)el.innerHTML='<p class="'+cls+'">'+safe(text)+'</p>';}
  async function actions(){
   const el=document.getElementById('guideActions');
-  const {data,error}=await db.from('actions').select('id,title,slug,summary,description,location,status,action_date,image_url').in('status',['planned','in_progress','completed']).order('created_at',{ascending:false}).limit(50);
-  if(error){message('guideActions','Акције тренутно нису доступне. Покушај поново касније.','empty');return;}
-  if(!data||!data.length){message('guideActions','Тренутно нема објављених акција. Можеш да покренеш прву.','empty');return;}
+  let result=await db.from('actions').select('id,title,slug,summary,description,location,status,action_date,image_url').in('status',['planned','in_progress']).order('created_at',{ascending:false}).limit(50);
+  if(result.error) result=await db.from('actions').select('id,title,slug,summary,description,location,status').in('status',['planned','in_progress']).order('created_at',{ascending:false}).limit(50);
+  const {data,error}=result;
+  if(error){message('guideActions','Акције тренутно нису доступне. Грешка базе: '+error.message,'empty');return;}
+  if(!data||!data.length){message('guideActions','Тренутно нема активних акција. Можеш да покренеш прву.','empty');return;}
   el.innerHTML=data.map(a=>{
    const url=new URL('index.html',location.href);url.searchParams.set('akcija',a.slug||a.id);
    const status=a.status==='completed'?'ЗАВРШЕНА АКЦИЈА':a.status==='planned'?'ПЛАНИРАНА АКЦИЈА':'АКТИВНА АКЦИЈА';
@@ -91,10 +93,12 @@ footer{background:#041329;color:#d4e1f3;text-align:center;padding:24px;font-size
  }
  async function campaigns(){
   const el=document.getElementById('guideCampaigns');
-  const {data,error}=await db.from('campaigns').select('id,title,slug,description,goal,hero_image,status,is_published').eq('is_published',true).order('created_at',{ascending:false}).limit(50);
-  if(error){message('guideCampaigns','Кампање тренутно нису доступне. Покушај поново касније.','empty');return;}
-  if(!data||!data.length){message('guideCampaigns','Тренутно нема објављених кампања.','empty');return;}
-  el.innerHTML=data.map(c=>'<article class="live-card">'+(c.hero_image?'<img loading="lazy" src="'+safe(c.hero_image)+'" alt="">':'')+'<div class="live-card-body"><span class="live-tag">КАМПАЊА</span><h4>'+safe(c.title||'Кампања')+'</h4><p>'+safe(c.description||'Упознај заједнички циљ и види како можеш да допринесеш.')+'</p>'+(c.goal?'<details><summary>Шта желимо да постигнемо?</summary><p>'+safe(c.goal)+'</p></details>':'')+'</div></article>').join('');
+  let result=await db.from('campaigns').select('id,title,slug,description,goal,hero_image,status,is_published').eq('is_published',true).order('created_at',{ascending:false}).limit(50);
+  if(result.error) result=await db.from('campaigns').select('id,title,description,goal,hero_image,status,is_published').eq('is_published',true).order('created_at',{ascending:false}).limit(50);
+  const {data,error}=result;
+  if(error){message('guideCampaigns','Кампање тренутно нису доступне. Грешка базе: '+error.message,'empty');return;}
+  if(!data||!data.length){message('guideCampaigns','Тренутно нема објављених кампања. Провери да ли су кампање означене као објављене.','empty');return;}
+  el.innerHTML=data.map(c=>'<article class="live-card">'+(c.hero_image?'<img loading="lazy" src="'+safe(c.hero_image)+'" alt="">':'')+'<div class="live-card-body"><span class="live-tag">КАМПАЊА</span><h4>'+safe(c.title||'Кампања')+'</h4><p>'+safe(c.description||'Упознај заједнички циљ и види како можеш да допринесеш.')+'</p><details><summary>Погледај више о кампањи</summary><p>'+safe(c.goal||c.description||'Ова кампања окупља људе око заједничког циља.')+'</p></details></div></article>').join('');
  }
  actions();campaigns();
 })();
