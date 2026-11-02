@@ -8,7 +8,7 @@
 <style>
 /* Детаљ акције — распоред и визуелни стил према достављеној референци */
 body.content-page-body.action-detail-page{background:#f7f8fa}
-body.action-detail-page .site-header{position:relative;height:84px;background:#061A35;padding:10px max(3vw,22px)}
+body.action-detail-page .site-header{position:relative;width:100%;max-width:none;margin:0;height:84px;background:#061A35;padding:10px max(3vw,22px);border-radius:0;left:0;right:0}
 body.action-detail-page .site-nav{gap:clamp(12px,2vw,28px)}
 body.action-detail-page .site-nav a{font-size:15px}
 body.action-detail-page .site-nav a[href="/akcije.html"]{border-bottom:3px solid #d71920}
@@ -39,7 +39,7 @@ body.action-detail-page .site-nav a[href="/akcije.html"]{border-bottom:3px solid
 .action-sticky{display:none}
 .action-empty{padding:26px;background:#fff;border:1px solid #e1e5eb;border-radius:16px;color:#475569}
 @media(max-width:760px){
- body.action-detail-page .site-header{height:78px;padding:10px 14px}
+ body.action-detail-page .site-header{width:100%;height:78px;margin:0;padding:10px 14px}
  .action-detail-wrap{padding:0 12px 30px}
  .action-cover{height:205px;border-radius:0 0 12px 12px}
  .action-cover-status{top:14px;left:14px;padding:8px 13px;font-size:13px}
@@ -63,7 +63,7 @@ body.action-detail-page .site-nav a[href="/akcije.html"]{border-bottom:3px solid
 </header>
 <div class="menu-backdrop" id="menuBackdrop" hidden></div>
 <aside class="side-menu" id="sideMenu" aria-hidden="true"><div class="side-menu-head"><span>♡ Одговорна Плана</span><button class="side-menu-close" id="closeMenu" type="button" aria-label="Затвори мени">×</button></div><nav aria-label="Мени"><a href="/index.html">Почетна</a><a href="/akcije.html">Акције</a><a href="/kampanje.html">Кампање</a><a href="/inicijative.html">Иницијативе</a><a href="/prijavi-problem.html">Пријави проблем</a><a href="/o-projektu.html">О пројекту</a></nav></aside>
-<main><div class="action-detail-wrap"><a class="content-back" href="/akcije.html">← Све акције</a><div id="actionDetail" class="action-empty">Учитавање акције…</div></div></main>
+<main><div class="action-detail-wrap"><div id="actionDetail" class="action-empty">Учитавање акције…</div></div></main>
 <footer class="content-footer"><div class="content-footer-inner">ОДГОВОРНА ПЛАНА · Место за заједничко деловање · © <span id="year"></span></div></footer>
 <script>
 document.getElementById('year').textContent=new Date().getFullYear();
