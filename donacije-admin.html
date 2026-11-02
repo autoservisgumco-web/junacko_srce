@@ -118,7 +118,7 @@ body{margin:0;background:#f3f6fa;color:var(--ink);font-family:system-ui,-apple-s
   const slug=new URLSearchParams(location.search).get('slug');
   const match=campaigns.find(c=>c.slug===slug);
   if(match)$('campaign').value=match.id;
-  if(campaigns.length)await loadCampaign(campaigns[0].id);
+  if(campaigns.length)await loadCampaign($('campaign').value||campaigns[0].id);
  }
  async function loadCampaign(id){
   currentId=id;status.textContent='Учитавање подешавања...';
