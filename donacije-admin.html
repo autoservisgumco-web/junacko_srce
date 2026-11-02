@@ -81,13 +81,11 @@ body{margin:0;background:#f3f6fa;color:var(--ink);font-family:system-ui,-apple-s
 </section>
 </main>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="/config.js"></script><script src="/database.js"></script>
+<script src="/config.js"></script><script src="/database.js"></script><script src="/donation-types.js"></script>
 <script>
 (function(){
  const db=window.db,authBox=document.getElementById('authBox'),editor=document.getElementById('editor'),status=document.getElementById('status');
- const types=[
-  ['money','Новчана донација'],['food','Храна'],['clothing','Одећа и обућа'],['equipment','Опрема'],['materials','Материјал'],['medicine','Лекови и медицински материјал'],['service','Услуга и стручна помоћ'],['transport','Превоз'],['other','Друго']
- ];
+ const types=window.DonationTypes.list.map(type=>[type.value,type.label]);
  let campaigns=[],currentId=null;
  const $=id=>document.getElementById(id);
  const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
