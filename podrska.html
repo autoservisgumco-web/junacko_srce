@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="sr-Cyrl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#061A35">
+<title>Подршка — Одговорна Плана</title>
+<meta name="description" content="Подржи рад Покрета Одговорна Плана на начин који ти одговара.">
+<link rel="stylesheet" href="stranice.css"><link rel="stylesheet" href="bottom-nav.css">
+<style>
+.support-hero{background:linear-gradient(120deg,#061A35,#0d3263 68%,#2166F3);color:#fff;padding:clamp(38px,7vw,76px) 22px}
+.support-hero-inner,.support-wrap{width:min(1100px,100%);margin:auto}
+.support-kicker{font-size:12px;letter-spacing:2px;font-weight:850;color:#a9d5ff}
+.support-hero h1{font-size:clamp(34px,6vw,60px);line-height:1.08;letter-spacing:-1.5px;max-width:850px;margin:12px 0 16px}
+.support-hero p{font-size:18px;line-height:1.7;color:#e0edf8;max-width:780px;margin:0}
+.support-main{padding:38px 22px 80px}
+.support-intro{font-size:18px;line-height:1.7;color:#52677d;max-width:850px;margin:0 0 26px}
+.support-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.support-card{display:flex;flex-direction:column;background:#fff;border:1px solid #dce5f0;border-radius:18px;padding:clamp(20px,3vw,30px);box-shadow:0 10px 30px #061a3509;min-height:245px}
+.support-icon{width:54px;height:54px;border-radius:15px;background:#e8f3ff;color:#2166f3;display:grid;place-items:center;font-size:29px;font-weight:850}
+.support-card h2{font-size:24px;line-height:1.2;color:#061A35;margin:17px 0 9px}
+.support-card p{color:#52677d;line-height:1.65;margin:0 0 22px;flex:1}
+.support-btn{display:inline-flex;align-items:center;justify-content:center;align-self:flex-start;background:#2166F3;color:#fff;text-decoration:none;border-radius:10px;padding:12px 18px;font-weight:800}
+.support-btn.dark{background:#061A35}
+.support-note{margin-top:22px;padding:24px;border-radius:16px;background:#e7f0fb;color:#314967}
+.support-note h2{color:#061A35;margin:0 0 7px;font-size:22px}.support-note p{margin:0;line-height:1.65}
+@media(max-width:650px){.support-main{padding:27px 16px 60px}.support-grid{grid-template-columns:1fr}.support-hero{padding:42px 18px}.support-hero p{font-size:16px}}
+</style></head>
+<body class="content-page-body">
+<header class="site-header">
+<a class="site-brand" href="index.html" aria-label="Одговорна Плана — почетна"><span class="brand-heart">♡</span><span>Одговорна<br>Плана</span></a>
+<nav class="site-nav" aria-label="Главна навигација"><a href="index.html">Почетна</a><a href="kampanje.html">Кампање</a><a href="akcije.html">Акције</a><a class="active" href="podrska.html">Подршка</a></nav>
+<button class="menu-trigger" id="openMenu" type="button" aria-label="Отвори мени">☰</button></header>
+<div class="menu-backdrop" id="menuBackdrop" hidden></div>
+<aside class="side-menu" id="sideMenu" aria-hidden="true"><div class="side-menu-head"><span>♡ Одговорна Плана</span><button class="side-menu-close" id="closeMenu" type="button" aria-label="Затвори мени">×</button></div><nav aria-label="Мени"><a href="index.html">Почетна</a><a href="kampanje.html">Кампање</a><a href="akcije.html">Акције</a><a class="active" href="podrska.html">Подршка</a></nav></aside>
+<section class="support-hero"><div class="support-hero-inner"><div class="support-kicker">СВАКО МОЖЕ ДА ДОПРИНЕСЕ</div><h1>Подршка почиње од онога што можеш.</h1><p>Не морамо сви да радимо исту ствар. Неко покреће акцију, неко се придружи на терену, неко помогне знањем, опремом или куповином производа. Важно је да свако пронађе свој начин да допринесе.</p></div></section>
+<main class="support-main"><div class="support-wrap">
+<p class="support-intro">Изабери начин који ти највише одговара. Сваки допринос помаже да идеје претворимо у конкретне промене у нашој заједници.</p>
+<div class="support-grid">
+<article class="support-card"><div class="support-icon">↗</div><h2>Прикључи се акцији</h2><p>Погледај шта је већ покренуто у Великој Плани и околним местима. Изабери акцију и пријави се да учествујеш.</p><a class="support-btn" href="akcije.html">Погледај акције →</a></article>
+<article class="support-card"><div class="support-icon">＋</div><h2>Покрени нешто своје</h2><p>Приметио си проблем или имаш идеју? Предложи акцију и окупи људе који желе да помогну.</p><a class="support-btn dark" href="predlog-akcije.html">Предложи акцију →</a></article>
+<article class="support-card"><div class="support-icon">♡</div><h2>Подржи рад куповином</h2><p>Куповином производа из наше понуде помажеш да одржимо и развијамо рад Покрета Одговорна Плана.</p><a class="support-btn" href="prodavnica.html">Посети продавницу →</a></article>
+<article class="support-card"><div class="support-icon">✦</div><h2>Помози својим знањем и могућностима</h2><p>Можеш да помогнеш организацијом, промоцијом, стручним знањем, алатом, опремом или другим конкретним доприносом.</p><a class="support-btn dark" href="ukljuci-se.html">Види како можеш да помогнеш →</a></article>
+</div>
+<section class="support-note"><h2>Није важно колико можеш. Важно је да учествујеш.</h2><p>Заједнички рад не зависи од једног човека. Градимо га тако што свако преузме део одговорности и уради оно што може.</p></section>
+</div></main>
+<footer class="content-footer"><div class="content-footer-inner">ОДГОВОРНА ПЛАНА · Место за заједничко деловање</div></footer>
+<script>
+const menu=document.getElementById('sideMenu'),back=document.getElementById('menuBackdrop');function closeSideMenu(){menu.classList.remove('open');back.classList.remove('open');menu.setAttribute('aria-hidden','true');setTimeout(()=>back.hidden=true,260)}document.getElementById('openMenu').addEventListener('click',()=>{back.hidden=false;menu.setAttribute('aria-hidden','false');requestAnimationFrame(()=>{back.classList.add('open');menu.classList.add('open')})});document.getElementById('closeMenu').addEventListener('click',closeSideMenu);back.addEventListener('click',closeSideMenu);
+</script><script src="bottom-nav.js"></script>
+</body></html>
