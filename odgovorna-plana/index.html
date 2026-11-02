@@ -93,6 +93,7 @@
 <div class="field"><label for="pPhone">Телефон / Viber</label><input id="pPhone" type="tel"></div>
 <div class="field"><label for="pLocation">Где треба спровести акцију?</label><input id="pLocation" placeholder="Насеље, улица, парк…"></div>
 <div class="field full"><label for="pDescription">Опиши предлог и шта је потребно *</label><textarea id="pDescription" required minlength="10" maxlength="3000" placeholder="Шта је проблем? Шта предлажеш? Која помоћ, алат или материјал су потребни?"></textarea></div>
+<div class="field full"><label for="pFiles">Приложи фотографије или документа (није обавезно)</label><input id="pFiles" type="file" multiple accept="image/jpeg,image/png,image/webp,application/pdf,.doc,.docx"><small class="hint">До 5 фајлова, највише 15 MB по фајлу. Дозвољени су JPG, PNG, WEBP, PDF, DOC и DOCX.</small><div class="hint" id="pFilesList" aria-live="polite"></div></div>
 </div><button class="btn" type="submit">Пошаљи предлог →</button><div class="msg" id="proposalMessage" role="status"></div></form>
 </section>
 <section id="actionsSection" hidden>
@@ -151,14 +152,31 @@ backdrop.addEventListener('click',closeSheet);
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSheet();});
 sheet.addEventListener('touchstart',e=>{touchStartY=e.touches[0].clientY;},{passive:true});
 sheet.addEventListener('touchend',e=>{const delta=e.changedTouches[0].clientY-touchStartY;if(delta>90&&$('sheetContent').scrollTop===0)closeSheet();},{passive:true});
+$('pFiles').addEventListener('change',()=>{const files=Array.from($('pFiles').files||[]);$('pFilesList').textContent=files.length?files.map(file=>file.name+' ('+(file.size/1024/1024).toFixed(2)+' MB)').join(' · '):'';});
 $('proposalForm').addEventListener('submit',async e=>{
  e.preventDefault();const b=e.submitter;b.disabled=true;b.textContent='Шаљем…';const m=$('proposalMessage');m.style.display='none';
  const val=id=>$(id).value.trim();
  try{
-  const {error}=await db.from('civic_submissions').insert({submission_type:'action',title:val('pTitle'),description:val('pDescription'),full_name:val('pName'),email:val('pEmail'),phone:val('pPhone')||null,viber_phone:val('pPhone')||null,location:val('pLocation')||null,status:'new'});
+  const files=Array.from($('pFiles').files||[]);
+  const allowedTypes=['image/jpeg','image/png','image/webp','application/pdf','application/msword','application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+  if(files.length>5)throw new Error('Можете приложити највише 5 фајлова.');
+  if(files.some(file=>!allowedTypes.includes(file.type)||file.size>15*1024*1024))throw new Error('Проверите тип и величину фајлова. Дозвољени су JPG, PNG, WEBP, PDF, DOC и DOCX до 15 MB.');
+  if(files.reduce((sum,file)=>sum+file.size,0)>25*1024*1024)throw new Error('Укупна величина прилога не може бити већа од 25 MB.');
+  const attachments=[];
+  if(files.length){
+   const batchId=crypto.randomUUID();
+   for(let i=0;i<files.length;i++){
+    const file=files[i],safeName=file.name.replace(/[^a-zA-Z0-9._-]/g,'_').slice(-100)||'prilog';
+    const path=batchId+'/'+(i+1)+'-'+safeName;
+    const {error:uploadError}=await db.storage.from('action-proposal-files').upload(path,file,{contentType:file.type,upsert:false});
+    if(uploadError)throw uploadError;
+    attachments.push({path,name:file.name,size:file.size,type:file.type});
+   }
+  }
+  const {error}=await db.from('civic_submissions').insert({submission_type:'action',title:val('pTitle'),description:val('pDescription'),full_name:val('pName'),email:val('pEmail'),phone:val('pPhone')||null,viber_phone:val('pPhone')||null,location:val('pLocation')||null,social_links:{attachments},status:'new'});
   if(error)throw error;
-  m.textContent='Хвала! Предлог је успешно послат. Биће прегледан пре објављивања.';m.style.display='block';e.target.reset();
- }catch(err){console.error(err);m.textContent='Слање није успело. Проверите податке и покушајте поново.';m.style.display='block'}
+  m.textContent='Хвала! Предлог је успешно послат. Биће прегледан пре објављивања.';m.style.display='block';e.target.reset();$('pFilesList').textContent='';
+ }catch(err){console.error(err);m.textContent=err.message&&(/фајл|прилог|величин|Дозвољени/.test(err.message))?err.message:'Слање није успело. Проверите податке и покушајте поново.';m.style.display='block'}
  finally{b.disabled=false;b.textContent='Пошаљи предлог →'}
 });
 function safe(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
