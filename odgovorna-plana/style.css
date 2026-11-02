@@ -152,3 +152,17 @@ body.sheet-open{overflow:hidden}
 .community-join-panel h2{color:#fff;max-width:760px}
 .community-join-panel p{color:#d5e4f8;max-width:780px;margin-bottom:17px}
 @media(max-width:700px){.home-action-grid{grid-template-columns:1fr}.home-action-card{padding:17px}.project-link-panel{align-items:flex-start;flex-direction:column;gap:15px}.project-link-button{white-space:normal;width:100%;text-align:center}.home-actions{padding:21px 17px}}
+
+
+/* Uputstvo samo za formu predloga akcije. */
+.proposal-guide{margin:0 0 20px;border:1px solid #d6e4f4;border-radius:12px;background:#f4f8ff;color:var(--navy);overflow:hidden}
+.proposal-guide summary{padding:13px 15px;font-weight:850;cursor:pointer;list-style:none}
+.proposal-guide summary::-webkit-details-marker{display:none}
+.proposal-guide summary span{display:inline-grid;place-items:center;width:22px;height:22px;margin-right:7px;border-radius:50%;background:#e1ecff;color:var(--blue)}
+.proposal-guide[open] summary{border-bottom:1px solid #d6e4f4}
+.proposal-guide-content{padding:13px 16px 15px;color:#314967;font-size:14px;line-height:1.55}
+.proposal-guide-content p{margin:0 0 10px}
+.proposal-guide-content ol{margin:0 0 10px;padding-left:22px}
+.proposal-guide-content li{padding:2px 0}
+.proposal-guide-content strong{color:var(--navy)}
+.proposal-guide-content .proposal-guide-note{margin:0;padding-top:9px;border-top:1px solid #d6e4f4;font-weight:650;color:var(--navy)}
