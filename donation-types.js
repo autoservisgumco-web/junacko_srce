@@ -59,7 +59,8 @@
 
   function renderPayment(settings) {
     const s = settings || {};
-    const paypalUrl = s.paypal_url || s.paypal_link || s.paypal_me_url || "";
+    const paypalCandidate = s.paypal_url || s.paypal_link || s.paypal_me_url || "";
+    const paypalUrl = /^https?:\/\//i.test(String(paypalCandidate)) ? String(paypalCandidate) : "";
     const hasBank = !!(s.bank_account || s.recipient_name || s.payment_purpose || s.reference_number);
     const hasSlip = !!(s.recipient_name || s.bank_account || s.payment_purpose || s.reference_number);
     const row = (label, value) => value ? '<div class="donation-detail-row"><span>' + esc(label) + '</span><strong>' + esc(value) + '</strong><button type="button" class="donation-copy" data-copy="' + esc(value) + '">Копирај</button></div>' : "";
