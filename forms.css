@@ -7,3 +7,14 @@
 .form-field textarea{min-height:90px;resize:vertical}
 .join-form{display:none;margin-top:14px;padding:15px;border:1px solid #dce5f0;border-radius:12px;background:#f7faff}.join-form.open{display:block}
 @media(max-width:460px){.form-grid{grid-template-columns:1fr}.form-field.full{grid-column:auto}}
+
+.modal-backdrop{position:fixed;inset:0;z-index:1000;display:none;align-items:flex-end;justify-content:center;padding:18px;background:#031329a8}
+.modal-backdrop.open{display:flex}
+.form-modal{width:min(700px,100%);max-height:92dvh;overflow:auto;border-radius:19px;background:#fff;padding:22px;box-shadow:0 20px 70px #0004}
+.modal-head{display:flex;align-items:center;justify-content:space-between;gap:15px;border-bottom:1px solid #e5ebf2;padding-bottom:12px;margin-bottom:14px}
+.modal-head h2{color:#061A35;font-size:22px;margin:0}
+.modal-close{border:0;background:transparent;color:#061A35;font-size:30px;line-height:1;cursor:pointer}
+.modal-lead{font-size:13px;color:#64748b;margin:0 0 15px}
+.modal-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:15px}
+.modal-actions .page-btn{min-width:140px}
+@media(max-width:460px){.modal-backdrop{padding:0}.form-modal{border-radius:19px 19px 0 0;max-height:94dvh}}
