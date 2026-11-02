@@ -274,7 +274,7 @@ function openForm(kind,options={}){
 function closeForm(){ $('formBackdrop').classList.remove('open');document.body.style.overflow='';setTimeout(()=>$('formBackdrop').hidden=true,180); }
 document.addEventListener('click',event=>{
  const open=event.target.closest('[data-open-form]');
- if(open){openForm(open.dataset.openForm,{campaignId:open.dataset.campaignId,campaignTitle:open.dataset.campaignTitle,supportType:open.dataset.support});return;}
+ if(open){window.OPForms.ready.then(()=>openForm(open.dataset.openForm,{campaignId:open.dataset.campaignId,campaignTitle:open.dataset.campaignTitle,supportType:open.dataset.support})).catch(error=>{console.error(error);alert('Образац тренутно није доступан. Покушај поново.');});return;}
  const toggle=event.target.closest('[data-toggle-join]');
  if(toggle){const form=document.querySelector('[data-join-form="'+toggle.dataset.toggleJoin+'"]');if(form){form.classList.toggle('open');if(form.classList.contains('open'))form.querySelector('input')?.focus();}return;}
  if(event.target.id==='closeForm'||event.target.id==='formBackdrop')closeForm();
