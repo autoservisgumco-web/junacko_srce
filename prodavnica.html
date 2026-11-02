@@ -32,6 +32,7 @@ footer{background:#041329;color:#d4e1f3;text-align:center;padding:24px 18px;font
 @media(max-width:720px){header{align-items:flex-start}nav{gap:12px;flex-wrap:wrap;justify-content:flex-end}nav a{font-size:12px}.brand{font-size:18px}.brand-mark{font-size:34px}.product{grid-template-columns:1fr}.product-art{min-height:250px}.info-grid{grid-template-columns:1fr}.quantity-row{align-items:flex-start;flex-direction:column}.total{text-align:left}.modal-backdrop{padding:0}.modal{border-radius:20px 20px 0 0;max-height:92dvh}}
 @media(max-width:390px){header{flex-direction:column}.brand{font-size:20px}nav{width:100%;justify-content:space-between}}
 </style>
+  <link rel="stylesheet" href="bottom-nav.css">
 </head>
 <body>
 <header>
@@ -116,4 +117,5 @@ $('closeModal').addEventListener('click',close);$('orderModal').addEventListener
 $('orderForm').addEventListener('submit',e=>{e.preventDefault();const form=e.currentTarget;if(!form.reportValidity())return;const d=new FormData(form);$('formError').textContent='';$('formArea').style.display='none';$('successArea').classList.add('show');$('successText').textContent=d.get('name')+', ваша пробна наруџбина: '+qty+' × привезак, укупно '+money(qty*price)+'. Подаци нису послати нити сачувани.';});
 $('finishOrder').addEventListener('click',()=>{close();$('orderForm').reset();qty=1;render()});render();})();
 </script>
+  <script src="bottom-nav.js"></script>
 </body></html>
