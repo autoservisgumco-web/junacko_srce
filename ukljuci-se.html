@@ -93,7 +93,7 @@ footer{background:#041329;color:#d4e1f3;text-align:center;padding:24px;font-size
  }
  async function campaigns(){
   const el=document.getElementById('guideCampaigns');
-  let result=await db.from('campaigns').select('id,title,slug,description,goal,hero_image,status,is_published').eq('is_published',true).order('created_at',{ascending:false}).limit(50);
+  let result=await db.from('campaigns').select('id,title,slug,description,goal,hero_image,status,is_published').or('is_published.eq.true,status.eq.objavljena').order('created_at',{ascending:false}).limit(50);
   if(result.error) result=await db.from('campaigns').select('id,title,description,goal,hero_image,status,is_published').eq('is_published',true).order('created_at',{ascending:false}).limit(50);
   const {data,error}=result;
   if(error){message('guideCampaigns','Кампање тренутно нису доступне. Грешка базе: '+error.message,'empty');return;}
