@@ -73,9 +73,12 @@ footer{text-align:center;color:var(--muted);font-size:13px;padding:20px}
 </section>
 <section class="panel" id="adminPanel"><h2>Администрација</h2><p class="sub">Приватни преглед пријава — само за администратора.</p><div id="adminLogin"><p>Пријава преко email линка на jefimijaorg@gmail.com.</p><button class="primary" id="adminSend">Пошаљи линк за пријаву</button><p id="adminMsg" class="notice"></p></div><div id="adminData" hidden><button class="secondary" id="adminLogout">Одјави се</button><div id="adminRows"></div></div></section></main>
 <footer>Јуначко срце · Није довољно знати. Треба и деловати.</footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/config.js"></script>
+<script src="/database.js"></script>
 <script>
-const SUPABASE_URL = "https://hmfeizkmpmxcnzhwxgbn.supabase.co";
-const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhtZmVpemttcG14Y256aHd4Z2JuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMzMjkyNzgsImV4cCI6MjEwODkwNTI3OH0.oTZopOJEGUnxK69BOYPP11CQoGrLqUJowqpPU2uiY-4";
+const SUPABASE_URL = window.APP_CONFIG.supabase.url;
+const SUPABASE_KEY = window.APP_CONFIG.supabase.key;
 const headers = {'apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY,'Content-Type':'application/json'};
 const el = id => document.getElementById(id);
 function showMessage(text, ok=true){const m=el('message');m.textContent=text;m.style.background=ok?'#eaf1ff':'#fff0ed';m.style.color=ok?'#173b78':'#9b2c1f';m.classList.add('show');}
