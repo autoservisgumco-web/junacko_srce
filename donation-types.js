@@ -59,35 +59,24 @@
 
   function renderPayment(settings) {
     const s = settings || {};
-    const paypalCandidate = s.paypal_url || s.paypal_link || s.paypal_me_url || "";
-    const paypalUrl = /^https?:\/\//i.test(String(paypalCandidate)) ? String(paypalCandidate) : "";
+    const paypalCandidate = String(s.paypal_url || s.paypal_link || s.paypal_me_url || "");
+    const paypalUrl = paypalCandidate.startsWith("https://") || paypalCandidate.startsWith("http://") ? paypalCandidate : "";
     const hasBank = !!(s.bank_account || s.recipient_name || s.payment_purpose || s.reference_number);
-    const hasSlip = !!(s.recipient_name || s.bank_account || s.payment_purpose || s.reference_number);
     const row = (label, value) => value ? '<div class="donation-detail-row"><span>' + esc(label) + '</span><strong>' + esc(value) + '</strong><button type="button" class="donation-copy" data-copy="' + esc(value) + '">Копирај</button></div>' : "";
-    let html = '<div class="donation-methods">';
-    html += '<section class="donation-method"><h4>Банковни трансфер</h4>';
-    html += hasBank ? '<div class="donation-payment-card">' +
-      row("Прималац", s.recipient_name) + row("Број рачуна", s.bank_account) +
-      row("Сврха уплате", s.payment_purpose) + row("Позив на број", s.reference_number) +
-      (s.payment_instructions ? '<p class="donation-payment-note">' + esc(s.payment_instructions) + '</p>' : '') +
-      '</div>' : '<div class="donation-empty">Подаци за банковни трансфер још нису унети.</div>';
-    html += '</section>';
-    if (paypalUrl) {
-      html += '<section class="donation-method"><h4>PayPal</h4>';
-      html += '<a class="donation-paypal-button" href="' + esc(paypalUrl) + '" target="_blank" rel="noopener noreferrer"><i class="fab fa-paypal"></i> Донирај преко PayPal-а</a>';
-      if (s.paypal_email) html += '<div class="donation-paypal-email">PayPal налог: <strong>' + esc(s.paypal_email) + '</strong> <button type="button" class="donation-copy" data-copy="' + esc(s.paypal_email) + '">Копирај</button></div>';
-      html += '</section>';
-    }
-    html += '<section class="donation-method"><h4>Уплатница</h4>';
-    html += hasSlip ? '<div class="donation-payment-card donation-slip">' +
-      '<div class="donation-slip-heading">НАЛОГ ЗА УПЛАТУ</div>' +
-      row("Уплатилац", "") + row("Прималац", s.recipient_name) +
-      row("Рачун примаоца", s.bank_account) + row("Сврха уплате", s.payment_purpose) +
-      row("Модел / позив на број", s.reference_number) +
-      '<p class="donation-payment-note">Упиши износ који желиш да донираш и ове податке пренеси на уплатницу.</p></div>'
+    const bankContent = hasBank
+      ? '<div class="donation-payment-card">' + row("Прималац", s.recipient_name) + row("Број рачуна", s.bank_account) + row("Сврха уплате", s.payment_purpose) + row("Позив на број", s.reference_number) + (s.payment_instructions ? '<p class="donation-payment-note">' + esc(s.payment_instructions) + '</p>' : '') + '</div>'
+      : '<div class="donation-empty">Подаци за банковни трансфер још нису унети.</div>';
+    const slipContent = hasBank
+      ? '<div class="donation-payment-card donation-slip"><div class="donation-slip-heading">НАЛОГ ЗА УПЛАТУ</div><div class="donation-slip-fields"><div><span>Уплатилац</span><strong>Уписује уплатилац</strong></div><div><span>Сврха уплате</span><strong>' + esc(s.payment_purpose || "Донација") + '</strong></div><div><span>Прималац</span><strong>' + esc(s.recipient_name || "—") + '</strong></div><div><span>Рачун примаоца</span><strong>' + esc(s.bank_account || "—") + '</strong></div><div><span>Позив на број</span><strong>' + esc(s.reference_number || "—") + '</strong></div></div><p class="donation-payment-note">Упиши износ који желиш да донираш и своје податке као уплатилац.</p><button type="button" class="donation-print-slip" onclick="window.print()">Одштампај / сачувај као PDF</button></div>'
       : '<div class="donation-empty">Подаци за попуњавање уплатнице још нису унети.</div>';
-    html += '</section></div>';
-    return html;
+    const tabs = [
+      { id: "bank", label: "Банковни трансфер", content: bankContent },
+      { id: "slip", label: "Уплатница", content: slipContent }
+    ];
+    if (paypalUrl) tabs.push({ id: "paypal", label: "PayPal", content: '<div class="donation-payment-card"><a class="donation-paypal-button" href="' + esc(paypalUrl) + '" target="_blank" rel="noopener noreferrer"><i class="fab fa-paypal"></i> Донирај преко PayPal-а</a>' + (s.paypal_email ? '<div class="donation-paypal-email">PayPal налог: <strong>' + esc(s.paypal_email) + '</strong> <button type="button" class="donation-copy" data-copy="' + esc(s.paypal_email) + '">Копирај</button></div>' : '') + '</div>' });
+    return '<div class="donation-payment-tabs" data-donation-tabs><div class="donation-tab-list" role="tablist" aria-label="Начин новчане донације">' +
+      tabs.map((tab, index) => '<button type="button" class="donation-tab' + (index === 0 ? ' is-active' : '') + '" role="tab" aria-selected="' + (index === 0 ? 'true' : 'false') + '" aria-controls="donation-panel-' + tab.id + '" data-donation-tab="' + tab.id + '">' + tab.label + '</button>').join('') +
+      '</div>' + tabs.map((tab, index) => '<section class="donation-tab-panel' + (index === 0 ? ' is-active' : '') + '" id="donation-panel-' + tab.id + '" role="tabpanel" data-donation-panel="' + tab.id + '"' + (index === 0 ? '' : ' hidden') + '>' + tab.content + '</section>').join('') + '</div>';
   }
 
   function renderPanel(settings, items) {
@@ -106,6 +95,25 @@
 
   window.DonationTypes = Object.freeze({ list: TYPES, getType, renderItems, renderPanel });
   document.addEventListener("click", async event => {
+    const tab = event.target.closest("[data-donation-tab]");
+    if (tab) {
+      const root = tab.closest("[data-donation-tabs]");
+      if (root) {
+        const selected = tab.dataset.donationTab;
+        root.querySelectorAll("[data-donation-tab]").forEach(button => {
+          const active = button === tab;
+          button.classList.toggle("is-active", active);
+          button.setAttribute("aria-selected", active ? "true" : "false");
+        });
+        root.querySelectorAll("[data-donation-panel]").forEach(panel => {
+          const active = panel.dataset.donationPanel === selected;
+          panel.classList.toggle("is-active", active);
+          panel.hidden = !active;
+        });
+      }
+      return;
+    }
+
     const button = event.target.closest("[data-copy]");
     if (!button) return;
     try {
