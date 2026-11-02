@@ -27,6 +27,7 @@ button{border:0;border-radius:10px;padding:13px 18px;font:inherit;font-weight:75
 footer{text-align:center;color:var(--muted);font-size:13px;padding:20px}
 @media(max-width:620px){.intro,.fields,.join-form{grid-template-columns:1fr}.full{grid-column:auto}.list-head{display:block}.proposal-foot{align-items:flex-start;flex-direction:column}.join-form button{grid-column:auto}header{padding-bottom:26px}.panel{padding:17px}}
 </style>
+  <link rel="stylesheet" href="bottom-nav.css">
 </head>
 <body>
 <header>
@@ -118,5 +119,6 @@ el('adminSend').addEventListener('click',async()=>{const r=await fetch(SUPABASE_
 el('adminLogout').addEventListener('click',()=>{sessionStorage.removeItem(ADMIN_TOKEN);location.reload();});
 const cb=new URLSearchParams(location.hash.replace(/^#/,''));const at=new URL(location.href).searchParams.get('access_token')||cb.get('access_token');if(at){sessionStorage.setItem(ADMIN_TOKEN,at);adminLoad();}else if(sessionStorage.getItem(ADMIN_TOKEN))adminLoad();
 </script>
+  <script src="bottom-nav.js"></script>
 </body>
 </html>
