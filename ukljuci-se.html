@@ -99,7 +99,7 @@ footer{background:#041329;color:#d4e1f3;text-align:center;padding:24px;font-size
   const {data,error}=result;
   if(error){message('guideCampaigns','Кампање тренутно нису доступне. Грешка базе: '+error.message,'empty');return;}
   if(!data||!data.length){message('guideCampaigns','Тренутно нема објављених кампања. Провери да ли су кампање означене као објављене.','empty');return;}
-  el.innerHTML=data.map(c=>'<article class="live-card">'+(c.hero_image?'<img loading="lazy" src="'+safe(c.hero_image)+'" alt="">':'')+'<div class="live-card-body"><span class="live-tag">КАМПАЊА</span><h4>'+safe(c.title||'Кампања')+'</h4><p>'+safe(c.description||'Упознај заједнички циљ и види како можеш да допринесеш.')+'</p><details><summary>Погледај више о кампањи</summary><p>'+safe(c.goal||c.description||'Ова кампања окупља људе око заједничког циља.')+'</p></details></div></article>').join('');
+  el.innerHTML=data.map(c=>'<article class="live-card">'+(c.hero_image?'<img loading="lazy" src="'+safe(c.hero_image)+'" alt="">':'')+'<div class="live-card-body"><span class="live-tag">КАМПАЊА</span><h4>'+safe(c.title||'Кампања')+'</h4><p>'+safe(c.description||'Упознај заједнички циљ и види како можеш да допринесеш.')+'</p><a class="btn" href="/kampanja.html?slug='+encodeURIComponent(c.slug||c.id)+'">Погледај кампању →</a><details><summary>Погледај више о кампањи</summary><p>'+safe(c.goal||c.description||'Ова кампања окупља људе око заједничког циља.')+'</p></details></div></article>').join('');
  }
  actions();campaigns();
 })();
