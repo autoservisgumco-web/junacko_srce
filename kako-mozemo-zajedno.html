@@ -7,7 +7,8 @@
 <title>Како можемо заједно? — Одговорна Плана</title>
 <meta name="description" content="Сазнај како функционишу кампање и акције Одговорне Плане и изабери начин на који можеш да се укључиш.">
 <link rel="canonical" href="https://odgovornaplana.org/kako-mozemo-zajedno.html">
-<link rel="stylesheet" href="odgovorna-plana/style.css">\n<link rel="stylesheet" href="forms.css">
+<link rel="stylesheet" href="odgovorna-plana/style.css">
+<link rel="stylesheet" href="forms.css">
 <style>
 .together-page{background:#F1F5F9;color:#142844}
 .together-page header{padding:14px 0}
@@ -186,7 +187,7 @@
 
  <section class="content-section" id="podrska">
   <div class="support-panel">
-   <div><div class="section-kicker" style="color:#9bd0ff">05 · ПОДРШКА РАДУ</div><h3>Не можеш увек да будеш на терену? И даље можеш да будеш део ове приче.</h3><p>Рад можеш да подржиш куповином производа које припремамо. На тај начин помажеш да организујемо нове активности и наставимо заједнички рад.</p><div class="card-actions"><a class="page-btn" href="../prodavnica.html">Отвори продавницу →</a><button class="page-btn secondary" type="button" data-open-form="help" data-support="Друга подршка раду">Подржи на други начин</button></div></div>
+   <div><div class="section-kicker" style="color:#9bd0ff">05 · ПОДРШКА РАДУ</div><h3>Не можеш увек да будеш на терену? И даље можеш да будеш део ове приче.</h3><p>Рад можеш да подржиш куповином производа које припремамо. На тај начин помажеш да организујемо нове активности и наставимо заједнички рад.</p><div class="card-actions"><a class="page-btn" href="prodavnica.html">Отвори продавницу →</a><button class="page-btn secondary" type="button" data-open-form="help" data-support="Друга подршка раду">Подржи на други начин</button></div></div>
    <div class="product-list" id="productList"><div class="empty-state">Учитавање производа…</div></div>
   </div>
  </section>
@@ -222,7 +223,8 @@
  </section>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>\n<script src="forms.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="forms.js"></script>
 <script>
 document.getElementById('year').textContent=new Date().getFullYear();
 const db=window.supabase.createClient('https://hmfeizkmpmxcnzhwxgbn.supabase.co','sb_publishable_JPtLezaiIeq4MsQ2f3LSlg_nT01Chxe');
@@ -259,7 +261,7 @@ async function loadPageData(){
   const standalone=actionData.filter(a=>!a.campaign_id);
   actionRoot.innerHTML=standalone.length?standalone.map(actionCard).join(''):'<div class="empty-state">Тренутно нема објављених акција отворених за учешће. Предложи своју акцију.</div>';
   const products=productResult.data||[];
-  productRoot.innerHTML=products.length?products.map(p=>'<a class="product-card" href="../prodavnica.html"><span class="product-mark">♡</span><span class="product-info"><strong>'+esc(p.name)+'</strong><span>'+esc(p.short_description||'Куповином подржаваш заједнички рад.')+'</span></span><span class="product-price">'+esc(money(p.price,p.currency))+'</span></a>').join(''):'<div class="empty-state">Производи ће ускоро бити доступни.</div>';
+  productRoot.innerHTML=products.length?products.map(p=>'<a class="product-card" href="prodavnica.html"><span class="product-mark">♡</span><span class="product-info"><strong>'+esc(p.name)+'</strong><span>'+esc(p.short_description||'Куповином подржаваш заједнички рад.')+'</span></span><span class="product-price">'+esc(money(p.price,p.currency))+'</span></a>').join(''):'<div class="empty-state">Производи ће ускоро бити доступни.</div>';
  }catch(error){
   console.error('Грешка при учитавању садржаја:',error);
   campaignRoot.innerHTML='<div class="empty-state">Кампање тренутно нису могле да се учитају. Покушај поново касније.</div>';
@@ -296,8 +298,10 @@ document.addEventListener('click',event=>{
  if(toggle){const form=document.querySelector('[data-join-form="'+toggle.dataset.toggleJoin+'"]');if(form){form.classList.toggle('open');if(form.classList.contains('open'))form.querySelector('input')?.focus();}return;}
  if(event.target.id==='closeForm'||event.target.id==='formBackdrop')closeForm();
 });
-window.OPForms.init({db,getContext:()=>formContext,getAction:id=>actionData.find(a=>a.id===id)});\ndocument.addEventListener('keydown',event=>{if(event.key==='Escape'&&!$('formBackdrop').hidden)closeForm();});
+window.OPForms.init({db,getContext:()=>formContext,getAction:id=>actionData.find(a=>a.id===id)});
+document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!$('formBackdrop').hidden)closeForm();});
 loadPageData();
 </script>
-<nav class="op-bottom-nav" aria-label="Доња навигација"><a class="op-bottom-link" href="index.html"><span>⌂</span><small>Почетна</small></a><a class="op-bottom-link" href="kampanje.html"><span>◫</span><small>Кампање</small></a><a class="op-bottom-link" href="akcije.html"><span>✳</span><small>Акције</small></a><a class="op-bottom-link active" href="kako-mozemo-zajedno.html"><span>♡</span><small>Заједно</small></a><a class="op-bottom-link" href="o-projektu.html"><span>ⓘ</span><small>О пројекту</small></a></nav>\n</body>
+<nav class="op-bottom-nav" aria-label="Доња навигација"><a class="op-bottom-link" href="index.html"><span>⌂</span><small>Почетна</small></a><a class="op-bottom-link" href="kampanje.html"><span>◫</span><small>Кампање</small></a><a class="op-bottom-link" href="akcije.html"><span>✳</span><small>Акције</small></a><a class="op-bottom-link active" href="kako-mozemo-zajedno.html"><span>♡</span><small>Заједно</small></a><a class="op-bottom-link" href="o-projektu.html"><span>ⓘ</span><small>О пројекту</small></a></nav>
+</body>
 </html>
