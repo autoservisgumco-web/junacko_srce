@@ -1,0 +1,20 @@
+.donation-panel-intro{padding:13px 15px;border-radius:12px;background:#f1f6ff;color:#334155;font-size:14px;line-height:1.6;margin-bottom:16px}
+.donation-panel-section{margin-top:18px}.donation-panel-section h3{display:flex;align-items:center;gap:9px;margin:0 0 12px;color:#102b4e;font-size:18px}
+.donation-panel-section h3 i{color:#2166f3}
+.donation-items-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.donation-item-card{display:flex;align-items:flex-start;gap:12px;padding:14px;border:1px solid #e1e8f0;border-radius:13px;background:#fff}
+.donation-item-icon{display:grid;place-items:center;flex:0 0 40px;height:40px;border-radius:11px;background:#edf4ff;color:#2166f3;font-size:17px}
+.donation-item-copy{min-width:0}.donation-item-copy strong{display:block;color:#172033;font-size:14px}.donation-item-type{display:block;margin-top:4px;color:#64748b;font-size:11px;font-weight:800}
+.donation-item-copy p{margin:7px 0 0;color:#64748b;font-size:13px;line-height:1.5}.donation-item-quantity{display:inline-block;margin-top:8px;color:#176b3a;font-size:13px;font-weight:850}
+.donation-empty{padding:12px 14px;border:1px dashed #cbd5e1;border-radius:11px;background:#f8fafc;color:#64748b;font-size:13px;line-height:1.5}
+.donation-payment-card,.donation-contact-card{padding:16px;border:1px solid #dce5ef;border-radius:14px;background:#f8fbff;margin-top:12px}
+.donation-contact-title{font-size:15px;font-weight:900;color:#102b4e;margin-bottom:10px}
+.donation-detail-row{display:grid;grid-template-columns:130px minmax(0,1fr) auto;align-items:center;gap:9px;padding:10px 0;border-bottom:1px solid #e4ebf3;font-size:13px}
+.donation-detail-row span{color:#64748b}.donation-detail-row strong{overflow-wrap:anywhere;color:#172033}
+.donation-copy{border:1px solid #cbd9e8;border-radius:8px;background:#fff;color:#174ea6;padding:7px 9px;font-size:11px;font-weight:800;cursor:pointer}
+.donation-payment-note,.donation-contact-note{margin:12px 0 0;color:#475569;font-size:13px;line-height:1.55}
+.donation-contact-card>strong{display:block;color:#172033;font-size:17px}.donation-contact-card>p{margin:5px 0;color:#475569;font-size:13px}
+.donation-contact-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:13px}
+.donation-contact-link{display:inline-flex;align-items:center;gap:7px;padding:10px 12px;border-radius:9px;background:#2166f3;color:#fff;text-decoration:none;font-size:12px;font-weight:850}
+.donation-contact-link.secondary{background:#e8eef7;color:#17365f}
+@media(max-width:620px){.donation-items-grid{grid-template-columns:1fr}.donation-detail-row{grid-template-columns:1fr auto}.donation-detail-row span{grid-column:1/-1}.donation-contact-actions{display:grid;grid-template-columns:1fr}.donation-contact-link{justify-content:center}}
