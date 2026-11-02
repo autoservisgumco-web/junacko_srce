@@ -1,0 +1,9 @@
+/* Заједнички стилови форми и порука */
+.form-message{display:none;margin-top:10px;padding:10px 12px;border-radius:9px;background:#eaf1ff;color:#1648a1;font-size:12px}
+.form-message.success,.form-message.error{display:block}.form-message.success{background:#eaf7ef;color:#176b3a}.form-message.error{background:#fff0f0;color:#a12626}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px}.form-field.full{grid-column:1/-1}
+.form-field label{display:block;color:#061A35;font-size:12px;font-weight:850;margin:0 0 5px}
+.form-field input,.form-field textarea,.form-field select{width:100%;min-width:0;border:1px solid #cbd8e8;border-radius:8px;padding:10px 11px;background:#fff;color:#142844;font:14px system-ui,sans-serif}
+.form-field textarea{min-height:90px;resize:vertical}
+.join-form{display:none;margin-top:14px;padding:15px;border:1px solid #dce5f0;border-radius:12px;background:#f7faff}.join-form.open{display:block}
+@media(max-width:460px){.form-grid{grid-template-columns:1fr}.form-field.full{grid-column:auto}}
