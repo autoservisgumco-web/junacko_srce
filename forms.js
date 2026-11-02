@@ -26,7 +26,8 @@
   }catch(e){console.error(e);feedback(msg,'Слање није успело. Провери да ли су поља попуњена и покушај поново.','error');}
   finally{btn.disabled=false;btn.textContent=proposal?'Пошаљи предлог →':'Пошаљи пријаву →';}
  }
- function init(options){config={...config,...options};if(!config.db)throw new Error('OPForms захтева Supabase клијент.');\n  window.OPForms.ready=fetch('/forms.html').then(r=>{if(!r.ok)throw new Error('Образац није доступан');return r.text();}).then(markup=>{const mount=document.getElementById('sharedFormsMount');if(mount)mount.innerHTML=markup;});
+ function init(options){config={...config,...options};if(!config.db)throw new Error('OPForms захтева Supabase клијент.');
+  window.OPForms.ready=fetch('/forms.html').then(r=>{if(!r.ok)throw new Error('Образац није доступан');return r.text();}).then(markup=>{const mount=document.getElementById('sharedFormsMount');if(mount)mount.innerHTML=markup;});
   document.addEventListener('submit',event=>{const f=event.target;if(f.matches('[data-join-form]')){event.preventDefault();actionJoin(f);}else if(f.id==='participationForm'){event.preventDefault();general(f);}});
  }
  window.OPForms={init,ready:Promise.resolve()};
