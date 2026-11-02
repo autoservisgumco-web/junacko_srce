@@ -72,12 +72,12 @@
       (s.payment_instructions ? '<p class="donation-payment-note">' + esc(s.payment_instructions) + '</p>' : '') +
       '</div>' : '<div class="donation-empty">Подаци за банковни трансфер још нису унети.</div>';
     html += '</section>';
-    html += '<section class="donation-method"><h4>PayPal</h4>';
-    html += paypalUrl
-      ? '<a class="donation-paypal-button" href="' + esc(paypalUrl) + '" target="_blank" rel="noopener noreferrer"><i class="fab fa-paypal"></i> Донирај преко PayPal-а</a>'
-      : '<div class="donation-empty">PayPal линк за ову кампању још није подешен.</div>';
-    if (s.paypal_email) html += '<div class="donation-paypal-email">PayPal налог: <strong>' + esc(s.paypal_email) + '</strong> <button type="button" class="donation-copy" data-copy="' + esc(s.paypal_email) + '">Копирај</button></div>';
-    html += '</section>';
+    if (paypalUrl) {
+      html += '<section class="donation-method"><h4>PayPal</h4>';
+      html += '<a class="donation-paypal-button" href="' + esc(paypalUrl) + '" target="_blank" rel="noopener noreferrer"><i class="fab fa-paypal"></i> Донирај преко PayPal-а</a>';
+      if (s.paypal_email) html += '<div class="donation-paypal-email">PayPal налог: <strong>' + esc(s.paypal_email) + '</strong> <button type="button" class="donation-copy" data-copy="' + esc(s.paypal_email) + '">Копирај</button></div>';
+      html += '</section>';
+    }
     html += '<section class="donation-method"><h4>Уплатница</h4>';
     html += hasSlip ? '<div class="donation-payment-card donation-slip">' +
       '<div class="donation-slip-heading">НАЛОГ ЗА УПЛАТУ</div>' +
