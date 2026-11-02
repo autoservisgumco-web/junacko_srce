@@ -1,18 +1,119 @@
 <!doctype html>
-<html lang="sr-Cyrl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#061A35"><title>Акција — Одговорна Плана</title><meta name="description" content="Одговорна Плана — заједничко деловање грађана Велике Плане."><link rel="stylesheet" href="/stranice.css">  <link rel="stylesheet" href="/bottom-nav.css">
+<html lang="sr-Cyrl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#061A35"><title>Акција — Одговорна Плана</title>
+<meta name="description" content="Погледај детаље акције и укључи се у заједничко деловање.">
+<link rel="stylesheet" href="/stranice.css"><link rel="stylesheet" href="/bottom-nav.css">
 <style>
-.site-shared-hero.hero-full{position:relative;min-height:100vh;height:100vh;height:100dvh;padding:54px max(6.8vw,24px) 42px;display:flex;align-items:center;justify-content:flex-start;background:linear-gradient(90deg,rgba(3,27,59,.98) 0%,rgba(3,35,73,.94) 34%,rgba(3,35,73,.58) 58%,rgba(3,20,42,.12) 100%),linear-gradient(0deg,rgba(3,15,34,.42),transparent 55%),url('https://raw.githubusercontent.com/autoservisgumco-web/junacko_srce/refs/heads/main/Velika_Plana%2B.jpg') center/cover no-repeat!important;text-align:left}
-.site-shared-hero .hero-inner{width:min(1320px,100%);margin:0 auto;display:flex;flex-direction:column;justify-content:center;min-height:calc(100svh - 96px)}
-.site-shared-hero .hero-copy{max-width:690px}
-.site-shared-hero .eyebrow{font-size:13px;letter-spacing:2.6px;color:#8ecbff;margin-bottom:20px}
-.site-shared-hero h1{color:#fff;text-shadow:0 3px 24px rgba(0,0,0,.3);font-size:clamp(48px,6.2vw,86px);line-height:1.04;letter-spacing:-2px;margin:0 0 24px;max-width:720px}
-.site-shared-hero h1 span{color:#35a9ff}
-.site-shared-hero .lead{display:block;color:#f0f6ff;font-size:clamp(17px,1.6vw,22px);line-height:1.62;max-width:560px;margin:0}
-.site-shared-hero .hero-buttons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;width:min(760px,100%);margin-top:42px}
-@media(max-width:760px){.site-shared-hero.hero-full{padding:112px 18px 34px}.site-shared-hero .hero-inner{min-height:calc(100svh - 130px)}.site-shared-hero .hero-buttons{grid-template-columns:1fr;gap:12px}.site-shared-hero h1{font-size:clamp(42px,11vw,60px)}}
+/* Детаљ акције — распоред и визуелни стил према достављеној референци */
+body.content-page-body.action-detail-page{background:#f7f8fa}
+body.action-detail-page .site-header{position:relative;height:84px;background:#061A35;padding:10px max(3vw,22px)}
+body.action-detail-page .site-nav{gap:clamp(12px,2vw,28px)}
+body.action-detail-page .site-nav a{font-size:15px}
+body.action-detail-page .site-nav a[href="/akcije.html"]{border-bottom:3px solid #d71920}
+.action-detail-wrap{width:min(1440px,100%);margin:0 auto;padding:0 20px 42px}
+.action-cover{height:clamp(210px,27vw,350px);position:relative;background:#183653 center/cover no-repeat;border-radius:0 0 16px 16px;overflow:hidden}
+.action-cover:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#061a3525,transparent 70%)}
+.action-cover-status{position:absolute;z-index:1;top:24px;left:24px;padding:10px 18px;border-radius:28px;background:#16a34a;color:#fff;font-weight:850}
+.action-overview{display:grid;grid-template-columns:minmax(0,1fr) 235px;gap:24px;background:#fff;border:1px solid #e1e5eb;border-radius:18px;padding:26px 30px;margin-top:-1px;box-shadow:0 5px 20px #0f172a08}
+.action-overview-main{min-width:0}.action-kind{display:inline-flex;align-items:center;gap:8px;background:#f1f3f5;color:#273244;border-radius:22px;padding:6px 13px;font-size:13px;font-weight:850}
+.action-overview h1{font-size:clamp(29px,3.2vw,46px);line-height:1.12;letter-spacing:-1.2px;margin:12px 0;color:#111827;max-width:900px}
+.action-summary{font-size:clamp(16px,1.6vw,21px);line-height:1.45;color:#374151;margin:0}
+.action-meta{display:flex;flex-wrap:wrap;gap:12px 22px;border-top:1px solid #e5e7eb;margin-top:20px;padding-top:16px;color:#374151}
+.action-meta-item{display:flex;align-items:center;gap:10px;padding-right:20px;border-right:1px solid #e5e7eb;font-size:14px}
+.action-meta-item:last-child{border:0}.action-meta-icon{font-size:23px;color:#d71920}.action-meta-item strong{display:block;color:#111827;font-size:15px}
+.action-stat{border-left:1px solid #e5e7eb;padding:8px 0 8px 24px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.action-stat-number{font-size:42px;line-height:1;font-weight:850;color:#111827}.action-stat-label{font-size:14px;color:#475569;margin:5px 0 18px}
+.action-red{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:#d71920;color:#fff;text-decoration:none;border:0;border-radius:11px;padding:13px 18px;font-weight:800;cursor:pointer}
+.action-red:hover{background:#b9151b}.action-stat .action-red{width:100%}
+.action-panel{background:#fff;border:1px solid #e1e5eb;border-radius:16px;padding:20px 26px;margin-top:16px}
+.action-panel h2{font-size:22px;color:#111827;margin:0 0 10px;display:flex;gap:12px;align-items:center}
+.action-panel h2 span{color:#d71920}.action-description{white-space:pre-wrap;line-height:1.5;color:#202938;font-size:17px;margin:0}
+.action-place{display:grid;grid-template-columns:1fr minmax(280px,44%);gap:18px;align-items:center}
+.action-place p{margin:0;font-size:17px}.action-place iframe{width:100%;height:118px;border:0;border-radius:12px;background:#eef2f7}
+.action-callout{display:flex;align-items:center;gap:18px;background:#fff0f1;border:1px solid #f3dadd;border-radius:16px;padding:18px 24px;margin-top:16px}
+.action-heart{font-size:40px;color:#d71920}.action-callout>div{flex:1}.action-callout h2{font-size:23px;margin:0 0 3px;color:#111827}.action-callout p{margin:0;color:#374151;line-height:1.4}.action-callout .action-red{min-width:205px}
+.action-banner{margin:22px 4px 0;border-radius:16px;min-height:155px;padding:24px 30px;background:linear-gradient(90deg,#071321ed,#07132199),url('https://raw.githubusercontent.com/autoservisgumco-web/junacko_srce/main/Velika_Plana%2B.jpg') center/cover;color:#fff}
+.action-banner h2{font-size:clamp(21px,2.5vw,30px);margin:0 0 4px;color:#fff}.action-banner p{margin:0 0 16px;font-size:17px;color:#fff}
+.action-sticky{display:none}
+.action-empty{padding:26px;background:#fff;border:1px solid #e1e5eb;border-radius:16px;color:#475569}
+@media(max-width:760px){
+ body.action-detail-page .site-header{height:78px;padding:10px 14px}
+ .action-detail-wrap{padding:0 12px 30px}
+ .action-cover{height:205px;border-radius:0 0 12px 12px}
+ .action-cover-status{top:14px;left:14px;padding:8px 13px;font-size:13px}
+ .action-overview{grid-template-columns:1fr;padding:18px;gap:14px}
+ .action-stat{border-left:0;border-top:1px solid #e5e7eb;padding:14px 0 0;display:grid;grid-template-columns:auto 1fr;column-gap:12px;text-align:left;justify-items:start}
+ .action-stat-number{grid-row:1/3;font-size:35px;align-self:center}.action-stat-label{margin:0 0 8px}.action-stat .action-red{grid-column:2;width:auto}
+ .action-meta{gap:12px}.action-meta-item{padding-right:12px}
+ .action-panel{padding:17px;margin-top:12px}.action-panel h2{font-size:19px}.action-description{font-size:15px}
+ .action-place{grid-template-columns:1fr;gap:10px}.action-place iframe{height:145px}
+ .action-callout{padding:15px;gap:10px;flex-wrap:wrap}.action-heart{font-size:31px}
+ .action-callout>div{min-width:calc(100% - 55px)}.action-callout h2{font-size:20px}.action-callout p{font-size:14px}.action-callout .action-red{width:100%}
+ .action-banner{padding:20px;min-height:145px;margin:16px 0 0}
+}
 </style>
-</head><body class="content-page-body">
-<header class="site-header"><a class="site-brand" href="/index.html" aria-label="Одговорна Плана — почетна"><span class="brand-heart">♡</span><span>Одговорна<br>Плана</span></a><nav class="site-nav" aria-label="Главна навигација"><a href="/index.html">Почетна</a><a href="/kampanje.html">Кампање</a><a href="/akcije.html">Акције</a><a href="/podrska.html">Подршка</a></nav><button class="menu-trigger" id="openMenu" type="button" aria-label="Отвори мени">☰</button></header><div class="menu-backdrop" id="menuBackdrop" hidden></div><aside class="side-menu" id="sideMenu" aria-hidden="true"><div class="side-menu-head"><span>♡ Одговорна Плана</span><button class="side-menu-close" id="closeMenu" type="button" aria-label="Затвори мени">×</button></div><nav aria-label="Мени"><a href="/index.html">Почетна</a><a href="/kampanje.html">Кампање</a><a href="/akcije.html">Акције</a><a href="/o-projektu.html">О пројекту</a><a href="/podrska.html">Подршка</a></nav></aside><main class="content-main"><div class="content-wrap"><a class="content-back" href="/akcije.html">← Све акције</a><div id="actionDetail"><div class="content-empty">Учитавање акције…</div></div></div></main><footer class="content-footer"><div class="content-footer-inner">ОДГОВОРНА ПЛАНА · Место за заједничко деловање · © <span id="year"></span></div></footer>
-<script>document.getElementById('year').textContent=new Date().getFullYear();const menu=document.getElementById('sideMenu'),back=document.getElementById('menuBackdrop');function closeSideMenu(){menu.classList.remove('open');back.classList.remove('open');menu.setAttribute('aria-hidden','true');setTimeout(()=>back.hidden=true,260)}document.getElementById('openMenu').addEventListener('click',()=>{back.hidden=false;menu.setAttribute('aria-hidden','false');requestAnimationFrame(()=>{back.classList.add('open');menu.classList.add('open')})});document.getElementById('closeMenu').addEventListener('click',closeSideMenu);back.addEventListener('click',closeSideMenu);</script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="/config.js"></script><script src="/database.js"></script><script>const db=window.db;const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));const param=new URLSearchParams(location.search).get('slug');</script>
-<script>(async()=>{const root=document.getElementById('actionDetail');if(!param){root.innerHTML='<div class="content-empty">Није изабрана акција.</div>';return;}try{let q=db.from('actions').select('*').eq('is_published',true);q=param.match(/^[0-9a-f-]{36}$/i)?q.eq('id',param):q.eq('slug',param);const {data:a,error}=await q.maybeSingle();if(error)throw error;if(!a){root.innerHTML='<div class="content-empty">Акција није пронађена или није објављена.</div>';return;}document.title=a.title+' — Одговорна Плана';let campaign=null;if(a.campaign_id){const r=await db.from('campaigns').select('title,slug,id').eq('id',a.campaign_id).eq('is_published',true).maybeSingle();if(r.error)throw r.error;campaign=r.data;}let html='<div class="content-kicker">АКЦИЈА</div><section class="content-detail-hero"><div><span class="content-tag">'+esc(a.status||'Објављена')+'</span><h1 class="content-title">'+esc(a.title)+'</h1><p class="content-lead">'+esc(a.summary||a.intro||'')+'</p>'+(a.location?'<p>📍 '+esc(a.location)+'</p>':'')+(a.action_date?'<p>📅 '+esc(a.action_date)+'</p>':'')+(campaign?'<p><a class="content-back" href="kampanja.html?slug='+encodeURIComponent(campaign.slug||campaign.id)+'">Кампања: '+esc(campaign.title)+'</a></p>':'')+'</div>'+(a.image_url?'<img src="'+esc(a.image_url)+'" alt="'+esc(a.title)+'">':'')+'</section>';for(const [t,v] of [['Зашто покрећемо акцију',a.reason],['Циљ акције',a.goal],['Шта планирамо',a.activities],['Како можеш да учествујеш',a.participation],['Шта је потребно',a.materials],['Место и време окупљања',a.meeting_info],['Резултати',a.results],['Више о акцији',a.description]])if(v)html+='<section class="content-detail-box"><h2>'+t+'</h2><p>'+esc(Array.isArray(v)?v.join('\n'):typeof v==='object'?JSON.stringify(v,null,2):v)+'</p></section>';if(a.call_to_action)html+='<section class="content-detail-box"><h2>Прикључи се</h2><p>'+esc(a.call_to_action)+'</p></section>';root.innerHTML=html;}catch(e){console.error(e);root.innerHTML='<div class="content-empty">Детаљи акције тренутно нису доступни.</div>';}})();</script>  <script src="/bottom-nav.js"></script>
+</head>
+<body class="content-page-body action-detail-page">
+<header class="site-header">
+<a class="site-brand" href="/index.html" aria-label="Одговорна Плана — почетна"><span class="brand-heart">♡</span><span>Одговорна<br>Плана</span></a>
+<nav class="site-nav" aria-label="Главна навигација"><a href="/index.html">⌂ &nbsp;Почетна</a><a href="/akcije.html">ϟ &nbsp;Акције</a><a href="/kampanje.html">⚑ &nbsp;Кампање</a><a href="/inicijative.html">♧ &nbsp;Иницијативе</a><a href="/prijavi-problem.html">⚠ &nbsp;Пријави проблем</a></nav>
+<button class="menu-trigger" id="openMenu" type="button" aria-label="Отвори мени">☰</button>
+</header>
+<div class="menu-backdrop" id="menuBackdrop" hidden></div>
+<aside class="side-menu" id="sideMenu" aria-hidden="true"><div class="side-menu-head"><span>♡ Одговорна Плана</span><button class="side-menu-close" id="closeMenu" type="button" aria-label="Затвори мени">×</button></div><nav aria-label="Мени"><a href="/index.html">Почетна</a><a href="/akcije.html">Акције</a><a href="/kampanje.html">Кампање</a><a href="/inicijative.html">Иницијативе</a><a href="/prijavi-problem.html">Пријави проблем</a><a href="/o-projektu.html">О пројекту</a></nav></aside>
+<main><div class="action-detail-wrap"><a class="content-back" href="/akcije.html">← Све акције</a><div id="actionDetail" class="action-empty">Учитавање акције…</div></div></main>
+<footer class="content-footer"><div class="content-footer-inner">ОДГОВОРНА ПЛАНА · Место за заједничко деловање · © <span id="year"></span></div></footer>
+<script>
+document.getElementById('year').textContent=new Date().getFullYear();
+const menu=document.getElementById('sideMenu'),back=document.getElementById('menuBackdrop');
+function closeSideMenu(){menu.classList.remove('open');back.classList.remove('open');menu.setAttribute('aria-hidden','true');setTimeout(()=>back.hidden=true,260)}
+document.getElementById('openMenu').addEventListener('click',()=>{back.hidden=false;menu.setAttribute('aria-hidden','false');requestAnimationFrame(()=>{back.classList.add('open');menu.classList.add('open')})});
+document.getElementById('closeMenu').addEventListener('click',closeSideMenu);back.addEventListener('click',closeSideMenu);
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="/config.js"></script><script src="/database.js"></script>
+<script>
+const db=window.db,root=document.getElementById('actionDetail');
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const param=new URLSearchParams(location.search).get('slug');
+const val=(...items)=>items.find(x=>x!==null&&x!==undefined&&String(x).trim()!=='');
+const mapFrame=location=>'<iframe loading="lazy" title="Мапа локације" src="https://maps.google.com/maps?q='+encodeURIComponent(location)+'&output=embed"></iframe>';
+(async()=>{
+ if(!param){root.innerHTML='<div class="action-empty">Није изабрана акција.</div>';return;}
+ try{
+  let q=db.from('actions').select('*').eq('is_published',true);
+  q=param.match(/^[0-9a-f-]{36}$/i)?q.eq('id',param):q.eq('slug',param);
+  const {data:a,error}=await q.maybeSingle();if(error)throw error;
+  if(!a){root.innerHTML='<div class="action-empty">Акција није пронађена или није објављена.</div>';return;}
+  document.title=a.title+' — Одговорна Плана';
+  let approved=0;
+  try{const r=await db.from('people_applications').select('id',{count:'exact',head:true}).eq('target_type','action').eq('target_id',a.id).eq('status','approved');if(!r.error)approved=r.count||0;}catch(e){console.warn('Број пријављених није доступан',e);}
+  const date=val(a.action_date,a.date,a.start_date);
+  const place=val(a.location,a.meeting_info);
+  const statusMap={planned:'ПЛАНИРАНА',in_progress:'АКТИВНА',active:'АКТИВНА',completed:'ЗАВРШЕНА'};
+  const status=statusMap[a.status]||String(a.status||'ОБЈАВЉЕНА').toLocaleUpperCase('sr');
+  const cover=val(a.image_url,'https://raw.githubusercontent.com/autoservisgumco-web/junacko_srce/main/Velika_Plana%2B.jpg');
+  const summary=val(a.summary,a.intro,a.description,'');
+  const description=val(a.description,a.intro,a.summary,'');
+  const dateLabel=date?new Date(date+'T00:00:00').toLocaleDateString('sr-RS',{day:'2-digit',month:'2-digit',year:'numeric'}):'Није одређен';
+  const creator=val(a.proposer_name,a.created_by_name,a.organizer_name);
+  const meta='<div class="action-meta">'+(date?'<div class="action-meta-item"><span class="action-meta-icon">▣</span><div>Почетак:<strong>'+esc(dateLabel)+'</strong></div></div>':'')+(a.location?'<div class="action-meta-item"><span class="action-meta-icon">●</span><div>Локација:<strong>'+esc(a.location)+'</strong></div></div>':'')+(creator?'<div class="action-meta-item"><span class="action-meta-icon">♟</span><div>Покретач:<strong>'+esc(creator)+'</strong></div></div>':'')+'</div>';
+  const overview='<section class="action-overview"><div class="action-overview-main"><span class="action-kind"><span style="color:#d71920">ϟ</span> АКЦИЈА</span><h1>'+esc(a.title)+'</h1><p class="action-summary">'+esc(summary)+'</p>'+meta+'</div><aside class="action-stat"><div class="action-stat-number">'+approved+'</div><div class="action-stat-label">пријављених</div><a class="action-red" href="/ukljuci-se.html">♟ &nbsp;Пријави се</a></aside></section>';
+  const panel=(id,icon,title,text)=>text?'<section class="action-panel" id="'+id+'"><h2><span>'+icon+'</span>'+title+'</h2><p class="action-description">'+esc(text)+'</p></section>':'';
+  const goals=Array.isArray(a.goal_items)?a.goal_items.filter(Boolean):[];
+  let html='<div class="action-cover" style="background-image:url(&quot;'+esc(cover)+'&quot;)"><span class="action-cover-status">'+esc(status)+'</span></div>'+overview;
+  html+=panel('opis','●','Опис акције',description);
+  if(a.reason)html+=panel('razlog','●','Зашто покрећемо акцију',a.reason);
+  if(a.goal||goals.length)html+='<section class="action-panel"><h2><span>✓</span>Циљеви акције</h2>'+(a.goal?'<p class="action-description">'+esc(a.goal)+'</p>':'')+(goals.length?'<ul class="action-description">'+goals.map(x=>'<li>'+esc(typeof x==='string'?x:x.title||x.text||'')+'</li>').join('')+'</ul>':'')+'</section>';
+  if(a.activities)html+=panel('plan','✓','Шта планирамо',a.activities);
+  if(a.materials)html+=panel('potrebno','＋','Шта је потребно',a.materials);
+  if(place)html+='<section class="action-panel"><h2><span>●</span>Место</h2><div class="action-place"><p>'+esc(place)+'</p>'+mapFrame(place)+'</div></section>';
+  html+='<section class="action-callout"><span class="action-heart">♥</span><div><h2>Укључи се!</h2><p>Заједно можемо више. Пријави се, подржи акцију и помози да наша заједница буде боље место за све.</p></div><a class="action-red" href="/ukljuci-se.html">♟ &nbsp;Пријави се</a></section>';
+  html+='<section class="action-banner"><h2>Имаш проблем који не треба да остане само прича?</h2><p>Покрени акцију и заједно тражимо решење.</p><a class="action-red" href="/predlog-akcije.html">ϟ &nbsp;Покрени акцију</a></section>';
+  root.className='';root.innerHTML=html;
+ }catch(e){console.error(e);root.innerHTML='<div class="action-empty">Детаљи акције тренутно нису доступни.</div>';}
+})();
+</script>
+<script src="/bottom-nav.js"></script>
 </body></html>
