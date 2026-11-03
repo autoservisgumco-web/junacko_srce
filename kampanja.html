@@ -10,7 +10,7 @@ body.campaign-page .content-back{display:none}
 .campaign-cover{width:100vw;height:clamp(390px,58vw,650px);position:relative;left:50%;margin-left:-50vw;background:#0b2c53 center/cover no-repeat;overflow:hidden;border-radius:0;display:flex;align-items:flex-end}
 .campaign-cover:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(3,19,39,.86) 0%,rgba(3,19,39,.55) 48%,rgba(3,19,39,.08) 100%),linear-gradient(0deg,rgba(3,19,39,.48),transparent 55%)}
 .campaign-hero-copy{position:relative;z-index:1;width:min(100%,1180px);margin:0 auto;padding:58px 42px 48px;color:#fff}
-.campaign-hero-copy .campaign-kind{background:#16834b;color:#fff;border-radius:30px;padding:9px 17px}
+.campaign-hero-copy .campaign-kind{display:none}
 .campaign-hero-copy h1{font-size:clamp(38px,6vw,76px);line-height:1.02;letter-spacing:-1.8px;color:#fff;margin:22px 0 15px;max-width:850px}
 .campaign-hero-copy p{font-size:clamp(17px,2vw,24px);line-height:1.5;color:#fff;max-width:760px;margin:0}
 .campaign-status{position:absolute;z-index:2;top:22px;right:24px;border-radius:24px;padding:9px 16px;background:#16834b;color:#fff;font-size:13px;font-weight:850}
@@ -94,11 +94,11 @@ body.campaign-page .content-back{display:none}
   if(!c){root.innerHTML='<div class="campaign-empty">Кампања није пронађена или није објављена.</div>';return;}
   debugStage='Припрема HTML приказа кампање';
   document.title=c.title+' — Одговорна Плана';
-  const status=({active:'Активна',draft:'У припреми',completed:'Завршена',paused:'Паузирана',planned:'Планирана'})[c.status]||'Објављена';
+  const status=({active:'Активна кампања',draft:'Кампања у припреми',completed:'Завршена кампања',paused:'Паузирана кампања',planned:'Планирана кампања'})[String(c.status||'').toLowerCase()]||'Објављена кампања';
   const cover=c.hero_image?(String(c.hero_image).startsWith('http')?c.hero_image:'https://hmfeizkmpmxcnzhwxgbn.supabase.co/storage/v1/object/public/akcije/'+String(c.hero_image).replace(/^\//,'')):'';
   const intro=c.intro_text||c.description||'';
   let html='<section class="campaign-cover"'+(cover?' style="background-image:url(&quot;'+esc(cover)+'&quot;)"':'')+'><span class="campaign-status">'+status+'</span><div class="campaign-hero-copy"><span class="campaign-kind">КАМПАЊА</span><h1>'+esc(c.title)+'</h1><p>'+esc(intro)+'</p></div></section>';
-  html+='<section class="campaign-overview"><div class="campaign-main"><h2>Напредак кампање</h2><p class="campaign-summary">'+esc(c.goal_text||c.goal||'Заједно радимо на остварењу циљева кампање.')+'</p></div><aside class="campaign-progress"><strong>'+Math.max(0,Math.min(100,Number(c.progress_percent)||0))+'%</strong><small>Напредак кампање</small><div class="campaign-progress-track"><span style="width:'+Math.max(0,Math.min(100,Number(c.progress_percent)||0))+'%"></span></div></aside></section>';
+
   const addSection=(heading,value,cls='')=>{if(value)html+='<section class="campaign-section '+cls+'"><h2>'+heading+'</h2><p>'+esc(value)+'</p></section>';};
   addSection('Зашто покрећемо ову кампању?',c.problem_text,'campaign-content-intro');
   addSection('Шта желимо да постигнемо?',c.goal_text||c.goal,'campaign-goals');
