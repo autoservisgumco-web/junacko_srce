@@ -79,7 +79,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
 <p>Приметио си проблем или имаш идеју шта би могло да се уради у твојој средини? Подели је са нама.</p>
 <p class="promise">Не мораш имати готов план. Довољно је да направиш први корак.</p>
 </section>
-
+<div id="campaignContext" class="panel" hidden style="border-color:#b9d2ff;background:#eef4ff;color:#10233f;margin-top:0"><strong>Предлог за кампању</strong><p id="campaignContextName" style="margin:5px 0 0"></p><span class="hint">Твој предлог ће бити повезан са овом кампањом.</span></div>
 <section class="panel">
 <form id="proposalForm" novalidate>
 <div class="wizard-progress"><span id="wizardCount">КОРАК 1 ОД 5</span><div class="wizard-track"><i id="wizardBar"></i></div></div>
@@ -161,6 +161,8 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
 const db=window.odgovornaPlanaDB;
 const $=id=>document.getElementById(id);
 const form=$('proposalForm');
+const campaignId=new URLSearchParams(location.search).get('campaign_id');
+let linkedCampaign=null;
 const dateFields=$('dateFields');
 let wizardStep=0;
 const wizardSteps=[...form.querySelectorAll('.wizard-step')];
@@ -201,6 +203,17 @@ form.querySelectorAll('input[name="date_known"]').forEach(x=>x.addEventListener(
 $('action_date').addEventListener('change',updateDate);
 renderWizard();
 
+async function loadCampaignContext(){
+ if(!campaignId||! /^[0-9a-f-]{36}$/i.test(campaignId))return;
+ const {data,error}=await db.from('campaigns').select('id,title,slug,is_published').eq('id',campaignId).eq('is_published',true).maybeSingle();
+ if(error){console.warn('Не могу да учитам кампању за предлог:',error);return;}
+ if(!data)return;
+ linkedCampaign=data;
+ $('campaignContextName').textContent=data.title;
+ $('campaignContext').hidden=false;
+}
+loadCampaignContext();
+
 function showMessage(text,type){const m=$('message');m.textContent=text;m.className='message show '+type;}
 form.addEventListener('submit',async e=>{
  e.preventDefault();
@@ -217,6 +230,7 @@ form.addEventListener('submit',async e=>{
   proposer_email:null,
   proposer_viber:null,
   proposer_social:{source:'predlog-akcije.html'},
+  campaign_id:linkedCampaign?.id||null,
   goal:$('goal').value.trim()||null,
   date_known:known,
   action_date:known?$('action_date').value:null,
