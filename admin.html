@@ -183,6 +183,14 @@ function renderMembershipList(){
  if(!rows.length){membershipList.innerHTML='<p class="empty">Још нема пријава за чланство.</p>';return;}
  rows.forEach(item=>membershipList.appendChild(renderSubmission(item)));
 }
+async function loadActionProposals(){
+ const target=document.getElementById('actionProposals');
+ if(!target)return;
+ const {data,error}=await db.from('action_proposals').select('*').order('created_at',{ascending:false});
+ if(error){target.textContent='Предлози нису доступни.';return;}
+ target.replaceChildren();
+ (data||[]).forEach(item=>{const card=document.createElement('article');card.className='submission';const title=document.createElement('h3');title.textContent=item.title+' · '+item.status;card.appendChild(title);const detail=document.createElement('p');detail.textContent=(item.proposer_name||'')+' · '+(item.proposer_viber||'')+' · '+(item.proposer_email||'')+' · '+(item.location||'');card.appendChild(detail);const desc=document.createElement('p');desc.textContent=item.description||'';card.appendChild(desc);[['published','Објави'],['rejected','Одбиј'],['pending','Врати на чекање']].forEach(([status,label])=>{const button=document.createElement('button');button.textContent=label;button.className='quiet';button.addEventListener('click',async()=>{button.disabled=true;const {error:updateError}=await db.from('action_proposals').update({status}).eq('id',item.id);button.disabled=false;if(updateError){alert('Статус није сачуван.');return;}loadActionProposals();});card.appendChild(button);});target.appendChild(card);});
+}
 function renderList(){
  const available=submissions.filter(x=>x.submission_type!=='membership');
  const rows=currentFilter==='all'?available:available.filter(x=>currentFilter==='new'?(!x.status||x.status==='new'):x.status===currentFilter);
