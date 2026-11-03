@@ -182,12 +182,27 @@ body.campaign-page .content-back{display:none}
   }
   window.openCampaignActionProposal=openActionProposalForm;
   window.openSupportChooser=async()=>{
-   try{const res=await db.from('support_options').select('id,label,type,short_description,description,icon,order_number,allow_custom_message').eq('campaign_id',c.id).eq('is_active',true).eq('is_public',true).eq('approval_status','approved').order('order_number');if(res.error)throw res.error;const options=res.data||[];
-    if(!options.length){openSheet('Начини учешћа','За ову кампању начини помоћи још нису објављени.','<p>Тренутно нема објављених начина учешћа. Можеш да предложиш акцију.</p>');return;}
-    const cards=options.map(o=>'<button class="support-launch" type="button" data-support-option="'+esc(o.id)+'"><span class="support-icon"><i class="fas '+esc(o.icon||'fa-hand-holding-heart')+'"></i></span><span><strong>'+esc(o.label)+'</strong><small>'+esc(o.short_description||o.description||'Погледај како можеш да помогнеш.')+'</small></span></button>').join('');
-    openSheet('Како желиш да се укључиш?','Изабери начин на који можеш да помогнеш кампањи „'+c.title+'“.','<div class="support-options">'+cards+'</div>');
+   try{
+    const [optionsRes,donationRes,itemsRes]=await Promise.all([
+     db.from('support_options').select('id,label,type,short_description,description,icon,order_number,allow_custom_message').eq('campaign_id',c.id).eq('is_active',true).eq('is_public',true).eq('approval_status','approved').order('order_number'),
+     db.from('campaign_donations').select('*').eq('campaign_id',c.id).eq('is_active',true).maybeSingle(),
+     db.from('campaign_donation_items').select('*').eq('campaign_id',c.id).eq('is_active',true).order('order_number')
+    ]);
+    if(optionsRes.error)throw optionsRes.error;
+    if(donationRes.error)throw donationRes.error;
+    if(itemsRes.error)throw itemsRes.error;
+    const options=optionsRes.data||[],settings=donationRes.data,items=itemsRes.data||[];
+    const donationAvailable=!!settings&&(!!(settings.recipient_name||settings.bank_account||settings.paypal_email||settings.paypal_link)||items.length>0||!!(settings.contact_phone||settings.contact_email));
+    const cards=(donationAvailable?'<button class="support-launch" type="button" data-campaign-donation><span class="support-icon"><i class="fas fa-hand-holding-heart"></i></span><span><strong>Донирај и подржи кампању</strong><small>Погледај податке за уплату, потребне ствари и контакт за помоћ.</small></span></button>':'')+options.map(o=>'<button class="support-launch" type="button" data-support-option="'+esc(o.id)+'"><span class="support-icon"><i class="fas '+esc(o.icon||'fa-hand-holding-heart')+'"></i></span><span><strong>'+esc(o.label)+'</strong><small>'+esc(o.short_description||o.description||'Погледај како можеш да помогнеш.')+'</small></span></button>').join('');
+    if(!cards){openSheet('Подржи кампању','За ову кампању начини подршке још нису објављени.','<p>Тренутно нема објављених начина подршке. Можеш да предложиш акцију.</p>');return;}
+    openSheet('Подржи кампању','Изабери како желиш да помогнеш кампањи „'+c.title+'“.','<div class="support-options">'+cards+'</div>');
+    const donationButton=document.querySelector('[data-campaign-donation]');
+    if(donationButton)donationButton.addEventListener('click',()=>{
+      const panel=window.DonationTypes?window.DonationTypes.renderPanel(settings,items):'<p>Приказ донација тренутно није доступан.</p>';
+      openSheet('Донације за кампању „'+c.title+'“','Изабери износ или начин на који можеш да помогнеш.',panel);
+    });
     document.querySelectorAll('[data-support-option]').forEach(b=>b.addEventListener('click',()=>{const o=options.find(x=>x.id===b.dataset.supportOption);if(o)showSupportForm(o).catch(err=>{console.error(err);openSheet('Грешка','Образац тренутно није доступан.','Покушај поново касније.');});}));
-   }catch(err){console.error(err);openSheet('Начини учешћа','Тренутно није могуће учитати начине помоћи.','Покушај поново касније.');}
+   }catch(err){console.error(err);openSheet('Начини подршке','Тренутно није могуће учитати начине подршке.','Покушај поново касније.');}
   };
 const oldProposal=document.getElementById('openCampaignProposal');
   if(oldProposal)oldProposal.addEventListener('click',openActionProposalForm);
