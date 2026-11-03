@@ -178,6 +178,23 @@ body.action-page .single-action-cover{width:calc(100% + 40px);margin-left:-20px;
 .contribute-option{min-width:0;display:flex;align-items:center;gap:16px;text-align:left;padding:21px 22px;border:1px solid #dce5f0;border-radius:15px;background:#fff;color:#061a35;box-shadow:0 8px 24px #061a3509;cursor:pointer;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
 .contribute-option:hover{transform:translateY(-3px);border-color:#65aef5;box-shadow:0 12px 28px #061a3514}
 .contribute-number{width:42px;height:42px;flex:0 0 42px;border-radius:12px;background:#e8f3ff;color:#2166f3;display:grid;place-items:center;font-size:13px;font-weight:900}
+/* Четири јасна начина укључивања на почетној страници */
+.contribute-section{padding:clamp(34px,5vw,58px) 22px;background:#f1f5f9}
+.contribute-copy{max-width:900px}
+.contribute-copy h2{max-width:760px}
+.contribute-options{gap:16px}
+.contribute-option{min-height:220px;align-items:flex-start;flex-direction:column;gap:17px;padding:24px;background:#fff;border:1px solid #dce5f0;border-radius:18px;box-shadow:0 10px 28px #061a350b}
+.contribute-option:hover{transform:translateY(-4px);border-color:#9bbce0;box-shadow:0 16px 34px #061a3515}
+.contribute-visual{width:58px;height:58px;flex:0 0 58px;display:grid;place-items:center;border-radius:17px;background:#eaf2ff;font-size:31px}
+.contribute-start .contribute-visual{background:#fff0f1}
+.contribute-campaign .contribute-visual{background:#eaf5f5}
+.contribute-support .contribute-visual{background:#edf2ff}
+.contribute-option-copy{gap:8px}
+.contribute-option-copy strong{font-size:20px;line-height:1.25}
+.contribute-option-copy small{font-size:14px;line-height:1.55;color:#526780}
+.contribute-option-copy em{margin-top:5px;color:#2166f3;font-size:14px;font-style:normal;font-weight:850}
+@media(max-width:650px){.contribute-section{padding:30px 16px 38px}.contribute-options{grid-template-columns:1fr;gap:12px}.contribute-option{min-height:0;padding:20px;gap:13px}.contribute-option-copy strong{font-size:18px}.contribute-visual{width:50px;height:50px;flex-basis:50px;font-size:27px}}
+
 .contribute-option-copy{display:flex;flex:1;min-width:0;flex-direction:column;gap:5px}
 .contribute-option-copy strong{font-size:17px;line-height:1.25}
 .contribute-option-copy small{font-size:13px;line-height:1.45;color:#64748b}
@@ -349,32 +366,26 @@ if(new URLSearchParams(window.location.search).has('akcija')){
   <a class="home-project-link" href="o-projektu.html">Више о пројекту <span aria-hidden="true">→</span></a>
  </div>
 
-<section class="contribute-section" aria-labelledby="contributeTitle">
+<section class="contribute-section" id="ukljucivanje" aria-labelledby="contributeTitle">
  <div class="contribute-inner">
   <div class="contribute-copy">
-   <div class="contribute-kicker">СВАКО МОЖЕ ДА ДОПРИНЕСЕ</div>
-   <h2 id="contributeTitle">Свако има свој начин да буде део промене.</h2>
-   <p>Неко има идеју коју жели да покрене. Неко може да се придружи акцији, неко да уложи своје време и знање у рад заједнице, а неко да подржи наш рад куповином производа. Не морамо сви да доприносимо на исти начин — важно је да свако добије прилику да учествује.</p>
+   <div class="contribute-kicker">ТВОЈЕ МЕСТО ЈЕ ОВДЕ</div>
+   <h2 id="contributeTitle">Промена почиње када се укључимо.</h2>
+   <p>Свако може да допринесе на свој начин. Можеш да станеш уз људе који већ делују, да покренеш решавање проблема који те погађа, да подржиш кампању или да помогнеш да овај рад траје.</p>
   </div>
-  <h3 class="contribute-question">Како можеш да се укључиш?</h3>
   <div class="contribute-options">
-   <button class="contribute-option" type="button" onclick="showPanel('proposal')"><span class="contribute-number">01</span><span class="contribute-option-copy"><strong>Покрени акцију</strong><small>Имаш идеју или проблем који желиш да решиш?</small></span><span class="contribute-arrow" aria-hidden="true">→</span></button>
-   <button class="contribute-option" type="button" onclick="showPanel('akcije')"><span class="contribute-number">02</span><span class="contribute-option-copy"><strong>Придружи се акцији</strong><small>Прикључи се људима који већ нешто покрећу.</small></span><span class="contribute-arrow" aria-hidden="true">→</span></button>
-   <button class="contribute-option" type="button" onclick="showPanel('membership')"><span class="contribute-number">03</span><span class="contribute-option-copy"><strong>Укључи се у рад заједнице</strong><small>Поклони своје време, знање или практичну помоћ.</small></span><span class="contribute-arrow" aria-hidden="true">→</span></button>
-   <button class="contribute-option" type="button" onclick="showShopPage()"><span class="contribute-number">04</span><span class="contribute-option-copy"><strong>Подржи наш рад</strong><small>Изабери производ и подржи грађанске активности.</small></span><span class="contribute-arrow" aria-hidden="true">→</span></button>
-  </div>
- </div>
-</section>
-</section>
-
-<section class="home-live-section" id="opWays" aria-labelledby="opWaysTitle">
- <div class="home-live-inner">
-  <div class="home-live-heading"><div class="contribute-kicker">СВАКО МОЖЕ ДА ДОПРИНЕСЕ</div><h2 id="opWaysTitle">Како можеш да се укључиш?</h2><p>Не мораш да будеш на терену нити да имаш готов план. Можеш да се прикључиш постојећој активности, покренеш нешто своје или подржиш наш рад на други начин.</p></div>
-  <div class="home-way-grid">
-   <button class="home-way" type="button" onclick="document.getElementById('homeActions').scrollIntoView({behavior:'smooth'})"><span>🤝</span><strong>Прикључи се акцији</strong><small>Погледај шта већ радимо.</small></button>
-   <button class="home-way" type="button" onclick="showPanel('proposal')"><span>💡</span><strong>Покрени акцију</strong><small>Предложи конкретну активност.</small></button>
-   <button class="home-way" type="button" onclick="document.getElementById('homeCampaigns').scrollIntoView({behavior:'smooth'})"><span>📣</span><strong>Прикључи се кампањи</strong><small>Подржи шири заједнички циљ.</small></button>
-   <button class="home-way" type="button" onclick="showShopPage()"><span>💙</span><strong>Подржи наш рад</strong><small>Куповином, продајом, знањем или ширењем приче.</small></button>
+   <button class="contribute-option contribute-action" type="button" onclick="document.getElementById('homeActions').scrollIntoView({behavior:'smooth'})">
+    <span class="contribute-visual" aria-hidden="true">🤝</span><span class="contribute-option-copy"><strong>Прикључи се акцији</strong><small>Не мораш све сам. Придружи се људима који су већ направили први корак и буди део конкретне промене у свом месту.</small><em>Погледај активне акције →</em></span>
+   </button>
+   <button class="contribute-option contribute-start" type="button" onclick="showPanel('proposal')">
+    <span class="contribute-visual" aria-hidden="true">💡</span><span class="contribute-option-copy"><strong>Имаш проблем? Покрени акцију.</strong><small>Рупа на путу, запуштен простор или проблем који сви виде, а нико не решава? Предложи шта треба урадити и окупи људе око решења.</small><em>Покрени акцију →</em></span>
+   </button>
+   <button class="contribute-option contribute-campaign" type="button" onclick="document.getElementById('homeCampaigns').scrollIntoView({behavior:'smooth'})">
+    <span class="contribute-visual" aria-hidden="true">📣</span><span class="contribute-option-copy"><strong>Прикључи се кампањи</strong><small>Неке промене траже истрајност и више корака. Подржи тему која ти је важна и буди део заједничког деловања.</small><em>Погледај кампање →</em></span>
+   </button>
+   <button class="contribute-option contribute-support" type="button" onclick="showShopPage()">
+    <span class="contribute-visual" aria-hidden="true">💙</span><span class="contribute-option-copy"><strong>Подржи наш рад</strong><small>Свако умеће и свака подршка значе. Помози знањем, временом, ширењем приче или куповином производа.</small><em>Изабери начин подршке →</em></span>
+   </button>
   </div>
  </div>
 </section>
