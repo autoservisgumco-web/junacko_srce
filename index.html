@@ -500,7 +500,7 @@ const civicDb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
 
 /* Продавница унутар index.html — засебан приказ без почетног hero банера. */
 function showShopPage(){
- if(sheetTarget)hidePanels();
+ if(document.body.classList.contains('sheet-open'))hidePanels();
  document.body.classList.remove('home-hero','action-page');
  document.body.classList.add('shop-page');
  const main=document.querySelector('main.hidden-content');main.classList.remove('hidden-content');main.removeAttribute('aria-hidden');
