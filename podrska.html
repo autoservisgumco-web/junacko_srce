@@ -106,7 +106,7 @@
   <a class="support-product-link" href="/prodavnica.html" aria-label="Привезак Одговорна Плана — отвори продавницу"><span class="support-product-icon" aria-hidden="true">♡</span><span class="support-product-info"><span><strong>Привезак Одговорна Плана</strong><small>Куповином подржаваш рад Покрета.</small></span><b>150 дин.</b></span></a>
  </section>
 </section>
-<section class="support-note" id="prijava-podrske"><h2>Желиш да будеш део Одговорне Плане?</h2><p>Остави нам контакт и напиши на који начин желиш да се укључиш. Јавићемо ти се да се упознамо и договоримо како можемо заједно да делујемо.</p>
+<section class="support-note" id="prijava-podrske"><h2>Желиш да будеш део Одговорне Плане?</h2><p>Остави нам контакт и напиши на који начин желиш да се укључиш. Јавићемо ти се да се упознамо и договоримо како можемо заједно да делујемо.</p><button class="support-btn" type="button" data-open-form="support" style="margin-top:18px">Придружи се Покрету →</button>
 <form id="supportForm" class="support-form">
 <div class="support-fields">
 <div class="support-field"><label for="supportName">Име и презиме *</label><input id="supportName" name="full_name" required maxlength="120" autocomplete="name"></div>
@@ -132,7 +132,7 @@ document.getElementById('supportForm').addEventListener('submit',async e=>{
  try{
   const {error}=await supportDb.from('civic_submissions').insert({submission_type:'help',title:'Подршка раду Покрета Одговорна Плана',description:description||'Пријава за подршку раду Покрета Одговорна Плана.',full_name:fullName,phone,email:email||null,location:location||null,support_type:supportType,status:'new',social_links:{source:'podrska',scope:'project'}});
   if(error)throw error;
-  form.reset();message.style.color='#176b3a';message.textContent='Хвала ти! Твоја пријава је послата. Драго нам је што желиш да будеш део Одговорне Плане.';
+  form.reset();message.style.color='#176b3a';message.textContent='Хвала ти! Твоја пријава је послата. Драго нам је што желиш да будеш део Одговорне Плане.';if(window.OPProposalModal)window.OPProposalModal.close();
  }catch(err){console.error(err);message.style.color='#b42318';message.textContent='Пријава није послата. Покушај поново или нам се јави директно.';}
  finally{button.disabled=false;button.textContent='Пошаљи пријаву';}
 });
