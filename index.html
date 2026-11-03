@@ -330,7 +330,7 @@ body.action-page,body.shop-page{padding-bottom:0}
 #joinChoice .join-flow-option,#joinChoice .join-flow-card,#joinChoice .association-card,#joinChoice .join-product,#joinChoice .join-order-box{border-radius:18px}
 
 </style>
-  <link rel="stylesheet" href="bottom-nav.css">
+  <link rel="stylesheet" href="bottom-nav.css">\n<link rel="stylesheet" href="/bottom-sheet.css">
 </head>
 <body class="home-hero" id="pocetna">
 <script>
@@ -841,6 +841,6 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')hidePanels()});
 bottomSheet.addEventListener('touchstart',e=>{sheetTouchY=e.touches[0].clientY},{passive:true});
 bottomSheet.addEventListener('touchend',e=>{if(e.changedTouches[0].clientY-sheetTouchY>90&&sheetContent.scrollTop===0)hidePanels()},{passive:true});
 </script>
-  <script src="/bottom-nav.js"></script>
+  <script src="/bottom-sheet.js"></script>\n<script src="/bottom-nav.js"></script>
 <script src="/shared-proposal-modal.js"></script>
 </body></html>
