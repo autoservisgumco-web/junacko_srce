@@ -125,7 +125,7 @@ body.campaign-page .content-back{display:none}
     const name=String(fd.get('name')||'').trim(),phone=String(fd.get('phone')||'').trim(),place=String(fd.get('place')||'').trim();
     if(name.length<2||phone.length<6){message.textContent='Унеси име и исправан број телефона.';return;}
     button.disabled=true;button.textContent='Шаљем…';message.textContent='';
-    const details=Object.fromEntries(fd.entries());delete details.name;delete details.phone;delete details.place;
+    const details={...Object.fromEntries(fd.entries()),...(extra||{})};delete details.name;delete details.phone;delete details.place;
     const isAction=kind==='action';
     const payload={submission_type:'help',title:(isAction?'Пријава за акцију: ':'Пријава за кампању: ')+targetTitle,description:(isAction?'Желим да учествујем у акцији ':'Желим да помогнем кампањи ')+targetTitle+'. Додатни подаци: '+JSON.stringify(details),full_name:name,phone:phone,viber_phone:phone,location:place||null,support_type:isAction?'Учешће у акцији':targetTitle,social_links:{source:location.pathname,kind:kind,target_id:targetId,target_title:targetTitle,campaign_id:c.id,campaign_title:c.title,details:details},status:'new'};
     try{const {error}=await db.from('civic_submissions').insert(payload);if(error)throw error;form.innerHTML='<p role="status" style="color:#16834b;font-weight:750">Пријава је успешно послата. Хвала ти! Јавићемо ти се.</p><button type="button" onclick="closeCampaignSheet()">Затвори</button>';}
