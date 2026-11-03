@@ -90,7 +90,12 @@ footer{background:#041329;color:#d4e1f3;text-align:center;padding:24px;font-size
   const el=document.getElementById('guideActions');
   if(!el)return;
   try{
-   const {data,error}=await window.ucitajAkcije();
+   const {data,error}=await window.odgovornaPlanaDB
+    .from('actions')
+    .select('*')
+    .eq('status','in_progress')
+    .eq('is_published',true)
+    .order('created_at',{ascending:false});
    if(error)throw error;
    if(!data||!data.length){message('guideActions','База је доступна, али тренутно нема објављених акција.','empty');return;}
    el.innerHTML=data.map(a=>{
