@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="/bottom-nav.css">
 <style>
 :root{--navy:#061a35;--blue:#2166f3;--ink:#10233f;--muted:#66758b;--line:#dce4ee;--paper:#f3f6fa}
-*{box-sizing:border-box}
+*{box-sizing:border-box}[hidden]{display:none!important}
 body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
 main{width:min(760px,100% - 28px);margin:28px auto 70px}
 .hero{background:var(--navy);color:#fff;padding:34px 24px;border-radius:18px;margin-bottom:18px}
@@ -30,7 +30,7 @@ input:focus,textarea:focus{outline:3px solid #d7e5ff;border-color:var(--blue)}
 .help-trigger{width:100%;display:flex;align-items:center;gap:12px;text-align:left;background:#eef4ff;color:var(--ink);border:1px solid #d8e5ff;border-radius:12px;padding:14px;font:inherit;font-weight:750;cursor:pointer}
 .help-trigger .q{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:#dce9ff;color:var(--blue);font-weight:900;flex:none}
 .help-trigger .arrow{margin-left:auto;color:var(--blue)}
-.step-locked{border:1px dashed #cbd5e1;border-radius:12px;padding:15px;color:#718096;background:#f8fafc}
+.next-step{margin-top:16px;padding:14px 16px;border:1px solid #d6e3f7;border-radius:12px;background:#f3f7ff;color:var(--navy);font-weight:750;text-align:left;width:100%}.next-step:disabled{display:none}.step-locked{border:1px dashed #cbd5e1;border-radius:12px;padding:15px;color:#718096;background:#f8fafc}
 .step-locked strong{display:block;color:#526176}
 .step{border-top:1px solid var(--line);padding-top:22px;margin-top:22px}
 .step-head{font-size:21px;font-weight:800;margin-bottom:5px}
@@ -40,10 +40,10 @@ input:focus,textarea:focus{outline:3px solid #d7e5ff;border-color:var(--blue)}
 .choice span{font-weight:650}
 .choice small{display:block;color:var(--muted);font-weight:400;margin-top:2px}
 button{border:0;border-radius:11px;padding:14px 18px;font:inherit;font-weight:750;cursor:pointer}
-.primary{width:100%;background:var(--blue);color:#fff;margin-top:16px}
+.primary{width:100%;background:var(--blue);color:#fff;margin-top:20px;padding:17px 20px;font-size:17px;letter-spacing:.1px;box-shadow:0 7px 18px #2166f333}
 .primary:hover{background:#174fc2}
 .primary:disabled{opacity:.55;cursor:not-allowed}
-.viber{display:flex;justify-content:center;align-items:center;gap:9px;width:100%;background:#665cac;color:#fff;text-decoration:none;border-radius:11px;padding:14px;font-weight:800}
+.viber{display:inline-flex;justify-content:center;align-items:center;gap:7px;background:#665cac;color:#fff;text-decoration:none;border-radius:9px;padding:9px 13px;font-size:13px;font-weight:750;width:auto}
 .viber:hover{background:#51478f}
 .phone{text-align:center;font-size:20px;font-weight:850;letter-spacing:.5px;margin:9px 0 0}
 .no-call{text-align:center;color:var(--muted);font-size:12px;margin:2px 0 0}
@@ -88,18 +88,19 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
 <label for="title">Назив или кратак опис идеје *</label>
 <input id="title" name="title" maxlength="140" required placeholder="На пример: Уређење пијаце у Крњеву">
 </div>
-<div class="field">
-<label for="location">Где би требало нешто урадити? *</label>
+<div class="field" id="locationField" hidden>
+<label for="location">Где би требало нешто урадити?</label>
 <input id="location" name="location" maxlength="180" placeholder="Насеље, улица, парк или други простор">
 </div>
-<div class="field">
+<div class="field" id="descriptionField" hidden>
 <label for="description">Опиши предлог акције *</label>
 <textarea id="description" name="description" minlength="10" maxlength="3000" required placeholder="Шта је проблем и шта мислиш да би требало урадити?"></textarea>
 </div>
-<div class="field">
+<div class="field" id="goalField" hidden>
 <label for="goal">Шта желиш да постигнемо? <span class="hint">Није обавезно</span></label>
 <textarea id="goal" name="goal" maxlength="2000" style="min-height:82px" placeholder="Опиши какав резултат би волео/волела да видиш."></textarea>
 </div>
+<button class="next-step" id="continueDetails" type="button" hidden>Настави →</button>
 <button class="help-trigger" type="button" id="openGuide"><span class="q">?</span><span>Како написати добар предлог?</span><span class="arrow">↗</span></button>
 
 <div class="step" id="termStep">
@@ -110,8 +111,9 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
 <label class="choice"><input type="radio" name="date_known" value="false" checked><span>Термин још није одређен<small>Имам идеју, а датум и време ћемо договорити касније.</small></span></label>
 <label class="choice"><input type="radio" name="date_known" value="true"><span>Знам када ће се одржати<small>Унећу датум и време акције.</small></span></label>
 <div id="dateFields" hidden>
-<div class="field"><label for="action_date">Датум</label><input id="action_date" name="action_date" type="date"></div>
-<div class="field"><label for="action_time">Време</label><input id="action_time" name="action_time" type="time"></div>
+<div class="field"><label for="action_date">Датум акције *</label><input id="action_date" name="action_date" type="date"></div>
+<label class="choice"><input type="checkbox" id="timeKnown"><span>Знам тачно време<small>Ако још не знаш сатницу, остави ово непотврђено.</small></span></label>
+<div class="field" id="timeField" hidden><label for="action_time">Време почетка</label><input id="action_time" name="action_time" type="time"></div>
 </div>
 </div>
 </div>
@@ -126,7 +128,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
 <div class="step">
 <strong>Потребна ти је помоћ?</strong>
 <p class="step-copy" style="margin-top:5px">Ако нешто није јасно или не можеш да се снађеш, слободно ми пошаљи поруку на Viber.</p>
-<a class="viber" href="viber://chat?number=%2B381655812195">● Пошаљи поруку на Viber</a>
+<a class="viber" href="viber://chat?number=%2B381655812195">Порука преко Viber-а</a>
 <p class="phone">065 581 2195</p>
 <p class="no-call">Молим те, пошаљи ми поруку. Немој ме звати.</p>
 </div>
@@ -175,16 +177,20 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
 const db=window.odgovornaPlanaDB;
 const $=id=>document.getElementById(id);
 const form=$('proposalForm');
-const required=['title','description'];
 const termFields=$('termFields'),dateFields=$('dateFields');
-function ready(){return required.every(id=>$(id).value.trim().length>0);}
+function titleReady(){return $('title').value.trim().length>0;}
+function descriptionReady(){return $('description').value.trim().length>=10;}
+function ready(){return titleReady()&&descriptionReady();}
 function updateSteps(){
- const ok=ready();
- $('termChoices').hidden=ok;
- termFields.hidden=!ok;
- $('nameLocked').hidden=ok;
- $('nameField').hidden=!ok;
- if(!ok){dateFields.hidden=true;}
+ const t=titleReady(),d=descriptionReady();
+ $('locationField').hidden=!t;
+ $('descriptionField').hidden=!t;
+ $('goalField').hidden=!(t&&d);
+ $('continueDetails').hidden=!(t&&d);
+ $('termChoices').hidden=!(t&&d);
+ termFields.hidden=!(t&&d);
+ $('nameLocked').hidden=!(t&&d);
+ $('nameField').hidden=!(t&&d);
  updateSubmit();
 }
 function selectedDateKnown(){return form.querySelector('input[name="date_known"]:checked')?.value==='true';}
@@ -192,20 +198,23 @@ function updateDate(){
  const known=selectedDateKnown();
  dateFields.hidden=!known;
  $('action_date').required=known;
- $('action_time').required=known;
+ $('timeField').hidden=!$('timeKnown').checked;
  updateSubmit();
 }
 function updateSubmit(){
  const known=selectedDateKnown();
- const dateOk=!known||($('action_date').value&&$('action_time').value);
- $('submitProposal').disabled=!(ready()&&$('proposer_name').value.trim().length>=2&&$('consent').checked&&dateOk);
+ const dateOk=!known||!!$('action_date').value;
+ const timeOk=!$('timeKnown').checked||!!$('action_time').value;
+ $('submitProposal').disabled=!(ready()&&$('proposer_name').value.trim().length>=2&&$('consent').checked&&dateOk&&timeOk);
 }
-required.forEach(id=>$(id).addEventListener('input',updateSteps));
+['title','location','description'].forEach(id=>$(id).addEventListener('input',updateSteps));
+$('continueDetails').addEventListener('click',()=>{$('goalField').hidden=false;$('termChoices').hidden=false;termFields.hidden=false;$('nameLocked').hidden=false;$('nameField').hidden=false;$('termStep').scrollIntoView({behavior:'smooth',block:'start'});});
 $('proposer_name').addEventListener('input',updateSubmit);
 $('consent').addEventListener('change',updateSubmit);
 form.querySelectorAll('input[name="date_known"]').forEach(x=>x.addEventListener('change',updateDate));
 $('action_date').addEventListener('change',updateSubmit);
 $('action_time').addEventListener('input',updateSubmit);
+$('timeKnown').addEventListener('change',updateDate);
 updateSteps();updateDate();
 
 function showMessage(text,type){const m=$('message');m.textContent=text;m.className='message show '+type;}
@@ -225,7 +234,7 @@ form.addEventListener('submit',async e=>{
   goal:$('goal').value.trim()||null,
   date_known:known,
   action_date:known?$('action_date').value:null,
-  action_time:known?$('action_time').value:null,
+  action_time:known&&$('timeKnown').checked?$('action_time').value:null,
   status:'pending'
  };
  try{
