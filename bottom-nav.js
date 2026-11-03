@@ -9,7 +9,7 @@
     {href:'/index.html',icon:'⌂',label:'Почетна',target:'/index.html'},
     {href:'/akcije.html',icon:'✓',label:'Акције',target:'/akcije.html',sheet:'action'},
     {href:'/kampanje.html',icon:'◎',label:'Кампање',target:'/kampanje.html',sheet:'campaign'},
-    {href:'/podrska.html',icon:'♡',label:'Подршка',target:'/podrska.html',sheet:'support'}
+    {href:'/podrska.html',icon:'♡',label:'Подршка удружењу',target:'/podrska.html',sheet:'association'}
   ];
   items.forEach((item,index)=>{
     const a=document.createElement('a');
