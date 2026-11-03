@@ -27,11 +27,11 @@
     const kind=link.getAttribute('data-open-sheet-tab');
     if(typeof window.openJoinFlow==='function'&&typeof window.showJoinFlowSection==='function'){
       window.openJoinFlow();
-      window.showJoinFlowSection(kind==='association'?'movement':kind);
+      window.showJoinFlowSection(kind==='association'?'association':kind);
       nav.querySelectorAll('a').forEach(item=>item.removeAttribute('aria-current'));
       link.setAttribute('aria-current','page');
     }else if(kind==='association'){
-      openAssociationSheet();
+      window.location.href='/index.html?open=association';
     }
   });
 
