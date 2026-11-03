@@ -9,7 +9,7 @@
     ['/index.html','⌂','Почетна','/index.html'],
     ['/akcije.html','✓','Акције','/akcije.html'],
     ['/kampanje.html','◎','Кампање','/kampanje.html'],
-    [onJoinPage?'#associationPanel':'/podrska.html','♡','Подршка Покрету',onJoinPage?'/ukljuci-se.html':'/podrska.html']
+    [onJoinPage?'#associationPanel':'/ukljuci-se.html#associationPanel','♡','Подршка удружењу','/ukljuci-se.html']
   ];
   items.forEach(([href,icon,label,target],index)=>{
     const a=document.createElement('a');a.href=href;
