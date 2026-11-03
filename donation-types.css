@@ -69,3 +69,19 @@
 .donation-ips-download:disabled{opacity:.45;cursor:not-allowed}
 .donation-ips-status{color:#475569;font-size:12px}
 @media(max-width:520px){.donation-tab-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* Уплатница — јасно поље за уплатиоца и штампање */
+.donation-slip{background:#fff;border:1px solid #cbd5e1;color:#172033}
+.donation-slip-fields>div{min-height:34px}
+.donation-slip-blank{min-height:24px;border-bottom:1px dotted #94a3b8;padding-bottom:4px}
+.donation-slip-footnote{margin:12px 0 0;color:#64748b;font-size:11px;line-height:1.5}
+@media print{
+  @page{size:A4;margin:18mm}
+  body *{visibility:hidden!important}
+  .donation-slip,.donation-slip *{visibility:visible!important}
+  .donation-slip{position:absolute!important;left:0!important;top:0!important;width:100%!important;box-sizing:border-box!important;padding:18px!important;border:1px solid #222!important;border-radius:0!important;background:#fff!important;color:#000!important;box-shadow:none!important}
+  .donation-slip-heading{color:#000!important;border-color:#000!important}
+  .donation-slip-fields>div{border-color:#bbb!important;break-inside:avoid}
+  .donation-slip-fields span,.donation-slip-footnote{color:#333!important}
+  .donation-print-slip{display:none!important}
+}
