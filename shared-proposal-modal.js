@@ -24,7 +24,7 @@
   const el=e.target.closest('button,a,[role="button"]');if(!el)return;
   let kind=null;
   const text=(el.textContent||'').replace(/\s+/g,' ').trim().toLowerCase();
-  const actionTarget=el.matches('#openCampaignProposal,[data-open-form="action"],.open-proposal')||
+  const actionTarget=el.matches('[data-open-form="action"],.open-proposal')||
    el.matches('a[href*="predlog-akcije.html"]')||
    /^(?:\+\s*)?(?:покрени|предложи|додај)(?: своју| сопствену| нову)? акциј/.test(text)||
    el.getAttribute('onclick')?.includes("showPanel('proposal')");
@@ -36,6 +36,8 @@
   e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();open(kind);
  },true);
  backdrop.addEventListener('click',close);sheet.querySelector('#opSharedProposalClose').addEventListener('click',close);
+ document.querySelectorAll('[data-open-form="action"]').forEach(el=>el.addEventListener('click',e=>{e.preventDefault();open('action')}));
+ document.querySelectorAll('[data-open-form="campaign"]').forEach(el=>el.addEventListener('click',e=>{e.preventDefault();open('campaign')}));
  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!backdrop.hidden)close()});
  window.OPProposalModal={open,close};
 })();
