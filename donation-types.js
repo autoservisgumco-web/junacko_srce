@@ -68,8 +68,8 @@
     const bankContent = hasBank ? '<div class="donation-payment-card"><p class="donation-payment-note">Износ донације: <strong data-donation-amount>—</strong></p>' + row("Прималац", s.recipient_name) + row("Банка", s.bank_name) + row("Број рачуна", s.bank_account) + row("Сврха уплате", s.payment_purpose) + row("Позив на број", s.reference_number) + (s.payment_instructions ? '<p class="donation-payment-note">' + esc(s.payment_instructions) + '</p>' : "") + '</div>' : '<div class="donation-empty">Подаци за банковни трансфер још нису унети.</div>';
     const slipContent = hasBank ? '<div class="donation-payment-card donation-slip"><div class="donation-slip-heading">НАЛОГ ЗА УПЛАТУ</div><div class="donation-slip-fields"><div><span>Уплатилац</span><strong class="donation-slip-blank">Име, презиме и адреса уплатиоца</strong></div><div><span>Шифра плаћања</span><strong>' + esc(s.payment_code || "289") + '</strong></div><div><span>Валута</span><strong>RSD</strong></div><div><span>Износ</span><strong data-donation-amount>—</strong></div><div><span>Прималац</span><strong>' + esc(s.recipient_name || "—") + '</strong></div><div><span>Рачун примаоца</span><strong>' + esc(s.bank_account || "—") + '</strong></div><div><span>Модел</span><strong>' + esc(s.payment_model || "—") + '</strong></div><div><span>Позив на број</span><strong>' + esc(s.reference_number || "—") + '</strong></div><div><span>Сврха уплате</span><strong>' + esc(s.payment_purpose || "Донација") + '</strong></div></div><p class="donation-slip-footnote">Пре уплате проверите податке и износ. Поља која нису попуњена потребно је допунити ако их банка захтева.</p><button type="button" class="donation-print-slip" onclick="window.print()">Одштампај / сачувај као PDF</button></div>' : '<div class="donation-empty">Подаци за уплатницу још нису унети.</div>';
     const tabs = [{ id: "bank", label: "Банковни трансфер", content: bankContent }, { id: "slip", label: "Уплатница", content: slipContent }];
-    if (paypalUrl) tabs.push({ id: "paypal", label: "PayPal", content: '<div class="donation-payment-card"><p>Износ донације: <strong data-donation-amount>—</strong></p><a class="donation-paypal-button" data-paypal-donate data-base-url="' + esc(paypalUrl) + '" href="' + esc(paypalUrl) + '" target="_blank" rel="noopener noreferrer">Донирај преко PayPal-а</a><p class="donation-payment-note">Пре потврде плаћања проверите да ли је износ исправно приказан на PayPal-у.</p></div>' });
-    else if (s.paypal_email) tabs.push({ id: "paypal-email", label: "PayPal", content: '<div class="donation-payment-card"><p>PayPal адреса за донацију</p>'+row("PayPal налог", s.paypal_email)+'<p class="donation-payment-note">У PayPal-у изабери слање новца и унеси наведену адресу. Пре потврде провери име примаоца.</p></div>' });
+    if (s.show_paypal !== false && paypalUrl) tabs.push({ id: "paypal", label: "PayPal", content: '<div class="donation-payment-card"><p>Износ донације: <strong data-donation-amount>—</strong></p><a class="donation-paypal-button" data-paypal-donate data-base-url="' + esc(paypalUrl) + '" href="' + esc(paypalUrl) + '" target="_blank" rel="noopener noreferrer">Донирај преко PayPal-а</a>' + (s.paypal_email ? row("PayPal адреса", s.paypal_email) : '') + '<p class="donation-payment-note">Пре потврде плаћања проверите име примаоца и износ.</p></div>' });
+    else if (s.show_paypal !== false && s.paypal_email) tabs.push({ id: "paypal", label: "PayPal", content: '<div class="donation-payment-card"><p><strong>PayPal адреса за донацију</strong></p><div class="donation-paypal-address">' + esc(s.paypal_email) + '</div>' + row("PayPal налог", s.paypal_email) + '<p class="donation-payment-note">Отвори PayPal, изабери слање новца (Send), унеси ову адресу и износ донације. Пре слања провери име примаоца.</p></div>' });
     if (hasIps) tabs.push({ id: "ips", label: "IPS QR код", content: '<div class="donation-payment-card donation-ips-card"><p>Скенирај QR код у апликацији своје банке и провери податке пре потврде уплате.</p><div class="donation-ips-qr" data-ips-qr aria-live="polite">Изабери износ да би се направио IPS QR код.</div><p class="donation-payment-note">Износ: <strong data-donation-amount>—</strong></p><button type="button" class="donation-ips-download" data-ips-download disabled>Преузми QR код</button><p class="donation-ips-status" data-ips-status></p></div>' });
     const first = String(s.western_union_first_name || "").trim(), last = String(s.western_union_last_name || "").trim();
     if (s.show_western_union === true && first && last) {
@@ -110,7 +110,7 @@
     if (ipsLibraryPromise) return ipsLibraryPromise;
     ipsLibraryPromise = new Promise((resolve, reject) => {
       const script = document.createElement("script");
-      script.src = "https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js";
+      script.src = "https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js";
       script.async = true;
       script.onload = () => window.QRCode ? resolve() : reject(new Error("QR библиотека није доступна."));
       script.onerror = () => reject(new Error("Неуспешно учитавање QR библиотеке."));
@@ -182,6 +182,12 @@
           panel.classList.toggle("is-active", active);
           panel.hidden = !active;
         });
+        if (selected === "ips") {
+          const checkout = root.closest("[data-donation-checkout]");
+          const amountInput = checkout && checkout.querySelector("[data-donation-amount-input]");
+          const amount = Number(amountInput && amountInput.value);
+          if (checkout && Number.isInteger(amount) && amount > 0) renderIpsQr(checkout, amount);
+        }
       }
       return;
     }
