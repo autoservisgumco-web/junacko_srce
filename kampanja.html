@@ -161,7 +161,7 @@ body.campaign-page .content-back{display:none}
   }
   window.openCampaignActionProposal=()=>showSupportForm('action');
   window.openSupportChooser=()=>{
-   const cards=categories.map(x=>'<button class="support-launch" type="button" onclick="showCampaignSupportForm(\\''+x.id+'\\')"><span class="support-icon"><i class="fas '+x.icon+'"></i></span><span><strong>'+x.title+'</strong><small>'+x.desc+'</small></span></button>').join('');
+   const cards=categories.map(x=>'<button class="support-launch" type="button" onclick="showCampaignSupportForm(&quot;'+x.id+'&quot;)"><span class="support-icon"><i class="fas '+x.icon+'"></i></span><span><strong>'+x.title+'</strong><small>'+x.desc+'</small></span></button>').join('');
    openSheet('Како желиш да се укључиш?','Изабери начин на који можеш да помогнеш кампањи.', '<div class="support-options">'+cards+'</div>');
   };
   window.showCampaignSupportForm=showSupportForm;
