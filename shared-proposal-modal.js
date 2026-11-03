@@ -9,7 +9,7 @@
  #opSharedProposalSheet.open{transform:translate(-50%,0)}
  #opSharedProposalSheet header{display:flex;align-items:center;justify-content:space-between;padding:12px 18px;background:#071d3a;color:white;font-weight:800;flex:none}
  #opSharedProposalSheet header button{border:0;background:transparent;color:white;font-size:30px;line-height:1;cursor:pointer;padding:0 8px}
- #opSharedProposalSheet iframe{border:0;width:100%;height:100%;flex:1;background:#f3f6fa}
+ #opSharedProposalSheet iframe{display:block;border:0;width:100%;height:0;min-height:0;flex:1 1 auto;background:#f3f6fa}
  @media(min-width:760px){#opSharedProposalSheet{bottom:50%;transform:translate(-50%,55%);height:min(88dvh,900px);border-radius:18px}#opSharedProposalSheet.open{transform:translate(-50%,50%)}}
  `;
  document.head.appendChild(style);
@@ -18,7 +18,7 @@
  sheet.innerHTML='<header><span id="opSharedProposalTitle">Покрени предлог</span><button type="button" aria-label="Затвори" id="opSharedProposalClose">×</button></header><iframe title="Формулар за предлог" src="about:blank"></iframe>';
  document.body.append(backdrop,sheet);
  const frame=sheet.querySelector('iframe'),title=sheet.querySelector('#opSharedProposalTitle');
- function open(kind){title.textContent=kind==='campaign'?'Покрени своју кампању':'Покрени своју акцију';frame.src=kind==='campaign'?'/predlog-kampanje.html?embed=1':'/predlog-akcije.html?embed=1';backdrop.hidden=false;sheet.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';requestAnimationFrame(()=>{backdrop.classList.add('open');sheet.classList.add('open')});}
+ function open(kind){title.textContent=kind==='campaign'?'Покрени своју кампању':'Покрени своју акцију';frame.src='about:blank';frame.src=kind==='campaign'?'/predlog-kampanje.html?embed=1':'/predlog-akcije.html?embed=1';backdrop.hidden=false;sheet.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';requestAnimationFrame(()=>{backdrop.classList.add('open');sheet.classList.add('open')});}
  function close(){backdrop.classList.remove('open');sheet.classList.remove('open');sheet.setAttribute('aria-hidden','true');document.body.style.overflow='';setTimeout(()=>{backdrop.hidden=true;frame.src='about:blank'},260);}
  document.addEventListener('click',function(e){
   const el=e.target.closest('button,a,[role="button"]');if(!el)return;
