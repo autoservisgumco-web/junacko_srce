@@ -42,6 +42,21 @@
  document.querySelectorAll('[data-open-form="action"]').forEach(el=>el.addEventListener('click',e=>{e.preventDefault();open('action')}));
  document.querySelectorAll('[data-open-form="campaign"]').forEach(el=>el.addEventListener('click',e=>{e.preventDefault();open('campaign')}));
  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!backdrop.hidden)close()});
- window.OPProposalModal={open,close,openInline};
+ function openParticipation(action){
+  if(!action)return;
+  const safe=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  title.textContent='Пријава за учешће у акцији';
+  content.innerHTML='<form id="opActionJoinForm" style="padding:20px;display:grid;gap:13px;max-width:680px;margin:auto;width:100%;box-sizing:border-box"><p style="margin:0;color:#334155">Пријављујеш се за акцију: <strong>'+safe(action.title)+'</strong></p><label>Име и презиме<input name="full_name" required autocomplete="name" style="display:block;width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:9px;box-sizing:border-box"></label><label>Телефон<input name="phone" required type="tel" autocomplete="tel" style="display:block;width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:9px;box-sizing:border-box"></label><label>Имејл (није обавезно)<input name="email" type="email" autocomplete="email" style="display:block;width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:9px;box-sizing:border-box"></label><label>Место<input name="location" autocomplete="address-level2" style="display:block;width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:9px;box-sizing:border-box"></label><label>Како желиш да помогнеш?<select name="support_type" required style="display:block;width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:9px;box-sizing:border-box"><option value="">Изабери начин учешћа</option><option>Физичко учешће у акцији</option><option>Организација и координација</option><option>Алат, материјал или опрема</option><option>Друга врста помоћи</option></select></label><label>Порука (није обавезно)<textarea name="description" rows="3" style="display:block;width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:9px;box-sizing:border-box"></textarea></label><p id="opJoinMessage" role="status" style="margin:0"></p><button type="submit" style="border:0;border-radius:10px;background:#d71920;color:#fff;padding:14px;font-weight:800;font-size:16px">Пошаљи пријаву</button></form>';
+  const form=content.querySelector('#opActionJoinForm');
+  form.addEventListener('submit',async e=>{
+   e.preventDefault();const btn=form.querySelector('button[type=submit]'),msg=form.querySelector('#opJoinMessage');btn.disabled=true;btn.textContent='Слање…';msg.textContent='';
+   const fd=new FormData(form),v=Object.fromEntries(fd.entries());
+   const payload={submission_type:'help',title:'Пријава за акцију: '+action.title,description:v.description||'',full_name:v.full_name,phone:v.phone,email:v.email||null,location:v.location||null,support_type:v.support_type,status:'new',social_links:{kind:'action',target_id:action.id,action_id:action.id,action_title:action.title}};
+   try{const client=window.db;if(!client)throw new Error('Веза са базом није доступна.');const {error}=await client.from('civic_submissions').insert(payload);if(error)throw error;form.innerHTML='<div style="padding:28px 8px;text-align:center"><h2 style="color:#15803d">Пријава је послата!</h2><p>Хвала ти што желиш да учествујеш. Јавићемо ти се.</p></div>';setTimeout(close,1500);}
+   catch(err){msg.style.color='#b91c1c';msg.textContent=err.message||'Пријава није послата. Покушај поново.';btn.disabled=false;btn.textContent='Пошаљи пријаву';}
+  });
+  backdrop.hidden=false;sheet.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';requestAnimationFrame(()=>{backdrop.classList.add('open');sheet.classList.add('open')});
+ }
+ window.OPProposalModal={open,close,openInline,openParticipation};
  if(location.pathname.replace(/\/$/,'').endsWith('/ukljuci-se')&&location.hash==='#prijava-podrske'){open('support');}
 })();
