@@ -82,7 +82,7 @@ footer{padding:20px;text-align:center;background:#041329;color:#d4e1f3;font-size
  <button type="button" data-entry-tab="association" aria-pressed="false"><span class="entry-icon">♡</span><span><strong>Удружење</strong><small>Постани део људи који трајно делују.</small></span><b>→</b></button>
 </section>
 <main>
-<section id="campaignPanel" class="tab-panel" aria-labelledby="campaignTitle"><h2 class="panel-heading" id="campaignTitle">Кампање</h2><p class="panel-lead">Кампање окупљају људе око важних проблема и заједничких циљева.</p><div class="cards" id="campaignList"><p class="status">Учитавање кампања…</p></div><button class="add-button" type="button" data-proposal="campaign">＋ Додај своју кампању</button></section>
+<section id="campaignPanel" class="tab-panel" hidden aria-labelledby="campaignTitle"><h2 class="panel-heading" id="campaignTitle">Кампање</h2><p class="panel-lead">Кампање окупљају људе око важних проблема и заједничких циљева.</p><div class="cards" id="campaignList"><p class="status">Учитавање кампања…</p></div><button class="add-button" type="button" data-proposal="campaign">＋ Додај своју кампању</button></section>
 <section id="actionPanel" class="tab-panel" aria-labelledby="actionTitle" hidden><h2 class="panel-heading" id="actionTitle">Акције</h2><p class="panel-lead">Акције су конкретни кораци којима заједно мењамо ствари у својој улици, насељу и општини.</p><div class="cards" id="actionList"><p class="status">Учитавање акција…</p></div><button class="add-button" type="button" data-proposal="action">＋ Додај своју акцију</button></section>
 <section id="associationPanel" class="tab-panel" aria-labelledby="associationTitle" hidden><h2 class="panel-heading" id="associationTitle">Удружење</h2><p class="panel-lead">Људи који желе да преузму активну улогу у својој заједници.</p><div class="association-card"><div class="association-icon" aria-hidden="true">♧</div><h2>Придружи се удружењу Одговорна Плана</h2><p>Удружење повезује људе који желе да своје време, знање, искуство и идеје ставе у службу заједнице.</p><p>Можеш да учествујеш у организовању активности, помогнеш својим знањем или предложиш шта би требало да мењамо у нашој општини.</p><div class="association-points"><div class="association-point"><b>✓</b><span>Учешће у акцијама и заједничким активностима</span></div><div class="association-point"><b>✓</b><span>Предлагање идеја и покретање иницијатива</span></div><div class="association-point"><b>✓</b><span>Дељење знања, искуства и времена</span></div></div><p>Информације о условима и поступку учлањења добићеш од удружења.</p>
 <div class="support-intro-copy">
@@ -107,15 +107,18 @@ footer{padding:20px;text-align:center;background:#041329;color:#d4e1f3;font-size
 <script>
 (function(){
  const choices=document.querySelector('.entry-choices');
+ const intro=document.querySelector('.page-intro');
  const tabs={campaign:{panel:document.getElementById('campaignPanel')},action:{panel:document.getElementById('actionPanel')},association:{panel:document.getElementById('associationPanel')}};
  function showTab(name){
   Object.entries(tabs).forEach(([key,item])=>{item.panel.hidden=key!==name;});
   choices.hidden=true;
+  intro.hidden=true;
   window.scrollTo({top:0,behavior:'smooth'});
  }
  function backToChoices(){
   Object.values(tabs).forEach(item=>item.panel.hidden=true);
   choices.hidden=false;
+  intro.hidden=false;
   document.querySelectorAll('[data-entry-tab]').forEach(item=>item.setAttribute('aria-pressed','false'));
   choices.scrollIntoView({behavior:'smooth',block:'start'});
  }
