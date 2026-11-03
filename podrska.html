@@ -102,7 +102,7 @@
  <section class="support-shop" aria-labelledby="supportShopTitle">
   <h2 id="supportShopTitle" style="color:#fff;font-size:clamp(27px,4vw,38px);line-height:1.15;margin:0 0 12px">Подршка која омогућава да наставимо да радимо.</h2>
   <p class="support-shop-copy">Куповином производа из наше продавнице помажеш да организујемо нове активности и наставимо заједнички рад.</p>
-  <div class="support-shop-actions"><a class="shop-primary" href="/prodavnica.html">Отвори продавницу →</a><a class="shop-secondary" href="/ukljuci-se.html#prijava-podrske">Подржи на други начин</a></div>
+  <div class="support-shop-actions"><a class="shop-primary" href="/prodavnica.html">Отвори продавницу →</a><button class="shop-secondary" type="button" data-open-form="support">Подржи на други начин</button></div>
   <a class="support-product-link" href="/prodavnica.html" aria-label="Привезак Одговорна Плана — отвори продавницу"><span class="support-product-icon" aria-hidden="true">♡</span><span class="support-product-info"><span><strong>Привезак Одговорна Плана</strong><small>Куповином подржаваш рад Покрета.</small></span><b>150 дин.</b></span></a>
  </section>
 </section>
@@ -117,7 +117,22 @@
 <div class="support-field support-full"><label for="supportDescription">Напиши како конкретно можеш да помогнеш</label><textarea id="supportDescription" name="description" rows="4" maxlength="2500" placeholder="На пример: могу да помогнем превозом, алатом, материјалом, стручним знањем..."></textarea></div>
 </div><button class="support-btn" id="supportSubmit" type="submit">Пошаљи пријаву</button><p id="supportMessage" class="support-message" role="status" aria-live="polite"></p>
 </form></section>
-</div></main>>
+</div>
+<section class="support-note" id="prijava-podrske" style="display:none">
+<h2>Желиш да будеш део Одговорне Плане?</h2>
+<p>Остави нам контакт и напиши на који начин желиш да се укључиш. Јавићемо ти се да се упознамо и договоримо како можемо заједно да делујемо.</p>
+<form id="movementJoinForm" style="margin-top:20px">
+<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px">
+<label>Име и презиме *<input name="full_name" required maxlength="120" autocomplete="name" style="display:block;width:100%;padding:12px;border:1px solid #cbd9e5;border-radius:9px"></label>
+<label>Телефон *<input name="phone" type="tel" required maxlength="50" autocomplete="tel" placeholder="06x xxx xxxx" style="display:block;width:100%;padding:12px;border:1px solid #cbd9e5;border-radius:9px"></label>
+<label>Имејл адреса<input name="email" type="email" maxlength="180" autocomplete="email" style="display:block;width:100%;padding:12px;border:1px solid #cbd9e5;border-radius:9px"></label>
+<label>Место<input name="location" maxlength="180" placeholder="Насеље или место" style="display:block;width:100%;padding:12px;border:1px solid #cbd9e5;border-radius:9px"></label>
+<label style="grid-column:1/-1">Како желиш да помогнеш? *<select name="support_type" required style="display:block;width:100%;padding:12px;border:1px solid #cbd9e5;border-radius:9px"><option value="">Изабери начин укључивања</option><option value="Чланство и придруживање Покрету">Желим да се придружим удружењу Одговорна Плана</option><option value="Физичко учешће">Физичким учешћем и својим временом</option><option value="Знање и стручна помоћ">Знањем и стручном помоћи</option><option value="Материјална подршка">Материјалом, алатом или опремом</option><option value="Финансијска подршка">Финансијском подршком</option><option value="Друго">На други начин</option></select></label>
+<label style="grid-column:1/-1">Напиши како конкретно можеш да помогнеш<textarea name="description" rows="4" maxlength="2500" placeholder="Напиши на који начин желиш да се укључиш..." style="display:block;width:100%;padding:12px;border:1px solid #cbd9e5;border-radius:9px"></textarea></label>
+</div>
+<button class="shop-primary" type="submit" style="margin-top:18px;border:0;cursor:pointer">Пошаљи пријаву</button><p id="movementJoinMessage" role="status" aria-live="polite"></p>
+</form></section>
+</main>>
 <footer class="content-footer"><div class="content-footer-inner">ОДГОВОРНА ПЛАНА · Место за заједничко деловање</div></footer>
 <script>
 const menu=document.getElementById('sideMenu'),back=document.getElementById('menuBackdrop');function closeSideMenu(){menu.classList.remove('open');back.classList.remove('open');menu.setAttribute('aria-hidden','true');setTimeout(()=>back.hidden=true,260)}document.getElementById('openMenu').addEventListener('click',()=>{back.hidden=false;menu.setAttribute('aria-hidden','false');requestAnimationFrame(()=>{back.classList.add('open');menu.classList.add('open')})});document.getElementById('closeMenu').addEventListener('click',closeSideMenu);back.addEventListener('click',closeSideMenu);
@@ -167,5 +182,17 @@ document.getElementById('supportForm').addEventListener('submit',async e=>{
  }catch(e){console.error('Учитавање кампања:',e);document.getElementById('supportCampaignsList').innerHTML='<div class="support-list-empty">Кампање тренутно нису доступне. Погледај <a href="/kampanje.html">страницу Кампање</a>.</div>';}
 })();
 </script><script src="/bottom-nav.js"></script>
+
+<script>
+document.getElementById('movementJoinForm')?.addEventListener('submit',async event=>{
+ event.preventDefault();const form=event.currentTarget;if(!form.reportValidity())return;
+ const button=form.querySelector('button[type="submit"]'),message=document.getElementById('movementJoinMessage'),data=new FormData(form);
+ button.disabled=true;button.textContent='Шаљем пријаву...';message.textContent='';
+ const payload={submission_type:'help',title:'Пријава за придруживање удружењу Одговорна Плана',description:String(data.get('description')||'').trim()||'Пријава за придруживање удружењу Одговорна Плана.',full_name:String(data.get('full_name')||'').trim(),phone:String(data.get('phone')||'').trim(),email:String(data.get('email')||'').trim()||null,location:String(data.get('location')||'').trim()||null,support_type:String(data.get('support_type')||'').trim(),status:'new',social_links:{source:'podrska',scope:'association'}};
+ try{const {error}=await window.odgovornaPlanaDB.from('civic_submissions').insert(payload);if(error)throw error;form.reset();message.style.color='#176b3a';message.textContent='Хвала ти! Пријава је успешно послата.';if(window.OPProposalModal)window.OPProposalModal.close();}
+ catch(error){console.error(error);message.style.color='#b42318';message.textContent='Пријава није послата. Покушај поново.';}
+ finally{button.disabled=false;button.textContent='Пошаљи пријаву';}
+});
+</script>
 <script src="/shared-proposal-modal.js"></script>
 </body></html>
