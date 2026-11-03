@@ -109,9 +109,10 @@ const mapFrame=location=>'<iframe loading="lazy" title="Мапа локациј�
   if(a.activities)html+=panel('plan','✓','Шта планирамо',a.activities);
   if(a.materials)html+=panel('potrebno','＋','Шта је потребно',a.materials);
   if(place)html+='<section class="action-panel"><h2><span>●</span>Место</h2><div class="action-place"><p>'+esc(place)+'</p>'+mapFrame(place)+'</div></section>';
-  html+='<section class="action-callout"><span class="action-heart">♥</span><div><h2>Укључи се!</h2><p>Заједно можемо више. Пријави се, подржи акцију и помози да наша заједница буде боље место за све.</p></div><a class="action-red" href="/ukljuci-se.html">♟ &nbsp;Пријави се</a></section>';
+  html+='<section class="action-callout"><span class="action-heart">♥</span><div><h2>Укључи се!</h2><p>Заједно можемо више. Пријави се, подржи акцију и помози да наша заједница буде боље место за све.</p></div><button type="button" class="action-red" id="joinThisAction">♟ &nbsp;Пријави се</button></section>';
   html+='<section class="action-banner"><h2>Имаш проблем који не треба да остане само прича?</h2><p>Покрени акцију и заједно тражимо решење.</p><a class="action-red" href="/predlog-akcije.html">ϟ &nbsp;Покрени акцију</a></section>';
   root.className='';root.innerHTML=html;
+  root.querySelector('#joinThisAction')?.addEventListener('click',()=>window.OPProposalModal?.openParticipation(a));
  }catch(e){console.error(e);root.innerHTML='<div class="action-empty">Детаљи акције тренутно нису доступни.</div>';}
 })();
 </script>
