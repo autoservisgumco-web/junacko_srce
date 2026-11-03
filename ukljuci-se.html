@@ -78,6 +78,16 @@ footer{background:#041329;color:#d4e1f3;text-align:center;padding:24px;font-size
  <div class="buttons"><button class="btn open-proposal" type="button">＋ Представи проблем или идеју</button><a class="btn light" href="/kampanje.html">Погледај покренуте кампање →</a></div>
 </section>
 <section class="choice">
+ <div class="choice-top"><span class="num">01</span><h2>Кампање које смо покренули</h2></div>
+ <p>Неке теме захтевају више времена и више људи. Кампања окупља грађане око заједничког циља и повезује различите предлоге и конкретне акције. Погледај шта је већ покренуто, упознај се са циљевима и пронађи начин да допринесеш.</p>
+ <div class="live-list">
+  <div class="live-list-heading"><h3>Укључи се у постојећу кампању</h3><p>Свака кампања је прилика да се повежеш са људима који желе да раде на истој промени.</p></div>
+  <div id="guideCampaigns" class="live-cards"><p class="loading">Учитавање кампања...</p></div>
+  <a id="guideCampaignsMore" class="btn light" href="/kampanje.html" hidden>Види све кампање →</a>
+ </div>
+ <div class="buttons"><a class="btn light" href="/kampanje.html">Отвори све кампање</a></div>
+</section>
+<section class="choice">
  <div class="choice-top"><span class="num">02</span><h2>Желиш да покренеш акцију?</h2></div>
  <p>Ако желиш да се нешто конкретно уради, покрени акцију. Позови људе да ти се придруже, поделите задатке и договорите како ћете доћи до циља. Не очекује се да све организујеш и обавиш сам.</p>
  <div class="example"><strong>На пример:</strong> уређење јавног простора, чишћење улице, помоћ комшији, прикупљање предлога или заједничко обраћање надлежнима.</div>
@@ -85,14 +95,14 @@ footer{background:#041329;color:#d4e1f3;text-align:center;padding:24px;font-size
  <div class="buttons"><button class="btn open-proposal" type="button">＋ Покрени своју акцију</button><a class="btn light" href="/akcije.html">Погледај све акције →</a></div>
 </section>
 <section class="choice">
- <div class="choice-top"><span class="num">03</span><h2>Желиш да се прикључиш другима?</h2></div>
+ <div class="choice-top"><span class="num">03</span><h2>Акције које су тренутно покренуте</h2></div>
  <p>Можда немаш предлог за нову акцију, али имаш времена, знања, алат, возило или једноставно вољу да помогнеш. Погледај шта су други покренули и пронађи акцију којој можеш да допринесеш.</p>
  <div class="live-list">
   <div class="live-list-heading"><h3>Акције у које можеш да се укључиш</h3><p>Приказујемо најновије објављене акције. Отвори детаље и види како можеш да помогнеш.</p></div>
   <div id="guideActions" class="live-cards"><p class="loading">Учитавање акција...</p></div>
   <a id="guideActionsMore" class="btn light" href="/akcije.html" hidden>Види све акције →</a>
  </div>
- <div class="buttons"><a class="btn light" href="/akcije.html">Отвори све акције</a></div>
+ <div class="buttons"><button class="btn secondary open-proposal" type="button">＋ Предложи нову акцију</button><a class="btn light" href="/akcije.html">Отвори све акције</a></div>
 </section>
 <section class="choice">
  <div class="choice-top"><span class="num">04</span><h2>Желиш да подржиш рад?</h2></div>
@@ -137,12 +147,16 @@ footer{background:#041329;color:#d4e1f3;text-align:center;padding:24px;font-size
  }
  async function campaigns(){
   const el=document.getElementById('guideCampaigns');
-  let result=await db.from('campaigns').select('id,title,slug,description,goal,hero_image,status,is_published').eq('is_published',true).order('created_at',{ascending:false}).limit(50);
-  if(result.error) result=await db.from('campaigns').select('id,title,slug,description,goal,hero_image,status,is_published').eq('is_published',true).order('created_at',{ascending:false}).limit(50);
-  const {data,error}=result;
-  if(error){message('guideCampaigns','Кампање тренутно нису доступне. Грешка базе: '+error.message,'empty');return;}
-  if(!data||!data.length){message('guideCampaigns','Тренутно нема објављених кампања. Провери да ли су кампање означене као објављене.','empty');return;}
-  el.innerHTML=data.map(c=>'<article class="live-card">'+(c.hero_image?'<img loading="lazy" src="'+safe(c.hero_image)+'" alt="">':'')+'<div class="live-card-body"><span class="live-tag">КАМПАЊА</span><h4>'+safe(c.title||'Кампања')+'</h4><p>'+safe(c.description||'Упознај заједнички циљ и види како можеш да допринесеш.')+'</p><a class="btn" href="/kampanja.html?slug='+encodeURIComponent(c.slug||c.id)+'">Погледај кампању →</a><details><summary>Погледај више о кампањи</summary><p>'+safe(c.goal||c.description||'Ова кампања окупља људе око заједничког циља.')+'</p></details></div></article>').join('');
+  const more=document.getElementById('guideCampaignsMore');
+  if(!el)return;
+  try{
+   const {data,error}=await db.from('campaigns').select('id,title,slug,description,goal,hero_image,status,is_published,created_at').eq('is_published',true).order('created_at',{ascending:false});
+   if(error)throw error;
+   const items=data||[];
+   if(!items.length){message('guideCampaigns','Тренутно нема објављених кампања. Ако имаш идеју око које би требало окупити људе, представи је и покренимо разговор.','empty');return;}
+   if(more)more.hidden=items.length<=3;
+   el.innerHTML=items.slice(0,3).map(c=>'<article class="live-card">'+(c.hero_image?'<img loading="lazy" src="'+safe(c.hero_image)+'" alt="'+safe(c.title||'Кампања')+'">':'<div class="live-card-image-placeholder"></div>')+'<div class="live-card-body"><span class="live-tag">КАМПАЊА</span><h4>'+safe(c.title||'Кампања')+'</h4><p>'+safe(c.description||'Упознај заједнички циљ и види како можеш да допринесеш.')+'</p><a class="btn" href="/kampanja.html?slug='+encodeURIComponent(c.slug||c.id)+'">Погледај кампању →</a></div></article>').join('');
+  }catch(error){console.error('Грешка при учитавању кампања:',error);message('guideCampaigns','Кампање тренутно нису учитане. '+(error.message||''),'empty');}
  }
  actions();campaigns();
 })();
