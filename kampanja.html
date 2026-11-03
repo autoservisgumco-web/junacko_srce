@@ -152,77 +152,44 @@ body.campaign-page .content-back{display:none}
   };
   function closeSheet(){document.getElementById('campaignOverlay')?.classList.remove('open');document.body.style.overflow='';}
   window.closeCampaignSheet=closeSheet;
-  const categories=[
-   {id:'finance',icon:'fa-wallet',title:'Финансијска подршка',desc:'Подржи циљеве кампање'},
-   {id:'donation',icon:'fa-gift',title:'Донације',desc:'Ствари и потрепштине за кампању'},
-   {id:'association',icon:'fa-box-open',title:'Помоћ удружењу',desc:'Подршка редовном раду'},
-   {id:'volunteer',icon:'fa-hands-helping',title:'Волонтирање',desc:'Поклони време и знање'},
-   {id:'adoption',icon:'fa-dog',title:'Удомљавање паса',desc:'Удоми пса или му помози да нађе дом'},
-   {id:'action',icon:'fa-lightbulb',title:'Покрени своју акцију',desc:'Предложи идеју и окупи људе'}
-  ];
-  const formShell=(fields)=>'<form class="support-form" id="campaignSupportForm">'+fields+'<label><span><input type="checkbox" name="consent" required style="width:auto"> Сагласан/сагласна сам да се моји подаци користе ради контакта у вези са овом пријавом.</span></label><p class="support-submit-message" role="status" aria-live="polite"></p><button type="submit">Пошаљи пријаву</button></form>';
   const commonFields='<label>Име и презиме *<input name="name" required minlength="2" maxlength="120"></label><label>Телефон или Viber *<input name="phone" required type="tel" minlength="6" maxlength="40"></label><label>Место<input name="place" maxlength="160"></label>';
-  function showSupportForm(type){
-   let title='',intro='',fields='',submissionType='help',supportType='';
-   if(type==='finance'){
-    title='Финансијска подршка';intro='Пријави намеру да финансијски подржиш кампању. Администратор ће прегледати пријаву и доставити ти проверене податке за уплату.';
-    supportType='Финансијска подршка';fields=commonFields+'<label>Износ који желиш да уплатиш (динари)<input name="amount" type="number" min="1" step="1" required></label><label>Начин уплате који ти одговара<select name="payment_method" required><option value="">Изабери</option><option>Уплата на рачун</option><option>PayPal</option><option>IPS QR код</option><option>Договор са удружењем</option></select></label><label>Напомена (опционо)<textarea name="note" maxlength="1500"></textarea></label>';
-   }else if(type==='donation'){
-    title='Донација ствари и потрепштина';intro='Не мораш ништа да купујеш. Наведи шта већ имаш и можеш да поклониш или обезбедиш за потребе ове кампање.';
-    supportType='Донације за кампању';fields=commonFields+'<label>Шта можеш да поклониш или обезбедиш? *<input name="item" required maxlength="180" placeholder="Нпр. храна, посуде, опрема..."></label><label>Количина<input name="quantity" maxlength="100" placeholder="Нпр. 2 џака, 5 комада..."></label><label>Стање ствари<select name="condition"><option>Ново</option><option>Половно, исправно и употребљиво</option><option>Није применљиво</option></select></label><label>Како можеш да доставиш?<select name="delivery"><option>Могу лично да донесем</option><option>Потребан ми је договор о преузимању</option><option>Могу да обезбедим превоз</option></select></label><label>Додатна напомена<textarea name="note" maxlength="1500"></textarea></label>';
-   }else if(type==='association'){
-    title='Помоћ удружењу';intro='Помози удружењу у редовном раду. Можеш да понудиш ствар, материјал, услугу, новчану подршку или други вид помоћи.';
-    supportType='Помоћ удружењу';fields=commonFields+'<label>Какву помоћ можеш да понудиш? *<select name="help_kind" required><option value="">Изабери</option><option>Храна и потрепштине</option><option>Опрема и материјал</option><option>Услуга или стручно знање</option><option>Финансијска помоћ</option><option>Организациона и друга помоћ</option></select></label><label>Опиши шта конкретно можеш да обезбедиш или урадиш. *<textarea name="details" required minlength="5" maxlength="2500"></textarea></label><label>Колико често можеш да помогнеш?<select name="frequency"><option>Једнократно</option><option>Повремено</option><option>Редовно</option><option>По договору</option></select></label>';
-   }else if(type==='volunteer'){
-    title='Пријава за волонтирање';intro='Поклони своје време и знање. Наведи у чему можеш да помогнеш и када си доступан/доступна.';
-    supportType='Волонтирање';fields=commonFields+'<label>У којој области желиш да волонтираш? *<select name="volunteer_area" required><option value="">Изабери</option><option>Брига о животињама и храњење</option><option>Чишћење и одржавање</option><option>Превоз</option><option>Фотографисање и промоција</option><option>Администрација и организација</option><option>Стручна помоћ</option><option>Друго</option></select></label><label>Која знања и вештине нудиш?<textarea name="skills" maxlength="2000"></textarea></label><label>Колико времена можеш да издвојиш?<input name="availability" maxlength="180" placeholder="Нпр. два сата недељно"></label><label>Када си доступан/доступна?<input name="schedule" maxlength="180" placeholder="Нпр. викендом, после посла..."></label>';
-   }else if(type==='adoption'){
-    title='Удомљавање паса';intro='Изабери да ли желиш да пружиш псу дом или тражиш сигуран дом за пса о коме бринеш.';
-    supportType='Удомљавање паса';submissionType='adoption';fields=commonFields+'<label>Шта желиш да урадиш? *<select name="adoption_intent" id="adoptionIntent" required><option value="">Изабери</option><option value="Желим да удомим пса">Желим да удомим пса</option><option value="Тражим дом за пса или штенце">Тражим дом за пса или штенце</option></select></label><div id="adoptionExtra"></div>';
-   }else if(type==='action'){
-    title='Покрени своју акцију';intro='Предложи конкретну акцију која доприноси циљевима кампање. Предлог прво прегледа администратор.';
-    supportType='Предлог акције';submissionType='action';
-    fields='<label>Назив акције *<input name="title" required maxlength="140"></label><label>Место акције<input name="location" maxlength="180"></label><label>Шта желиш да урадиш? *<textarea name="details" required minlength="10" maxlength="3000"></textarea></label><label>Шта желиш да постигнеш?<textarea name="goal" maxlength="1500"></textarea></label>'+commonFields+'<label>Када би желео/желела да се акција одржи?<input name="action_date" type="date"></label><label>Шта је потребно за реализацију?<textarea name="needs" maxlength="1500"></textarea></label><label>Како други могу да се прикључе?<textarea name="join_info" maxlength="1000"></textarea></label>';
-   }
-   openSheet(title,intro,formShell(fields));
+  const formShell=fields=>'<form class="support-form" id="campaignSupportForm">'+commonFields+fields+'<label><span><input type="checkbox" name="consent" required style="width:auto"> Сагласан/сагласна сам да се моји подаци користе ради контакта у вези са овом пријавом.</span></label><p class="support-submit-message" role="status" aria-live="polite"></p><button type="submit">Пошаљи пријаву</button></form>';
+  const fieldName=v=>String(v||'field').replace(/[^a-zA-Z0-9_-]/g,'_');
+  const renderField=f=>{
+   const key=fieldName(f.field_key),label=esc(f.label||f.field_key||'Додатне информације'),req=f.is_required?' required':'',mark=f.is_required?' *':'',ph=esc(f.placeholder||''),type=f.field_type||'text';
+   if(type==='textarea')return '<label>'+label+mark+'<textarea name="'+key+'"'+req+' maxlength="3000" placeholder="'+ph+'"></textarea></label>';
+   if(['select','radio','checkbox_group'].includes(type)){const opts=Array.isArray(f.options)?f.options:[];return '<label>'+label+mark+'<select name="'+key+'"'+req+'><option value="">Изабери</option>'+opts.map(o=>{const v=typeof o==='string'?o:(o.value??o.label??''),t=typeof o==='string'?o:(o.label??o.value??'');return '<option value="'+esc(v)+'">'+esc(t)+'</option>';}).join('')+'</select></label>';}
+   const inputType=type==='phone'?'tel':type==='email'?'email':type==='number'?'number':type==='date'?'date':type==='url'?'url':'text';
+   return '<label>'+label+mark+'<input name="'+key+'" type="'+inputType+'"'+req+' maxlength="500" placeholder="'+ph+'"></label>';
+  };
+  async function showSupportForm(option){
+   const fr=await db.from('support_option_fields').select('*').eq('support_option_id',option.id).eq('is_active',true).order('order_number');if(fr.error)throw fr.error;
+   const fields=fr.data||[],extra=fields.map(renderField).join('')+(option.allow_custom_message!==false?'<label>Додатна порука (опционо)<textarea name="custom_message" maxlength="2000"></textarea></label>':'');
+   openSheet(option.label||'Подршка кампањи',option.description||option.short_description||'Изабери како можеш да помогнеш овој кампањи.',formShell(extra));
    const form=document.getElementById('campaignSupportForm');
-   if(type==='adoption'){
-    const intent=form.elements.adoption_intent,extra=document.getElementById('adoptionExtra');
-    const updateAdoption=()=>{extra.innerHTML=intent.value==='Желим да удомим пса'?'<label>Какве услове можеш да обезбедиш псу?<textarea name="home_conditions" required minlength="5" maxlength="1500"></textarea></label><label>Да ли си раније имао/имала пса?<select name="dog_experience"><option>Да</option><option>Не</option></select></label><label>Да ли већ имаш друге животиње?<input name="other_animals" maxlength="180"></label>':intent.value==='Тражим дом за пса или штенце'?'<label>Колико паса/штеца тражи дом? *<input name="dog_count" required maxlength="50"></label><label>Старост и пол паса<textarea name="dog_age_sex" required maxlength="500"></textarea></label><label>Опис пса/штеца и околности<textarea name="dog_description" required minlength="5" maxlength="1800"></textarea></label><label>Где се пас тренутно налази? *<input name="dog_location" required maxlength="180"></label>':'';};
-    intent.addEventListener('change',updateAdoption);
-   }
-   form.addEventListener('submit',async e=>{
-    e.preventDefault();if(!form.reportValidity())return;
-    const button=form.querySelector('button[type="submit"]'),message=form.querySelector('.support-submit-message'),fd=new FormData(form);
-    button.disabled=true;button.textContent='Шаљем пријаву…';
-    const data={};fd.forEach((v,k)=>{if(k!=='consent'&&k!=='name'&&k!=='phone'&&k!=='place')data[k]=v;});
-    const person=String(fd.get('name')||'').trim(),phone=String(fd.get('phone')||'').trim(),place=String(fd.get('place')||'').trim();
-    const subject=type==='action'?String(fd.get('title')||'').trim():supportType+' — '+c.title;
-    const fieldLabels={amount:'Износ',payment_method:'Начин уплате',note:'Напомена',item:'Шта поклања',quantity:'Количина',condition:'Стање',delivery:'Достава',help_kind:'Врста помоћи',details:'Опис помоћи',frequency:'Учесталост',volunteer_area:'Област волонтирања',skills:'Знања и вештине',availability:'Доступно време',schedule:'Термин',adoption_intent:'Намера',home_conditions:'Услови за пса',dog_experience:'Искуство са псима',other_animals:'Друге животиње',dog_count:'Број паса',dog_age_sex:'Старост и пол',dog_description:'Опис пса',dog_location:'Локација пса',goal:'Циљ акције',action_date:'Предложени датум',needs:'Потребе за реализацију',join_info:'Како се други прикључују'};
-    const readableDetails=Object.entries(data).map(([key,value])=>(fieldLabels[key]||key)+': '+value).join('\\n');
-    const description=type==='action'?String(fd.get('details')||'').trim():'Пријава за кампању „'+c.title+'“.\\n'+readableDetails;
-    const payload={submission_type:submissionType,title:subject,description:description,full_name:person,phone:phone,viber_phone:phone,location:place||null,support_type:supportType,social_links:{source:'kampanja.html',kind:'campaign_support',campaign_id:c.id,campaign_title:c.title,form_type:type,form_data:data},status:'new'};
-    try{
-     let result;
-     if(type==='action'){
-      const known=!!fd.get('action_date');
-      result=await db.from('action_proposals').insert({title:String(fd.get('title')||'').trim(),description:String(fd.get('details')||'').trim(),location:String(fd.get('location')||'').trim()||null,proposer_name:person,proposer_phone:phone,proposer_email:null,proposer_viber:phone,proposer_social:{source:'kampanja.html',campaign_id:c.id,campaign_title:c.title,needs:String(fd.get('needs')||''),join_info:String(fd.get('join_info')||'')},goal:String(fd.get('goal')||'').trim()||null,date_known:known,action_date:known?fd.get('action_date'):null,action_time:null,campaign_id:c.id,status:'pending'});
-     }else{
-      result=await db.from('civic_submissions').insert(payload);
-     }
-     if(result.error)throw result.error;
-     form.innerHTML='<div style="padding:12px 0;color:#16834b;font-weight:750" role="status">Пријава је успешно сачувана. Стигла је у Контролни центар и биће прегледана. Хвала ти!</div><button type="button" id="supportDone">Затвори</button>';
-     document.getElementById('supportDone').onclick=closeSheet;
-    }catch(err){console.error('Пријава није сачувана:',err);message.textContent='Пријава није сачувана. Покушај поново.';message.style.color='#b42318';button.disabled=false;button.textContent='Пошаљи пријаву';}
+   form.addEventListener('submit',async e=>{e.preventDefault();if(!form.reportValidity())return;const fd=new FormData(form),btn=form.querySelector('button[type="submit"]'),msg=form.querySelector('.support-submit-message');btn.disabled=true;btn.textContent='Шаљем пријаву…';
+    const name=String(fd.get('name')||'').trim(),phone=String(fd.get('phone')||'').trim(),place=String(fd.get('place')||'').trim(),data={};fd.forEach((v,k)=>{if(!['consent','name','phone','place'].includes(k))data[k]=v;});
+    const details=fields.map(f=>{const v=data[fieldName(f.field_key)];return v?String(f.label||f.field_key)+': '+v:null;}).filter(Boolean);if(data.custom_message)details.push('Напомена: '+data.custom_message);
+    const result=await db.from('civic_submissions').insert({submission_type:'help',title:(option.label||'Подршка')+' — '+c.title,description:'Пријава за кампању „'+c.title+'“.\n'+details.join('\n'),full_name:name,phone,viber_phone:phone,location:place||null,support_type:option.label,social_links:{source:'kampanja.html',kind:'campaign_support',campaign_id:c.id,campaign_title:c.title,support_option_id:option.id,support_option_type:option.type,form_data:data},status:'new'});
+    if(result.error){console.error(result.error);msg.textContent='Пријава није послата. Покушај поново.';msg.style.color='#b42318';btn.disabled=false;btn.textContent='Пошаљи пријаву';return;}
+    form.innerHTML='<p role="status" style="color:#16834b;font-weight:750">Пријава је успешно сачувана. Хвала ти!</p><button type="button" id="supportDone">Затвори</button>';document.getElementById('supportDone').onclick=closeSheet;
    });
   }
-  window.openCampaignActionProposal=()=>showSupportForm('action');
-  window.openSupportChooser=()=>{
-   const cards=categories.map(x=>'<button class="support-launch" type="button" onclick="showCampaignSupportForm(&quot;'+x.id+'&quot;)"><span class="support-icon"><i class="fas '+x.icon+'"></i></span><span><strong>'+x.title+'</strong><small>'+x.desc+'</small></span></button>').join('');
-   openSheet('Како желиш да се укључиш?','Изабери начин на који можеш да помогнеш кампањи.', '<div class="support-options">'+cards+'</div>');
+  function openActionProposalForm(){
+   const fields='<label>Назив акције *<input name="title" required maxlength="140"></label><label>Место акције<input name="location" maxlength="180"></label><label>Шта желиш да урадиш? *<textarea name="details" required minlength="10" maxlength="3000"></textarea></label><label>Шта је потребно за реализацију?<textarea name="needs" maxlength="1500"></textarea></label>';
+   openSheet('Покрени своју акцију','Предложи конкретну акцију у оквиру кампање „'+c.title+'“.',formShell(fields));
+   const form=document.getElementById('campaignSupportForm');form.addEventListener('submit',async e=>{e.preventDefault();if(!form.reportValidity())return;const fd=new FormData(form),btn=form.querySelector('button[type="submit"]'),msg=form.querySelector('.support-submit-message');btn.disabled=true;btn.textContent='Шаљем предлог…';const result=await db.from('action_proposals').insert({title:String(fd.get('title')||'').trim(),description:String(fd.get('details')||'').trim(),location:String(fd.get('location')||'').trim()||null,proposer_name:String(fd.get('name')||'').trim(),proposer_phone:String(fd.get('phone')||'').trim(),proposer_viber:String(fd.get('phone')||'').trim(),proposer_social:{source:'kampanja.html',campaign_id:c.id,campaign_title:c.title,needs:String(fd.get('needs')||'')},campaign_id:c.id,status:'pending'});if(result.error){msg.textContent='Предлог није послат. Покушај поново.';msg.style.color='#b42318';btn.disabled=false;btn.textContent='Пошаљи пријаву';return;}form.innerHTML='<p role="status">Предлог је успешно послат. Хвала ти!</p><button type="button" id="supportDone">Затвори</button>';document.getElementById('supportDone').onclick=closeSheet;});
+  }
+  window.openCampaignActionProposal=openActionProposalForm;
+  window.openSupportChooser=async()=>{
+   try{const res=await db.from('support_options').select('id,label,type,short_description,description,icon,order_number,allow_custom_message').eq('campaign_id',c.id).eq('is_active',true).eq('is_public',true).eq('approval_status','approved').order('order_number');if(res.error)throw res.error;const options=res.data||[];
+    if(!options.length){openSheet('Начини учешћа','За ову кампању начини помоћи још нису објављени.','<p>Тренутно нема објављених начина учешћа. Можеш да предложиш акцију.</p>');return;}
+    const cards=options.map(o=>'<button class="support-launch" type="button" data-support-option="'+esc(o.id)+'"><span class="support-icon"><i class="fas '+esc(o.icon||'fa-hand-holding-heart')+'"></i></span><span><strong>'+esc(o.label)+'</strong><small>'+esc(o.short_description||o.description||'Погледај како можеш да помогнеш.')+'</small></span></button>').join('');
+    openSheet('Како желиш да се укључиш?','Изабери начин на који можеш да помогнеш кампањи „'+c.title+'“.','<div class="support-options">'+cards+'</div>');
+    document.querySelectorAll('[data-support-option]').forEach(b=>b.addEventListener('click',()=>{const o=options.find(x=>x.id===b.dataset.supportOption);if(o)showSupportForm(o).catch(err=>{console.error(err);openSheet('Грешка','Образац тренутно није доступан.','Покушај поново касније.');});}));
+   }catch(err){console.error(err);openSheet('Начини учешћа','Тренутно није могуће учитати начине помоћи.','Покушај поново касније.');}
   };
-  window.showCampaignSupportForm=showSupportForm;
-  const oldProposal=document.getElementById('openCampaignProposal');
+const oldProposal=document.getElementById('openCampaignProposal');
   if(oldProposal)oldProposal.addEventListener('click',()=>showSupportForm('action'));
   const bar=document.createElement('div');bar.className='campaign-joinbar';bar.innerHTML='<button class="campaign-cta" type="button" id="supportCampaignButton">Подржи кампању</button>';document.body.appendChild(bar);
   document.getElementById('supportCampaignButton').addEventListener('click',window.openSupportChooser);
