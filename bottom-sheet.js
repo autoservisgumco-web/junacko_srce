@@ -1,3 +1,11 @@
+/* HTML омотач заједничког панела — убацује се пре повезивања његових контрола. */
+document.body.insertAdjacentHTML('beforeend', `<div class="sheet-backdrop" id="sheetBackdrop" hidden></div>
+<section class="bottom-sheet" id="bottomSheet" role="dialog" aria-modal="true" aria-hidden="true" hidden>
+<div class="sheet-handle" aria-hidden="true"><span></span></div>
+<div class="sheet-top" id="sheetTop"><div class="sheet-top-row"><button class="sheet-back" id="sheetBack" type="button" aria-label="Назад" hidden>←</button><span class="sheet-kicker" id="sheetKicker"></span><span class="sheet-title" id="sheetTitle"></span><button class="sheet-close" id="closeSheet" type="button" aria-label="Затвори">×</button></div><div class="sheet-heading" id="sheetHeading" hidden><h2 id="sheetHeadingTitle"></h2><p id="sheetDescription"></p></div></div>
+<div class="sheet-content" id="sheetContent"></div>
+</section>`);
+
 /* Заједнички садржај за bottom sheet — index.html обезбеђује сам панел и setJoinHeader(). */
 (function(){
  'use strict';
