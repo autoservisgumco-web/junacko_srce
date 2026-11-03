@@ -45,7 +45,7 @@
 @media(max-width:650px){.support-fields{grid-template-columns:1fr}.support-full{grid-column:auto}}
 @media(max-width:650px){.support-main{padding:27px 16px 60px}.support-grid{grid-template-columns:1fr}.support-hero{padding:42px 18px}.support-hero p{font-size:16px}}
 
-.support-main{background:#f5f8fc}
+.join-choice-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:22px 0}.join-choice{display:flex;flex-direction:column;gap:7px;text-align:left;padding:18px;border:1px solid #cbd9e5;border-radius:13px;background:#fff;color:#061a35;cursor:pointer;font:inherit;min-height:100px}.join-choice strong{font-size:17px}.join-choice span{font-size:14px;line-height:1.45;color:#52677d}.join-choice.active{border:2px solid #2166f3;background:#edf5ff}@media(max-width:600px){.join-choice-grid{grid-template-columns:1fr}.join-choice{min-height:0;padding:15px}}\n.support-main{background:#f5f8fc}
 .support-section{margin:0 0 58px}
 .support-section-head{max-width:850px;margin:0 0 22px}
 .support-section-head .support-kicker{color:#2166f3}
@@ -116,7 +116,7 @@
 <div class="support-field support-full"><label for="supportType">Како желиш да помогнеш? *</label><select id="supportType" name="support_type" required><option value="Физичко учешће" selected>Време и рад</option><option value="Физичко учешће">Физичким учешћем и својим временом</option><option value="Знање и стручна помоћ">Знањем и стручном помоћи</option><option value="Материјална подршка">Материјалом, алатом или опремом</option><option value="Финансијска подршка">Финансијском подршком</option><option value="Предлог и сарадња">Предлог и сарадња</option></select></div>
 <div class="support-field support-full"><label for="supportDescription">Напиши како конкретно можеш да помогнеш</label><textarea id="supportDescription" name="description" rows="4" maxlength="2500" placeholder="На пример: могу да помогнем превозом, алатом, материјалом, стручним знањем..."></textarea></div>
 </div><button class="support-btn" id="supportSubmit" type="submit">Пошаљи пријаву</button><p id="supportMessage" class="support-message" role="status" aria-live="polite"></p>
-</form></section>
+</form><script>\n(()=>{const grid=document.getElementById("joinChoiceGrid");if(!grid)return;const select=document.getElementById("supportType"),area=document.getElementById("supportDescription"),label=document.querySelector("label[for=supportDescription]");const hints={"Физичко учешће":"У којим акцијама или пословима желиш да учествујеш?","Знање и стручна помоћ":"Које знање, вештине или искуство можеш да понудиш?","Материјална подршка":"Шта можеш да обезбедиш — алат, опрему, материјал, превоз...?","Финансијска подршка":"Напиши ако имаш питање или предлог у вези са финансијском подршком.","Предлог и сарадња":"Опиши своју идеју или предлог."};grid.addEventListener("click",e=>{const b=e.target.closest(".join-choice");if(!b)return;grid.querySelectorAll(".join-choice").forEach(x=>x.classList.toggle("active",x===b));select.value=b.dataset.value;label.textContent=hints[b.dataset.value]||"Како желиш да помогнеш?";area.placeholder=hints[b.dataset.value]||"Напиши на који начин можеш да допринесеш...";});})();\n</script>\n</section>
 </div>
 <section class="support-note" id="prijava-podrske" style="display:none">
 <h2>Желиш да будеш део Одговорне Плане?</h2>
