@@ -60,12 +60,15 @@ body.campaign-page .content-back{display:none}
  const itemCard=(title,description,meta='')=>'<article class="campaign-item"><strong>'+esc(title)+'</strong>'+(description?'<p>'+esc(description)+'</p>':'')+(meta?'<div class="item-meta">'+esc(meta)+'</div>':'')+'</article>';
  if(!param){root.innerHTML='<div class="campaign-empty">Није изабрана кампања.</div>';return;}
  try{
+  if(!db){throw new Error('Веза са базом података није покренута. Освежи страницу и покушај поново.');}
+  const withTimeout=(promise,ms,label)=>Promise.race([promise,new Promise((_,reject)=>setTimeout(()=>reject(new Error(label+' — истекло је време чекања.')),ms))]);
   let q=db.from('campaigns').select('*').eq('is_published',true);
   q=param.match(/^[0-9a-f-]{36}$/i)?q.eq('id',param):q.eq('slug',param);
-  const {data:c,error}=await q.maybeSingle();if(error)throw error;
+  const {data:c,error}=await withTimeout(q.maybeSingle(),12000,'Учитавање основних података кампање');if(error)throw error;
   if(!c){root.innerHTML='<div class="campaign-empty">Кампања није пронађена или није објављена.</div>';return;}
   document.title=c.title+' — Одговорна Плана';
-  const [goalsRes,sectionsRes,activitiesRes,rolesRes,optionsRes,actionsRes,donationSettingsRes,donationItemsRes]=await Promise.all([
+  const emptyResult={data:[],error:{message:'Додатни подаци нису стигли на време.'}};
+  const detailQueries=Promise.all([
    db.from('campaign_goals').select('title,description,goal_type,target_value,current_value,order_number').eq('campaign_id',c.id).eq('is_active',true).order('order_number'),
    db.from('campaign_sections').select('section_type,title,subtitle,content,order_number').eq('campaign_id',c.id).eq('is_active',true).order('order_number'),
    db.from('campaign_activities').select('title,description,activity_type,status,activity_date,order_number').eq('campaign_id',c.id).eq('is_published',true).order('order_number'),
@@ -75,6 +78,8 @@ body.campaign-page .content-back{display:none}
    db.from('campaign_donations').select('*').eq('campaign_id',c.id).eq('is_active',true).maybeSingle(),
    db.from('campaign_donation_items').select('*').eq('campaign_id',c.id).eq('is_active',true).order('order_number')
   ]);
+  const detailResults=await Promise.race([detailQueries,new Promise(resolve=>setTimeout(()=>resolve(null),10000))]);
+  const [goalsRes,sectionsRes,activitiesRes,rolesRes,optionsRes,actionsRes,donationSettingsRes,donationItemsRes]=detailResults||Array(8).fill(emptyResult);
   const optional=(name,r)=>{if(r.error){console.warn('Не могу да учитам '+name+':',r.error);return [];}return r.data||[];};
   const goals=optional('циљеве',goalsRes),sections=optional('секције',sectionsRes),activities=optional('активности',activitiesRes),roles=optional('начине подршке',rolesRes),options=optional('опције волонтера',optionsRes),actions=optional('акције',actionsRes),donationSettings=donationSettingsRes.data||null,donationItems=optional('ставке донација',donationItemsRes);
   const progress=Math.max(0,Math.min(100,Number(c.progress_percent)||0));
