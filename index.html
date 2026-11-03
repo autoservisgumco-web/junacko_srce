@@ -20,7 +20,7 @@
 @media(max-width:760px){.site-header{height:100px;padding:14px 18px}.brand-heart{font-size:54px}.site-brand{font-size:23px}.site-nav{gap:14px}.site-nav a{font-size:13px}.hero-full{padding-top:112px}.hero-inner{min-height:calc(100svh - 130px)}}
 @media(max-width:390px){.site-header{align-items:flex-start;height:94px}.site-nav{gap:10px;padding-top:10px}.site-nav a{font-size:11px}.brand-heart{font-size:43px}.site-brand{font-size:19px}}
 body.home-hero{min-height:100vh;overflow-x:hidden;background:#061A35}
-body.home-hero .site-status-notice,body.home-hero .site-bottom-nav{display:none!important}
+body.home-hero .site-status-notice{display:none!important}
 /* Почетна је улазни екран: додатни садржаји отварају се на засебним страницама. */
 body.home-hero .home-project-summary,body.home-hero .contribute-section,body.home-hero .home-live-section,body.home-hero .bottom,body.home-hero footer{display:none!important}
 .hero-full{position:relative;min-height:100svh;height:100vh;height:100dvh;padding:54px max(6.8vw,24px) 42px;display:flex;align-items:center;justify-content:flex-start;background:linear-gradient(90deg,rgba(3,27,59,.98) 0%,rgba(3,35,73,.94) 34%,rgba(3,35,73,.58) 58%,rgba(3,20,42,.12) 100%),linear-gradient(0deg,rgba(3,15,34,.42),transparent 55%),url('https://raw.githubusercontent.com/autoservisgumco-web/junacko_srce/refs/heads/main/Velika_Plana%2B.jpg') center/cover no-repeat;text-align:left}
@@ -540,7 +540,7 @@ async function loadSingleAction(){
  if(result.error||!action){view.innerHTML='<div class="single-action-loading">Ова акција тренутно није доступна.</div>';return;}
  document.title=action.title+' — Одговорна Плана';
  let participantCount=null;
- try{const countResult=await civicDb.from('civic_submissions').select('id',{count:'exact',head:true}).eq('submission_type','help').contains('social_links',{action_id:action.id}).eq('status','accepted');if(!countResult.error)participantCount=countResult.count||0;}catch(_){}
+ try{const countResult=await civicDb.from('support_applications').select('id',{count:'exact',head:true}).eq('action_id',action.id).eq('status','accepted');if(!countResult.error)participantCount=countResult.count||0;}catch(_){}
  const date=action.action_date?new Date(action.action_date+'T12:00:00').toLocaleDateString('sr-RS'):'';
  const active=action.status!=='completed';
  const location=action.location||'';
@@ -612,13 +612,20 @@ function showSubmitMessage(id,text,isError=false){
  el.scrollIntoView({behavior:'smooth',block:'nearest'});
 }
 document.getElementById('joinForm').addEventListener('submit',async event=>{
- event.preventDefault();const form=event.currentTarget;const btn=form.querySelector('button[type="submit"]');btn.disabled=true;btn.textContent='Слање...';
- const actionId=document.getElementById('joinActionId').value;const actionTitle=document.getElementById('joinActionTitle').value;
- const payload={submission_type:'help',title:'Пријава за акцију: '+actionTitle,description:(document.getElementById('joinHelp').value.trim()||'Жели да се придружи акцији.')+'\\nНачин прикључења: '+document.getElementById('joinMethod').value,full_name:document.getElementById('joinName').value.trim(),phone:document.getElementById('joinPhone').value.trim(),viber_phone:document.getElementById('joinPhone').value.trim(),support_type:document.getElementById('joinMethod').value,social_links:{action_id:actionId,action_title:actionTitle},status:'new'};
- const {error}=await civicDb.from('civic_submissions').insert(payload);
- btn.disabled=false;btn.textContent='Пошаљи пријаву';
- if(error){showSubmitMessage('joinMessage','Пријава није послата. Проверите интернет везу и покушајте поново.',true);return;}
- form.reset();showJoinSuccess();
+ event.preventDefault();const form=event.currentTarget;if(!form.reportValidity())return;
+ const btn=form.querySelector('button[type="submit"]');btn.disabled=true;btn.textContent='Слање...';
+ const actionId=document.getElementById('joinActionId').value;
+ const method=document.getElementById('joinMethod').value;
+ const note=document.getElementById('joinHelp').value.trim();
+ const payload={action_id:actionId,full_name:document.getElementById('joinName').value.trim(),phone:document.getElementById('joinPhone').value.trim(),message:'Начин прикључења: '+method+(note?'\\n'+note:''),form_data:{participation_method:method},status:'new',source:'website'};
+ try{
+  const {error}=await civicDb.from('support_applications').insert(payload);
+  if(error)throw error;
+  form.reset();showJoinSuccess();
+ }catch(error){
+  console.error('Грешка при слању пријаве за акцију:',error);
+  showSubmitMessage('joinMessage','Пријава није послата. Проверите интернет везу и покушајте поново.',true);
+ }finally{btn.disabled=false;btn.textContent='Пошаљи пријаву';}
 });
 document.getElementById('membershipForm').addEventListener('submit',async event=>{
  event.preventDefault();const form=event.currentTarget;const btn=form.querySelector('button[type="submit"]');btn.disabled=true;btn.textContent='Слање...';
@@ -782,7 +789,6 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')hidePanels()});
 bottomSheet.addEventListener('touchstart',e=>{sheetTouchY=e.touches[0].clientY},{passive:true});
 bottomSheet.addEventListener('touchend',e=>{if(e.changedTouches[0].clientY-sheetTouchY>90&&sheetContent.scrollTop===0)hidePanels()},{passive:true});
 </script>
-  <script src="bottom-nav.js"></script>
-<script src="/bottom-nav.js"></script>
+  <script src="/bottom-nav.js"></script>
 <script src="/shared-proposal-modal.js"></script>
 </body></html>
