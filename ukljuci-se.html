@@ -62,72 +62,46 @@ footer{background:#041329;color:#d4e1f3;text-align:center;padding:24px;font-size
 
 .support-feature{margin:38px 0 12px;padding:clamp(24px,4vw,38px);border-radius:26px;background:linear-gradient(120deg,#061a35,#0d3263 72%,#123e75);color:#fff;box-shadow:0 16px 34px #061a3518}.support-feature .support-kicker{font-size:12px;letter-spacing:2px;font-weight:850;color:#a9d5ff;margin-bottom:12px}.support-feature h2{font-size:clamp(25px,3.4vw,36px);line-height:1.18;color:#fff;margin:0 0 14px;max-width:820px}.support-feature>p{font-size:clamp(16px,2vw,19px);line-height:1.7;color:#e0edf8;max-width:850px;margin:0 0 26px}.support-feature-actions{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:28px}.support-feature-actions a{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;border-radius:11px;padding:13px 20px;font-weight:850}.support-feature-actions .primary{background:#2166f3;color:#fff}.support-feature-actions .secondary{background:#041a36;color:#fff}.support-product{display:flex;align-items:center;gap:20px;background:#fff;color:#061a35;text-decoration:none;border-radius:22px;padding:18px 22px;max-width:820px;box-shadow:0 8px 22px #0002}.support-product-icon{width:92px;height:92px;flex:0 0 92px;border-radius:20px;background:#e8f1ff;color:#2166f3;display:grid;place-items:center;font-size:48px}.support-product-info{display:flex;align-items:center;justify-content:space-between;gap:18px;flex:1;flex-wrap:wrap}.support-product-info strong{display:block;font-size:clamp(17px,2.2vw,23px)}.support-product-info small{display:block;color:#718096;font-size:15px;margin-top:5px}.support-product-info b{color:#c3263b;font-size:clamp(20px,2.5vw,26px);white-space:nowrap}@media(max-width:600px){.support-feature{padding:23px 18px}.support-product{align-items:flex-start;gap:13px;padding:14px}.support-product-icon{width:64px;height:64px;flex-basis:64px;font-size:36px;border-radius:15px}.support-product-info{align-items:flex-start;flex-direction:column;gap:7px}.support-product-info small{font-size:13px}}
 @media(max-width:600px){#movementJoinForm>div{grid-template-columns:1fr!important}#movementJoinForm label{grid-column:1!important}}
+
+/* Једноставна навигација унутар странице „Укључи се“ */
+.join-page{width:min(900px,calc(100% - 36px));margin:0 auto 70px}.join-intro{padding:clamp(38px,7vw,76px) 0 30px}.join-kicker,.join-sheet-kicker{font-size:11px;letter-spacing:2px;font-weight:850;color:#2166f3}.join-intro h1{font-size:clamp(38px,7vw,62px);line-height:1.05;letter-spacing:-1.5px;color:#061a35;margin:12px 0}.join-intro p{font-size:clamp(16px,2.4vw,19px);color:#526780;max-width:700px;margin:0}.join-options{background:#fff;border:1px solid #dce5f0;border-radius:18px;overflow:hidden;box-shadow:0 12px 32px #061a350a}.join-option{width:100%;display:flex;align-items:center;gap:18px;padding:24px 25px;border:0;border-bottom:1px solid #e6edf5;background:#fff;text-align:left;cursor:pointer;color:#061a35;transition:background .18s}.join-option:last-child{border-bottom:0}.join-option:hover,.join-option:focus-visible{background:#f3f7fd;outline:none}.join-option-number{width:42px;height:42px;flex:0 0 42px;border-radius:50%;display:grid;place-items:center;background:#e8f1ff;color:#2166f3;font-weight:900}.join-option-copy{display:flex;flex-direction:column;gap:4px;flex:1}.join-option-copy strong{font-size:clamp(19px,2.8vw,24px);line-height:1.2}.join-option-copy small{font-size:14px;color:#60748b;line-height:1.5}.join-option-arrow{font-size:25px;color:#2166f3}.join-note{font-size:14px;color:#718096;text-align:center;margin:22px auto 0}.join-sheet-backdrop{position:fixed;inset:0;background:#031329a8;z-index:1100;opacity:0;transition:opacity .22s}.join-sheet-backdrop.open{opacity:1}.join-sheet{position:fixed;z-index:1101;left:50%;bottom:0;transform:translate(-50%,105%);width:min(100%,1000px);height:min(88vh,900px);background:#fff;border-radius:22px 22px 0 0;box-shadow:0 -16px 50px #00152c40;display:flex;flex-direction:column;overflow:hidden;transition:transform .28s ease}.join-sheet.open{transform:translate(-50%,0)}.join-sheet-head{flex:0 0 auto;min-height:76px;display:flex;align-items:center;justify-content:space-between;padding:13px 22px;background:#061a35;color:#fff}.join-sheet-head h2{font-size:21px;margin:2px 0 0;color:#fff}.join-sheet-kicker{color:#9dcaff;font-size:9px}.join-sheet-head button{width:42px;height:42px;border:0;border-radius:50%;background:#ffffff18;color:#fff;font-size:30px;cursor:pointer}.join-sheet-content{position:relative;flex:1;min-height:0;overflow:auto;background:#f1f5f9}.join-sheet-content iframe{display:block;width:100%;height:100%;min-height:400px;border:0;background:#f1f5f9}.join-sheet-content #joinStartChoices{padding:28px;max-width:680px;margin:auto}.join-sheet-content #joinStartChoices p{color:#405873;font-size:16px;line-height:1.7;margin:0 0 22px}.join-start-button{display:block;width:100%;padding:15px 18px;margin:10px 0;border:0;border-radius:11px;background:#2166f3;color:#fff;font-weight:800;font-size:15px;cursor:pointer}.join-start-button.secondary{background:#061a35}@media(max-width:600px){.join-page{width:calc(100% - 28px)}.join-intro{padding-top:38px}.join-option{padding:19px 16px;gap:13px}.join-option-number{width:36px;height:36px;flex-basis:36px}.join-option-copy small{font-size:13px}.join-sheet{height:94vh;border-radius:17px 17px 0 0}.join-sheet-head{padding:12px 17px}}
 </style>
   <link rel="stylesheet" href="/stranice.css"><link rel="stylesheet" href="/bottom-nav.css">
 
 </head>
 <body>
 <header class="site-header"><a class="site-brand" href="/index.html" aria-label="Одговорна Плана — почетна"><span class="brand-heart">♡</span><span>Одговорна<br>Плана</span></a><nav class="site-nav" aria-label="Главна навигација"><a href="/index.html">Почетна</a><a href="/kampanje.html">Кампање</a><a href="/akcije.html">Акције</a><a href="/ukljuci-se.html" aria-current="page">Укључи се</a></nav><button class="menu-trigger" id="openMenu" type="button" aria-label="Отвори мени">☰</button></header><div class="menu-backdrop" id="menuBackdrop" hidden></div><aside class="side-menu" id="sideMenu" aria-hidden="true"><div class="side-menu-head"><span>♡ Одговорна Плана</span><button class="side-menu-close" id="closeMenu" type="button" aria-label="Затвори мени">×</button></div><nav aria-label="Мени"><a href="/o-nama.html">О нама</a><a href="/kako-funkcionise.html">Како функционише платформа</a><a href="/kontakt.html">Контакт</a></nav></aside>
-<main>
-<section class="choice">
- <div class="choice-top"><span class="num">♡</span><h2>Шта је Одговорна Плана?</h2></div>
- <p>Одговорна Плана је простор за повезивање и умрежавање људи који желе да учествују у животу своје заједнице. Сви примећујемо проблеме у својој улици, насељу или граду. Често знамо да нешто треба променити, али не знамо коме да се обратимо, како да покренемо решавање или где да пронађемо људе који би нам помогли.</p>
-<section class="support">
- <h2>Не знаш одакле да почнеш?</h2>
- <p>Погледај постојеће кампање и акције. Можда је неко већ покренуо тему која ти је важна и можеш да му се придружиш. Ако није, размисли да ли желиш да окупиш људе око кампање или да покренеш конкретну акцију.</p>
+<main class="join-page">
+<section class="join-intro">
+  <span class="join-kicker">ОДГОВОРНА ПЛАНА · ЗАЈЕДНИЧКО ДЕЛОВАЊЕ</span>
+  <h1>Укључи се.</h1>
+  <p>Свако може да допринесе на свој начин. Изабери шта те занима, погледај шта већ радимо или покрени нешто ново.</p>
 </section>
- <p>Зато смо направили место на коме можеш да покренеш кампању ако желиш да окупиш људе око шире теме, или акцију ако желиш да предузмеш конкретан корак. Можеш и да се придружиш кампањама и акцијама које су други већ покренули.</p>
- <div class="example"><strong>Не мора један човек све сам.</strong><br>Један човек покрене тему, други зна коме треба да се обратимо, трећи има искуство, четврти може да издвоји време. Повезујемо се да бисмо оно што сами тешко можемо, урадили заједно.</div>
+<section class="join-options" aria-label="Начини укључивања">
+  <button class="join-option" type="button" data-panel-title="Кампање" data-panel-url="/kampanje.html">
+    <span class="join-option-number">01</span><span class="join-option-copy"><strong>Кампање</strong><small>Упознај теме око којих окупљамо људе и циљеве за које се залажемо.</small></span><span class="join-option-arrow" aria-hidden="true">↗</span>
+  </button>
+  <button class="join-option" type="button" data-panel-title="Акције" data-panel-url="/akcije.html">
+    <span class="join-option-number">02</span><span class="join-option-copy"><strong>Акције</strong><small>Погледај конкретне активности и пронађи начин да се прикључиш.</small></span><span class="join-option-arrow" aria-hidden="true">↗</span>
+  </button>
+  <button class="join-option" type="button" data-panel-title="Покрени нешто" data-panel="start">
+    <span class="join-option-number">03</span><span class="join-option-copy"><strong>Покрени нешто</strong><small>Имаш идеју или проблем који желиш да решиш? Направи први корак.</small></span><span class="join-option-arrow" aria-hidden="true">↗</span>
+  </button>
 </section>
-<section class="choice">
- <div class="choice-top"><span class="num">01</span><h2>Имаш проблем или идеју?</h2></div>
- <p>Можда си приметио запуштен простор, проблем у својој улици или нешто што недостаје у твом месту. Можда већ имаш предлог како би то могло да се промени. Први корак је да препознаш шта желиш да промениш и размислиш да ли је за то потребно окупити људе око шире теме или организовати конкретну активност.</p>
- <div class="example"><strong>Ако желиш да окупиш људе око ширег циља — покрени кампању.</strong><br>Ако желиш да се предузме конкретан корак — покрени акцију. А можеш и да се придружиш нечему што је већ покренуто.</div>
-</section>
-<section class="choice">
- <div class="choice-top"><span class="num">01</span><h2>Кампање које смо покренули</h2></div>
- <p>Понекад је за промену потребно више од једне акције. Потребно је покренути тему, окупити људе и повезати различите активности које воде ка истом циљу. Кампања повезује људе око шире теме и даје простор да се идеје претворе у конкретне кораке.</p>
- <div class="live-list">
-  <div class="live-list-heading"><h3>Погледај покренуте кампање</h3><p>Ако већ постоји кампања која ти је важна, можеш да јој се придружиш и допринесеш заједничком циљу.</p></div>
-  <div id="guideCampaigns" class="live-cards"><p class="loading">Учитавање кампања...</p></div>
- </div>
- <p>Ако већ постоји кампања која ти је важна, можеш да јој се придружиш. А ако имаш идеју око које треба окупити људе, можеш да покренеш сопствену кампању.</p><div class="buttons"><button class="btn open-campaign-proposal" type="button" data-open-form="campaign">＋ Покрени своју кампању</button></div>
-</section>
-
-<section class="choice">
- <div class="choice-top"><span class="num">03</span><h2>Акције — време је да нешто урадимо</h2></div>
- <p>Кампања окупља људе око ширег циља, а акција је конкретан корак којим покушавамо да тај циљ остваримо. То може бити уређење јавног простора, чишћење улице, помоћ комшији, прикупљање предлога или заједничко обраћање надлежнима.</p>
- <p>Погледај акције које су други већ покренули. Можеш да се прикључиш и понудиш своје време, знање, вештине, алат или контакте.</p>
- <div class="live-list">
-  <div class="live-list-heading"><h3>Погледај покренуте акције</h3><p>Пронађи акцију којој желиш да се придружиш и сазнај како можеш да помогнеш.</p></div>
-  <div id="guideActions" class="live-cards"><p class="loading">Учитавање акција...</p></div>
- </div>
- 
-</section>
-<p>Ако нека акција већ постоји, прикључи јој се. А ако желиш да се нешто конкретно уради, не чекај да то покрене неко други — покрени своју акцију и позови људе да ти се придруже.</p><div class="buttons"><button class="btn open-proposal" type="button" data-open-form="action">＋ Покрени своју акцију</button></div></section>
-<section class="support-feature" aria-labelledby="supportFeatureTitle">
-  <div class="support-kicker">05 · ПОДРШКА РАДУ</div>
-  <h2 id="supportFeatureTitle">Не можеш увек да будеш на терену? И даље можеш да будеш део ове приче.</h2>
-  <p>Рад можеш да подржиш куповином производа које припремамо. На тај начин помажеш да организујемо нове активности и наставимо заједнички рад.</p>
-  <div class="support-feature-actions"><a class="primary" href="/prodavnica.html">Отвори продавницу →</a><button class="secondary" type="button" data-open-form="support" style="border:0;cursor:pointer">Подржи рад удружења →</button></div>
-  <a class="support-product" href="/prodavnica.html" aria-label="Привезак Одговорна Плана, 150 динара — отвори продавницу"><span class="support-product-icon"><img src="https://hmfeizkmpmxcnzhwxgbn.supabase.co/storage/v1/object/public/Proizvodi/Privezak-plana.png" alt="Привезак са грбом Велике Плане" style="width:100%;height:100%;object-fit:contain;border-radius:15px"></span><span class="support-product-info"><span><strong>Привезак Одговорна Плана</strong><small>Привезак Одговорна Плана. Цена 150 динара.</small></span><b>150 дин.</b></span></a>
- </section>
-
-<section class="support" id="prijava-podrske" hidden>
-<h2>Подржи рад удружења Одговорна Плана</h2>
-<p>Остави нам контакт и напиши на који начин желиш да се укључиш. Јавићемо ти се да се упознамо и договоримо како можемо заједно да делујемо.</p>
-<form id="movementJoinForm" style="margin-top:20px">
-<div style="display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px">
-<label>Име и презиме *<input name="full_name" required maxlength="120" autocomplete="name" style="display:block;width:100%;padding:12px;border:1px solid #cbd9e5;border-radius:9px"></label>
-<label>Телефон *<input name="phone" type="tel" required maxlength="50" autocomplete="tel" placeholder="06x xxx xxxx" style="display:block;width:100%;padding:12px;border:1px solid #cbd9e5;border-radius:9px"></label>
-<label>Имејл адреса<input name="email" type="email" maxlength="180" autocomplete="email" style="display:block;width:100%;padding:12px;border:1px solid #cbd9e5;border-radius:9px"></label>
-<label>Место<input name="location" maxlength="180" placeholder="Насеље или место" style="display:block;width:100%;padding:12px;border:1px solid #cbd9e5;border-radius:9px"></label>
-<label style="grid-column:1/-1">Како желиш да помогнеш? *<select name="support_type" required style="display:block;width:100%;padding:12px;border:1px solid #cbd9e5;border-radius:9px"><option value="">Изабери начин укључивања</option><option value="Чланство и придруживање Покрету">Желим да подржим рад удружења Одговорна Плана</option><option value="Физичко учешће">Физичким учешћем и својим временом</option><option value="Знање и стручна помоћ">Знањем и стручном помоћи</option><option value="Материјална подршка">Материјалом, алатом или опремом</option><option value="Финансијска подршка">Финансијском подршком</option><option value="Друго">На други начин</option></select></label>
-<label style="grid-column:1/-1">Напиши како конкретно можеш да помогнеш<textarea name="description" rows="4" maxlength="2500" placeholder="На пример: могу да помогнем превозом, алатом, материјалом, стручним знањем..." style="display:block;width:100%;padding:12px;border:1px solid #cbd9e5;border-radius:9px"></textarea></label>
-</div>
-<button class="btn" type="submit" style="margin-top:18px">Пошаљи пријаву</button><p id="movementJoinMessage" role="status" aria-live="polite"></p>
-</form></section>
+<p class="join-note">Не мораш све да знаш унапред. Довољно је да препознаш шта желиш да промениш.</p>
 </main>
+<div class="join-sheet-backdrop" id="joinSheetBackdrop" hidden></div>
+<section class="join-sheet" id="joinSheet" role="dialog" aria-modal="true" aria-labelledby="joinSheetTitle" aria-hidden="true">
+  <div class="join-sheet-head"><div><span class="join-sheet-kicker">ОДГОВОРНА ПЛАНА</span><h2 id="joinSheetTitle">Кампање</h2></div><button type="button" id="joinSheetClose" aria-label="Затвори">×</button></div>
+  <div class="join-sheet-content" id="joinSheetContent">
+    <iframe id="joinSheetFrame" title="Садржај" loading="lazy"></iframe>
+    <div id="joinStartChoices" hidden>
+      <p>Изабери шта желиш да покренеш. Ако окупљаш људе око шире теме и циља, покрени кампању. Ако желиш да се предузме конкретан корак, покрени акцију.</p>
+      <button class="join-start-button" type="button" data-open-form="campaign">＋ Покрени кампању</button>
+      <button class="join-start-button secondary" type="button" data-open-form="action">＋ Покрени акцију</button>
+    </div>
+  </div>
+</section>
 
 <footer>ОДГОВОРНА ВЕЛИКА ПЛАНА · Место за заједничко деловање</footer>
 
@@ -184,4 +158,17 @@ document.getElementById('movementJoinForm')?.addEventListener('submit',async eve
 });
 </script>
 <script src="/shared-proposal-modal.js"></script>
+
+<script>
+(function(){
+ const sheet=document.getElementById('joinSheet'),backdrop=document.getElementById('joinSheetBackdrop'),frame=document.getElementById('joinSheetFrame'),title=document.getElementById('joinSheetTitle'),choices=document.getElementById('joinStartChoices');
+ if(!sheet||!backdrop||!frame||!title||!choices)return;
+ function openPanel(label,url,kind){title.textContent=label;const isStart=kind==='start';frame.hidden=isStart;choices.hidden=!isStart;if(isStart){frame.removeAttribute('src');}else{frame.src=url;}backdrop.hidden=false;requestAnimationFrame(()=>{backdrop.classList.add('open');sheet.classList.add('open');sheet.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';});}
+ function closePanel(){sheet.classList.remove('open');backdrop.classList.remove('open');sheet.setAttribute('aria-hidden','true');document.body.style.overflow='';setTimeout(()=>{backdrop.hidden=true;frame.removeAttribute('src');},280);}
+ document.querySelectorAll('.join-option').forEach(btn=>btn.addEventListener('click',()=>openPanel(btn.dataset.panelTitle,btn.dataset.panelUrl,btn.dataset.panel)));
+ document.getElementById('joinSheetClose').addEventListener('click',closePanel);backdrop.addEventListener('click',closePanel);
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&sheet.classList.contains('open'))closePanel();});
+ window.addEventListener('message',e=>{if(e.data&&e.data.type==='OP_CLOSE_JOIN_SHEET')closePanel();});
+})();
+</script>
 </body></html>
