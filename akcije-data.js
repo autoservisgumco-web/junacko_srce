@@ -1,4 +1,4 @@
-/* Заједничко учитавање активне, објављене акције. */
+/* Заједничко учитавање објављених акција. Статус не ограничава приказ. */
 (function () {
   const client = window.odgovornaPlanaDB;
   if (!client) throw new Error('Supabase конекција није иницијализована.');
@@ -7,7 +7,6 @@
     return await client
       .from('actions')
       .select('*')
-      .eq('status', 'in_progress')
       .eq('is_published', true)
       .order('created_at', { ascending: false });
   };
