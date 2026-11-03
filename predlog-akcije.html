@@ -105,9 +105,9 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
 <label class="choice"><input type="radio" name="date_known" value="false" checked><span>Термин још није одређен<small>Датум ћемо договорити касније.</small></span></label>
 <label class="choice"><input type="radio" name="date_known" value="true"><span>Знам датум акције<small>Унећу датум, а време само ако га знам.</small></span></label>
 <div id="dateFields" hidden>
+<p class="sub">Изабери датум када планираш акцију. На пример, ако планираш окупљање 15. новембра, изабери тај датум. Ако још не знаш тачан датум, врати се на опцију да термин није одређен.</p>
 <div class="field"><label for="action_date">Датум акције *</label><input id="action_date" name="action_date" type="date"></div>
-<label class="choice"><input type="checkbox" id="timeKnown"><span>Знам тачно време<small>Означи само ако знаш у колико сати почиње.</small></span></label>
-<div class="field" id="timeField" hidden><label for="action_time">Време почетка</label><input id="action_time" name="action_time" type="time"></div>
+<div class="field" id="timeField" hidden><label for="action_time">Време почетка <span class="hint">Није обавезно</span></label><input id="action_time" name="action_time" type="time"><p class="hint">На пример: 10:00. Ако још не знаш у колико сати почиње, остави празно.</p></div>
 </div>
 </section>
 <section class="wizard-step" data-step="4" hidden>
@@ -168,8 +168,9 @@ function updateDate(){
  const known=selectedDateKnown();
  dateFields.hidden=!known;
  $('action_date').required=known;
- $('timeField').hidden=!$('timeKnown').checked;
- $('action_time').required=$('timeKnown').checked;
+ $('action_date').addEventListener('change',updateDate);
+ $('timeField').hidden=!known||!$('action_date').value;
+ $('action_time').required=false;
 }
 function renderWizard(){
  wizardSteps.forEach((el,i)=>el.hidden=i!==wizardStep);
@@ -188,13 +189,11 @@ function validateStep(){
   if(field.id==='description'&&field.value.trim().length<10){field.reportValidity();return false;}
  }
  if(wizardStep===3&&selectedDateKnown()&&!$('action_date').value){$('action_date').reportValidity();return false;}
- if(wizardStep===3&&$('timeKnown').checked&&!$('action_time').value){$('action_time').reportValidity();return false;}
- return true;
+  return true;
 }
 $('wizardNext').addEventListener('click',()=>{if(!validateStep())return;wizardStep=Math.min(4,wizardStep+1);renderWizard();});
 $('wizardBack').addEventListener('click',()=>{wizardStep=Math.max(0,wizardStep-1);renderWizard();});
 form.querySelectorAll('input[name="date_known"]').forEach(x=>x.addEventListener('change',updateDate));
-$('timeKnown').addEventListener('change',updateDate);
 renderWizard();
 
 function showMessage(text,type){const m=$('message');m.textContent=text;m.className='message show '+type;}
@@ -214,7 +213,7 @@ form.addEventListener('submit',async e=>{
   goal:$('goal').value.trim()||null,
   date_known:known,
   action_date:known?$('action_date').value:null,
-  action_time:known&&$('timeKnown').checked?$('action_time').value:null,
+  action_time:known&&$('action_date').value&&$('action_time').value?$('action_time').value:null,
   status:'pending'
  };
  try{
