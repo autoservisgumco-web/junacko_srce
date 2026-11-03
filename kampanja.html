@@ -139,11 +139,51 @@ body.campaign-page .content-back{display:none}
   }
   window.submitCampaignSupport=(e,roleId,label,type)=>saveCampaignApplication(e,'campaign',roleId,label,{role_type:type});
   window.submitActionJoin=(e,actionId,title)=>saveCampaignApplication(e,'action',actionId,title,{});
-  window.openCampaignActionProposal=()=>{showSheet('Додај акцију за кампању','Предлог ће бити повезан са кампањом „'+esc(c.title)+'“.','<form class="support-form" id="campaignActionProposalForm"><label>Назив акције *<input name="title" required maxlength="140" placeholder="Шта желиш да покренемо?"></label><label>Место акције<input name="location" maxlength="180" placeholder="Насеље, улица или простор"></label><label>Опис предлога *<textarea name="description" required minlength="10" maxlength="3000" placeholder="Опиши шта треба урадити и зашто."></textarea></label><label>Шта желиш да постигнемо?<textarea name="goal" maxlength="2000" placeholder="Жељени резултат (није обавезно)"></textarea></label><label><input type="checkbox" name="date_known" value="true" style="width:auto"> Знам датум акције</label><div id="campaignActionDateFields" hidden><label>Датум акције *<input type="date" name="action_date"></label><label>Време почетка<input type="time" name="action_time"></label></div><label>Име и презиме *<input name="proposer_name" required maxlength="120" autocomplete="name"></label><label>Број телефона *<input name="proposer_phone" required type="tel" minlength="6" maxlength="30" autocomplete="tel"></label><label style="display:flex;align-items:flex-start;gap:9px;font-weight:500"><input type="checkbox" name="consent" required style="width:18px;flex:none">Сагласан/сагласна сам да се моји подаци користе ради контакта у вези са овим предлогом.</label><p class="support-submit-message" role="status" aria-live="polite"></p><button type="submit">Пошаљи предлог акције</button></form>');
-  const proposalForm=document.getElementById('campaignActionProposalForm');
-  const dateCheck=proposalForm.elements.date_known,dateWrap=document.getElementById('campaignActionDateFields'),dateInput=proposalForm.elements.action_date;
-  dateCheck.addEventListener('change',()=>{dateWrap.hidden=!dateCheck.checked;dateInput.required=dateCheck.checked;});
-  proposalForm.addEventListener('submit',async e=>{e.preventDefault();if(!proposalForm.reportValidity())return;const submit=proposalForm.querySelector('button[type="submit"]'),msg=proposalForm.querySelector('.support-submit-message');submit.disabled=true;submit.textContent='Шаљем предлог…';const f=new FormData(proposalForm),known=dateCheck.checked;const payload={title:String(f.get('title')||'').trim(),description:String(f.get('description')||'').trim(),location:String(f.get('location')||'').trim()||null,proposer_name:String(f.get('proposer_name')||'').trim(),proposer_phone:String(f.get('proposer_phone')||'').trim(),proposer_email:null,proposer_viber:null,proposer_social:{source:'kampanja.html',campaign_slug:c.slug||null},campaign_id:c.id,goal:String(f.get('goal')||'').trim()||null,date_known:known,action_date:known?f.get('action_date'):null,action_time:known?(f.get('action_time')||null):null,status:'pending'};try{const {error}=await db.from('action_proposals').insert(payload);if(error)throw error;proposalForm.innerHTML='<p role="status" style="color:#16834b;font-weight:750">Предлог акције је успешно послат. Хвала ти! Прегледаћемо га и јавити се ради договора.</p><button type="button" onclick="closeCampaignSheet()">Затвори</button>';}catch(err){console.error('Грешка при слању предлога акције:',err);msg.textContent='Предлог није послат. Покушај поново.';msg.style.color='#b42318';submit.disabled=false;submit.textContent='Пошаљи предлог акције';}});
+  window.openCampaignActionProposal=()=>{
+    const formHtml='<form class="support-form" id="campaignActionProposalForm"><label>Назив акције *<input name="title" required maxlength="140" placeholder="Шта желиш да покренемо?"></label><label>Место акције<input name="location" maxlength="180" placeholder="Насеље, улица или простор"></label><label>Опис предлога *<textarea name="description" required minlength="10" maxlength="3000" placeholder="Опиши шта треба урадити и зашто."></textarea></label><label>Шта желиш да постигнемо?<textarea name="goal" maxlength="2000" placeholder="Жељени резултат (није обавезно)"></textarea></label><label><input type="checkbox" name="date_known" value="true" style="width:auto"> Знам датум акције</label><div id="campaignActionDateFields" hidden><label>Датум акције *<input type="date" name="action_date"></label><label>Време почетка<input type="time" name="action_time"></label></div><label>Име и презиме *<input name="proposer_name" required maxlength="120" autocomplete="name"></label><label>Број телефона *<input name="proposer_phone" required type="tel" minlength="6" maxlength="30" autocomplete="tel"></label><label style="display:flex;align-items:flex-start;gap:9px;font-weight:500"><input type="checkbox" name="consent" required style="width:18px;flex:none">Сагласан/сагласна сам да се моји подаци користе ради контакта у вези са овим предлогом.</label><p class="support-submit-message" role="status" aria-live="polite"></p><button type="submit">Пошаљи предлог акције</button></form>';
+    showSheet('Додај акцију за кампању','Предлог ће бити повезан са кампањом „'+esc(c.title)+'“.',formHtml);
+    const form=document.getElementById('campaignActionProposalForm');
+    const dateCheck=form.elements.date_known;
+    const dateWrap=document.getElementById('campaignActionDateFields');
+    const dateInput=form.elements.action_date;
+    dateCheck.addEventListener('change',()=>{dateWrap.hidden=!dateCheck.checked;dateInput.required=dateCheck.checked;});
+    form.addEventListener('submit',async e=>{
+      e.preventDefault();
+      if(!form.reportValidity())return;
+      const submit=form.querySelector('button[type="submit"]');
+      const message=form.querySelector('.support-submit-message');
+      submit.disabled=true;
+      submit.textContent='Шаљем предлог…';
+      const values=new FormData(form);
+      const dateKnown=dateCheck.checked;
+      const payload={
+        title:String(values.get('title')||'').trim(),
+        description:String(values.get('description')||'').trim(),
+        location:String(values.get('location')||'').trim()||null,
+        proposer_name:String(values.get('proposer_name')||'').trim(),
+        proposer_phone:String(values.get('proposer_phone')||'').trim(),
+        proposer_email:null,
+        proposer_viber:null,
+        proposer_social:{source:'kampanja.html',campaign_slug:c.slug||null},
+        campaign_id:c.id,
+        goal:String(values.get('goal')||'').trim()||null,
+        date_known:dateKnown,
+        action_date:dateKnown?values.get('action_date'):null,
+        action_time:dateKnown?(values.get('action_time')||null):null,
+        status:'pending'
+      };
+      try{
+        const result=await db.from('action_proposals').insert(payload);
+        if(result.error)throw result.error;
+        form.innerHTML='<p role="status" style="color:#16834b;font-weight:750">Предлог акције је успешно послат. Хвала ти! Прегледаћемо га и јавити се ради договора.</p><button type="button" onclick="closeCampaignSheet()">Затвори</button>';
+      }catch(error){
+        console.error('Грешка при слању предлога акције:',error);
+        message.textContent='Предлог није послат. Покушај поново.';
+        message.style.color='#b42318';
+        submit.disabled=false;
+        submit.textContent='Пошаљи предлог акције';
+      }
+    });
   };
   function showSheet(title,subtitle,body){let o=document.getElementById('campaignOverlay');if(!o){o=document.createElement('div');o.id='campaignOverlay';o.className='campaign-overlay';o.innerHTML='<section class="campaign-sheet" role="dialog" aria-modal="true"><div class="sheet-head"><div><h2 id="sheetTitle"></h2><p id="sheetSubtitle"></p></div><button class="sheet-close" type="button" onclick="closeCampaignSheet()">×</button></div><div id="sheetBody"></div></section>';o.onclick=e=>{if(e.target===o)closeCampaignSheet()};document.body.appendChild(o)}o.querySelector('#sheetTitle').textContent=title;o.querySelector('#sheetSubtitle').textContent=subtitle;o.querySelector('#sheetBody').innerHTML=body;o.classList.add('open');document.body.style.overflow='hidden'}
   window.closeCampaignSheet=()=>{document.getElementById('campaignOverlay')?.classList.remove('open');document.body.style.overflow=''};
