@@ -1,6 +1,4 @@
-/* Заједничко учитавање јавних акција.
-   Видљивост контролише RLS политика према статусу акције;
-   не филтрирамо по is_published јер старије акције немају тај флаг укључен. */
+/* Заједничко учитавање активне, објављене акције. */
 (function () {
   const client = window.odgovornaPlanaDB;
   if (!client) throw new Error('Supabase конекција није иницијализована.');
@@ -9,6 +7,8 @@
     return await client
       .from('actions')
       .select('*')
+      .eq('status', 'in_progress')
+      .eq('is_published', true)
       .order('created_at', { ascending: false });
   };
 })();
