@@ -6,19 +6,31 @@
   nav.className='site-bottom-nav';
   nav.setAttribute('aria-label','Доња навигација');
   const items=[
-    ['/index.html','⌂','Почетна','/index.html'],
-    [onJoinPage?'#actionPanel':'/akcije.html','✓','Акције','/akcije.html'],
-    [onJoinPage?'#campaignPanel':'/kampanje.html','◎','Кампање','/kampanje.html'],
-    [onJoinPage?'#associationPanel':'/ukljuci-se.html#associationPanel','♡','Подршка удружењу','/ukljuci-se.html']
+    {href:'/index.html',icon:'⌂',label:'Почетна',target:'/index.html'},
+    {href:'/akcije.html',icon:'✓',label:'Акције',target:'/akcije.html',sheet:'action'},
+    {href:'/kampanje.html',icon:'◎',label:'Кампање',target:'/kampanje.html',sheet:'campaign'},
+    {href:'/podrska.html',icon:'♡',label:'Подршка',target:'/podrska.html',sheet:'support'}
   ];
-  items.forEach(([href,icon,label,target],index)=>{
-    const a=document.createElement('a');a.href=href;
-    a.innerHTML=icon+'<span>'+label+'</span>';
-    if((onJoinPage&&index===3)||path===target) a.setAttribute('aria-current','page');
-    if(onJoinPage&&index===1)a.setAttribute('data-open-entry-tab','action');
-    if(onJoinPage&&index===2)a.setAttribute('data-open-entry-tab','campaign');
-    if(onJoinPage&&index===3)a.setAttribute('data-open-entry-tab','association');
+  items.forEach((item,index)=>{
+    const a=document.createElement('a');
+    a.href=item.href;
+    a.innerHTML=item.icon+'<span>'+item.label+'</span>';
+    if(item.sheet)a.setAttribute('data-open-sheet-tab',item.sheet);
+    if(path===item.target)a.setAttribute('aria-current','page');
     nav.appendChild(a);
+  });
+  nav.addEventListener('click',event=>{
+    const link=event.target.closest('a[data-open-sheet-tab]');
+    if(!link)return;
+    // На страници која има заједнички панел, доње картице отварају његов садржај.
+    if(typeof window.openJoinFlow==='function'&&typeof window.showJoinFlowSection==='function'){
+      event.preventDefault();
+      const kind=link.getAttribute('data-open-sheet-tab');
+      window.openJoinFlow();
+      window.showJoinFlowSection(kind);
+      nav.querySelectorAll('a').forEach(item=>item.removeAttribute('aria-current'));
+      link.setAttribute('aria-current','page');
+    }
   });
   document.querySelectorAll('.mobile-bottom-nav').forEach(el=>el.remove());
   document.body.appendChild(nav);
