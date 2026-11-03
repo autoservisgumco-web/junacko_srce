@@ -191,9 +191,9 @@ body.campaign-page .content-back{display:none}
     if(optionsRes.error)throw optionsRes.error;
     if(donationRes.error)throw donationRes.error;
     if(itemsRes.error)throw itemsRes.error;
-    const options=optionsRes.data||[],settings=donationRes.data,items=itemsRes.data||[];
+    const options=(optionsRes.data||[]).filter(o=>o.type!=='donation'),settings=donationRes.data,items=itemsRes.data||[];
     const donationAvailable=!!settings&&(!!(settings.recipient_name||settings.bank_account||settings.paypal_email||settings.paypal_link)||items.length>0||!!(settings.contact_phone||settings.contact_email));
-    const cards=(donationAvailable?'<button class="support-launch" type="button" data-campaign-donation><span class="support-icon"><i class="fas fa-hand-holding-heart"></i></span><span><strong>Донирај и подржи кампању</strong><small>Погледај податке за уплату, потребне ствари и контакт за помоћ.</small></span></button>':'')+options.map(o=>'<button class="support-launch" type="button" data-support-option="'+esc(o.id)+'"><span class="support-icon"><i class="fas '+esc(o.icon||'fa-hand-holding-heart')+'"></i></span><span><strong>'+esc(o.label)+'</strong><small>'+esc(o.short_description||o.description||'Погледај како можеш да помогнеш.')+'</small></span></button>').join('');
+    const cards=(donationAvailable?'<button class="support-launch" type="button" data-campaign-donation><span class="support-icon"><i class="fas fa-heart"></i></span><span><strong>Донирај новац</strong><small>Уплати донацију преко банке или PayPal-а.</small></span></button>':'')+options.map(o=>'<button class="support-launch" type="button" data-support-option="'+esc(o.id)+'"><span class="support-icon"><i class="fas '+esc(o.icon||'fa-hand-holding-heart')+'"></i></span><span><strong>'+esc(o.label)+'</strong><small>'+esc(o.short_description||o.description||'Погледај како можеш да помогнеш.')+'</small></span></button>').join('');
     if(!cards){openSheet('Подржи кампању','За ову кампању начини подршке још нису објављени.','<p>Тренутно нема објављених начина подршке. Можеш да предложиш акцију.</p>');return;}
     openSheet('Подржи кампању','Изабери како желиш да помогнеш кампањи „'+c.title+'“.','<div class="support-options">'+cards+'</div>');
     const donationButton=document.querySelector('[data-campaign-donation]');
