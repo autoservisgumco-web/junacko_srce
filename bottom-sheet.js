@@ -78,9 +78,28 @@
   }catch(e){console.error('Грешка при учитавању садржаја панела:',e);list.innerHTML='<p class="join-flow-description">Садржај тренутно није доступан. Покушај поново касније.</p>';}
  };
  window.showJoinSupportForm=function(i){
-  const names=['Време и рад','Знање и вештине','Материјална подршка','Финансијска подршка','Предлог и сарадња'];if(!names[i])return;
-  setJoinHeader('ОДГОВОРНА ПЛАНА · ПОДРШКА ПОКРЕТУ',names[i],'Остави нам контакт и кратко опиши како желиш да помогнеш.',()=>showJoinFlowSection('support'));
-  const target=$('joinFlowContent');target.innerHTML='<div class="join-flow-list"><div class="association-card"><p>Изабрали сте: <strong>'+names[i]+'</strong>.</p><p>За ову врсту подршке користи постојећи контакт са Покретом.</p><button class="join-product-shop" type="button" onclick="showPanel(\'membership\')">Пријава за Покрет</button></div></div>';
+  const options=[
+   {name:'Време и рад',type:'Физичко учешће',hint:'У којим акцијама или пословима желиш да учествујеш?'},
+   {name:'Знање и вештине',type:'Знање и стручна помоћ',hint:'Које знање, вештине или искуство можеш да понудиш?'},
+   {name:'Материјална подршка',type:'Материјална подршка',hint:'Шта можеш да обезбедиш — алат, опрему, материјал, превоз...?'},
+   {name:'Финансијска подршка',type:'Финансијска подршка',hint:'Напиши ако имаш питање или предлог у вези са финансијском подршком.'},
+   {name:'Предлог и сарадња',type:'Предлог и сарадња',hint:'Опиши своју идеју или предлог.'}
+  ];
+  const selected=options[i];if(!selected)return;
+  setJoinHeader('ОДГОВОРНА ПЛАНА · ПОДРШКА ПОКРЕТУ',selected.name,'Остави контакт и напиши како можеш да допринесеш.',()=>showJoinFlowSection('support'));
+  const root=$('joinFlowContent');
+  root.innerHTML='<div class="join-flow-list"><div class="association-card"><p>Изабрано: <strong>'+esc(selected.name)+'</strong></p><form id="joinSupportFlowForm"><div class="support-form-grid"><label>Име и презиме *<input name="full_name" required maxlength="120" autocomplete="name"></label><label>Телефон *<input name="phone" type="tel" required maxlength="50" autocomplete="tel"></label><label>Имејл<input name="email" type="email" maxlength="180" autocomplete="email"></label><label>Место<input name="location" maxlength="180"></label><label class="support-form-wide">Како конкретно можеш да помогнеш?<textarea name="description" rows="4" maxlength="2500" placeholder="'+esc(selected.hint)+'"></textarea></label></div><p id="joinSupportFlowMessage" role="status" aria-live="polite"></p><button class="join-product-shop" type="submit">Пошаљи пријаву</button></form></div></div>';
+  const form=$('joinSupportFlowForm'),message=$('joinSupportFlowMessage'),submit=form.querySelector('[type="submit"]');
+  form.addEventListener('submit',async e=>{
+   e.preventDefault();if(!form.reportValidity())return;
+   const d=new FormData(form);submit.disabled=true;submit.textContent='Шаљем пријаву…';message.textContent='';message.style.color='';
+   try{
+    const client=window.supabase.createClient('https://hmfeizkmpmxcnzhwxgbn.supabase.co','sb_publishable_JPtLezaiIeq4MsQ2f3LSlg_nT01Chxe');
+    const {error}=await client.from('civic_submissions').insert({submission_type:'help',title:'Подршка раду Покрета Одговорна Плана',description:String(d.get('description')||'').trim()||'Пријава за подршку раду Покрета Одговорна Плана.',full_name:String(d.get('full_name')||'').trim(),phone:String(d.get('phone')||'').trim(),email:String(d.get('email')||'').trim()||null,location:String(d.get('location')||'').trim()||null,support_type:selected.type,status:'new',social_links:{source:'ukljuci-se',scope:'project'}});
+    if(error)throw error;
+    message.style.color='#176b3a';message.textContent='Хвала ти! Пријава је послата. Јавићемо ти се да договоримо детаље.';form.reset();submit.textContent='Пријава је послата';
+   }catch(error){console.error('Грешка при слању пријаве за подршку:',error);message.style.color='#b42318';message.textContent='Пријава није послата. Покушај поново.';submit.disabled=false;submit.textContent='Пошаљи пријаву';}
+  });
  };
  let quantity=1;
  function updateTotal(){if($('joinQty'))$('joinQty').textContent=quantity;if($('joinOrderTotal'))$('joinOrderTotal').textContent=(quantity*150).toLocaleString('sr-RS')+' динара';}
