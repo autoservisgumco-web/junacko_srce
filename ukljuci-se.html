@@ -56,6 +56,7 @@ footer{background:#041329;color:#d4e1f3;text-align:center;padding:24px;font-size
 .proposal-sheet-head{height:58px;flex:0 0 58px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:#061a35;color:#fff}
 .proposal-sheet-head button{border:0;background:transparent;color:#fff;font-size:30px;cursor:pointer}
 .proposal-sheet iframe{width:100%;height:100%;border:0;background:#f1f5f9}
+.problem-form-wrap{overflow:auto;padding:22px 24px 30px}.problem-intro h2{margin:0 0 8px;color:#061a35;font-size:25px}.problem-intro p{margin:0 0 20px;color:#526780}.problem-form-wrap form{display:grid;gap:9px}.problem-form-wrap label{font-size:14px;font-weight:800;color:#193657;margin-top:7px}.problem-form-wrap input,.problem-form-wrap textarea{width:100%;border:1px solid #cbd8e7;border-radius:10px;padding:13px 14px;font:inherit;font-size:16px;color:#142844;background:#fff}.problem-form-wrap textarea{min-height:130px;resize:vertical}.problem-form-wrap input:focus,.problem-form-wrap textarea:focus{outline:3px solid #dce9ff;border-color:#2166f3}.problem-privacy{font-size:12px;color:#60748b;margin:8px 0}.problem-form-wrap .btn{width:100%;margin-top:5px}.problem-message{display:none;padding:12px;border-radius:10px;font-size:14px}.problem-message.show{display:block}.problem-message.ok{background:#e8f7ed;color:#176638}.problem-message.err{background:#fff0ed;color:#9b2c1f}
 @media(max-width:620px){.live-card{grid-template-columns:112px minmax(0,1fr);gap:13px;min-height:126px}.live-card img{min-height:126px;max-height:160px}.live-card-body{padding:12px 12px 12px 0}.live-card h4{font-size:17px}.live-card p{-webkit-line-clamp:2;font-size:13px}.proposal-sheet{height:94vh;border-radius:16px 16px 0 0}}
 
 </style>
@@ -75,7 +76,7 @@ footer{background:#041329;color:#d4e1f3;text-align:center;padding:24px;font-size
  <div class="choice-top"><span class="num">01</span><h2>Имаш проблем или идеју?</h2></div>
  <p>Приметио си комунални проблем, запуштен простор, нешто што недостаје у твом месту или имаш предлог како да заједно унапредимо живот у заједници? Представи то другима. Не мораш унапред да знаш решење нити коме тачно треба да се обратиш.</p>
  <details open><summary>Како да направиш први корак?</summary><ol><li>Опиши шта си приметио и где се проблем налази.</li><li>Објасни шта мислиш да би могло да се промени.</li><li>Пошаљи предлог и подели га са другима.</li><li>Повежи се са људима који желе да помогну и заједно договорите наредне кораке.</li></ol></details>
- <div class="buttons"><button class="btn open-proposal" type="button">＋ Представи проблем или идеју</button><a class="btn light" href="/kampanje.html">Погледај покренуте кампање →</a></div>
+ <div class="buttons"><button class="btn" type="button" id="openProblemForm">＋ Представи проблем или идеју</button><a class="btn light" href="/kampanje.html">Погледај покренуте кампање →</a></div>
 </section>
 <section class="choice">
  <div class="choice-top"><span class="num">01</span><h2>Кампање које смо покренули</h2></div>
@@ -116,6 +117,25 @@ footer{background:#041329;color:#d4e1f3;text-align:center;padding:24px;font-size
  <div class="buttons"><button class="btn" type="button" onclick="document.querySelector('.open-proposal').click()">Представи проблем или идеју →</button></div>
 </section>
 </main>
+
+<div class="proposal-backdrop" id="problemBackdrop" hidden></div>
+<section class="proposal-sheet" id="problemSheet" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Представи проблем или идеју">
+ <div class="proposal-sheet-head"><strong>Представи проблем или идеју</strong><button type="button" id="closeProblemForm" aria-label="Затвори">×</button></div>
+ <div class="problem-form-wrap">
+  <div class="problem-intro"><h2>Шта би желео да променимо?</h2><p>Опиши шта си приметио, где се налази проблем и шта мислиш да би могло да се уради. Не мораш имати готово решење. Помоћи ћемо да повежемо људе и пронађемо следећи корак.</p></div>
+  <form id="problemForm">
+   <label for="problemTitle">Наслов проблема или идеје *</label><input id="problemTitle" name="title" maxlength="180" required placeholder="На пример: Запуштен парк у нашем насељу">
+   <label for="problemDescription">Опиши проблем или идеју *</label><textarea id="problemDescription" name="description" minlength="10" maxlength="5000" required placeholder="Шта си приметио? Зашто је важно да се нешто промени? Шта предлажеш?"></textarea>
+   <label for="problemLocation">Где се то налази?</label><input id="problemLocation" name="location" maxlength="180" placeholder="Насеље, улица или конкретна локација">
+   <label for="problemName">Име и презиме *</label><input id="problemName" name="full_name" maxlength="120" required autocomplete="name" placeholder="Твоје име и презиме">
+   <label for="problemPhone">Број телефона</label><input id="problemPhone" name="phone" type="tel" maxlength="40" autocomplete="tel" placeholder="Број на који можемо да те контактирамо">
+   <label for="problemEmail">Имејл адреса</label><input id="problemEmail" name="email" type="email" maxlength="180" autocomplete="email" placeholder="ime@primer.rs">
+   <p class="problem-privacy">Податке користимо да бисмо размотрили предлог и, ако буде потребно, ступили у контакт са тобом.</p>
+   <div id="problemMessage" class="problem-message" role="status" aria-live="polite"></div>
+   <button class="btn" id="submitProblem" type="submit">Пошаљи предлог</button>
+  </form>
+ </div>
+</section>
 <div class="proposal-backdrop" id="proposalBackdrop" hidden></div>
 <section class="proposal-sheet" id="proposalSheet" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Представи проблем или покрени акцију">
  <div class="proposal-sheet-head"><strong>Покрени нешто у својој заједници</strong><button type="button" id="closeProposal" aria-label="Затвори">×</button></div>
@@ -160,6 +180,29 @@ footer{background:#041329;color:#d4e1f3;text-align:center;padding:24px;font-size
   }catch(error){console.error('Грешка при учитавању кампања:',error);message('guideCampaigns','Кампање тренутно нису учитане. '+(error.message||''),'empty');}
  }
  actions();campaigns();
+})();
+</script>
+<script>
+(function(){
+ const sheet=document.getElementById('problemSheet'),back=document.getElementById('problemBackdrop'),form=document.getElementById('problemForm');
+ const openBtn=document.getElementById('openProblemForm'),closeBtn=document.getElementById('closeProblemForm');
+ function open(){back.hidden=false;requestAnimationFrame(()=>sheet.classList.add('open'));sheet.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';}
+ function close(){sheet.classList.remove('open');sheet.setAttribute('aria-hidden','true');document.body.style.overflow='';setTimeout(()=>back.hidden=true,280);}
+ openBtn?.addEventListener('click',open);closeBtn?.addEventListener('click',close);back?.addEventListener('click',close);
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!back.hidden)close();});
+ form?.addEventListener('submit',async e=>{
+  e.preventDefault();
+  const btn=document.getElementById('submitProblem'),msg=document.getElementById('problemMessage');
+  if(!window.odgovornaPlanaDB){msg.textContent='Веза са базом тренутно није доступна. Покушај поново касније.';msg.className='problem-message show err';return;}
+  btn.disabled=true;btn.textContent='Шаљем предлог…';msg.className='problem-message';
+  const v=id=>document.getElementById(id).value.trim();
+  const payload={submission_type:'problem',title:v('problemTitle'),description:v('problemDescription'),location:v('problemLocation')||null,full_name:v('problemName'),phone:v('problemPhone')||null,email:v('problemEmail')||null,status:'new'};
+  try{
+   const {error}=await window.odgovornaPlanaDB.from('civic_submissions').insert(payload);
+   if(error)throw error;
+   form.reset();msg.textContent='Хвала ти! Предлог је успешно послат. Размотрићемо га и јавити ти се ако буде потребно да договоримо наредне кораке.';msg.className='problem-message show ok';btn.textContent='Предлог је послат ✓';
+  }catch(err){console.error('Грешка при слању предлога:',err);msg.textContent='Предлог није послат. Покушај поново.';msg.className='problem-message show err';btn.disabled=false;btn.textContent='Пошаљи предлог';}
+ });
 })();
 </script>
 <script>
