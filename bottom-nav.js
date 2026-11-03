@@ -22,4 +22,40 @@
   });
   document.querySelectorAll('.mobile-bottom-nav').forEach(el=>el.remove());
   document.body.appendChild(nav);
+
+  // Мени и статусно обавештење припадају навигацији.
+  const sideMenu=document.getElementById('sideMenu');
+  const menuBackdrop=document.getElementById('menuBackdrop');
+  const openMenu=document.getElementById('openMenu');
+  const closeMenu=document.getElementById('closeMenu');
+  function closeSideMenu(){
+    if(!sideMenu||!menuBackdrop)return;
+    sideMenu.classList.remove('open');
+    menuBackdrop.classList.remove('open');
+    sideMenu.setAttribute('aria-hidden','true');
+    document.body.classList.remove('sheet-open');
+    setTimeout(()=>{menuBackdrop.hidden=true},260);
+  }
+  if(sideMenu&&menuBackdrop&&openMenu){
+    openMenu.addEventListener('click',()=>{
+      menuBackdrop.hidden=false;
+      sideMenu.setAttribute('aria-hidden','false');
+      requestAnimationFrame(()=>{sideMenu.classList.add('open');menuBackdrop.classList.add('open')});
+      document.body.classList.add('sheet-open');
+    });
+    closeMenu?.addEventListener('click',closeSideMenu);
+    menuBackdrop.addEventListener('click',closeSideMenu);
+  }
+  const statusToggle=document.getElementById('siteStatusToggle');
+  if(statusToggle){
+    statusToggle.addEventListener('click',()=>{
+      const notice=document.getElementById('siteStatusNotice');
+      const details=document.getElementById('siteStatusDetails');
+      if(!notice||!details)return;
+      const opening=!notice.classList.contains('open');
+      notice.classList.toggle('open',opening);
+      statusToggle.setAttribute('aria-expanded',String(opening));
+      details.hidden=!opening;
+    });
+  }
 })();
