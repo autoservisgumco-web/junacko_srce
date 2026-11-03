@@ -61,9 +61,21 @@ button{border:0;border-radius:11px;padding:14px 18px;font:inherit;font-weight:75
 .admin button{background:#eaf1ff;color:var(--ink);margin:5px 5px 5px 0}
 footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
 @media(max-width:520px){main{width:calc(100% - 20px);margin-top:12px}.hero{padding:26px 19px;border-radius:14px}.panel{padding:18px;border-radius:14px}.step-head{font-size:20px}}
+
+body.embed-mode{background:#f3f6fa}
+body.embed-mode>.site-header,body.embed-mode>.menu-backdrop,body.embed-mode>.side-menu,body.embed-mode>footer,body.embed-mode>#bottomNav{display:none!important}
+body.embed-mode main{width:100%;margin:0 auto;padding:12px 14px 28px}
+body.embed-mode .hero{padding:22px 20px;border-radius:13px;margin-bottom:12px}
+body.embed-mode .hero>a{display:none}
+body.embed-mode .eyebrow{margin:0 0 8px}
+body.embed-mode h1{font-size:30px}
+body.embed-mode .panel{margin:10px 0;padding:18px}
+body.embed-mode .wizard-step{min-height:180px}
+
 </style>
 </head>
 <body>
+<script>if(new URLSearchParams(location.search).get("embed")==="1")document.body.classList.add("embed-mode");</script>
 <header class="site-header">
 <a class="site-brand" href="/index.html" aria-label="Одговорна Плана — почетна"><span class="brand-heart">♡</span><span>Одговорна<br>Плана</span></a>
 <nav class="site-nav" aria-label="Главна навигација"><a href="/index.html">Почетна</a><a href="/kampanje.html">Кампање</a><a href="/akcije.html">Акције</a><a href="/podrska.html">Подршка</a></nav>
