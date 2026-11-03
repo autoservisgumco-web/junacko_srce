@@ -96,11 +96,19 @@ body.campaign-page .content-back{display:none}
   debugStage='Приказ кампање на страници';
   root.innerHTML=html;
   debugStage='Учитавање начина укључивања у кампању';
-  let supportRoles=[],volunteerOptions=[];
+  let supportRoles=[],volunteerOptions=[],donationSettings=null,donationItems=[];
   try{
-   const [rr,oo]=await Promise.all([db.from('campaign_support_roles').select('id,label,role_type,description,icon,route,order_number').eq('campaign_id',c.id).eq('is_active',true).eq('is_published',true).order('order_number'),db.from('campaign_volunteer_options').select('label').eq('campaign_id',c.id)]);
-   if(!rr.error)supportRoles=rr.data||[];if(!oo.error)volunteerOptions=oo.data||[];
-  }catch(err){console.warn('Начини подршке нису учитани',err);}
+   const [rr,oo,ds,di]=await Promise.all([
+    db.from('campaign_support_roles').select('id,label,role_type,description,icon,route,order_number').eq('campaign_id',c.id).eq('is_active',true).eq('is_published',true).order('order_number'),
+    db.from('campaign_volunteer_options').select('label').eq('campaign_id',c.id),
+    db.from('campaign_donations').select('*').eq('campaign_id',c.id).eq('is_active',true).maybeSingle(),
+    db.from('campaign_donation_items').select('*').eq('campaign_id',c.id).eq('is_active',true).order('order_number')
+   ]);
+   if(!rr.error)supportRoles=rr.data||[];else console.warn('Начини подршке:',rr.error);
+   if(!oo.error)volunteerOptions=oo.data||[];
+   if(!ds.error)donationSettings=ds.data||null;else console.warn('Подешавања донација:',ds.error);
+   if(!di.error)donationItems=di.data||[];else console.warn('Ставке донација:',di.error);
+  }catch(err){console.warn('Подаци о подршци нису учитани',err);}
   const openSheet=(title,subtitle,body)=>{
    let overlay=document.getElementById('campaignOverlay');
    if(!overlay){overlay=document.createElement('div');overlay.id='campaignOverlay';overlay.className='campaign-overlay';overlay.innerHTML='<section class="campaign-sheet" role="dialog" aria-modal="true"><div class="sheet-head"><div><h2 id="sheetTitle"></h2><p id="sheetSubtitle"></p></div><button class="sheet-close" type="button" id="closeCampaignSheet">×</button></div><div id="sheetBody"></div></section>';overlay.addEventListener('click',e=>{if(e.target===overlay)closeSheet();});document.body.appendChild(overlay);}
@@ -129,6 +137,12 @@ body.campaign-page .content-back{display:none}
   };
   window.openCampaignSupportForm=(idx)=>{
    const role=supportRoles[idx];if(!role)return;const kind=String(role.role_type||role.route||'other').toLowerCase(),label=role.label||'Подршка кампањи';
+   if(/money|financial|donat|goods|material|донац|хран|опрем/i.test(kind+' '+label)){
+    if(!window.DonationTypes||typeof window.DonationTypes.renderPanel!=='function'){openSheet('Донације','Модул за донације није учитан. Освежи страницу и покушај поново.','<p>Подаци за донације нису приказани.</p>');return;}
+    const donationTitle=/goods|material|хран|опрем/i.test(kind+' '+label)?'Донација ствари и материјала':'Новчане донације';
+    openSheet(donationTitle,'Изабери износ и начин уплате. Доступни начини се учитавају из базе.',window.DonationTypes.renderPanel(donationSettings,donationItems));
+    return;
+   }
    let fields='<label>Име и презиме<input name="name" required minlength="2"></label><label>Телефон<input name="phone" required type="tel" minlength="6"></label><label>Место<input name="place"></label>';
    if(/volunteer|volon/i.test(kind+' '+label))fields+='<label>Област у којој желиш да помогнеш<select name="volunteer_option"><option value="">Изабери област</option>'+volunteerOptions.map(o=>'<option>'+esc(o.label)+'</option>').join('')+'</select></label><label>У чему још можеш да помогнеш?<textarea name="skills" required></textarea></label><label>Када си доступан/доступна?<input name="availability"></label>';
    else fields+='<label>Како желиш да помогнеш?<textarea name="details" required minlength="5"></textarea></label>';
