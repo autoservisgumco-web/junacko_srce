@@ -114,3 +114,188 @@
   updateTotal();
  }
 })();
+
+/* Обрада јавних форми — издвојена из index.html */
+(function(){
+/* Предлог акције: фотографије се чувају у приватном bucket-у и везују за пријаву. */
+async function uploadActionProposalFiles(files,submissionId){
+ const paths=[];
+ for(const file of Array.from(files||[])){
+  if(!['image/jpeg','image/png','image/webp','application/pdf','application/msword','application/vnd.openxmlformats-officedocument.wordprocessingml.document'].includes(file.type))throw new Error('Формат датотеке није дозвољен.');
+  if(file.size>15*1024*1024)throw new Error('Свака датотека мора бити мања од 15 MB.');
+  const clean=file.name.replace(/[^a-zA-Z0-9._-]/g,'_').slice(-100);
+  const path=submissionId+'/'+Date.now()+'-'+clean;
+  const {error}=await civicDb.storage.from('action-proposal-files').upload(path,file,{contentType:file.type,upsert:false});
+  if(error)throw error;
+  paths.push(path);
+ }
+ return paths;
+}
+document.getElementById('joinForm').addEventListener('submit',async event=>{
+ event.preventDefault();const form=event.currentTarget;if(!form.reportValidity())return;
+ const btn=form.querySelector('button[type="submit"]');btn.disabled=true;btn.textContent='Слање...';
+ const actionId=document.getElementById('joinActionId').value;
+ const method=document.getElementById('joinMethod').value;
+ const note=document.getElementById('joinHelp').value.trim();
+ const payload={action_id:actionId,full_name:document.getElementById('joinName').value.trim(),phone:document.getElementById('joinPhone').value.trim(),message:'Начин прикључења: '+method+(note?'\\n'+note:''),form_data:{participation_method:method},status:'new',source:'website'};
+ try{
+  const {error}=await civicDb.from('support_applications').insert(payload);
+  if(error)throw error;
+  form.reset();showJoinSuccess();
+ }catch(error){
+  console.error('Грешка при слању пријаве за акцију:',error);
+  showSubmitMessage('joinMessage','Пријава није послата. Проверите интернет везу и покушајте поново.',true);
+ }finally{btn.disabled=false;btn.textContent='Пошаљи пријаву';}
+});
+document.getElementById('membershipForm').addEventListener('submit',async event=>{
+ event.preventDefault();const form=event.currentTarget;const btn=form.querySelector('button[type="submit"]');btn.disabled=true;btn.textContent='Слање...';
+ const payload={submission_type:'membership',title:'Пријава за укључивање у Одговорну Плану',description:document.getElementById('membershipNote').value.trim()||'Пријава за укључивање у рад организације.',full_name:document.getElementById('membershipName').value.trim(),phone:document.getElementById('membershipPhone').value.trim(),viber_phone:document.getElementById('membershipPhone').value.trim(),email:document.getElementById('membershipEmail').value.trim()||null,support_type:document.getElementById('membershipWay').value,status:'new'};
+ const {error}=await civicDb.from('civic_submissions').insert(payload);
+ btn.disabled=false;btn.textContent='Пошаљи пријаву';
+ if(error){alert('Пријава није послата. Проверите интернет везу и покушајте поново.');return;}
+ form.reset();hidePanels();showJoinSuccess();
+});
+document.getElementById('proposalForm').addEventListener('submit',async event=>{
+ event.preventDefault();const form=event.currentTarget;if(!form.reportValidity())return;const btn=form.querySelector('button[type="submit"]');btn.disabled=true;btn.textContent='Слање...';
+ const title=form.querySelector('input[placeholder="Шта предлажеш?"]').value.trim();
+ const description=form.querySelector('textarea[placeholder="Опиши идеју..."]').value.trim();
+ const fullName=form.querySelector('input[placeholder="Име и презиме"]').value.trim();
+ const phone=form.querySelector('input[placeholder="Број телефона"]').value.trim();
+ const files=document.getElementById('proposalPhotos').files;
+ const submissionId=crypto.randomUUID();
+ let attachments=[];
+ try{attachments=await uploadActionProposalFiles(files,submissionId);}catch(uploadError){btn.disabled=false;btn.textContent='Пошаљи предлог';showSubmitMessage('proposalMessage',uploadError.message||'Датотеке нису отпремљене. Покушајте поново.',true);return;}
+ const payload={id:submissionId,submission_type:'action',title,description,full_name:fullName,phone,viber_phone:phone,social_links:{attachments},status:'new'};
+ const {error}=await civicDb.from('civic_submissions').insert(payload);
+ btn.disabled=false;btn.textContent='Пошаљи предлог';
+ if(error){showSubmitMessage('proposalMessage','Предлог није послат. Проверите интернет везу и покушајте поново.',true);return;}
+ form.reset();showSubmitMessage('proposalMessage','success',false);
+});
+
+document.getElementById('closeSheet').addEventListener('click',hidePanels);
+const sideMenu=document.getElementById('sideMenu'),menuBackdrop=document.getElementById('menuBackdrop');
+function closeSideMenu(){sideMenu.classList.remove('open');menuBackdrop.classList.remove('open');sideMenu.setAttribute('aria-hidden','true');document.body.classList.remove('sheet-open');setTimeout(()=>{menuBackdrop.hidden=true},260)}
+document.getElementById('openMenu').addEventListener('click',()=>{menuBackdrop.hidden=false;sideMenu.setAttribute('aria-hidden','false');requestAnimationFrame(()=>{sideMenu.classList.add('open');menuBackdrop.classList.add('open')});document.body.classList.add('sheet-open')});
+document.getElementById('closeMenu').addEventListener('click',closeSideMenu);menuBackdrop.addEventListener('click',closeSideMenu);
+loadActiveActions();
+initShopPage();
+
+let deferredInstallPrompt=null;
+window.addEventListener('beforeinstallprompt',event=>{
+ event.preventDefault();deferredInstallPrompt=event;
+ const button=document.getElementById('installAppBtn');if(button)button.hidden=false;
+});
+document.getElementById('installAppBtn')?.addEventListener('click',async()=>{
+ if(!deferredInstallPrompt)return;
+ deferredInstallPrompt.prompt();await deferredInstallPrompt.userChoice;
+ deferredInstallPrompt=null;const button=document.getElementById('installAppBtn');if(button)button.hidden=true;closeSideMenu();
+});
+window.addEventListener('appinstalled',()=>{const button=document.getElementById('installAppBtn');if(button)button.hidden=true;deferredInstallPrompt=null;});
+/* PWA: региструј service worker и учитај живе акције и кампање */
+if('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+ window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(err=>console.warn('PWA service worker:',err)));
+}
+function safeHomeText(value){return String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));}
+function homeActionCard(action){
+ const node=document.createElement('article');node.className='home-live-card';
+ if(action.image_url){const img=document.createElement('img');img.src=action.image_url;img.alt='';img.loading='lazy';node.appendChild(img);}
+ const tag=document.createElement('span');tag.className='tag';tag.textContent=action.status==='completed'?'ЗАВРШЕНА АКЦИЈА':'АКЦИЈА';node.appendChild(tag);
+ const h=document.createElement('h3');h.textContent=action.title;node.appendChild(h);
+ const p=document.createElement('p');p.textContent=action.summary||action.description||'Погледај детаље о акцији и начину учешћа.';node.appendChild(p);
+ if(action.location){const loc=document.createElement('p');loc.textContent='📍 '+action.location;node.appendChild(loc);}
+ const actions=document.createElement('div');actions.className='home-card-actions';
+ const detail=document.createElement('a');detail.className='btn secondary';detail.textContent='Детаљи';const url=new URL('index.html',location.href);url.searchParams.set('akcija',action.slug||action.id);detail.href=url.href;actions.appendChild(detail);
+ if(action.status!=='completed'){const join=document.createElement('button');join.className='btn';join.type='button';join.textContent='Прикључи се';join.addEventListener('click',()=>showPanel('join',action.id,action.title));actions.appendChild(join);}
+ node.appendChild(actions);return node;
+}
+async function loadHomeActions(){
+ const list=document.getElementById('homeActionCards');if(!list)return;
+ const {data,error}=await civicDb.from('actions').select('id,title,slug,summary,description,location,status,action_date,image_url').eq('is_published',true).order('created_at',{ascending:false}).limit(3);
+ list.replaceChildren();
+ if(error||!data){list.innerHTML='<p class="home-live-loading">Акције тренутно нису доступне. Покушај поново касније.</p>';return;}
+ if(!data.length){list.innerHTML='<p class="home-live-loading">Тренутно нема објављених акција. Можеш да покренеш нову.</p>';return;}
+ data.forEach(item=>list.appendChild(homeActionCard(item)));
+}
+function homeCampaignCard(campaign){
+ const node=document.createElement('article');node.className='home-live-card';
+ if(campaign.hero_image && /^https?:\/\//i.test(campaign.hero_image)){const img=document.createElement('img');img.src=campaign.hero_image;img.alt='';img.loading='lazy';node.appendChild(img);}
+ const tag=document.createElement('span');tag.className='tag';tag.textContent='КАМПАЊА';node.appendChild(tag);
+ const h=document.createElement('h3');h.textContent=campaign.title;node.appendChild(h);
+ const p=document.createElement('p');p.textContent=campaign.description||campaign.goal||'Упознај заједнички циљ и види како можеш да допринесеш.';node.appendChild(p);
+ const actions=document.createElement('div');actions.className='home-card-actions';
+ const details=document.createElement('button');details.type='button';details.className='btn secondary';details.textContent='Упознај кампању';details.addEventListener('click',()=>openCampaignDetail(campaign));actions.appendChild(details);
+ const join=document.createElement('button');join.type='button';join.className='btn';join.textContent='Прикључи се';join.addEventListener('click',()=>openCampaignJoin(campaign));actions.appendChild(join);
+ node.appendChild(actions);return node;
+}
+let allCampaigns=[];
+async function loadHomeCampaigns(showAll=false){
+ const list=document.getElementById('homeCampaignCards');if(!list)return;
+ const {data,error}=await civicDb.from('campaigns').select('id,title,slug,description,goal,hero_image,status,is_published').eq('is_published',true).order('created_at',{ascending:false}).limit(showAll?50:3);
+ list.replaceChildren();
+ if(error||!data){list.innerHTML='<p class="home-live-loading">Кампање тренутно нису доступне. Покушај поново касније.</p>';return;}
+ allCampaigns=data;
+ if(!data.length){list.innerHTML='<p class="home-live-loading">Тренутно нема објављених кампања.</p>';return;}
+ data.forEach(item=>list.appendChild(homeCampaignCard(item)));
+ const more=document.getElementById('showAllCampaigns');if(more){more.hidden=showAll||data.length<3;more.textContent='Прикажи све кампање';}
+}
+function openCampaignDetail(campaign){
+ document.getElementById('campaignDetailTitle').textContent=campaign.title;
+ document.getElementById('campaignDetailDescription').textContent=campaign.description||'';
+ document.getElementById('campaignDetailGoal').textContent=campaign.goal?'Циљ: '+campaign.goal:'';
+ document.getElementById('campaignDetailJoin').onclick=()=>openCampaignJoin(campaign);
+ showPanel('campaignDetail');
+}
+function openCampaignJoin(campaign){
+ document.getElementById('campaignJoinId').value=campaign.id;
+ document.getElementById('campaignJoinTitle').textContent=campaign.title;
+ document.getElementById('campaignJoinMessage').textContent='';
+ showPanel('campaignJoin');
+}
+document.getElementById('showAllCampaigns')?.addEventListener('click',()=>loadHomeCampaigns(true));
+document.getElementById('siteStatusToggle')?.addEventListener('click',()=>{
+ const notice=document.getElementById('siteStatusNotice');const button=document.getElementById('siteStatusToggle');const details=document.getElementById('siteStatusDetails');
+ const opening=!notice.classList.contains('open');notice.classList.toggle('open',opening);button.setAttribute('aria-expanded',String(opening));details.hidden=!opening;
+});
+loadHomeActions();loadHomeCampaigns();
+
+/* Предлог акције: фотографије се чувају у приватном bucket-у и везују за пријаву. */
+async function uploadActionProposalFiles(files,submissionId){
+ const paths=[];
+ for(const file of Array.from(files||[])){
+  if(!['image/jpeg','image/png','image/webp','application/pdf','application/msword','application/vnd.openxmlformats-officedocument.wordprocessingml.document'].includes(file.type))throw new Error('Формат датотеке није дозвољен.');
+  if(file.size>15*1024*1024)throw new Error('Свака датотека мора бити мања од 15 MB.');
+  const clean=file.name.replace(/[^a-zA-Z0-9._-]/g,'_').slice(-100);
+  const path=submissionId+'/'+Date.now()+'-'+clean;
+  const {error}=await civicDb.storage.from('action-proposal-files').upload(path,file,{contentType:file.type,upsert:false});
+  if(error)throw error;
+  paths.push(path);
+ }
+ return paths;
+}
+document.getElementById('supportForm')?.addEventListener('submit',async event=>{
+ event.preventDefault();const form=event.currentTarget;if(!form.reportValidity())return;const btn=form.querySelector('button[type="submit"]');btn.disabled=true;btn.textContent='Слање...';
+ const selected=document.getElementById('supportAction');const actionTitle=selected.options[selected.selectedIndex].text;
+ const payload={submission_type:'help',title:'Подршка акцији: '+actionTitle,description:document.getElementById('supportDescription').value.trim(),full_name:document.getElementById('supportName').value.trim(),phone:document.getElementById('supportPhone').value.trim(),viber_phone:document.getElementById('supportPhone').value.trim(),support_type:'Подршка акцији',social_links:{action_slug:selected.value},status:'new'};
+ const {error}=await civicDb.from('civic_submissions').insert(payload);btn.disabled=false;btn.textContent='Пошаљи подршку';
+ if(error){showSubmitMessage('supportMessage','Подршка није послата. Проверите податке и покушајте поново.',true);return;}
+ form.reset();showSubmitMessage('supportMessage','success',false);
+});
+document.getElementById('campaignProposalForm')?.addEventListener('submit',async event=>{
+ event.preventDefault();const form=event.currentTarget;const btn=form.querySelector('button[type="submit"]');if(!form.reportValidity())return;
+ btn.disabled=true;btn.textContent='Слање...';
+ const payload={submission_type:'campaign',title:document.getElementById('campaignProposalTitle').value.trim(),description:document.getElementById('campaignProposalDescription').value.trim(),full_name:document.getElementById('campaignProposalName').value.trim(),phone:document.getElementById('campaignProposalPhone').value.trim(),viber_phone:document.getElementById('campaignProposalPhone').value.trim(),status:'new'};
+ const {error}=await civicDb.from('civic_submissions').insert(payload);
+ btn.disabled=false;btn.textContent='Пошаљи предлог кампање';
+ if(error){showSubmitMessage('campaignProposalMessage','Предлог кампање није послат. Проверите податке и покушајте поново.',true);return;}
+ form.reset();showSubmitMessage('campaignProposalMessage','success',false);
+});
+document.getElementById('campaignJoinForm')?.addEventListener('submit',async event=>{
+ event.preventDefault();const form=event.currentTarget;if(!form.reportValidity())return;const btn=form.querySelector('button[type="submit"]');btn.disabled=true;btn.textContent='Слање...';
+ const title=document.getElementById('campaignJoinTitle').textContent;
+ const payload={submission_type:'help',title:'Подршка кампањи: '+title,description:'Начин подршке: '+document.getElementById('campaignJoinMethod').value+'. '+document.getElementById('campaignJoinNote').value.trim(),full_name:document.getElementById('campaignJoinName').value.trim(),phone:document.getElementById('campaignJoinPhone').value.trim(),viber_phone:document.getElementById('campaignJoinPhone').value.trim(),support_type:document.getElementById('campaignJoinMethod').value,social_links:{campaign_id:document.getElementById('campaignJoinId').value,campaign_title:title},status:'new'};
+ const {error}=await civicDb.from('civic_submissions').insert(payload);
+ btn.disabled=false;btn.textContent='Пошаљи пријаву';
+ if(error){showSubmitMessage('campaignJoinMessage','Пријава није послата. Проверите податке и покушајте поново.',true);return;}
+ form.reset();hidePanels();showJoinSuccess();
+});
+})();
