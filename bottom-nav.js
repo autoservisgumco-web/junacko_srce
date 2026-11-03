@@ -1,4 +1,5 @@
 (function(){
+  if(document.querySelector('.site-bottom-nav')) return;
   const nav=document.createElement('nav');
   nav.className='site-bottom-nav';
   nav.setAttribute('aria-label','Доња навигација');
