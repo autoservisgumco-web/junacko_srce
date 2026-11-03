@@ -134,8 +134,8 @@ function renderParticipant(item){
  const details=document.createElement('div');
  const phoneHref=phone?'tel:'+phone.replace(/[^+\d]/g,''):'';const emailHref=email?'mailto:'+email:'';
  const status=item.status||'new';
- const statusText=status==='accepted'?'Одобрен':status==='rejected'?'Одбијен':'Пријављен';
- card.innerHTML='<div class="toolbar"><span class="status '+(status==='accepted'?'accepted':status==='rejected'?'rejected':'')+'">'+statusText+'</span><span class="meta">'+esc(date)+'</span></div><h2>'+esc(person)+'</h2><div class="meta"><strong>Акција:</strong> '+esc(actionTitle)+'</div><div class="actions"><button class="primary" type="button">Погледај пријаву</button>'+(status!=='accepted'?'<button class="primary" type="button" data-participant-status="accepted">Одобри учешће</button>':'')+(status!=='rejected'?'<button class="quiet" type="button" data-participant-status="rejected">Одбиј</button>':'')+(status!=='new'?'<button class="quiet" type="button" data-participant-status="new">Врати на пријаву</button>':'')+'</div>';
+ const statusText=(status==='approved'||status==='accepted')?'Одобрен':status==='rejected'?'Одбијен':'Пријављен';
+ card.innerHTML='<div class="toolbar"><span class="status '+((status==='approved'||status==='accepted')?'accepted':status==='rejected'?'rejected':'')+'">'+statusText+'</span><span class="meta">'+esc(date)+'</span></div><h2>'+esc(person)+'</h2><div class="meta"><strong>Акција:</strong> '+esc(actionTitle)+'</div><div class="actions"><button class="primary" type="button">Погледај пријаву</button>'+(!['approved','accepted'].includes(status)?'<button class="primary" type="button" data-participant-status="approved">Одобри учешће</button>':'')+(status!=='rejected'?'<button class="quiet" type="button" data-participant-status="rejected">Одбиј</button>':'')+(status!=='new'?'<button class="quiet" type="button" data-participant-status="new">Врати на пријаву</button>':'')+'</div>';
  details.className='participant-details';details.hidden=true;
  details.innerHTML='<div class="meta"><strong>Име и презиме:</strong> '+esc(item.full_name||'Није наведено')+'<br><strong>Акција:</strong> '+esc(actionTitle)+'<br><strong>Телефон:</strong> '+esc(phone||'Није наведен')+'<br><strong>Имејл:</strong> '+esc(email||'Није наведен')+'<br><strong>Начин учешћа:</strong> '+esc(item.support_type||'Није наведен')+'<br><strong>Место:</strong> '+esc(item.location||'Није наведено')+'</div><div class="description">'+esc(item.description||'Особа није унела додатну поруку.')+'</div><div class="contact-links">'+(phoneHref?'<a href="'+esc(phoneHref)+'">Позови</a>':'')+(emailHref?'<a href="'+esc(emailHref)+'">Пошаљи имејл</a>':'')+'</div>';
  card.querySelector('button:not([data-participant-status])').addEventListener('click',()=>{details.hidden=!details.hidden;card.querySelector('button:not([data-participant-status])').textContent=details.hidden?'Погледај пријаву':'Затвори детаље';});
@@ -164,10 +164,10 @@ function renderSubmission(item){
  const person=item.full_name||'Није наведено',phone=item.viber_phone||item.phone||'Није наведен',email=item.email||'Није наведен';
  const actionTitle=item.social_links&&item.social_links.action_title?'За акцију: '+item.social_links.action_title:'';
  const extra=[item.support_type?'Врста подршке: '+item.support_type:'',item.location?'Локација: '+item.location:''].filter(Boolean).join(' · ');
- card.innerHTML='<div class="toolbar"><span class="tag">'+esc(kind)+'</span><span class="status '+(item.status==='accepted'?'accepted':item.status==='rejected'?'rejected':'')+'">'+esc(statusLabel(item.status))+'</span></div>'+
+ card.innerHTML='<div class="toolbar"><span class="tag">'+esc(kind)+'</span><span class="status '+((item.status==='approved'||item.status==='accepted')?'accepted':item.status==='rejected'?'rejected':'')+'">'+esc(statusLabel(item.status))+'</span></div>'+
  '<h2>'+esc(item.title)+'</h2><div class="meta"><strong>'+esc(person)+'</strong><br>Имејл: '+esc(email)+' · Телефон: '+esc(phone)+'<br>'+esc(date)+'<br>'+esc(actionTitle)+'<br>'+esc(extra)+'</div>'+
  '<div class="description">'+esc(item.description)+'</div>'+
- '<div class="actions">'+(item.submission_type==='action'?'<button class="primary" data-status="published">Објави акцију</button>':'')+'<button class="primary" data-status="accepted">✓ Прихвати</button><button class="quiet" data-status="rejected">✕ Не прихватај</button><button class="quiet" data-status="new">Врати на чекање</button></div>';
+ '<div class="actions">'+(item.submission_type==='action'?'<button class="primary" data-status="published">Објави акцију</button>':'')+'<button class="primary" data-status="approved">✓ Одобри</button><button class="quiet" data-status="rejected">✕ Не прихватај</button><button class="quiet" data-status="new">Врати на чекање</button></div>';
  card.querySelectorAll('button[data-status]').forEach(btn=>btn.addEventListener('click',()=>updateStatus(item.id,btn.dataset.status,btn)));
  return card;
 }
@@ -224,7 +224,7 @@ async function updateStatus(id,status,button){
  button.disabled=false;
  const note=document.getElementById('listMessage');
  if(error){note.textContent='Статус није сачуван. Покушајте поново.';return}
- note.textContent='Статус је сачуван.';const row=submissions.find(x=>x.id===id);if(row)row.status=status;renderMembershipList();renderList();
+ note.textContent='Статус је сачуван.';const row=submissions.find(x=>x.id===id);if(row)row.status=status;await loadSubmissions();
 }
 document.getElementById('refreshParticipants').addEventListener('click',loadParticipants);
 document.getElementById('refreshMembership').addEventListener('click',loadSubmissions);
