@@ -59,6 +59,8 @@ footer{background:#041329;color:#d4e1f3;text-align:center;padding:24px;font-size
 
 @media(max-width:620px){.live-card{grid-template-columns:112px minmax(0,1fr);gap:13px;min-height:126px}.live-card img{min-height:126px;max-height:160px}.live-card-body{padding:12px 12px 12px 0}.live-card h4{font-size:17px}.live-card p{-webkit-line-clamp:2;font-size:13px}.proposal-sheet{height:94vh;border-radius:16px 16px 0 0}}
 
+
+.support-feature{margin:38px 0 12px;padding:clamp(24px,4vw,38px);border-radius:26px;background:linear-gradient(120deg,#061a35,#0d3263 72%,#123e75);color:#fff;box-shadow:0 16px 34px #061a3518}.support-feature .support-kicker{font-size:12px;letter-spacing:2px;font-weight:850;color:#a9d5ff;margin-bottom:12px}.support-feature h2{font-size:clamp(25px,3.4vw,36px);line-height:1.18;color:#fff;margin:0 0 14px;max-width:820px}.support-feature>p{font-size:clamp(16px,2vw,19px);line-height:1.7;color:#e0edf8;max-width:850px;margin:0 0 26px}.support-feature-actions{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:28px}.support-feature-actions a{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;border-radius:11px;padding:13px 20px;font-weight:850}.support-feature-actions .primary{background:#2166f3;color:#fff}.support-feature-actions .secondary{background:#041a36;color:#fff}.support-product{display:flex;align-items:center;gap:20px;background:#fff;color:#061a35;text-decoration:none;border-radius:22px;padding:18px 22px;max-width:820px;box-shadow:0 8px 22px #0002}.support-product-icon{width:92px;height:92px;flex:0 0 92px;border-radius:20px;background:#e8f1ff;color:#2166f3;display:grid;place-items:center;font-size:48px}.support-product-info{display:flex;align-items:center;justify-content:space-between;gap:18px;flex:1;flex-wrap:wrap}.support-product-info strong{display:block;font-size:clamp(17px,2.2vw,23px)}.support-product-info small{display:block;color:#718096;font-size:15px;margin-top:5px}.support-product-info b{color:#c3263b;font-size:clamp(20px,2.5vw,26px);white-space:nowrap}@media(max-width:600px){.support-feature{padding:23px 18px}.support-product{align-items:flex-start;gap:13px;padding:14px}.support-product-icon{width:64px;height:64px;flex-basis:64px;font-size:36px;border-radius:15px}.support-product-info{align-items:flex-start;flex-direction:column;gap:7px}.support-product-info small{font-size:13px}}
 </style>
   <link rel="stylesheet" href="/stranice.css"><link rel="stylesheet" href="/bottom-nav.css">
 
@@ -102,11 +104,13 @@ footer{background:#041329;color:#d4e1f3;text-align:center;padding:24px;font-size
  
 </section>
 <p>Ако нека акција већ постоји, прикључи јој се. А ако желиш да се нешто конкретно уради, не чекај да то покрене неко други — покрени своју акцију и позови људе да ти се придруже.</p><div class="buttons"><button class="btn open-proposal" type="button">＋ Покрени своју акцију</button></div></section>
-<section class="choice">
- <div class="choice-top"><span class="num">04</span><h2>Желиш да подржиш рад?</h2></div>
- <p>Повезивање људи, припрема акција и одржавање овог простора захтевају време и средства. Ако не можеш да учествујеш на терену, рад можеш да подржиш куповином производа из наше понуде.</p>
- <div class="buttons"><a class="btn" href="/prodavnica.html">Погледај производе →</a><a class="btn light" href="/podrska.html">Више о подршци</a></div>
-</section>
+<section class="support-feature" aria-labelledby="supportFeatureTitle">
+  <div class="support-kicker">05 · ПОДРШКА РАДУ</div>
+  <h2 id="supportFeatureTitle">Не можеш увек да будеш на терену? И даље можеш да будеш део ове приче.</h2>
+  <p>Рад можеш да подржиш куповином производа које припремамо. На тај начин помажеш да организујемо нове активности и наставимо заједнички рад.</p>
+  <div class="support-feature-actions"><a class="primary" href="/prodavnica.html">Отвори продавницу →</a><a class="secondary" href="/podrska.html">Подржи рад удружења</a></div>
+  <a class="support-product" href="/prodavnica.html" aria-label="Привезак Одговорна Плана, 150 динара — отвори продавницу"><span class="support-product-icon" aria-hidden="true">♡</span><span class="support-product-info"><span><strong>Привезак Одговорна Плана</strong><small>Привезак Одговорна Плана. Цена 150 динара.</small></span><b>150 дин.</b></span></a>
+ </section>
 
 </main>
 
