@@ -497,8 +497,6 @@ if(new URLSearchParams(window.location.search).has('akcija')){
 const SUPABASE_URL='https://hmfeizkmpmxcnzhwxgbn.supabase.co';
 const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhtZmVpemttcG14Y256aHd4Z2JuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMzMjkyNzgsImV4cCI6MjEwODkwNTI3OH0.oTZopOJEGUnxK69BOYPP11CQoGrLqUJowqpPU2uiY-4';
 const civicDb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
-const bottomSheet=document.getElementById('bottomSheet'),sheetBackdrop=document.getElementById('sheetBackdrop'),sheetContent=document.getElementById('sheetContent');
-let sheetTarget=null,sheetParent=null,sheetNext=null,sheetTouchY=0;
 
 /* Продавница унутар index.html — засебан приказ без почетног hero банера. */
 function showShopPage(){
@@ -539,45 +537,6 @@ function validateProposalPhotos(input){
  if(input.files.length>5){input.value='';error.textContent='Можеш да изабереш највише 5 фотографија.';error.hidden=false;return false;}
  error.hidden=true;error.textContent='';return true;
 }
-function setJoinHeader(kicker,title,description,backAction){
- const top=document.getElementById('sheetTop'),heading=document.getElementById('sheetHeading'),back=document.getElementById('sheetBack');
- top.classList.add('join-header');
- document.getElementById('sheetKicker').textContent=kicker||'ОДГОВОРНА ПЛАНА';
- document.getElementById('sheetTitle').textContent='';
- document.getElementById('sheetHeadingTitle').textContent=title||'';
- document.getElementById('sheetDescription').textContent=description||'';
- heading.hidden=false;
- back.hidden=!backAction;
- back.onclick=backAction||null;
-}
-function showPanel(id,actionId='',actionTitle=''){
- const target=document.getElementById(id);if(!target)return;
- if(id==='join'){document.getElementById('joinActionId').value=actionId;document.getElementById('joinActionTitle').value=actionTitle;document.querySelector('#join h2').textContent='Придружи се акцији';document.querySelector('#join>p').textContent=actionTitle;document.getElementById('joinMessage').textContent='';}
- if(sheetTarget)hidePanels();
- sheetTarget=target;sheetParent=target.parentNode;sheetNext=target.nextSibling;sheetContent.appendChild(target);
- target.hidden=false;target.classList.add('active');
- const isJoin=id==='joinChoice';
- document.getElementById('sheetTop').classList.toggle('join-header',isJoin);
- document.getElementById('sheetBack').hidden=true;
- document.getElementById('sheetHeading').hidden=true;
- document.getElementById('sheetKicker').textContent='';
- document.getElementById('sheetTitle').textContent=isJoin?'':id==='proposal'?'Предложи акцију':id==='campaignProposal'?'Покрени кампању':id==='campaignJoin'?'Прикључи се кампањи':id==='campaignDetail'?'О кампањи':id==='join'?'Придружи се акцији':id==='membership'?'Пријава за чланство':id==='support'?'Подржи акцију':'Акције којима можеш да се придружиш';
- if(isJoin)setJoinHeader('ОДГОВОРНА ПЛАНА · ЗАЈЕДНИЧКО ДЕЛОВАЊЕ','Укључи се.','Изабери како желиш да се укључиш.',null);
- sheetBackdrop.hidden=false;bottomSheet.hidden=false;bottomSheet.setAttribute('aria-hidden','false');
- requestAnimationFrame(()=>{sheetBackdrop.classList.add('open');bottomSheet.classList.add('open')});document.body.classList.add('sheet-open');
-}
-function openJoinFlow(){renderJoinChoices();showPanel('joinChoice');}
-function renderJoinChoices(){
- const root=document.getElementById('joinFlowContent');if(!root)return;
- setJoinHeader('ОДГОВОРНА ПЛАНА · ЗАЈЕДНИЧКО ДЕЛОВАЊЕ','Укључи се.','Изабери како желиш да се укључиш.',null);
- root.innerHTML='<div class="join-flow-options"><button class="join-flow-option" type="button" onclick="showJoinFlowSection(\\'campaign\\')"><span class="flow-icon">◎</span><span><strong>Кампање</strong><small>Кампања окупља људе око проблема или заједничког циља. Повезује више активности и помаже да се истрајно ради на решењу.</small></span><span class="join-flow-arrow">→</span></button><button class="join-flow-option" type="button" onclick="showJoinFlowSection(\\'action\\')"><span class="flow-icon">✓</span><span><strong>Акције</strong><small>Акција је конкретан корак у нашој заједници. Предложи шта треба урадити или се прикључи људима који су већ започели рад.</small></span><span class="join-flow-arrow">→</span></button><button class="join-flow-option" type="button" onclick="showJoinFlowSection(\\'movement\\')"><span class="flow-icon">♡</span><span><strong>Покрет</strong><small>Покрет повезује људе, идеје и иницијативе и отвара простор да заједно преузмемо одговорност за промене.</small></span><span class="join-flow-arrow">→</span></button></div>';
-}
-function hidePanels(){
- if(!sheetTarget)return;bottomSheet.classList.remove('open');sheetBackdrop.classList.remove('open');bottomSheet.setAttribute('aria-hidden','true');document.body.classList.remove('sheet-open');
- sheetTarget.classList.remove('active');if(sheetParent)sheetParent.insertBefore(sheetTarget,sheetNext&&sheetNext.parentNode===sheetParent?sheetNext:null);
- sheetTarget=null;sheetParent=null;sheetNext=null;setTimeout(()=>{bottomSheet.hidden=true;sheetBackdrop.hidden=true},330);
-}
-
 async function loadSingleAction(){
  const key=new URLSearchParams(window.location.search).get('akcija');if(!key)return;
  document.body.classList.remove('home-hero');document.body.classList.add('action-page');
@@ -836,10 +795,6 @@ loadSingleAction().catch(error=>{
  const view=document.getElementById('singleAction');
  if(view){const main=document.querySelector('main.hidden-content');if(main){main.classList.remove('hidden-content');main.removeAttribute('aria-hidden');}view.hidden=false;const detail=error&&error.message?String(error.message):String(error);view.innerHTML='<div class="single-action-loading"><strong>Грешка при учитавању акције.</strong><p>Детаљ: '+escapeActionText(detail)+'</p><p>Пошаљи ми снимак ове поруке.</p></div>';}
 });
-sheetBackdrop.addEventListener('click',hidePanels);
-document.addEventListener('keydown',e=>{if(e.key==='Escape')hidePanels()});
-bottomSheet.addEventListener('touchstart',e=>{sheetTouchY=e.touches[0].clientY},{passive:true});
-bottomSheet.addEventListener('touchend',e=>{if(e.changedTouches[0].clientY-sheetTouchY>90&&sheetContent.scrollTop===0)hidePanels()},{passive:true});
 </script>
   <script src="/bottom-sheet.js"></script>\n<script src="/bottom-nav.js"></script>
 <script src="/shared-proposal-modal.js"></script>
