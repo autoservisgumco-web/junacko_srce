@@ -64,6 +64,9 @@ footer{padding:20px;text-align:center;background:#041329;color:#d4e1f3;font-size
 .join-order-backdrop[hidden]{display:none!important}.join-order-panel{width:min(100%,620px);max-height:calc(100dvh - 100px);overflow:auto;background:#fff;color:#14233b;border-radius:22px;padding:22px;box-shadow:0 18px 60px #07122655}.join-order-quantity{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:14px 0}.join-order-quantity button{width:38px;height:38px;border:1px solid #d5deeb;border-radius:50%;background:#f5f8fc;font-size:22px}.join-order-quantity strong{margin-left:auto}.join-order-panel .hint{font-size:13px;color:#64748b}.join-order-panel [role=alert]{color:#b42318}
 </style><style>
 .support-intro-copy{margin:28px 0 20px}.support-intro-copy h3{margin:12px 0 8px;color:inherit;font-size:clamp(19px,2.5vw,24px);line-height:1.25}.support-intro-copy p{margin:8px 0 14px;line-height:1.65}.support-intro-copy .support-choice-heading{margin:26px 0 14px}
+.entry-choices[hidden],.tab-panel[hidden]{display:none!important}
+.tab-panel .panel-back{display:inline-flex;align-items:center;gap:8px;margin:0 0 18px;padding:10px 15px;border:1px solid #d7e2f0;border-radius:999px;background:#fff;color:#173456;font:inherit;font-weight:700;cursor:pointer}
+.tab-panel .panel-back:active{transform:translateY(1px)}
 </style></head>
 <body>
 <header class="site-header">
@@ -103,10 +106,26 @@ footer{padding:20px;text-align:center;background:#041329;color:#d4e1f3;font-size
 <script src="/shared-proposal-modal.js"></script>
 <script>
 (function(){
- const tabs={campaign:{button:null,panel:document.getElementById('campaignPanel')},action:{button:null,panel:document.getElementById('actionPanel')},association:{button:null,panel:document.getElementById('associationPanel')}};
- function showTab(name){Object.entries(tabs).forEach(([key,item])=>{const active=key===name;item.panel.hidden=!active;if(item.button)item.button.setAttribute('aria-current',String(active));});window.scrollTo({top:0,behavior:'smooth'});}
- 
- document.querySelectorAll('[data-entry-tab]').forEach(button=>button.addEventListener('click',()=>{showTab(button.dataset.entryTab);document.querySelectorAll('[data-entry-tab]').forEach(item=>item.setAttribute('aria-pressed',String(item===button)));document.getElementById(button.dataset.entryTab+'Panel').scrollIntoView({behavior:'smooth',block:'start'});}));
+ const choices=document.querySelector('.entry-choices');
+ const tabs={campaign:{panel:document.getElementById('campaignPanel')},action:{panel:document.getElementById('actionPanel')},association:{panel:document.getElementById('associationPanel')}};
+ function showTab(name){
+  Object.entries(tabs).forEach(([key,item])=>{item.panel.hidden=key!==name;});
+  choices.hidden=true;
+  window.scrollTo({top:0,behavior:'smooth'});
+ }
+ function backToChoices(){
+  Object.values(tabs).forEach(item=>item.panel.hidden=true);
+  choices.hidden=false;
+  document.querySelectorAll('[data-entry-tab]').forEach(item=>item.setAttribute('aria-pressed','false'));
+  choices.scrollIntoView({behavior:'smooth',block:'start'});
+ }
+ Object.entries(tabs).forEach(([name,item])=>{
+  const back=document.createElement('button');
+  back.type='button';back.className='panel-back';back.textContent='← Назад на избор';
+  back.addEventListener('click',backToChoices);
+  item.panel.insertBefore(back,item.panel.firstChild);
+ });
+ document.querySelectorAll('[data-entry-tab]').forEach(button=>button.addEventListener('click',()=>showTab(button.dataset.entryTab)));
  const esc=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
  const campaignRoot=document.getElementById('campaignList'),actionRoot=document.getElementById('actionList');
  async function loadCampaigns(){try{const client=window.db||window.odgovornaPlanaDB;if(!client)throw new Error('База није иницијализована.');const {data,error}=await client.from('campaigns').select('id,title,slug,description,intro_text,goal,hero_image,status,is_published,created_at').eq('is_published',true).eq('status','active').order('created_at',{ascending:false});if(error)throw error;if(!data?.length){campaignRoot.innerHTML='<p class="status">Тренутно нема објављених кампања.</p>';return;}campaignRoot.innerHTML=data.map(item=>{const image=item.hero_image?'<img loading="lazy" src="'+esc(item.hero_image)+'" alt="">':'<div class="item-image-placeholder"></div>';return '<a class="item-card" href="/kampanja.html?slug='+encodeURIComponent(item.slug||item.id)+'">'+image+'<div class="item-copy"><span class="item-tag">КАМПАЊА</span><h3>'+esc(item.title||'Кампања')+'</h3><p>'+esc(item.intro_text||item.description||item.goal||'Погледај заједнички циљ и начин да допринесеш.')+'</p><span class="item-more">Погледај кампању →</span></div></a>';}).join('');}catch(error){console.error(error);campaignRoot.innerHTML='<p class="status">Кампање тренутно нису учитане. Покушај поново касније.</p>';}}
