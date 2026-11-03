@@ -81,7 +81,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
 </section>
 
 <section class="panel">
-<form id="proposalForm">
+<form id="proposalForm" novalidate>
 <div class="wizard-progress"><span id="wizardCount">КОРАК 1 ОД 5</span><div class="wizard-track"><i id="wizardBar"></i></div></div>
 <section class="wizard-step" data-step="0">
 <h2>1. Како би назвао своју идеју?</h2>
@@ -184,12 +184,16 @@ function renderWizard(){
 function validateStep(){
  const fields=wizardSteps[wizardStep].querySelectorAll('input,textarea');
  for(const field of fields){
-  if(field.type==='radio'||field.type==='checkbox')continue;
+  if(field.type==='radio')continue;
+  if(field.type==='checkbox'){
+   if(field.required&&!field.checked){field.reportValidity();return false;}
+   continue;
+  }
   if(field.required&&!field.value.trim()){field.reportValidity();return false;}
-  if(field.id==='description'&&field.value.trim().length<10){field.reportValidity();return false;}
+  if(!field.checkValidity()){field.reportValidity();return false;}
  }
  if(wizardStep===3&&selectedDateKnown()&&!$('action_date').value){$('action_date').reportValidity();return false;}
-  return true;
+ return true;
 }
 $('wizardNext').addEventListener('click',()=>{if(!validateStep())return;wizardStep=Math.min(4,wizardStep+1);renderWizard();});
 $('wizardBack').addEventListener('click',()=>{wizardStep=Math.max(0,wizardStep-1);renderWizard();});
@@ -200,6 +204,7 @@ renderWizard();
 function showMessage(text,type){const m=$('message');m.textContent=text;m.className='message show '+type;}
 form.addEventListener('submit',async e=>{
  e.preventDefault();
+ if(!validateStep())return;
  if(!db){showMessage('Веза са базом није доступна. Покушај поново касније.','err');return;}
  const btn=$('submitProposal');btn.disabled=true;btn.textContent='Шаљем предлог…';
  const known=selectedDateKnown();
