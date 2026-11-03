@@ -153,7 +153,7 @@ async function loadParticipants(){
  participantsList.innerHTML='<p class="empty">Учитавање пријава...</p>';
  const {data,error}=await db.from('civic_submissions').select('id,title,description,full_name,email,phone,viber_phone,location,support_type,status,created_at,social_links').eq('submission_type','help').order('created_at',{ascending:false});
  if(error){participantsList.innerHTML='<p class="empty">Пријаве за учешће тренутно нису доступне. Проверите приступ бази.</p>';return}
- participants=(data||[]).filter(x=>x.social_links&&x.social_links.action_id);participantsList.replaceChildren();
+ participants=(data||[]).filter(x=>x.social_links&&(x.social_links.action_id||(x.social_links.kind==="action"&&x.social_links.target_id)));participantsList.replaceChildren();
  if(!participants.length){participantsList.innerHTML='<p class="empty">Још нема пријава за конкретне акције.</p>';return}
  participants.forEach(item=>participantsList.appendChild(renderParticipant(item)));
 }
