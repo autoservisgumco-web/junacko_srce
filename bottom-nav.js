@@ -9,7 +9,7 @@
     {href:'/index.html',icon:'⌂',label:'Почетна',target:'/index.html'},
     {href:'/akcije.html',icon:'✓',label:'Акције',target:'/akcije.html',sheet:'action'},
     {href:'/kampanje.html',icon:'◎',label:'Кампање',target:'/kampanje.html',sheet:'campaign'},
-    {href:'/podrska.html',icon:'♡',label:'Подршка удружењу',target:'/podrska.html',sheet:'association'}
+    {href:'/index.html#open-association-sheet',icon:'♡',label:'Подршка удружењу',target:'/index.html',sheet:'association'}
   ];
   items.forEach((item,index)=>{
     const a=document.createElement('a');
@@ -22,14 +22,16 @@
   nav.addEventListener('click',event=>{
     const link=event.target.closest('a[data-open-sheet-tab]');
     if(!link)return;
-    // На страници која има заједнички панел, доње картице отварају његов садржај.
+    // Подршка удружењу увек отвара заједнички bottom sheet. Ако смо на другој страници, прво се враћамо на почетну која садржи панел.
+    event.preventDefault();
+    const kind=link.getAttribute('data-open-sheet-tab');
     if(typeof window.openJoinFlow==='function'&&typeof window.showJoinFlowSection==='function'){
-      event.preventDefault();
-      const kind=link.getAttribute('data-open-sheet-tab');
       window.openJoinFlow();
       window.showJoinFlowSection(kind);
       nav.querySelectorAll('a').forEach(item=>item.removeAttribute('aria-current'));
       link.setAttribute('aria-current','page');
+    }else if(kind==='association'){
+      window.location.assign('/index.html#open-association-sheet');
     }
   });
   document.querySelectorAll('.mobile-bottom-nav').forEach(el=>el.remove());
