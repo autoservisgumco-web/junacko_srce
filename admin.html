@@ -14,6 +14,10 @@ h1{color:var(--navy);margin:0 0 8px;font-size:clamp(28px,5vw,38px)}.intro{color:
 .box,.submission{background:#fff;border:1px solid #e1eaf2;border-radius:15px;padding:22px;margin:16px 0}.participant-details{border-top:1px solid #e1eaf2;margin-top:14px;padding-top:14px}.participant-details[hidden]{display:none}.contact-links{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}.contact-links a{display:inline-block;padding:9px 12px;border-radius:8px;background:#e8eef5;color:#061A35;text-decoration:none;font-weight:750}
 label{display:block;font-weight:700;margin:13px 0 6px;color:var(--navy)}
 input{width:100%;padding:12px;border:1px solid #cbd9e5;border-radius:9px;font:inherit}
+.password-wrap{position:relative;display:flex;align-items:center}
+.password-wrap input{padding-right:52px}
+.password-toggle{position:absolute;right:7px;top:50%;transform:translateY(-50%);width:40px;height:40px;padding:0;background:transparent;color:var(--navy);font-size:20px;display:grid;place-items:center}
+.password-toggle:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
 button{border:0;border-radius:9px;padding:11px 17px;font:inherit;font-weight:750;cursor:pointer}
 .primary{background:var(--blue);color:#fff}.secondary{background:var(--navy);color:#fff}.quiet{background:#e8eef5;color:var(--navy)}
 .actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}.status{font-size:13px;font-weight:800;padding:6px 10px;border-radius:20px;background:#edf2f7;color:#475569}
@@ -46,7 +50,7 @@ button{border:0;border-radius:9px;padding:11px 17px;font:inherit;font-weight:750
 <p class="meta">Пријави се администраторским налогом autoservisgumco@gmail.com.</p>
 <form id="authForm">
 <label for="email">Е-пошта</label><input id="email" type="email" autocomplete="username" required>
-<label for="password">Лозинка</label><input id="password" type="password" autocomplete="current-password" required minlength="8">
+<label for="password">Лозинка</label><div class="password-wrap"><input id="password" type="password" autocomplete="current-password" required minlength="8"><button class="password-toggle" type="button" id="togglePassword" aria-label="Прикажи лозинку" aria-pressed="false" title="Прикажи лозинку">👁</button></div>
 <div class="actions"><button class="primary" type="submit">Пријави се</button><button class="quiet" type="button" id="signup">Региструј администраторски налог</button></div>
 <p id="message" role="status"></p>
 </form>
@@ -80,6 +84,7 @@ document.getElementById('authForm').addEventListener('submit',async e=>{
  if(error){showMessage('Пријава није успела. Проверите е-пошту и лозинку.');return}
  showMessage('',false);await refreshSession();
 });
+document.getElementById('togglePassword').addEventListener('click',()=>{const field=document.getElementById('password'),button=document.getElementById('togglePassword');const reveal=field.type==='password';field.type=reveal?'text':'password';button.textContent=reveal?'🙈':'👁';button.setAttribute('aria-label',reveal?'Сакриј лозинку':'Прикажи лозинку');button.title=reveal?'Сакриј лозинку':'Прикажи лозинку';button.setAttribute('aria-pressed',String(reveal));});
 document.getElementById('signup').addEventListener('click',async()=>{
  const email=document.getElementById('email').value.trim().toLowerCase(),password=document.getElementById('password').value;
  if(email!=='autoservisgumco@gmail.com'){showMessage('Регистрација је дозвољена само за одређену администраторску адресу.');return}
