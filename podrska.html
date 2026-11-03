@@ -44,6 +44,30 @@
 .support-message{margin:12px 0 0;font-weight:650}.support-message:empty{display:none}
 @media(max-width:650px){.support-fields{grid-template-columns:1fr}.support-full{grid-column:auto}}
 @media(max-width:650px){.support-main{padding:27px 16px 60px}.support-grid{grid-template-columns:1fr}.support-hero{padding:42px 18px}.support-hero p{font-size:16px}}
+
+.support-main{background:#f5f8fc}
+.support-section{margin:0 0 58px}
+.support-section-head{max-width:850px;margin:0 0 22px}
+.support-section-head .support-kicker{color:#2166f3}
+.support-section-head h2{font-size:clamp(27px,3.5vw,39px);line-height:1.15;color:#061a35;margin:9px 0 10px}
+.support-section-head p{color:#52677d;line-height:1.7;font-size:16px;margin:0}
+.support-list{display:grid;gap:13px}
+.support-list-row{display:grid;grid-template-columns:190px minmax(0,1fr);gap:22px;align-items:center;min-height:150px;background:#fff;border:1px solid #dce5f0;border-radius:17px;overflow:hidden;text-decoration:none;color:inherit;box-shadow:0 7px 22px #061a3509;transition:transform .2s,border-color .2s}
+.support-list-row:hover{transform:translateY(-2px);border-color:#9bbce8}
+.support-list-image{width:100%;height:100%;min-height:150px;max-height:190px;object-fit:cover;background:linear-gradient(135deg,#dcecff,#a9c9ee)}
+.support-list-placeholder{display:grid;place-items:center;color:#2166f3;font-size:42px}
+.support-list-copy{padding:18px 22px 18px 0}
+.support-list-copy .support-list-meta{font-size:12px;letter-spacing:.7px;text-transform:uppercase;color:#2166f3;font-weight:850}
+.support-list-copy h3{font-size:clamp(19px,2.4vw,25px);line-height:1.2;color:#061a35;margin:7px 0}
+.support-list-copy p{font-size:14px;line-height:1.55;color:#52677d;margin:0 0 10px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.support-list-link{font-weight:850;color:#1458d4;font-size:14px}
+.support-list-empty{background:#fff;border:1px dashed #b9cadd;border-radius:14px;padding:22px;color:#52677d}
+.support-more{display:inline-flex;margin-top:17px;padding:11px 17px;border-radius:10px;background:#e7f0fb;color:#0b3972;text-decoration:none;font-weight:850}
+.support-start{margin-top:20px;padding:23px 25px;border-radius:16px;background:#e8f1fc;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.support-start h3{margin:0 0 5px;color:#061a35;font-size:21px}.support-start p{margin:0;color:#52677d;line-height:1.55}
+.support-start a{white-space:nowrap;background:#061a35;color:white;text-decoration:none;padding:12px 17px;border-radius:10px;font-weight:800}
+.support-section-divider{height:1px;background:#dce5f0;margin:54px 0}
+@media(max-width:620px){.support-list-row{grid-template-columns:112px minmax(0,1fr);gap:13px;min-height:126px}.support-list-image{min-height:126px}.support-list-copy{padding:12px 12px 12px 0}.support-list-copy p{-webkit-line-clamp:2;font-size:13px}.support-list-copy h3{font-size:17px}.support-start{align-items:flex-start;flex-direction:column}.support-start a{white-space:normal}}
 </style><style>
 .site-shared-hero.hero-full{position:relative;min-height:100vh;height:100vh;height:100dvh;padding:54px max(6.8vw,24px) 42px;display:flex;align-items:center;justify-content:flex-start;background:linear-gradient(90deg,rgba(3,27,59,.98) 0%,rgba(3,35,73,.94) 34%,rgba(3,35,73,.58) 58%,rgba(3,20,42,.12) 100%),linear-gradient(0deg,rgba(3,15,34,.42),transparent 55%),url('https://raw.githubusercontent.com/autoservisgumco-web/junacko_srce/refs/heads/main/Velika_Plana%2B.jpg') center/cover no-repeat!important;text-align:left}
 .site-shared-hero .hero-inner{width:min(1320px,100%);margin:0 auto;display:flex;flex-direction:column;justify-content:center;min-height:calc(100svh - 96px)}
@@ -60,24 +84,28 @@
 <header class="site-header"><a class="site-brand" href="/index.html" aria-label="Одговорна Плана — почетна"><span class="brand-heart">♡</span><span>Одговорна<br>Плана</span></a><nav class="site-nav" aria-label="Главна навигација"><a href="/index.html">Почетна</a><a href="/kampanje.html">Кампање</a><a href="/akcije.html">Акције</a><a href="/podrska.html" class="active" aria-current="page">Буди нам подршка</a><a href="/prodavnica.html">Продавница</a></nav><button class="menu-trigger" id="openMenu" type="button" aria-label="Отвори мени">☰</button></header><div class="menu-backdrop" id="menuBackdrop" hidden></div><aside class="side-menu" id="sideMenu" aria-hidden="true"><div class="side-menu-head"><span>♡ Одговорна Плана</span><button class="side-menu-close" id="closeMenu" type="button" aria-label="Затвори мени">×</button></div><nav aria-label="Мени"><a href="/index.html">Почетна</a><a href="/kampanje.html">Кампање</a><a href="/akcije.html">Акције</a><a href="/o-projektu.html">О пројекту</a><a href="/podrska.html" aria-current="page">Буди нам подршка</a><a href="/prodavnica.html">Продавница</a></nav></aside>
 <section class="support-hero"><div class="support-hero-inner"><div class="support-kicker">ОДГОВОРНА ПЛАНА · ЗАЈЕДНО ДЕЛУЈЕМО</div><h1>Подржи Покрет <span>Одговорна Плана</span></h1><p>Одговорна Плана припада свима нама. Придружи нам се и подржи рад који повезује људе, покреће добре идеје и претвара их у конкретне акције.</p></div></section>
 <main class="support-main"><div class="support-wrap">
-<p class="support-intro">Свако може да допринесе на свој начин. Можеш да постанеш део Покрета, учествујеш у акцијама, поделиш своје знање и време или подржиш рад куповином производа. Не мораш увек да будеш физички присутан да би био део промене.</p>
-<div class="support-grid">
-<article class="support-card"><div class="support-icon">↗</div><h2>Постани део Покрета</h2><p>Желиш да будеш део заједнице људи који преузимају одговорност и покрећу промене у свом окружењу? Остави пријаву и повежимо се.</p><a class="support-btn" href="#prijava-podrske">Придружи се →</a></article>
-<article class="support-card"><div class="support-icon">＋</div><h2>Укључи се у рад Покрета</h2><p>Покрет обухвата различите облике заједничког деловања — повезивање људи, размену знања, подршку важним темама, организацију и конкретну помоћ у заједници. Пронађи своје место у том раду.</p><a class="support-btn dark" href="#prijava-podrske">Пронађи своје место →</a></article>
-
-<article class="support-card"><div class="support-icon">✦</div><h2>Помози знањем, временом или ресурсима</h2><p>Ако не можеш физички да учествујеш, можеш да помогнеш материјалом, алатом, опремом, новчаним доприносом или својим знањем.</p><a class="support-btn dark" href="#prijava-podrske">Пријави подршку ↓</a></article>
-</div>
-<section class="support-shop" aria-labelledby="supportShopTitle">
- <div class="support-kicker">И ПОДРШКА ЈЕ ДОПРИНОС</div>
- <h2 id="supportShopTitle" style="color:#fff;font-size:clamp(27px,4vw,38px);line-height:1.15;margin:10px 0 12px">Не мораш увек да будеш на терену.</h2>
- <p class="support-shop-copy">Рад можеш да подржиш куповином производа које припремамо. На тај начин помажеш да организујемо нове активности и наставимо заједнички рад.</p>
- <div class="support-shop-actions"><a class="shop-primary" href="/prodavnica.html">Отвори продавницу →</a><a class="shop-secondary" href="#prijava-podrske">Подржи на други начин</a></div>
- <a class="support-product-link" href="/prodavnica.html" aria-label="Привезак Одговорна Плана, 150 динара — отвори продавницу">
-  <span class="support-product-icon" aria-hidden="true">♡</span>
-  <span class="support-product-info"><span><strong>Привезак Одговорна Плана</strong><small>Привезак Одговорна Плана. Цена 150 динара.</small></span><b>150 дин.</b></span>
- </a>
+<section class="support-section" aria-labelledby="supportActionsTitle">
+ <div class="support-section-head"><div class="support-kicker">КОНКРЕТНО ДЕЛОВАЊЕ</div><h2 id="supportActionsTitle">Акције</h2><p>Акције су начин да проблеме у нашем окружењу претворимо у конкретан посао. Неко предложи шта треба урадити, други се прикључе, а заједно одређујемо шта можемо да променимо. Погледај акције које су већ покренуте и пронађи где можеш да помогнеш.</p></div>
+ <div id="supportActionsList" class="support-list"><div class="support-list-empty">Учитавање акција…</div></div>
+ <a id="supportActionsMore" class="support-more" href="/akcije.html" hidden>Види све акције →</a>
+ <div class="support-start"><div><h3>Имаш идеју за своју акцију?</h3><p>Предложи шта треба урадити у твом месту. Отворићемо простор да твоја идеја окупи људе.</p></div><a href="/predlog-akcije.html">＋ Покрени своју акцију</a></div>
 </section>
-<section class="support-note" style="margin-top:28px"><div class="support-kicker" style="color:#2166f3">ЗАЈЕДНО ГРАДИМО ОДГОВОРНУ ПЛАНУ</div><h2>Покрет је већи од било које појединачне акције.</h2><p>Одговорна Плана повезује људе који желе да учествују у животу своје заједнице. Неко доноси знање, неко искуство, неко време, неко идеју, а неко пружа подршку на други начин. Кроз тај заједнички рад могу да настају различите иницијативе, програми и активности. Важно је да свако ко жели да допринесе има своје место.</p></section>
+<div class="support-section-divider"></div>
+<section class="support-section" aria-labelledby="supportCampaignsTitle">
+ <div class="support-section-head"><div class="support-kicker">ТЕМЕ КОЈЕ ЗАХТЕВАЈУ ЗАЈЕДНИЧКУ ПАЖЊУ</div><h2 id="supportCampaignsTitle">Кампање</h2><p>Кампање окупљају људе око важних тема које захтевају континуиран рад, подршку и више различитих облика учешћа. Свака кампања има свој циљ и своје начине на које можеш да се укључиш.</p></div>
+ <div id="supportCampaignsList" class="support-list"><div class="support-list-empty">Учитавање кампања…</div></div>
+ <a id="supportCampaignsMore" class="support-more" href="/kampanje.html" hidden>Види све кампање →</a>
+</section>
+<div class="support-section-divider"></div>
+<section class="support-section" aria-labelledby="supportAssociationTitle">
+ <div class="support-section-head"><div class="support-kicker">ПОДРШКА РАДУ ПОКРЕТА</div><h2 id="supportAssociationTitle">Подржи рад Одговорне Плане</h2><p>За повезивање људи, припрему акција и одржавање овог простора потребни су време, знање и средства. Рад можеш да подржиш куповином производа или на други начин који ти одговара.</p></div>
+ <section class="support-shop" aria-labelledby="supportShopTitle">
+  <h2 id="supportShopTitle" style="color:#fff;font-size:clamp(27px,4vw,38px);line-height:1.15;margin:0 0 12px">Подршка која омогућава да наставимо да радимо.</h2>
+  <p class="support-shop-copy">Куповином производа из наше продавнице помажеш да организујемо нове активности и наставимо заједнички рад.</p>
+  <div class="support-shop-actions"><a class="shop-primary" href="/prodavnica.html">Отвори продавницу →</a><a class="shop-secondary" href="#prijava-podrske">Подржи на други начин</a></div>
+  <a class="support-product-link" href="/prodavnica.html" aria-label="Привезак Одговорна Плана — отвори продавницу"><span class="support-product-icon" aria-hidden="true">♡</span><span class="support-product-info"><span><strong>Привезак Одговорна Плана</strong><small>Куповином подржаваш рад Покрета.</small></span><b>150 дин.</b></span></a>
+ </section>
+</section>
 <section class="support-note" id="prijava-podrske"><h2>Желиш да будеш део Одговорне Плане?</h2><p>Остави нам контакт и напиши на који начин желиш да се укључиш. Јавићемо ти се да се упознамо и договоримо како можемо заједно да делујемо.</p>
 <form id="supportForm" class="support-form">
 <div class="support-fields">
@@ -89,11 +117,11 @@
 <div class="support-field support-full"><label for="supportDescription">Напиши како конкретно можеш да помогнеш</label><textarea id="supportDescription" name="description" rows="4" maxlength="2500" placeholder="На пример: могу да помогнем превозом, алатом, материјалом, стручним знањем..."></textarea></div>
 </div><button class="support-btn" id="supportSubmit" type="submit">Пошаљи пријаву</button><p id="supportMessage" class="support-message" role="status" aria-live="polite"></p>
 </form></section>
-</div></main>
+</div></main>>
 <footer class="content-footer"><div class="content-footer-inner">ОДГОВОРНА ПЛАНА · Место за заједничко деловање</div></footer>
 <script>
 const menu=document.getElementById('sideMenu'),back=document.getElementById('menuBackdrop');function closeSideMenu(){menu.classList.remove('open');back.classList.remove('open');menu.setAttribute('aria-hidden','true');setTimeout(()=>back.hidden=true,260)}document.getElementById('openMenu').addEventListener('click',()=>{back.hidden=false;menu.setAttribute('aria-hidden','false');requestAnimationFrame(()=>{back.classList.add('open');menu.classList.add('open')})});document.getElementById('closeMenu').addEventListener('click',closeSideMenu);back.addEventListener('click',closeSideMenu);
-</script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="/config.js"></script><script src="/database.js"></script><script src="/akcije-data.js"></script>
 <script>
 const supportDb=window.supabase.createClient('https://hmfeizkmpmxcnzhwxgbn.supabase.co','sb_publishable_JPtLezaiIeq4MsQ2f3LSlg_nT01Chxe');
 document.getElementById('supportForm').addEventListener('submit',async e=>{
@@ -108,5 +136,35 @@ document.getElementById('supportForm').addEventListener('submit',async e=>{
  }catch(err){console.error(err);message.style.color='#b42318';message.textContent='Пријава није послата. Покушај поново или нам се јави директно.';}
  finally{button.disabled=false;button.textContent='Пошаљи пријаву';}
 });
+</script>
+<script>
+(async()=>{
+ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ const renderRows=(root,items,type)=>{
+  if(!items?.length){root.innerHTML='<div class="support-list-empty">Тренутно нема објављених '+(type==='action'?'акција':'кампања')+'.</div>';return;}
+  const visible=items.slice(0,3);
+  root.innerHTML=visible.map(x=>{
+   const title=esc(x.title||'Без наслова');
+   const desc=esc(x.subtitle||x.intro_text||x.description||x.goal||'Погледај детаље и сазнај како можеш да се укључиш.');
+   const raw=String(type==='action'?(x.image_url||''):(x.hero_image||'')).trim();
+   const image=raw?(raw.startsWith('http://')||raw.startsWith('https://')?raw:'https://hmfeizkmpmxcnzhwxgbn.supabase.co/storage/v1/object/public/akcije/'+raw.split('/').map(encodeURIComponent).join('/')):'';
+   const href=type==='action'?'akcija.html?slug='+encodeURIComponent(x.slug||x.id):'kampanja.html?slug='+encodeURIComponent(x.slug||x.id);
+   return '<a class="support-list-row" href="'+href+'">'+(image?'<img class="support-list-image" src="'+esc(image)+'" alt="'+title+'" loading="lazy" onerror="this.outerHTML=\'<div class=&quot;support-list-image support-list-placeholder&quot;>♡</div>\'">':'<div class="support-list-image support-list-placeholder" aria-hidden="true">♡</div>')+'<span class="support-list-copy"><span class="support-list-meta">'+(type==='action'?'Акција · '+esc(x.location||'Одговорна Плана'):'Кампања')+'</span><h3>'+title+'</h3><p>'+desc+'</p><span class="support-list-link">Погледај детаље →</span></span></a>';
+  }).join('');
+  if(items.length>3){const more=document.getElementById(type==='action'?'supportActionsMore':'supportCampaignsMore');more.hidden=false;}
+ };
+ try{
+  const actionRoot=document.getElementById('supportActionsList');
+  const {data,error}=await window.ucitajAkcije();
+  if(error)throw error;
+  const actions=(data||[]).filter(a=>a.status!=='completed'&&a.status!=='rejected');
+  renderRows(actionRoot,actions,'action');
+ }catch(e){console.error('Учитавање акција:',e);document.getElementById('supportActionsList').innerHTML='<div class="support-list-empty">Акције тренутно нису доступне. Погледај <a href="/akcije.html">страницу Акције</a>.</div>';}
+ try{
+  const {data,error}=await supportDb.from('campaigns').select('*').eq('is_published',true).eq('status','active').order('created_at',{ascending:false});
+  if(error)throw error;
+  renderRows(document.getElementById('supportCampaignsList'),data||[],'campaign');
+ }catch(e){console.error('Учитавање кампања:',e);document.getElementById('supportCampaignsList').innerHTML='<div class="support-list-empty">Кампање тренутно нису доступне. Погледај <a href="/kampanje.html">страницу Кампање</a>.</div>';}
+})();
 </script><script src="/bottom-nav.js"></script>
 </body></html>
