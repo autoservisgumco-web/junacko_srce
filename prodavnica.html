@@ -111,7 +111,7 @@ footer{background:#041329;color:#d4e1f3;text-align:center;padding:24px 18px;font
 <div class="field"><label for="customerAddress">Адреса за доставу / преузимање *</label><input id="customerAddress" name="address" required maxlength="180" autocomplete="street-address" placeholder="Улица и број"></div>
 <p class="error" id="formError" role="alert"></p>
 <button class="btn order-btn" type="submit">Потврди наруџбину</button>
-<p class="hint">Ово је почетна верзија продавнице: подаци се не шаљу и не чувају. Наруџбина је само пробни приказ док се не договори повезивање са системом за пријем наруџбина.</p>
+<p class="hint">Подаци се чувају у систему за пријем наруџбина. Наруџбину ћемо потврдити телефоном.</p>
 </form>
 </div>
 <div class="success" id="successArea" aria-live="polite"><div class="success-icon">✓</div><h2>Пробна наруџбина је успешно попуњена!</h2><p id="successText"></p><button class="btn" type="button" id="finishOrder">Назад у продавницу</button></div>
@@ -124,7 +124,7 @@ $('minus').addEventListener('click',()=>{qty=Math.max(1,qty-1);render()});$('plu
 function close(){ $('orderModal').classList.remove('open');document.body.style.overflow='';}
 $('openOrder').addEventListener('click',()=>{render();$('formArea').style.display='block';$('successArea').classList.remove('show');$('orderModal').classList.add('open');document.body.style.overflow='hidden';$('customerName').focus()});
 $('closeModal').addEventListener('click',close);$('orderModal').addEventListener('click',e=>{if(e.target===$('orderModal'))close()});document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
-$('orderForm').addEventListener('submit',e=>{e.preventDefault();const form=e.currentTarget;if(!form.reportValidity())return;const d=new FormData(form);$('formError').textContent='';$('formArea').style.display='none';$('successArea').classList.add('show');$('successText').textContent=d.get('name')+', ваша пробна наруџбина: '+qty+' × привезак, укупно '+money(qty*price)+'. Подаци нису послати нити сачувани.';});
+$('orderForm').addEventListener('submit',async e=>{e.preventDefault();const form=e.currentTarget;if(!form.reportValidity())return;const d=new FormData(form),button=form.querySelector('[type="submit"]');$('formError').textContent='';button.disabled=true;button.textContent='Шаљем наруџбину…';try{const {data,error}=await window.odgovornaPlanaDB.rpc('submit_keychain_order',{p_customer_name:String(d.get('name')).trim(),p_phone:String(d.get('phone')).trim(),p_city:String(d.get('city')).trim(),p_delivery_address:String(d.get('address')).trim(),p_quantity:qty});if(error)throw error;$('formArea').style.display='none';$('successArea').classList.add('show');$('successArea').querySelector('h2').textContent='Наруџбина је примљена!';$('successText').textContent=d.get('name')+', наруџбина број '+data+': '+qty+' × привезак, укупно '+money(qty*price)+'. Јавићемо ти се ради потврде.';}catch(err){console.error('Наруџбина није сачувана:',err);$('formError').textContent='Наруџбина није послата. Покушај поново.';}finally{button.disabled=false;button.textContent='Потврди наруџбину';}});
 $('finishOrder').addEventListener('click',()=>{close();$('orderForm').reset();qty=1;render()});render();})();
 </script>
   <script src="bottom-nav.js"></script>
