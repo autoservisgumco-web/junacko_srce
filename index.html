@@ -284,6 +284,17 @@ body.action-page,body.shop-page{padding-bottom:0}
 .hero-buttons{display:flex!important;justify-content:center!important;width:min(760px,100%)!important;margin:42px auto 0!important}
 .hero-buttons .hero-cta{width:100%;min-height:132px}
 @media(max-width:760px){.hero-buttons{width:100%!important;margin:24px auto 0!important}.hero-buttons .hero-cta{min-height:96px}}
+
+/* Обавештење о фази припреме — унутар горњег плавог банера */
+.site-status-notice{position:absolute;z-index:6;top:145px;left:max(6.8vw,24px);right:max(6.8vw,24px);max-width:1320px;margin:0 auto;border:1px solid rgba(144,207,255,.42);border-radius:12px;background:rgba(9,83,151,.82);color:#fff;box-shadow:0 8px 26px rgba(0,15,40,.2);backdrop-filter:blur(9px);overflow:hidden}
+.site-status-toggle{width:100%;display:flex;align-items:center;gap:10px;padding:11px 15px;border:0;background:transparent;color:#fff;text-align:left;font:inherit;font-size:14px;font-weight:750;cursor:pointer}
+.site-status-toggle .status-chevron{margin-left:auto;transition:transform .2s ease;font-size:18px}
+.site-status-notice.open .status-chevron{transform:rotate(180deg)}
+.site-status-details{display:none;padding:0 15px 13px 39px;color:#e5f3ff;font-size:13px;line-height:1.55}
+.site-status-notice.open .site-status-details{display:block}
+.site-status-details p{margin:0 0 8px}
+.site-status-viber{display:inline-flex;align-items:center;gap:7px;color:#fff;font-weight:800;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.6);padding-bottom:2px}
+@media(max-width:760px){.site-status-notice{top:105px;left:16px;right:16px}.site-status-toggle{font-size:12px;padding:10px 12px}.site-status-details{padding:0 12px 12px 35px;font-size:12px}}
 </style>
   <link rel="stylesheet" href="bottom-nav.css">
 </head>
@@ -303,6 +314,16 @@ if(new URLSearchParams(window.location.search).has('akcija')){
 <aside class="side-menu" id="sideMenu" aria-hidden="true"><div class="side-menu-head"><span>♡ Одговорна Плана</span><button class="side-menu-close" id="closeMenu" type="button" aria-label="Затвори мени">×</button></div><nav aria-label="Мени"><a href="/index.html">Почетна</a><a href="/kampanje.html">Кампање</a><a href="/akcije.html">Акције</a><a href="/o-projektu.html">О пројекту</a><a href="/ukljuci-se.html">Како можеш да се укључиш</a><a href="/podrska.html">Подршка</a><a href="/prodavnica.html">Продавница</a><button id="installAppBtn" class="btn" type="button" hidden style="width:100%;margin-top:18px">Инсталирај апликацију</button></nav></aside>
 <section class="hero hero-full">
 <div class="hero-inner">
+<div class="site-status-notice" id="siteStatusNotice">
+ <button class="site-status-toggle" id="siteStatusToggle" type="button" aria-expanded="false" aria-controls="siteStatusDetails">
+  <span aria-hidden="true">ⓘ</span><span>Сајт је тренутно у фази припреме</span><span class="status-chevron" aria-hidden="true">⌄</span>
+ </button>
+ <div class="site-status-details" id="siteStatusDetails" hidden>
+  <p>Могући су повремени технички проблеми. Ако наиђете на потешкоће, јавите нам се — свака информација нам значи.</p>
+  <a class="site-status-viber" href="viber://chat?number=%2B381655812195">✆ Viber: 065 581 2195</a>
+ </div>
+</div>
+
 <div class="hero-copy">
 <p class="eyebrow">ОДГОВОРНА ВЕЛИКА ПЛАНА</p>
 <h1>Простор за<br><span>заједничко деловање.</span></h1>
@@ -703,6 +724,10 @@ function openCampaignJoin(campaign){
  showPanel('campaignJoin');
 }
 document.getElementById('showAllCampaigns')?.addEventListener('click',()=>loadHomeCampaigns(true));
+document.getElementById('siteStatusToggle')?.addEventListener('click',()=>{
+ const notice=document.getElementById('siteStatusNotice');const button=document.getElementById('siteStatusToggle');const details=document.getElementById('siteStatusDetails');
+ const opening=!notice.classList.contains('open');notice.classList.toggle('open',opening);button.setAttribute('aria-expanded',String(opening));details.hidden=!opening;
+});
 loadHomeActions();loadHomeCampaigns();
 
 /* Предлог акције: фотографије се чувају у приватном bucket-у и везују за пријаву. */
