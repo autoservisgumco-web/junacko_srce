@@ -538,38 +538,49 @@ function showPanel(id,actionId='',actionTitle=''){
 function openJoinFlow(){renderJoinChoices();showPanel('joinChoice');}
 function renderJoinChoices(){
  const root=document.getElementById('joinFlowContent');if(!root)return;
- root.innerHTML='<div class="join-flow-top join-flow-choice"><div class="join-flow-hero"><p class="eyebrow">ОДГОВОРНА ПЛАНА · ЗАЈЕДНИЧКО ДЕЛОВАЊЕ</p><h2>Укључи се.</h2><p>Свако може да допринесе на свој начин. Изабери како желиш да учествујеш у променама у својој заједници.</p></div></div><div class="join-flow-options"><button class="join-flow-option" type="button" onclick="showJoinFlowSection(\'campaign\')"><span class="flow-icon">◎</span><span><strong>Кампање</strong><small>Подржи важне теме и заједничке циљеве.</small></span><span class="join-flow-arrow">→</span></button><button class="join-flow-option" type="button" onclick="showJoinFlowSection(\'action\')"><span class="flow-icon">✓</span><span><strong>Акције</strong><small>Укључи се у конкретан рад на терену.</small></span><span class="join-flow-arrow">→</span></button><button class="join-flow-option" type="button" onclick="showJoinFlowSection(\'movement\')"><span class="flow-icon">♡</span><span><strong>Покрет</strong><small>Постани део људи који заједно делују.</small></span><span class="join-flow-arrow">→</span></button></div>';
+ root.innerHTML='<div class="join-flow-top join-flow-choice"><div class="join-flow-hero"><p class="eyebrow">ОДГОВОРНА ПЛАНА · ЗАЈЕДНИЧКО ДЕЛОВАЊЕ</p><h2>Укључи се.</h2><p>Изабери како желиш да се укључиш.</p></div></div><div class="join-flow-options"><button class="join-flow-option" type="button" onclick="showJoinFlowSection(\'campaign\')"><span class="flow-icon">◎</span><span><strong>Кампање</strong><small>Кампања окупља људе око проблема или заједничког циља. Повезује више активности и помаже да се истрајно ради на решењу.</small></span><span class="join-flow-arrow">→</span></button><button class="join-flow-option" type="button" onclick="showJoinFlowSection(\'action\')"><span class="flow-icon">✓</span><span><strong>Акције</strong><small>Акција је конкретан корак у нашој заједници. Предложи шта треба урадити или се прикључи људима који су већ започели рад.</small></span><span class="join-flow-arrow">→</span></button><button class="join-flow-option" type="button" onclick="showJoinFlowSection(\'movement\')"><span class="flow-icon">♡</span><span><strong>Покрет</strong><small>Покрет повезује људе, идеје и иницијативе и отвара простор да заједно преузмемо одговорност за промене.</small></span><span class="join-flow-arrow">→</span></button></div>';
 }
 async function showJoinFlowSection(kind){
  const root=document.getElementById('joinFlowContent');if(!root)return;
+ if(kind==='support'){
+  root.innerHTML='<div class="join-flow-top"><button class="join-flow-back" type="button" onclick="showJoinFlowSection(\'movement\')">←</button><div class="join-flow-hero"><p class="eyebrow">ПОДРШКА РАДУ ПОКРЕТА</p><h2>Подржи другачије</h2><p>Изабери начин на који можеш да допринесеш.</p></div></div><div class="join-flow-options">'+[['Време и рад','Учествуј у акцијама и раду на терену.'],['Знање и вештине','Помози својим знањем и искуством.'],['Материјална подршка','Алат, опрема, материјал или превоз.'],['Финансијска подршка','Подржи активности средствима.'],['Предлог и сарадња','Предложи идеју или заједнички рад.']].map((x,i)=>'<button class="join-flow-option" type="button" onclick="showJoinSupportForm('+i+')"><span><strong>'+x[0]+'</strong><small>'+x[1]+'</small></span><span class="join-flow-arrow">→</span></button>').join('')+'</div>';
+  return;
+ }
  const content={
-  campaign:{kicker:'ОДГОВОРНА ПЛАНА · КАМПАЊЕ',title:'Окупимо се око циља.',description:'Кампања окупља људе око одређеног проблема или заједничког циља и повезује више активности које нас воде ка решењу. Можеш да предложиш кампању, подржиш њен циљ или учествујеш у њеним активностима.'},
-  action:{kicker:'ОДГОВОРНА ПЛАНА · АКЦИЈЕ ГРАЂАНА',title:'Покрени конкретну промену.',description:'Акција је конкретан корак који можемо да направимо овде и сада. Предложи шта треба урадити, окупи људе или се прикључи активности која је већ покренута.'},
-  movement:{kicker:'ОДГОВОРНА ПЛАНА · ПОКРЕТ',title:'Промена почиње од људи.',description:'Покрет Одговорна Плана повезује грађане који желе да буду део промена у својој заједници. То је простор за људе који имају идеје, желе да покрену иницијативу, подрже друге и преузму део одговорности за место у ком живе.'}
+  campaign:{kicker:'ОДГОВОРНА ПЛАНА · КАМПАЊЕ',title:'Кампање',description:'Кампања окупља људе око проблема или заједничког циља. Повезује више активности, информисање и подршку како бисмо истрајно радили на решењу.'},
+  action:{kicker:'ОДГОВОРНА ПЛАНА · АКЦИЈЕ',title:'Акције',description:'Акција је конкретан корак који предузимамо у својој заједници. Можеш да предложиш шта треба урадити, прикључиш се другима и помогнеш да се нешто заиста промени.'},
+  movement:{kicker:'ОДГОВОРНА ПЛАНА · ПОКРЕТ',title:'Прикључи се Покрету',description:'Покрет Одговорна Плана повезује грађане који желе да учествују у животу своје заједнице, покрећу идеје, организују активности и преузимају одговорност за промене.'}
  }[kind];
  root.innerHTML='<div class="join-flow-top"><button class="join-flow-back" type="button" aria-label="Назад на избор" onclick="renderJoinChoices()">←</button><div class="join-flow-hero"><p class="eyebrow">'+content.kicker+'</p><h2>'+content.title+'</h2><p>'+content.description+'</p></div></div><div id="joinFlowItems" class="join-flow-list"></div>';
  const list=document.getElementById('joinFlowItems');
  if(kind==='movement'){
-  list.innerHTML='<p class="join-flow-description">Покрет Одговорна Плана повезује људе који желе да учествују у животу своје заједнице. Можеш да се прикључиш, покренеш кампању, предложиш конкретну акцију или подржиш рад Покрета.</p><div class="join-flow-options"><a class="join-flow-option" href="/ukljuci-se.html#associationPanel"><span class="flow-icon">♡</span><span><strong>Прикључи се Покрету</strong><small>Погледај како Покрет функционише, шта можеш да понудиш и на које начине можеш да се укључиш.</small></span><span class="join-flow-arrow">→</span></a><button class="join-flow-option" type="button" onclick="showPanel(\'proposal\')"><span class="flow-icon">＋</span><span><strong>Додај акцију</strong><small>Предложи конкретну активност у свом месту.</small></span><span class="join-flow-arrow">→</span></button><button class="join-flow-option" type="button" onclick="showPanel(\'campaignProposal\')"><span class="flow-icon">◎</span><span><strong>Додај кампању</strong><small>Покрени тему и окупи људе око заједничког циља.</small></span><span class="join-flow-arrow">→</span></button><a class="join-flow-option" href="/prodavnica.html"><span class="flow-icon">▣</span><span><strong>Продавница</strong><small>Погледај привезак Одговорна Плана и подржи рад Покрета куповином.</small></span><span class="join-flow-arrow">→</span></a></div>';
+  list.innerHTML='<p class="join-flow-description">Свако може да допринесе на свој начин — идејом, временом, знањем, радом или подршком другима. Важно је да свако ко жели да учествује добије прилику.</p><div class="join-product"><div class="join-product-image"><img src="https://hmfeizkmpmxcnzhwxgbn.supabase.co/storage/v1/object/public/Proizvodi/Privezak-plana.png" alt="Привезак Одговорна Плана"></div><div class="join-product-details"><strong class="join-product-name">Привезак Одговорна Плана</strong><p>Куповином подржаваш рад Покрета.</p><strong>150 дин.</strong><button class="join-product-shop" type="button" onclick="showShopPage()">Наручи →</button></div></div><button class="support-different-button" type="button" onclick="showJoinFlowSection(\'support\')">Подржи другачије</button>';
   return;
  }
- list.innerHTML='<p class="join-flow-description">Учитавање садржаја...</p>';
+ list.innerHTML='<p class="join-flow-description">Учитавање '+(kind==='campaign'?'кампања':'акција')+'...</p>';
  try{
   const table=kind==='campaign'?'campaigns':'actions';
   const fields=kind==='campaign'?'id,title,slug,description,goal,hero_image':'id,title,slug,summary,description,image_url,location';
   const {data,error}=await civicDb.from(table).select(fields).eq('is_published',true).order('created_at',{ascending:false}).limit(30);
   if(error)throw error;
-  if(!data?.length){list.innerHTML='<p class="join-flow-description">Тренутно нема објављених '+(kind==='campaign'?'кампања.':'акција.')+'</p>';return;}
-  list.innerHTML=data.map(item=>{
-   const title=String(item.title||'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
-   const desc=String(item.description||item.summary||item.goal||'Погледај детаље и начин да допринесеш.').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  if(!data?.length){list.innerHTML='<p class="join-flow-description">Тренутно нема објављених '+(kind==='campaign'?'кампања.':'акција.')+'</p>';}
+  else list.innerHTML=data.map(item=>{
+   const esc=v=>String(v||'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+   const title=esc(item.title),desc=esc(item.description||item.summary||item.goal||'Погледај детаље и начин да допринесеш.');
    const img=kind==='campaign'?item.hero_image:item.image_url;
-   const image=img&&/^https?:\/\//i.test(img)?'<img src="'+img.replace(/"/g,'&quot;')+'" alt="" loading="lazy">':'';
+   const image=img&&/^https?:\/\//i.test(img)?'<img src="'+esc(img)+'" alt="" loading="lazy">':'';
    const url=kind==='campaign'?'/kampanja.html?slug='+encodeURIComponent(item.slug||item.id):'/akcija.html?slug='+encodeURIComponent(item.slug||item.id);
    return '<a class="join-flow-card" href="'+url+'">'+image+'<span><strong>'+title+'</strong><small>'+desc+'</small><span class="join-flow-action">Погледај '+(kind==='campaign'?'кампању':'акцију')+' →</span></span></a>';
   }).join('');
+  const add=document.createElement('button');add.className='add-button';add.type='button';add.textContent=kind==='campaign'?'＋ Додај кампању':'＋ Додај акцију';add.addEventListener('click',()=>showPanel(kind==='campaign'?'campaignProposal':'proposal'));list.appendChild(add);
  }catch(error){console.error('Грешка при учитавању:',error);list.innerHTML='<p class="join-flow-description">Садржај тренутно није доступан. Покушај поново касније.</p>';}
 }
+function showJoinSupportForm(index){
+ const labels=['Време и рад','Знање и вештине','Материјална подршка','Финансијска подршка','Предлог и сарадња'];
+ const root=document.getElementById('joinFlowContent');if(!root)return;
+ root.innerHTML='<div class="join-flow-top"><button class="join-flow-back" type="button" onclick="showJoinFlowSection(\'support\')">←</button><div class="join-flow-hero"><p class="eyebrow">ПОДРШКА ПОКРЕТУ</p><h2>'+labels[index]+'</h2><p>Остави нам контакт и кратко опиши како желиш да помогнеш.</p></div></div><div class="join-flow-list"><p class="join-flow-description">За ову врсту подршке користићемо одговарајућу постојећу пријаву када је повежемо са овим приказом.</p><button class="join-flow-option" type="button" onclick="showPanel(\'membership\')"><span><strong>Настави на пријаву</strong><small>Отвори пријаву за укључивање у рад Покрета.</small></span><span class="join-flow-arrow">→</span></button></div>';
+}
+
 function hidePanels(){
  if(!sheetTarget)return;bottomSheet.classList.remove('open');sheetBackdrop.classList.remove('open');bottomSheet.setAttribute('aria-hidden','true');document.body.classList.remove('sheet-open');
  sheetTarget.classList.remove('active');if(sheetParent)sheetParent.insertBefore(sheetTarget,sheetNext&&sheetNext.parentNode===sheetParent?sheetNext:null);
