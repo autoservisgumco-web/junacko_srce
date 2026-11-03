@@ -88,7 +88,7 @@ footer{background:#041329;color:#d4e1f3;text-align:center;padding:24px;font-size
   <div class="live-list-heading"><h3>Погледај покренуте кампање</h3><p>Ако већ постоји кампања која ти је важна, можеш да јој се придружиш и допринесеш заједничком циљу.</p></div>
   <div id="guideCampaigns" class="live-cards"><p class="loading">Учитавање кампања...</p></div>
  </div>
- <p>Ако већ постоји кампања која ти је важна, можеш да јој се придружиш. А ако имаш идеју око које треба окупити људе, можеш да покренеш сопствену кампању.</p><div class="buttons"><a class="btn" href="/predlog-kampanje.html">＋ Покрени своју кампању</a></div>
+ <p>Ако већ постоји кампања која ти је важна, можеш да јој се придружиш. А ако имаш идеју око које треба окупити људе, можеш да покренеш сопствену кампању.</p><div class="buttons"><button class="btn open-campaign-proposal" type="button">＋ Покрени своју кампању</button></div>
 </section>
 
 <section class="choice">
@@ -110,6 +110,7 @@ footer{background:#041329;color:#d4e1f3;text-align:center;padding:24px;font-size
 
 </main>
 
+<div class="proposal-backdrop" id="campaignProposalBackdrop" hidden></div><section class="proposal-sheet" id="campaignProposalSheet" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Предлог кампање"><div class="proposal-sheet-head"><strong>Покрени своју кампању</strong><button type="button" id="closeCampaignProposal" aria-label="Затвори">×</button></div><iframe id="campaignProposalFrame" title="Предлог кампање" src="about:blank"></iframe></section>
 <div class="proposal-backdrop" id="proposalBackdrop" hidden></div>
 <section class="proposal-sheet" id="proposalSheet" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Покрени акцију">
  <div class="proposal-sheet-head"><strong>Покрени нешто у својој заједници</strong><button type="button" id="closeProposal" aria-label="Затвори">×</button></div>
