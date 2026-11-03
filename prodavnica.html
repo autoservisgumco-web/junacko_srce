@@ -17,7 +17,7 @@ main{width:min(1080px,calc(100% - 36px));margin:0 auto;padding:36px 0 65px}
 .kicker{font-size:11px;letter-spacing:2px;font-weight:850;color:#a9d5ff}.intro h1{font-size:clamp(31px,5vw,48px);line-height:1.12;letter-spacing:-1px;margin:10px 0 14px;max-width:760px}.intro p{color:#e0edf8;max-width:780px;margin:0;font-size:16px;line-height:1.75}
 .product{display:grid;grid-template-columns:1fr 1fr;gap:clamp(22px,4vw,42px);background:#fff;border:1px solid #dce5f0;border-radius:20px;padding:clamp(18px,3vw,30px);box-shadow:0 12px 35px #061a350a}
 .product-art{min-height:330px;border-radius:15px;background:radial-gradient(circle at 50% 42%,#fff 0,#f4f7fb 55%,#e4edf8 100%);display:grid;place-items:center;overflow:hidden}
-.product-art svg{width:min(88%,390px);height:auto;filter:drop-shadow(0 18px 18px #061a3520)}
+.product-art img{width:100%;height:100%;object-fit:contain}.product-art{min-height:330px}
 .product-info{display:flex;flex-direction:column;justify-content:center;align-items:flex-start}.tag{display:inline-block;background:#e8f3fc;color:#1769aa;border-radius:30px;padding:6px 11px;font-size:11px;font-weight:800;letter-spacing:.6px}
 h2{font-size:clamp(25px,3.5vw,34px);line-height:1.2;color:var(--navy);margin:13px 0 7px}.price{font-size:32px;font-weight:900;color:var(--red);margin:0 0 10px}.description{color:#52677d;line-height:1.7;margin:0 0 22px}
 .quantity-row{display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;padding:16px 0;border-top:1px solid #e5ebf2;border-bottom:1px solid #e5ebf2}
@@ -56,29 +56,12 @@ footer{background:#041329;color:#d4e1f3;text-align:center;padding:24px 18px;font
 <p>Желимо да Одговорна Плана буде место на коме се не задржавамо само на речима. Место на коме људи могу да покрену идеју, представе иницијативу, организују акцију и пронађу друге који желе да помогну. Ова продавница је један од начина да подржимо тај рад. Куповином производа подржавате развој грађанских активности и заједничких иницијатива у Великој Плани.</p>
 </section>
 <section class="product" aria-labelledby="productTitle">
-<div class="product-art" role="img" aria-label="Илустрација округлог привеска Одговорна Плана">
-<svg viewBox="0 0 440 390" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-<defs><linearGradient id="metal" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#fff"/><stop offset=".45" stop-color="#9aa8b8"/><stop offset=".7" stop-color="#fff"/><stop offset="1" stop-color="#68788b"/></linearGradient><linearGradient id="face" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#fff"/><stop offset="1" stop-color="#e8edf4"/></linearGradient></defs>
-<ellipse cx="220" cy="347" rx="130" ry="18" fill="#061a35" opacity=".12"/>
-<circle cx="220" cy="57" r="34" fill="none" stroke="url(#metal)" stroke-width="13"/><circle cx="220" cy="57" r="25" fill="none" stroke="#fff" stroke-width="3" opacity=".9"/>
-<path d="M220 88v38" stroke="url(#metal)" stroke-width="13" stroke-linecap="round"/><circle cx="220" cy="128" r="13" fill="none" stroke="url(#metal)" stroke-width="8"/>
-<circle cx="220" cy="244" r="111" fill="url(#metal)"/><circle cx="220" cy="244" r="102" fill="url(#face)" stroke="#fff" stroke-width="4"/>
-<path d="M137 238q35-30 68-12 18-27 37-5 22-20 45 4 17-11 37 13-49-8-91-4-50-1-96 4z" fill="#123d72"/>
-<path d="M143 246q77 12 154 0" fill="none" stroke="#e32d40" stroke-width="7" stroke-linecap="round"/>
-<path d="M213 205v-32l9-11 9 11v32m-28 0v-20l10-8 9 8v20" fill="#123d72"/>
-<circle cx="174" cy="207" r="9" fill="#123d72"/><path d="M165 231v-14q9-13 18 0v14" fill="#123d72"/>
-<circle cx="196" cy="198" r="10" fill="#123d72"/><path d="M186 228v-17q10-14 20 0v17" fill="#123d72"/>
-<circle cx="246" cy="198" r="10" fill="#123d72"/><path d="M236 228v-17q10-14 20 0v17" fill="#123d72"/>
-<circle cx="269" cy="207" r="9" fill="#123d72"/><path d="M260 231v-14q9-13 18 0v14" fill="#123d72"/>
-<text x="220" y="274" text-anchor="middle" font-family="Arial,sans-serif" font-size="23" font-weight="900" fill="#12345d">ОДГОВОРНА</text>
-<text x="220" y="301" text-anchor="middle" font-family="Arial,sans-serif" font-size="29" font-weight="900" fill="#d62838">ПЛАНА</text>
-</svg>
-</div>
+<div class="product-art"><img id="productImage" src="https://hmfeizkmpmxcnzhwxgbn.supabase.co/storage/v1/object/public/Proizvodi/Privezak-plana.png" alt="Привезак са грбом Велике Плане" style="display:block;width:100%;height:100%;min-height:330px;max-height:480px;object-fit:contain;padding:12px"></div>
 <div class="product-info">
 <span class="tag">ЗАЈЕДНИЧКА ПОДРШКА</span>
 <h2 id="productTitle">Привезак Одговорна Плана</h2>
-<p class="price">150 динара</p>
-<p class="description">Мали знак припадности заједници која верује да промене почињу од људи. Носи поруку одговорности, солидарности и заједничког деловања.</p>
+<p class="price" id="priceLabel">150 динара</p>
+<p class="description" id="productDescription">Мали знак припадности заједници која верује да промене почињу од људи. Носи поруку одговорности, солидарности и заједничког деловања.</p>
 <div class="quantity-row">
 <div><strong>Количина</strong><div class="quantity"><button type="button" id="minus" aria-label="Смањи количину">−</button><output id="quantity" aria-live="polite">1</output><button type="button" id="plus" aria-label="Повећај количину">+</button></div></div>
 <div class="total"><small>Укупно</small><strong id="total">150 динара</strong></div>
@@ -118,14 +101,15 @@ footer{background:#041329;color:#d4e1f3;text-align:center;padding:24px 18px;font
 </div>
 </div>
 <script>
-(()=>{const price=150;let qty=1;const $=id=>document.getElementById(id);const money=n=>n.toLocaleString('sr-RS')+' динара';
+(()=>{let price=150,productName='Привезак Одговорна Плана';let qty=1;const $=id=>document.getElementById(id);const money=n=>n.toLocaleString('sr-RS')+' динара';
+async function loadProduct(){try{const {data,error}=await window.odgovornaPlanaDB.from('products').select('name,short_description,description,price,image_url,is_active').eq('slug','privezak-odgovorna-plana').eq('is_active',true).single();if(error)throw error;productName=data.name||productName;price=Number(data.price)||price;$('productTitle').textContent=productName;$('priceLabel').textContent=money(price);$('productDescription').textContent=data.short_description||data.description||'';if(data.image_url)$('productImage').src=data.image_url;render();}catch(e){console.error('Производ није учитан из базе:',e)}}
 function render(){ $('quantity').textContent=qty;$('total').textContent=money(qty*price);$('minus').disabled=qty<=1;$('summaryQty').textContent=qty+' × привезак';$('summaryTotal').textContent=money(qty*price);}
 $('minus').addEventListener('click',()=>{qty=Math.max(1,qty-1);render()});$('plus').addEventListener('click',()=>{qty=Math.min(99,qty+1);render()});
 function close(){ $('orderModal').classList.remove('open');document.body.style.overflow='';}
 $('openOrder').addEventListener('click',()=>{render();$('formArea').style.display='block';$('successArea').classList.remove('show');$('orderModal').classList.add('open');document.body.style.overflow='hidden';$('customerName').focus()});
 $('closeModal').addEventListener('click',close);$('orderModal').addEventListener('click',e=>{if(e.target===$('orderModal'))close()});document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
 $('orderForm').addEventListener('submit',async e=>{e.preventDefault();const form=e.currentTarget;if(!form.reportValidity())return;const d=new FormData(form),button=form.querySelector('[type="submit"]');$('formError').textContent='';button.disabled=true;button.textContent='Шаљем наруџбину…';try{const {data,error}=await window.odgovornaPlanaDB.rpc('submit_keychain_order',{p_customer_name:String(d.get('name')).trim(),p_phone:String(d.get('phone')).trim(),p_city:String(d.get('city')).trim(),p_delivery_address:String(d.get('address')).trim(),p_quantity:qty});if(error)throw error;$('formArea').style.display='none';$('successArea').classList.add('show');$('successArea').querySelector('h2').textContent='Наруџбина је примљена!';$('successText').textContent=d.get('name')+', наруџбина број '+data+': '+qty+' × привезак, укупно '+money(qty*price)+'. Јавићемо ти се ради потврде.';}catch(err){console.error('Наруџбина није сачувана:',err);$('formError').textContent='Наруџбина није послата. Покушај поново.';}finally{button.disabled=false;button.textContent='Потврди наруџбину';}});
-$('finishOrder').addEventListener('click',()=>{close();$('orderForm').reset();qty=1;render()});render();})();
+$('finishOrder').addEventListener('click',()=>{close();$('orderForm').reset();qty=1;render()});render();loadProduct();})();
 </script>
   <script src="bottom-nav.js"></script>
 <script>(function(){const menu=document.getElementById('sideMenu'),back=document.getElementById('menuBackdrop');if(!menu||!back)return;function close(){menu.classList.remove('open');back.classList.remove('open');menu.setAttribute('aria-hidden','true');setTimeout(()=>back.hidden=true,260)}document.getElementById('openMenu').addEventListener('click',()=>{back.hidden=false;menu.setAttribute('aria-hidden','false');requestAnimationFrame(()=>{back.classList.add('open');menu.classList.add('open')})});document.getElementById('closeMenu').addEventListener('click',close);back.addEventListener('click',close)})();</script><script src="/bottom-nav.js"></script>
