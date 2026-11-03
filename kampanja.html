@@ -53,17 +53,34 @@ body.campaign-page .content-back{display:none}
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="/config.js"></script><script src="/database.js"></script><script src="/donation-types.js"></script><script>const db=window.db;const param=new URLSearchParams(location.search).get("slug");</script>
 <script>(async function(){
  const root=document.getElementById('campaignDetail');
+ let debugStage='Покретање скрипте';
+ const debugPanel=document.createElement('pre');
+ debugPanel.id='campaignDebugPanel';
+ debugPanel.style.cssText='display:none;white-space:pre-wrap;overflow-wrap:anywhere;background:#fff1f0;color:#8b1e18;border:2px solid #d92d20;border-radius:12px;padding:14px;margin:14px;font:12px/1.5 monospace;max-height:45vh;overflow:auto';
+ root.parentNode.insertBefore(debugPanel,root);
+ const showDebug=(kind,error)=>{
+  const nl=String.fromCharCode(10);
+  const detail=[kind,'Фаза: '+debugStage,'Порука: '+(error?.message||String(error)),'Име: '+(error?.name||'—'),'Код: '+(error?.code||'—'),'Детаљи: '+(error?.details||'—'),'Hint: '+(error?.hint||'—'),'Stack: '+(error?.stack||'—')].join(nl);
+  debugPanel.style.display='block';debugPanel.textContent='ТЕХНИЧКА ГРЕШКА — пошаљи ми овај текст'+nl+nl+detail;
+  console.error('[Campaign diagnostic]',detail);
+ };
+ window.addEventListener('error',event=>showDebug('JavaScript грешка',event.error||event.message));
+ window.addEventListener('unhandledrejection',event=>showDebug('Необрађена Promise грешка',event.reason));
  const esc=s=>String(s??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
  const param=new URLSearchParams(location.search).get('slug');
  const db=window.db;
+ debugStage='Провера адресе кампање';
  if(!param){root.innerHTML='<div class="campaign-empty">Није изабрана кампања.</div>';return;}
  try{
+  debugStage='Провера везе са Supabase';
   if(!db)throw new Error('База података није доступна.');
   const query=param.match(/^[0-9a-f-]{36}$/i)?db.from('campaigns').select('*').eq('id',param):db.from('campaigns').select('*').eq('slug',param);
+  debugStage='Читање реда из campaigns табеле';
   const response=await Promise.race([query.eq('is_published',true).maybeSingle(),new Promise((_,reject)=>setTimeout(()=>reject(new Error('Истекло је време учитавања кампање.')),12000))]);
   if(response.error)throw response.error;
   const c=response.data;
   if(!c){root.innerHTML='<div class="campaign-empty">Кампања није пронађена или није објављена.</div>';return;}
+  debugStage='Припрема HTML приказа кампање';
   document.title=c.title+' — Одговорна Плана';
   const status=({active:'Активна',draft:'У припреми',completed:'Завршена',paused:'Паузирана',planned:'Планирана'})[c.status]||'Објављена';
   const cover=c.hero_image?(String(c.hero_image).startsWith('http')?c.hero_image:'/'+String(c.hero_image).replace(/^\//,'')):'';
@@ -76,6 +93,7 @@ body.campaign-page .content-back{display:none}
   if(!c.problem_text&&!c.goal_text&&!c.goal&&!c.plan_text&&c.description)addSection('О кампањи',c.description);
   html+='<section class="campaign-section campaign-start-action"><h2>Имаш идеју за конкретну акцију?</h2><p>Предложи шта можемо да урадимо у оквиру ове кампање. Твој предлог ће бити повезан са кампањом „'+esc(c.title)+'“.</p><p style="margin-top:16px"><button type="button" class="campaign-cta" id="openCampaignProposal">＋ Додај акцију за ову кампању</button></p></section>';
   html+='<section class="campaign-section"><h2>Кампања се гради заједно</h2><p>Имаш предлог, знање или време? Постани део заједничког рада.</p><p style="margin-top:12px"><a href="/kampanje.html">Погледај све кампање →</a></p></section>';
+  debugStage='Приказ кампање на страници';
   root.innerHTML=html;
   const openSheet=(title,subtitle,body)=>{
    let overlay=document.getElementById('campaignOverlay');
@@ -84,6 +102,7 @@ body.campaign-page .content-back{display:none}
    overlay.querySelector('#closeCampaignSheet').onclick=closeSheet;
   };
   function closeSheet(){document.getElementById('campaignOverlay')?.classList.remove('open');document.body.style.overflow='';}
+  debugStage='Повезивање дугмади и доњег прозора';
   document.getElementById('openCampaignProposal').addEventListener('click',()=>{
    const formHtml='<form class="support-form" id="campaignActionProposalForm"><label>Назив акције *<input name="title" required maxlength="140"></label><label>Место акције<input name="location" maxlength="180"></label><label>Опис предлога *<textarea name="description" required minlength="10" maxlength="3000"></textarea></label><label>Шта желиш да постигнемо?<textarea name="goal" maxlength="2000"></textarea></label><label><span><input type="checkbox" name="date_known" style="width:auto"> Знам датум акције</span></label><div id="campaignActionDateFields" hidden><label>Датум акције *<input type="date" name="action_date"></label><label>Време почетка<input type="time" name="action_time"></label></div><label>Име и презиме *<input name="proposer_name" required maxlength="120"></label><label>Број телефона *<input name="proposer_phone" required type="tel" minlength="6" maxlength="30"></label><label><span><input type="checkbox" name="consent" required style="width:auto"> Сагласан/сагласна сам да се моји подаци користе ради контакта у вези са овим предлогом.</span></label><p class="support-submit-message" role="status" aria-live="polite"></p><button type="submit">Пошаљи предлог акције</button></form>';
    openSheet('Додај акцију за кампању','Предлог ће бити повезан са кампањом „'+esc(c.title)+'“.',formHtml);
@@ -100,6 +119,6 @@ body.campaign-page .content-back{display:none}
   });
   const bar=document.createElement('div');bar.className='campaign-joinbar';bar.innerHTML='<button class="campaign-cta" type="button" id="supportCampaignButton">Подржи кампању</button>';document.body.appendChild(bar);
   document.getElementById('supportCampaignButton').addEventListener('click',()=>openSheet('Подржи кампању','Начини подршке овој кампањи биће ускоро доступни.','<p>Можеш да предложиш конкретну акцију или да се вратиш на списак кампања.</p>'));
- }catch(error){console.error('Campaign detail error:',error);root.innerHTML='<div class="campaign-empty">Детаљи кампање нису учитани: '+esc(error.message||String(error))+'</div>';}
+ }catch(error){showDebug('Грешка при учитавању кампање',error);root.innerHTML='<div class="campaign-empty">Детаљи кампање нису учитани: '+esc(error.message||String(error))+'</div>';}
 })();</script>  <script src="/bottom-nav.js"></script>
 </body></html>
