@@ -62,6 +62,8 @@ footer{padding:20px;text-align:center;background:#041329;color:#d4e1f3;font-size
 <style>
 .join-order-backdrop{position:fixed;inset:0;z-index:10050;background:rgba(7,18,38,.58);display:flex;align-items:flex-end;justify-content:center;padding:12px 12px calc(76px + env(safe-area-inset-bottom))}
 .join-order-backdrop[hidden]{display:none!important}.join-order-panel{width:min(100%,620px);max-height:calc(100dvh - 100px);overflow:auto;background:#fff;color:#14233b;border-radius:22px;padding:22px;box-shadow:0 18px 60px #07122655}.join-order-quantity{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:14px 0}.join-order-quantity button{width:38px;height:38px;border:1px solid #d5deeb;border-radius:50%;background:#f5f8fc;font-size:22px}.join-order-quantity strong{margin-left:auto}.join-order-panel .hint{font-size:13px;color:#64748b}.join-order-panel [role=alert]{color:#b42318}
+</style><style>
+.support-intro-copy{margin:28px 0 20px}.support-intro-copy h3{margin:12px 0 8px;color:inherit;font-size:clamp(19px,2.5vw,24px);line-height:1.25}.support-intro-copy p{margin:8px 0 14px;line-height:1.65}.support-intro-copy .support-choice-heading{margin:26px 0 14px}
 </style></head>
 <body>
 <header class="site-header">
@@ -80,6 +82,15 @@ footer{padding:20px;text-align:center;background:#041329;color:#d4e1f3;font-size
 <section id="campaignPanel" class="tab-panel" aria-labelledby="campaignTitle"><h2 class="panel-heading" id="campaignTitle">Кампање</h2><p class="panel-lead">Кампање окупљају људе око важних проблема и заједничких циљева.</p><div class="cards" id="campaignList"><p class="status">Учитавање кампања…</p></div><button class="add-button" type="button" data-proposal="campaign">＋ Додај своју кампању</button></section>
 <section id="actionPanel" class="tab-panel" aria-labelledby="actionTitle" hidden><h2 class="panel-heading" id="actionTitle">Акције</h2><p class="panel-lead">Акције су конкретни кораци којима заједно мењамо ствари у својој улици, насељу и општини.</p><div class="cards" id="actionList"><p class="status">Учитавање акција…</p></div><button class="add-button" type="button" data-proposal="action">＋ Додај своју акцију</button></section>
 <section id="associationPanel" class="tab-panel" aria-labelledby="associationTitle" hidden><h2 class="panel-heading" id="associationTitle">Удружење</h2><p class="panel-lead">Људи који желе да преузму активну улогу у својој заједници.</p><div class="association-card"><div class="association-icon" aria-hidden="true">♧</div><h2>Придружи се удружењу Одговорна Плана</h2><p>Удружење повезује људе који желе да своје време, знање, искуство и идеје ставе у службу заједнице.</p><p>Можеш да учествујеш у организовању активности, помогнеш својим знањем или предложиш шта би требало да мењамо у нашој општини.</p><div class="association-points"><div class="association-point"><b>✓</b><span>Учешће у акцијама и заједничким активностима</span></div><div class="association-point"><b>✓</b><span>Предлагање идеја и покретање иницијатива</span></div><div class="association-point"><b>✓</b><span>Дељење знања, искуства и времена</span></div></div><p>Информације о условима и поступку учлањења добићеш од удружења.</p>
+<div class="support-intro-copy">
+ <span class="kicker" style="color:#2166f3">ПОДРШКА РАДУ ПОКРЕТА</span>
+ <h3>Подржи рад Одговорне Плане</h3>
+ <p>За повезивање људи, припрему акција и одржавање овог простора потребни су време, знање и средства. Рад можеш да подржиш куповином производа или на други начин који ти одговара.</p>
+ <h3>Подршка која омогућава да наставимо да радимо.</h3>
+ <p>Куповином производа из наше продавнице помажеш да организујемо нове активности и наставимо заједнички рад.</p>
+ <a class="join-product-shop" href="#joinProductImage">Отвори продавницу →</a>
+ <h3 class="support-choice-heading">Изабери начин подршке</h3>
+</div>
 <div class="join-product">
  <div class="join-product-image"><img id="joinProductImage" src="https://hmfeizkmpmxcnzhwxgbn.supabase.co/storage/v1/object/public/Proizvodi/Privezak-plana.png" alt="Привезак Одговорна Плана"></div>
  <div class="join-product-details"><strong class="join-product-name" id="joinProductName">Привезак Одговорна Плана</strong><p id="joinProductDescription">Куповином подржаваш рад Покрета.</p><strong id="joinProductPrice">150 дин.</strong><button class="join-product-shop" type="button" id="openJoinOrder">Наручи →</button></div>
