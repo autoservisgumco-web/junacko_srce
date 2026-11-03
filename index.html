@@ -607,11 +607,18 @@ loadSingleAction().catch(error=>{
 </script>
   <script src="/bottom-sheet.js"></script>
 <script>
-if(location.hash==="#open-association-sheet"){
+(()=>{
+ const params=new URLSearchParams(location.search);
+ const requested=params.get('open');
+ const kind=['campaign','action','association'].includes(requested)?requested:null;
+ if(kind){
   window.openJoinFlow();
-  window.showJoinFlowSection("association");
-  history.replaceState(null,"",location.pathname+location.search);
-}
+  window.showJoinFlowSection(kind);
+  params.delete('open');
+  const query=params.toString();
+  history.replaceState(null,'',location.pathname+(query?'?'+query:'')+location.hash);
+ }
+})();
 </script>
 <script src="/bottom-nav.js"></script>
 <script src="/shared-proposal-modal.js"></script>
