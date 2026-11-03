@@ -35,7 +35,7 @@
   if(!kind)return;
   e.preventDefault();e.stopPropagation();e.stopImmediatePropagation();open(kind);
  },true);
- backdrop.addEventListener('click',close);sheet.querySelector('#opSharedProposalClose').addEventListener('click',close);
+ window.addEventListener('message',function(e){if(e.origin===location.origin&&e.data?.type==='op-proposal-submitted')close();});\n backdrop.addEventListener('click',close);sheet.querySelector('#opSharedProposalClose').addEventListener('click',close);
  document.querySelectorAll('[data-open-form="action"]').forEach(el=>el.addEventListener('click',e=>{e.preventDefault();open('action')}));
  document.querySelectorAll('[data-open-form="campaign"]').forEach(el=>el.addEventListener('click',e=>{e.preventDefault();open('campaign')}));
  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!backdrop.hidden)close()});
