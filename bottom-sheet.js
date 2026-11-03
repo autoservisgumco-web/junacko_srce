@@ -172,11 +172,6 @@ document.getElementById('proposalForm').addEventListener('submit',async event=>{
  form.reset();showSubmitMessage('proposalMessage','success',false);
 });
 
-document.getElementById('closeSheet').addEventListener('click',hidePanels);
-const sideMenu=document.getElementById('sideMenu'),menuBackdrop=document.getElementById('menuBackdrop');
-function closeSideMenu(){sideMenu.classList.remove('open');menuBackdrop.classList.remove('open');sideMenu.setAttribute('aria-hidden','true');document.body.classList.remove('sheet-open');setTimeout(()=>{menuBackdrop.hidden=true},260)}
-document.getElementById('openMenu').addEventListener('click',()=>{menuBackdrop.hidden=false;sideMenu.setAttribute('aria-hidden','false');requestAnimationFrame(()=>{sideMenu.classList.add('open');menuBackdrop.classList.add('open')});document.body.classList.add('sheet-open')});
-document.getElementById('closeMenu').addEventListener('click',closeSideMenu);menuBackdrop.addEventListener('click',closeSideMenu);
 loadActiveActions();
 initShopPage();
 
@@ -252,10 +247,6 @@ function openCampaignJoin(campaign){
  showPanel('campaignJoin');
 }
 document.getElementById('showAllCampaigns')?.addEventListener('click',()=>loadHomeCampaigns(true));
-document.getElementById('siteStatusToggle')?.addEventListener('click',()=>{
- const notice=document.getElementById('siteStatusNotice');const button=document.getElementById('siteStatusToggle');const details=document.getElementById('siteStatusDetails');
- const opening=!notice.classList.contains('open');notice.classList.toggle('open',opening);button.setAttribute('aria-expanded',String(opening));details.hidden=!opening;
-});
 loadHomeActions();loadHomeCampaigns();
 
 /* Предлог акције: фотографије се чувају у приватном bucket-у и везују за пријаву. */
