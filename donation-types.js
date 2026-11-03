@@ -185,6 +185,15 @@
       return;
     }
 
+    const ipsDownload = event.target.closest("[data-ips-download]");
+    if (ipsDownload) {
+      const root = ipsDownload.closest("[data-donation-checkout]");
+      const canvas = root && root.querySelector("[data-ips-qr] canvas");
+      const image = root && root.querySelector("[data-ips-qr] img");
+      const url = canvas ? canvas.toDataURL("image/png") : (image ? image.src : "");
+      if (url) { const a = document.createElement("a"); a.href = url; a.download = "ips-uplata.png"; a.click(); }
+      return;
+    }
     const button = event.target.closest("[data-copy]");
     if (!button) return;
     try {
