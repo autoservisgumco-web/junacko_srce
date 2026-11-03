@@ -43,4 +43,5 @@
  document.querySelectorAll('[data-open-form="campaign"]').forEach(el=>el.addEventListener('click',e=>{e.preventDefault();open('campaign')}));
  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!backdrop.hidden)close()});
  window.OPProposalModal={open,close,openInline};
+ if(location.pathname.replace(/\/$/,'').endsWith('/ukljuci-se')&&location.hash==='#prijava-podrske'){open('support');}
 })();
