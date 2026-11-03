@@ -149,7 +149,9 @@ body.campaign-page .content-back{display:none}
     const data={};fd.forEach((v,k)=>{if(k!=='consent'&&k!=='name'&&k!=='phone'&&k!=='place')data[k]=v;});
     const person=String(fd.get('name')||'').trim(),phone=String(fd.get('phone')||'').trim(),place=String(fd.get('place')||'').trim();
     const subject=type==='action'?String(fd.get('title')||'').trim():supportType+' — '+c.title;
-    const description=type==='action'?String(fd.get('details')||'').trim():'Пријава за кампању „'+c.title+'“. Подаци из формулара: '+JSON.stringify(data);
+    const fieldLabels={amount:'Износ',payment_method:'Начин уплате',note:'Напомена',item:'Шта поклања',quantity:'Количина',condition:'Стање',delivery:'Достава',help_kind:'Врста помоћи',details:'Опис помоћи',frequency:'Учесталост',volunteer_area:'Област волонтирања',skills:'Знања и вештине',availability:'Доступно време',schedule:'Термин',adoption_intent:'Намера',home_conditions:'Услови за пса',dog_experience:'Искуство са псима',other_animals:'Друге животиње',dog_count:'Број паса',dog_age_sex:'Старост и пол',dog_description:'Опис пса',dog_location:'Локација пса',goal:'Циљ акције',action_date:'Предложени датум',needs:'Потребе за реализацију',join_info:'Како се други прикључују'};
+    const readableDetails=Object.entries(data).map(([key,value])=>(fieldLabels[key]||key)+': '+value).join('\\n');
+    const description=type==='action'?String(fd.get('details')||'').trim():'Пријава за кампању „'+c.title+'“.\\n'+readableDetails;
     const payload={submission_type:submissionType,title:subject,description:description,full_name:person,phone:phone,viber_phone:phone,location:place||null,support_type:supportType,social_links:{source:'kampanja.html',kind:'campaign_support',campaign_id:c.id,campaign_title:c.title,form_type:type,form_data:data},status:'new'};
     try{
      let result;
