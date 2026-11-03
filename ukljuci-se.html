@@ -52,12 +52,8 @@ main{width:min(850px,calc(100% - 28px));margin:22px auto 36px}
 .association-points{display:grid;gap:10px;margin:18px 0}
 .association-point{display:flex;gap:10px;align-items:flex-start;color:#314967;font-size:14px}
 .association-point b{color:#2166f3}
-.bottom-join-nav{position:fixed;z-index:10000;left:0;right:0;bottom:0;display:grid;grid-template-columns:repeat(3,1fr);gap:5px;padding:7px 10px calc(7px + env(safe-area-inset-bottom));background:rgba(255,255,255,.98);border-top:1px solid var(--line);box-shadow:0 -5px 22px #061a351a;backdrop-filter:blur(12px)}
-.bottom-join-nav button{border:0;background:transparent;border-radius:11px;min-height:55px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;color:#526780;font:inherit;font-size:21px;font-weight:800;cursor:pointer}
-.bottom-join-nav button span{font-size:11px;line-height:1.2;font-weight:750}
-.bottom-join-nav button[aria-current=true]{background:#eaf2fc;color:#174f86}
 footer{padding:20px;text-align:center;background:#041329;color:#d4e1f3;font-size:11px}
-@media(min-width:700px){.page-intro{padding:48px 28px}.page-intro-inner{width:min(850px,100%)}main{margin-top:30px}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.item-card{grid-template-columns:120px minmax(0,1fr)}.item-card img,.item-image-placeholder{width:120px}.bottom-join-nav{left:50%;right:auto;transform:translateX(-50%);width:min(560px,100%);border:1px solid var(--line);border-bottom:0;border-radius:16px 16px 0 0}}
+@media(min-width:700px){.page-intro{padding:48px 28px}.page-intro-inner{width:min(850px,100%)}main{margin-top:30px}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.item-card{grid-template-columns:120px minmax(0,1fr)}.item-card img,.item-image-placeholder{width:120px}}
 </style>
 </head>
 <body>
@@ -83,19 +79,14 @@ footer{padding:20px;text-align:center;background:#041329;color:#d4e1f3;font-size
  <a href="/prodavnica.html"><span>ПОДРЖИ НАШ РАД</span><strong>Подржи заједнички рад куповином производа.</strong><b>→</b></a>
 </section>
 <footer>ОДГОВОРНА ПЛАНА · Место за заједничко деловање</footer>
-<nav class="bottom-join-nav" aria-label="Навигација — укључи се">
-<button type="button" data-tab="campaign" aria-current="true">◎<span>Кампање</span></button>
-<button type="button" data-tab="action" aria-current="false">✓<span>Акције</span></button>
-<button type="button" data-tab="association" aria-current="false">♡<span>Удружење</span></button>
-</nav>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="/config.js"></script><script src="/database.js"></script>
 <script src="/shared-proposal-modal.js"></script>
 <script>
 (function(){
- const tabs={campaign:{button:document.querySelector('[data-tab="campaign"]'),panel:document.getElementById('campaignPanel')},action:{button:document.querySelector('[data-tab="action"]'),panel:document.getElementById('actionPanel')},association:{button:document.querySelector('[data-tab="association"]'),panel:document.getElementById('associationPanel')}};
- function showTab(name){Object.entries(tabs).forEach(([key,item])=>{const active=key===name;item.panel.hidden=!active;item.button.setAttribute('aria-current',String(active));});window.scrollTo({top:0,behavior:'smooth'});}
- Object.entries(tabs).forEach(([name,item])=>item.button.addEventListener('click',()=>showTab(name)));
+ const tabs={campaign:{button:null,panel:document.getElementById('campaignPanel')},action:{button:null,panel:document.getElementById('actionPanel')},association:{button:null,panel:document.getElementById('associationPanel')}};
+ function showTab(name){Object.entries(tabs).forEach(([key,item])=>{const active=key===name;item.panel.hidden=!active;if(item.button)item.button.setAttribute('aria-current',String(active));});window.scrollTo({top:0,behavior:'smooth'});}
+ 
  document.querySelectorAll('[data-entry-tab]').forEach(button=>button.addEventListener('click',()=>{showTab(button.dataset.entryTab);document.querySelectorAll('[data-entry-tab]').forEach(item=>item.setAttribute('aria-pressed',String(item===button)));document.getElementById(button.dataset.entryTab+'Panel').scrollIntoView({behavior:'smooth',block:'start'});}));
  const esc=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
  const campaignRoot=document.getElementById('campaignList'),actionRoot=document.getElementById('actionList');
