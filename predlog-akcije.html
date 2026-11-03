@@ -30,7 +30,7 @@ input:focus,textarea:focus{outline:3px solid #d7e5ff;border-color:var(--blue)}
 .help-trigger{width:100%;display:flex;align-items:center;gap:12px;text-align:left;background:#eef4ff;color:var(--ink);border:1px solid #d8e5ff;border-radius:12px;padding:14px;font:inherit;font-weight:750;cursor:pointer}
 .help-trigger .q{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:#dce9ff;color:var(--blue);font-weight:900;flex:none}
 .help-trigger .arrow{margin-left:auto;color:var(--blue)}
-.next-step{margin-top:16px;padding:14px 16px;border:1px solid #d6e3f7;border-radius:12px;background:#f3f7ff;color:var(--navy);font-weight:750;text-align:left;width:100%}.next-step:disabled{display:none}.wizard-progress{margin:0 0 24px;color:#64748b;font-size:12px;font-weight:800;letter-spacing:1px}.wizard-track{height:6px;background:#e8eef7;border-radius:9px;margin-top:9px;overflow:hidden}.wizard-track i{display:block;height:100%;width:20%;background:var(--blue);border-radius:9px;transition:width .2s}.wizard-step{min-height:240px}.wizard-nav{display:flex;gap:10px;margin-top:22px}.wizard-back,.wizard-next{flex:1;padding:15px 18px;border-radius:11px;font-weight:800}.wizard-back{background:#edf2f8;color:var(--navy)}.wizard-next{background:var(--blue);color:#fff}.wizard-nav .primary{flex:1;margin:0}.step-locked{border:1px dashed #cbd5e1;border-radius:12px;padding:15px;color:#718096;background:#f8fafc}
+.next-step{margin-top:16px;padding:14px 16px;border:1px solid #d6e3f7;border-radius:12px;background:#f3f7ff;color:var(--navy);font-weight:750;text-align:left;width:100%}.next-step:disabled{display:none}.proposal-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:8px}.proposal-heading h2{margin:0}.guide-link{display:inline-flex;align-items:center;gap:7px;background:#eef4ff;border:1px solid #d8e5ff;color:#1554bd;border-radius:9px;padding:9px 12px;font-size:13px;font-weight:750;white-space:nowrap}.guide-link span{font-size:16px}.wizard-progress{margin:0 0 24px;color:#64748b;font-size:12px;font-weight:800;letter-spacing:1px}.wizard-track{height:6px;background:#e8eef7;border-radius:9px;margin-top:9px;overflow:hidden}.wizard-track i{display:block;height:100%;width:20%;background:var(--blue);border-radius:9px;transition:width .2s}.wizard-step{min-height:240px}.wizard-nav{display:flex;gap:10px;margin-top:22px}.wizard-back,.wizard-next{flex:1;padding:15px 18px;border-radius:11px;font-weight:800}.wizard-back{background:#edf2f8;color:var(--navy)}.wizard-next{background:var(--blue);color:#fff}.wizard-nav .primary{flex:1;margin:0}.step-locked{border:1px dashed #cbd5e1;border-radius:12px;padding:15px;color:#718096;background:#f8fafc}
 .step-locked strong{display:block;color:#526176}
 .step{border-top:1px solid var(--line);padding-top:22px;margin-top:22px}
 .step-head{font-size:21px;font-weight:800;margin-bottom:5px}
@@ -94,11 +94,10 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
 <div class="field"><label for="location">Место акције <span class="hint">Није обавезно</span></label><input id="location" name="location" maxlength="180" placeholder="Насеље, улица, парк или други простор"></div>
 </section>
 <section class="wizard-step" data-step="2" hidden>
-<h2>3. Опиши своју идеју</h2>
-<p class="sub">Шта си приметио? У чему је проблем и шта мислиш да бисмо могли да урадимо? Пиши својим речима — не мораш имати готов план.</p>
-<div class="field"><label for="description">Опиши предлог акције *</label><textarea id="description" name="description" minlength="10" maxlength="3000" required placeholder="Шта је проблем и шта мислиш да би требало урадити?"></textarea></div>
+<div class="proposal-heading"><h2>3. Напиши предлог акције</h2><button class="guide-link" type="button" id="openGuide">Како написати добар предлог? <span>↗</span></button></div>
+<p class="sub">Опиши шта си приметио и шта мислиш да би требало урадити. Не мораш имати готов план — важно је да поделиш идеју.</p>
+<div class="field"><label for="description">Твој предлог акције *</label><textarea id="description" name="description" minlength="10" maxlength="3000" required placeholder="Шта је проблем и шта мислиш да би требало урадити?"></textarea></div>
 <div class="field"><label for="goal">Шта желиш да постигнемо? <span class="hint">Није обавезно</span></label><textarea id="goal" name="goal" maxlength="2000" style="min-height:82px" placeholder="Опиши какав резултат би волео/волела да видиш."></textarea></div>
-<button class="help-trigger" type="button" id="openGuide"><span class="q">?</span><span>Како написати добар предлог?</span><span class="arrow">↗</span></button>
 </section>
 <section class="wizard-step" data-step="3" hidden>
 <h2>4. Када планираш акцију?</h2>
