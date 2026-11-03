@@ -57,7 +57,7 @@ button{border:0;border-radius:9px;padding:11px 17px;font:inherit;font-weight:750
 <div class="order-stats"><div class="order-stat"><strong id="ordersTotalCount">0</strong><span>Укупно наруџбина</span></div><div class="order-stat"><strong id="ordersNewCount">0</strong><span>Нове наруџбине</span></div><div class="order-stat"><strong id="ordersValue">0 дин.</strong><span>Укупна вредност</span></div></div>
 <div id="ordersList"><p class="empty">Учитавање наруџбина...</p></div></section>
 <section class="box" id="membershipBox"><div class="toolbar"><div><h2>Пријаве за чланство и укључивање</h2><p class="meta">Грађани који желе да буду део Одговорне Плане, независно од конкретних акција.</p></div><button class="quiet" id="refreshMembership" type="button">Освежи</button></div><div id="membershipApplications"><p class="empty">Учитавање пријава...</p></div></section>
-<section class="box" id="participantsBox"><div class="toolbar"><div><h2>Пријављени за учешће</h2><p class="meta">Најновије пријаве за конкретне акције су на врху. Отвори пријаву да видиш контакт и унете податке.</p></div><button class="quiet" id="refreshParticipants" type="button">Освежи</button></div><div id="participants"><p class="empty">Учитавање пријава...</p></div></section><h2>Остале пријаве и предлози</h2><div class="actions" style="margin:12px 0 20px"><button class="quiet" data-filter="all">Све</button><button class="quiet" data-filter="new">Нерешене</button><button class="quiet" data-filter="accepted">Прихваћене</button><button class="quiet" data-filter="rejected">Нису прихваћене</button></div>
+<section class="box" id="participantsBox"><div class="toolbar"><div><h2>Пријављени за учешће</h2><p class="meta">Најновије пријаве за конкретне акције су на врху. Отвори пријаву да видиш контакт и унете податке.</p></div><button class="quiet" id="refreshParticipants" type="button">Освежи</button></div><div id="participants"><p class="empty">Учитавање пријава...</p></div></section><h2>Остале пријаве и предлози</h2><div class="actions" style="margin:12px 0 20px"><button class="quiet" data-filter="all">Све</button><button class="quiet" data-filter="new">Нерешене</button><button class="quiet" data-filter="approved">Прихваћене</button><button class="quiet" data-filter="rejected">Нису прихваћене</button></div>
 <div id="submissions"><p class="empty">Учитавање...</p></div>
 <p id="listMessage" class="meta" role="status"></p>
 </section>
@@ -71,7 +71,7 @@ let submissions=[],participants=[],currentFilter='all',orders=[];
 function showMessage(text,error=true){message.textContent=text;message.style.color=error?'#b42318':'#176b3a'}
 async function refreshSession(){
  const {data:{session}}=await db.auth.getSession();
- if(session){if((session.user?.email||'').toLowerCase()!=='autoservisgumco@gmail.com'){await db.auth.signOut();showMessage('Овај налог нема администраторска права. Пријави се налогом autoservisgumco@gmail.com.');authBox.hidden=false;dashboard.hidden=true;return;}authBox.hidden=true;dashboard.hidden=false;await loadSubmissions();await loadOrders();await loadActionProposals();}
+ if(session){if((session.user?.email||'').toLowerCase()!=='autoservisgumco@gmail.com'){await db.auth.signOut();showMessage('Овај налог нема администраторска права. Пријави се налогом autoservisgumco@gmail.com.');authBox.hidden=false;dashboard.hidden=true;return;}authBox.hidden=true;dashboard.hidden=false;ensureAdminExtraPanels();await loadSubmissions();await loadOrders();await loadActionProposals();}
  else{authBox.hidden=false;dashboard.hidden=true}
 }
 document.getElementById('authForm').addEventListener('submit',async e=>{
@@ -176,12 +176,28 @@ async function loadSubmissions(){
  await loadParticipants();
  const {data,error}=await db.from('civic_submissions').select('id,submission_type,title,description,full_name,email,phone,viber_phone,location,support_type,status,created_at,social_links').order('created_at',{ascending:false});
  if(error){list.innerHTML='<p class="empty">Не могу да учитам пријаве. Проверите да ли сте пријављени администраторским налогом.</p>';return}
- submissions=(data||[]).filter(x=>x.submission_type!=='help');renderMembershipList();renderList();
+ submissions=(data||[]);renderMembershipList();renderHelpList();renderList();
 }
 function renderMembershipList(){
  const rows=submissions.filter(x=>x.submission_type==='membership');membershipList.replaceChildren();
  if(!rows.length){membershipList.innerHTML='<p class="empty">Још нема пријава за чланство.</p>';return;}
  rows.forEach(item=>membershipList.appendChild(renderSubmission(item)));
+}
+function ensureAdminExtraPanels(){
+ if(!document.getElementById('actionProposals')){
+  const section=document.createElement('section');section.className='box';
+  const heading=document.createElement('h2');heading.textContent='Предлози нових акција';section.appendChild(heading);
+  const refresh=document.createElement('button');refresh.className='quiet';refresh.textContent='Освежи предлоге';refresh.addEventListener('click',loadActionProposals);section.appendChild(refresh);
+  const target=document.createElement('div');target.id='actionProposals';section.appendChild(target);
+  document.getElementById('participantsBox').before(section);
+ }
+ if(!document.getElementById('helpApplications')){
+  const section=document.createElement('section');section.className='box';
+  const heading=document.createElement('h2');heading.textContent='Подршка кампањама и Покрету';section.appendChild(heading);
+  const refresh=document.createElement('button');refresh.className='quiet';refresh.textContent='Освежи пријаве';refresh.addEventListener('click',loadSubmissions);section.appendChild(refresh);
+  const target=document.createElement('div');target.id='helpApplications';section.appendChild(target);
+  document.getElementById('participantsBox').before(section);
+ }
 }
 async function loadActionProposals(){
  const target=document.getElementById('actionProposals');
@@ -191,9 +207,14 @@ async function loadActionProposals(){
  target.replaceChildren();
  (data||[]).forEach(item=>{const card=document.createElement('article');card.className='submission';const title=document.createElement('h3');title.textContent=item.title+' · '+item.status;card.appendChild(title);const detail=document.createElement('p');detail.textContent=(item.proposer_name||'')+' · '+(item.proposer_viber||'')+' · '+(item.proposer_email||'')+' · '+(item.location||'');card.appendChild(detail);const desc=document.createElement('p');desc.textContent=item.description||'';card.appendChild(desc);[['published','Објави'],['rejected','Одбиј'],['pending','Врати на чекање']].forEach(([status,label])=>{const button=document.createElement('button');button.textContent=label;button.className='quiet';button.addEventListener('click',async()=>{button.disabled=true;const {error:updateError}=await db.from('action_proposals').update({status}).eq('id',item.id);button.disabled=false;if(updateError){alert('Статус није сачуван.');return;}loadActionProposals();});card.appendChild(button);});target.appendChild(card);});
 }
+function renderHelpList(){
+ const target=document.getElementById('helpApplications');if(!target)return;
+ const rows=submissions.filter(x=>x.submission_type==='help'&&!((x.social_links&&(x.social_links.action_id||(x.social_links.kind==='action'&&x.social_links.target_id)))));
+ target.replaceChildren();if(!rows.length){target.textContent='Још нема пријава за подршку.';return;}rows.forEach(item=>target.appendChild(renderSubmission(item)));
+}
 function renderList(){
- const available=submissions.filter(x=>x.submission_type!=='membership');
- const rows=currentFilter==='all'?available:available.filter(x=>currentFilter==='new'?(!x.status||x.status==='new'):x.status===currentFilter);
+ const available=submissions.filter(x=>!['membership','help'].includes(x.submission_type));
+ const rows=currentFilter==='all'?available:available.filter(x=>currentFilter==='new'?(!x.status||x.status==='new'):currentFilter==='approved'?['approved','accepted'].includes(x.status):x.status===currentFilter);
  list.replaceChildren();
  if(!rows.length){list.innerHTML='<p class="empty">Нема пријава у овој категорији.</p>';return}
  rows.forEach(item=>list.appendChild(renderSubmission(item)));
