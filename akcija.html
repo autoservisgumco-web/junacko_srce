@@ -88,7 +88,7 @@ const mapFrame=location=>'<iframe loading="lazy" title="Мапа локациј�
   if(!a){root.innerHTML='<div class="action-empty">Акција није пронађена или није објављена.</div>';return;}
   document.title=a.title+' — Одговорна Плана';
   let approved=0;
-  try{const r=await db.from('people_applications').select('id',{count:'exact',head:true}).eq('target_type','action').eq('target_id',a.id).eq('status','approved');if(!r.error)approved=r.count||0;}catch(e){console.warn('Број пријављених није доступан',e);}
+  try{const r=await db.from('civic_submissions').select('id',{count:'exact',head:true}).eq('social_links->>kind','action').eq('social_links->>target_id',a.id).eq('status','approved');if(!r.error)approved=r.count||0;}catch(e){console.warn('Број пријављених није доступан',e);}
   const date=val(a.action_date,a.date,a.start_date);
   const place=val(a.location,a.meeting_info);
   const statusMap={planned:'ПЛАНИРАНА',in_progress:'АКТИВНА',active:'АКТИВНА',completed:'ЗАВРШЕНА'};
