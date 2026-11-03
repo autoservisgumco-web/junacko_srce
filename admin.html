@@ -68,6 +68,7 @@ button{border:0;border-radius:9px;padding:11px 17px;font:inherit;font-weight:750
 </main>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+if(!window.supabase){document.getElementById('message').textContent='Supabase библиотека није учитана. Освежите страницу или покушајте касније.';throw new Error('Supabase JS CDN није доступан');}
 const db=window.supabase.createClient('https://hmfeizkmpmxcnzhwxgbn.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhtZmVpemttcG14Y256aHd4Z2JuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMzMjkyNzgsImV4cCI6MjEwODkwNTI3OH0.oTZopOJEGUnxK69BOYPP11CQoGrLqUJowqpPU2uiY-4');
 
 const authBox=document.getElementById('authBox'),dashboard=document.getElementById('dashboard'),message=document.getElementById('message'),list=document.getElementById('submissions'),participantsList=document.getElementById('participants'),membershipList=document.getElementById('membershipApplications');
@@ -286,7 +287,8 @@ async function updateStatus(id,status,button){
 document.getElementById('refreshParticipants').addEventListener('click',loadParticipants);
 document.getElementById('refreshMembership').addEventListener('click',loadSubmissions);
 document.querySelectorAll('[data-filter]').forEach(btn=>btn.addEventListener('click',()=>{currentFilter=btn.dataset.filter;renderList()}));
-db.auth.onAuthStateChange(()=>{refreshSession()});
+// Стање сесије се проверава при учитавању, после пријаве и после одјаве.
+// Не позивати getSession() из onAuthStateChange callback-а.
 refreshSession();
 </script>
 </body></html>
