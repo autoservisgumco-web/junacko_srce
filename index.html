@@ -325,7 +325,7 @@ if(new URLSearchParams(window.location.search).has('akcija')){
 </script>
 <header class="site-header">
 <a class="site-brand" href="#pocetna" onclick="hideShopPage();return true" aria-label="Одговорна Плана — почетна"><span class="brand-heart">♡</span><span>Одговорна<br>Плана</span></a>
-<nav class="site-nav" aria-label="Главна навигација"><a class="active" href="/index.html" onclick="hideShopPage();return true">Почетна</a><a href="/kampanje.html">Кампање</a><a href="/akcije.html">Акције</a><a href="/podrska.html">Подршка</a><a href="/prodavnica.html">Продавница</a></nav>
+<nav class="site-nav" aria-label="Главна навигација"><a class="active" href="/index.html" onclick="hideShopPage();return true">Почетна</a><a href="/kampanje.html">Кампање</a><a href="/akcije.html">Акције</a><a href="/podrska.html">Подршка Покрету</a><a href="/prodavnica.html">Продавница</a></nav>
 <button class="menu-trigger" id="openMenu" type="button" aria-label="Отвори мени">☰</button>
 </header>
 <div class="menu-backdrop" id="menuBackdrop" hidden></div>
@@ -384,8 +384,8 @@ if(new URLSearchParams(window.location.search).has('akcija')){
    <button class="contribute-option contribute-campaign" type="button" onclick="document.getElementById('homeCampaigns').scrollIntoView({behavior:'smooth'})">
     <span class="contribute-visual" aria-hidden="true">📣</span><span class="contribute-option-copy"><strong>Прикључи се кампањи</strong><small>Неке промене траже истрајност и више корака. Подржи тему која ти је важна и буди део заједничког деловања.</small><em>Погледај кампање →</em></span>
    </button>
-   <button class="contribute-option contribute-support" type="button" onclick="showShopPage()">
-    <span class="contribute-visual" aria-hidden="true">💙</span><span class="contribute-option-copy"><strong>Подржи наш рад</strong><small>Свако умеће и свака подршка значе. Помози знањем, временом, ширењем приче или куповином производа.</small><em>Изабери начин подршке →</em></span>
+   <button class="contribute-option contribute-support" type="button" onclick="window.location.href='/podrska.html'">
+    <span class="contribute-visual" aria-hidden="true">💙</span><span class="contribute-option-copy"><strong>Подржи Покрет и придружи се удружењу</strong><small>Подржи наш рад куповином производа, знањем, временом или средствима. Пријави се да постанеш део удружења Одговорна Плана.</small><em>Погледај начине подршке и прикључи се →</em></span>
    </button>
   </div>
  </div>
