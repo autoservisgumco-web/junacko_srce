@@ -168,7 +168,6 @@ function updateDate(){
  const known=selectedDateKnown();
  dateFields.hidden=!known;
  $('action_date').required=known;
- $('action_date').addEventListener('change',updateDate);
  $('timeField').hidden=!known||!$('action_date').value;
  $('action_time').required=false;
 }
@@ -194,6 +193,7 @@ function validateStep(){
 $('wizardNext').addEventListener('click',()=>{if(!validateStep())return;wizardStep=Math.min(4,wizardStep+1);renderWizard();});
 $('wizardBack').addEventListener('click',()=>{wizardStep=Math.max(0,wizardStep-1);renderWizard();});
 form.querySelectorAll('input[name="date_known"]').forEach(x=>x.addEventListener('change',updateDate));
+$('action_date').addEventListener('change',updateDate);
 renderWizard();
 
 function showMessage(text,type){const m=$('message');m.textContent=text;m.className='message show '+type;}
