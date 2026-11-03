@@ -84,19 +84,6 @@
 <header class="site-header"><a class="site-brand" href="/index.html" aria-label="Одговорна Плана — почетна"><span class="brand-heart">♡</span><span>Одговорна<br>Плана</span></a><nav class="site-nav" aria-label="Главна навигација"><a href="/index.html">Почетна</a><a href="/kampanje.html">Кампање</a><a href="/akcije.html">Акције</a><a href="/podrska.html" class="active" aria-current="page">Подршка Покрету</a><a href="/prodavnica.html">Продавница</a></nav><button class="menu-trigger" id="openMenu" type="button" aria-label="Отвори мени">☰</button></header><div class="menu-backdrop" id="menuBackdrop" hidden></div><aside class="side-menu" id="sideMenu" aria-hidden="true"><div class="side-menu-head"><span>♡ Одговорна Плана</span><button class="side-menu-close" id="closeMenu" type="button" aria-label="Затвори мени">×</button></div><nav aria-label="Мени"><a href="/o-nama.html">О нама</a><a href="/kako-funkcionise.html">Како функционише платформа</a><a href="/kontakt.html">Контакт</a></nav></aside>
 <section class="support-hero"><div class="support-hero-inner"><div class="support-kicker">ОДГОВОРНА ПЛАНА · ЗАЈЕДНО ДЕЛУЈЕМО</div><h1>Подржи Покрет <span>Одговорна Плана</span></h1><p>Одговорна Плана припада свима нама. Придружи нам се и подржи рад који повезује људе, покреће добре идеје и претвара их у конкретне акције.</p></div></section>
 <main class="support-main"><div class="support-wrap">
-<section class="support-section" aria-labelledby="supportActionsTitle">
- <div class="support-section-head"><div class="support-kicker">КОНКРЕТНО ДЕЛОВАЊЕ</div><h2 id="supportActionsTitle">Акције</h2><p>Акције су начин да проблеме у нашем окружењу претворимо у конкретан посао. Неко предложи шта треба урадити, други се прикључе, а заједно одређујемо шта можемо да променимо. Погледај акције које су већ покренуте и пронађи где можеш да помогнеш.</p></div>
- <div id="supportActionsList" class="support-list"><div class="support-list-empty">Учитавање акција…</div></div>
- <a id="supportActionsMore" class="support-more" href="/akcije.html" hidden>Види све акције →</a>
- <div class="support-start"><div><h3>Имаш идеју за своју акцију?</h3><p>Предложи шта треба урадити у твом месту. Отворићемо простор да твоја идеја окупи људе.</p></div><a href="/predlog-akcije.html">＋ Покрени своју акцију</a></div>
-</section>
-<div class="support-section-divider"></div>
-<section class="support-section" aria-labelledby="supportCampaignsTitle">
- <div class="support-section-head"><div class="support-kicker">ТЕМЕ КОЈЕ ЗАХТЕВАЈУ ЗАЈЕДНИЧКУ ПАЖЊУ</div><h2 id="supportCampaignsTitle">Кампање</h2><p>Кампање окупљају људе око важних тема које захтевају континуиран рад, подршку и више различитих облика учешћа. Свака кампања има свој циљ и своје начине на које можеш да се укључиш.</p></div>
- <div id="supportCampaignsList" class="support-list"><div class="support-list-empty">Учитавање кампања…</div></div>
- <a id="supportCampaignsMore" class="support-more" href="/kampanje.html" hidden>Види све кампање →</a>
-</section>
-<div class="support-section-divider"></div>
 <section class="support-section" aria-labelledby="supportAssociationTitle">
  <div class="support-section-head"><div class="support-kicker">ПОДРШКА РАДУ ПОКРЕТА</div><h2 id="supportAssociationTitle">Подржи рад Одговорне Плане</h2><p>За повезивање људи, припрему акција и одржавање овог простора потребни су време, знање и средства. Рад можеш да подржиш куповином производа или на други начин који ти одговара.</p></div>
  <section class="support-shop" aria-labelledby="supportShopTitle">
@@ -139,36 +126,7 @@ document.getElementById('supportForm').addEventListener('submit',async e=>{
  finally{button.disabled=false;button.textContent='Пошаљи пријаву';}
 });
 </script>
-<script>
-(async()=>{
- const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
- const renderRows=(root,items,type)=>{
-  if(!items?.length){root.innerHTML='<div class="support-list-empty">Тренутно нема објављених '+(type==='action'?'акција':'кампања')+'.</div>';return;}
-  const visible=items.slice(0,3);
-  root.innerHTML=visible.map(x=>{
-   const title=esc(x.title||'Без наслова');
-   const desc=esc(x.subtitle||x.intro_text||x.description||x.goal||'Погледај детаље и сазнај како можеш да се укључиш.');
-   const raw=String(type==='action'?(x.image_url||''):(x.hero_image||'')).trim();
-   const image=raw?(raw.startsWith('http://')||raw.startsWith('https://')?raw:'https://hmfeizkmpmxcnzhwxgbn.supabase.co/storage/v1/object/public/akcije/'+raw.split('/').map(encodeURIComponent).join('/')):'';
-   const href=type==='action'?'akcija.html?slug='+encodeURIComponent(x.slug||x.id):'kampanja.html?slug='+encodeURIComponent(x.slug||x.id);
-   return '<a class="support-list-row" href="'+href+'">'+(image?'<img class="support-list-image" src="'+esc(image)+'" alt="'+title+'" loading="lazy" onerror="this.outerHTML=\'<div class=&quot;support-list-image support-list-placeholder&quot;>♡</div>\'">':'<div class="support-list-image support-list-placeholder" aria-hidden="true">♡</div>')+'<span class="support-list-copy"><span class="support-list-meta">'+(type==='action'?'Акција · '+esc(x.location||'Одговорна Плана'):'Кампања')+'</span><h3>'+title+'</h3><p>'+desc+'</p><span class="support-list-link">Погледај детаље →</span></span></a>';
-  }).join('');
-  if(items.length>3){const more=document.getElementById(type==='action'?'supportActionsMore':'supportCampaignsMore');more.hidden=false;}
- };
- try{
-  const actionRoot=document.getElementById('supportActionsList');
-  const {data,error}=await window.ucitajAkcije();
-  if(error)throw error;
-  const actions=(data||[]).filter(a=>a.status!=='completed'&&a.status!=='rejected');
-  renderRows(actionRoot,actions,'action');
- }catch(e){console.error('Учитавање акција:',e);document.getElementById('supportActionsList').innerHTML='<div class="support-list-empty">Акције тренутно нису доступне. Погледај <a href="/akcije.html">страницу Акције</a>.</div>';}
- try{
-  const {data,error}=await supportDb.from('campaigns').select('*').eq('is_published',true).eq('status','active').order('created_at',{ascending:false});
-  if(error)throw error;
-  renderRows(document.getElementById('supportCampaignsList'),data||[],'campaign');
- }catch(e){console.error('Учитавање кампања:',e);document.getElementById('supportCampaignsList').innerHTML='<div class="support-list-empty">Кампање тренутно нису доступне. Погледај <a href="/kampanje.html">страницу Кампање</a>.</div>';}
-})();
-</script><script src="/bottom-nav.js"></script>
+<script src="/bottom-nav.js"></script>
 
 
 <script src="/shared-proposal-modal.js"></script>
