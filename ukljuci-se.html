@@ -40,6 +40,24 @@ footer{background:#041329;color:#d4e1f3;text-align:center;padding:24px;font-size
 .loading,.empty{padding:15px;margin:0;color:#60748b;font-size:14px;background:#fff;border:1px dashed #cbd8e7;border-radius:10px}
 @media(max-width:600px){.live-list{padding:14px}.live-cards{grid-template-columns:1fr}.live-card img{height:180px}}
 
+
+/* Водич за укључивање и листа акција у стилу странице Подршка */
+.live-cards{display:grid;grid-template-columns:1fr;gap:13px}
+.live-card{display:grid;grid-template-columns:190px minmax(0,1fr);align-items:stretch;min-height:150px;border-radius:17px;box-shadow:0 7px 22px #061a3509}
+.live-card img{width:100%;height:100%;min-height:150px;max-height:190px;object-fit:cover}
+.live-card-body{padding:18px 22px 18px 0}
+.live-card h4{font-size:clamp(19px,2.4vw,25px)}
+.live-card p{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.live-card .btn{align-self:flex-start}
+#guideActionsMore{margin-top:16px}
+.proposal-backdrop{position:fixed;inset:0;background:#031329a8;z-index:1000}
+.proposal-sheet{position:fixed;z-index:1001;left:50%;bottom:0;transform:translate(-50%,105%);width:min(900px,100%);height:min(88vh,850px);background:#fff;border-radius:20px 20px 0 0;box-shadow:0 -15px 50px #00152c40;display:flex;flex-direction:column;transition:transform .28s ease;overflow:hidden}
+.proposal-sheet.open{transform:translate(-50%,0)}
+.proposal-sheet-head{height:58px;flex:0 0 58px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:#061a35;color:#fff}
+.proposal-sheet-head button{border:0;background:transparent;color:#fff;font-size:30px;cursor:pointer}
+.proposal-sheet iframe{width:100%;height:100%;border:0;background:#f1f5f9}
+@media(max-width:620px){.live-card{grid-template-columns:112px minmax(0,1fr);gap:13px;min-height:126px}.live-card img{min-height:126px;max-height:160px}.live-card-body{padding:12px 12px 12px 0}.live-card h4{font-size:17px}.live-card p{-webkit-line-clamp:2;font-size:13px}.proposal-sheet{height:94vh;border-radius:16px 16px 0 0}}
+
 </style>
   <link rel="stylesheet" href="/stranice.css"><link rel="stylesheet" href="/bottom-nav.css">
 
@@ -47,37 +65,51 @@ footer{background:#041329;color:#d4e1f3;text-align:center;padding:24px;font-size
 <body>
 <header class="site-header"><a class="site-brand" href="/index.html" aria-label="Одговорна Плана — почетна"><span class="brand-heart">♡</span><span>Одговорна<br>Плана</span></a><nav class="site-nav" aria-label="Главна навигација"><a href="/index.html">Почетна</a><a href="/kampanje.html">Кампање</a><a href="/akcije.html">Акције</a><a href="/ukljuci-se.html" aria-current="page">Укључи се</a></nav><button class="menu-trigger" id="openMenu" type="button" aria-label="Отвори мени">☰</button></header><div class="menu-backdrop" id="menuBackdrop" hidden></div><aside class="side-menu" id="sideMenu" aria-hidden="true"><div class="side-menu-head"><span>♡ Одговорна Плана</span><button class="side-menu-close" id="closeMenu" type="button" aria-label="Затвори мени">×</button></div><nav aria-label="Мени"><a href="/index.html">Почетна</a><a href="/kampanje.html">Кампање</a><a href="/akcije.html">Акције</a><a href="/o-projektu.html">О пројекту</a><a href="/podrska.html">Подршка</a><a href="/prodavnica.html">Продавница</a></nav></aside>
 <main>
-<p class="intro">Покренули смо овај простор да повежемо људе који не желе само да говоре о проблемима, већ желе да покрену нешто у својој заједници. Не мораш све сам. Можеш да започнеш, да се придружиш другима или да подржиш њихов рад.</p>
 <section class="choice">
- <div class="choice-top"><span class="num">01</span><h2>Покрени или се придружи акцији</h2></div>
- <div class="live-list">
-  <div class="live-list-heading"><h3>Акције у које можеш да се укључиш</h3><p>Погледај шта су други покренули у својој заједници.</p></div>
-  <div id="guideActions" class="live-cards"><p class="loading">Учитавање акција...</p></div>
- </div>
- <p>Ако приметиш проблем у својој улици, насељу или месту и желиш нешто да промениш, можеш да покренеш акцију и позовеш друге да ти се придруже. Ако је неко већ покренуо акцију у којој желиш да учествујеш, можеш једноставно да јој се прикључиш.</p>
- <div class="example"><strong>Шта је акција?</strong><br>Акција је конкретан корак који предузимамо да бисмо нешто променили у својој заједници. Има јасан циљ, задатке и временски оквир. На пример, уређење запуштеног јавног простора, помоћ комшији или решавање комуналног проблема.</div>
- <details><summary>Како функционише акција?</summary><ol><li>Приметиш проблем или нешто што желиш да промениш.</li><li>Покренеш акцију и објасниш шта желиш да постигнеш.</li><li>Позовеш друге људе да ти се придруже.</li><li>Договорите се око задатака, времена и начина учешћа.</li><li>Заједно спроведете акцију.</li></ol></details>
- <details><summary>Да ли морам ја да покренем акцију?</summary><p>Не. Можеш да погледаш акције које су други већ покренули и да се придружиш оној у којој желиш да учествујеш.</p></details>
- <div class="buttons"><a class="btn" href="/akcije.html">Погледај све акције →</a><a class="btn secondary" href="/predlog-akcije.html">＋ Додај своју акцију</a></div>
+ <div class="choice-top"><span class="num">♡</span><h2>Шта је Одговорна Плана?</h2></div>
+ <p>Одговорна Плана је простор за повезивање и умрежавање људи који желе да учествују у животу своје заједнице. Сви примећујемо проблеме у својој улици, насељу или граду. Често знамо да нешто треба променити, али не знамо коме да се обратимо, како да покренемо решавање или где да пронађемо људе који би нам помогли.</p>
+ <p>Зато смо направили место на коме можеш да представиш проблем или идеју, пронађеш људе који желе исто што и ти и заједно направите први корак.</p>
+ <div class="example"><strong>Не мора један човек све сам.</strong><br>Један човек покрене тему, други зна коме треба да се обратимо, трећи има искуство, четврти може да издвоји време. Повезујемо се да бисмо оно што сами тешко можемо, урадили заједно.</div>
 </section>
 <section class="choice">
- <div class="choice-top"><span class="num">02</span><h2>Покрени или подржи кампању</h2></div>
+ <div class="choice-top"><span class="num">01</span><h2>Имаш проблем или идеју?</h2></div>
+ <p>Приметио си комунални проблем, запуштен простор, нешто што недостаје у твом месту или имаш предлог како да заједно унапредимо живот у заједници? Представи то другима. Не мораш унапред да знаш решење нити коме тачно треба да се обратиш.</p>
+ <details open><summary>Како да направиш први корак?</summary><ol><li>Опиши шта си приметио и где се проблем налази.</li><li>Објасни шта мислиш да би могло да се промени.</li><li>Пошаљи предлог и подели га са другима.</li><li>Повежи се са људима који желе да помогну и заједно договорите наредне кораке.</li></ol></details>
+ <div class="buttons"><button class="btn open-proposal" type="button">＋ Представи проблем или идеју</button><a class="btn light" href="/kampanje.html">Погледај покренуте кампање →</a></div>
+</section>
+<section class="choice">
+ <div class="choice-top"><span class="num">02</span><h2>Желиш да покренеш акцију?</h2></div>
+ <p>Ако желиш да се нешто конкретно уради, покрени акцију. Позови људе да ти се придруже, поделите задатке и договорите како ћете доћи до циља. Не очекује се да све организујеш и обавиш сам.</p>
+ <div class="example"><strong>На пример:</strong> уређење јавног простора, чишћење улице, помоћ комшији, прикупљање предлога или заједничко обраћање надлежнима.</div>
+ <details><summary>Како функционише?</summary><ol><li>Представиш шта желиш да урадите и зашто.</li><li>Одредиш први конкретан корак.</li><li>Други грађани се пријаве и понуде помоћ.</li><li>Заједно се договорите око времена, места и поделе посла.</li><li>Спроведете акцију и поделите резултат.</li></ol></details>
+ <div class="buttons"><button class="btn open-proposal" type="button">＋ Покрени своју акцију</button><a class="btn light" href="/akcije.html">Погледај све акције →</a></div>
+</section>
+<section class="choice">
+ <div class="choice-top"><span class="num">03</span><h2>Желиш да се прикључиш другима?</h2></div>
+ <p>Можда немаш предлог за нову акцију, али имаш времена, знања, алат, возило или једноставно вољу да помогнеш. Погледај шта су други покренули и пронађи акцију којој можеш да допринесеш.</p>
  <div class="live-list">
-  <div class="live-list-heading"><h3>Кампање које су већ покренуте</h3><p>Упознај циљеве постојећих кампања и пронађи где желиш да допринесеш.</p></div>
-  <div id="guideCampaigns" class="live-cards"><p class="loading">Учитавање кампања...</p></div>
+  <div class="live-list-heading"><h3>Акције у које можеш да се укључиш</h3><p>Приказујемо најновије објављене акције. Отвори детаље и види како можеш да помогнеш.</p></div>
+  <div id="guideActions" class="live-cards"><p class="loading">Учитавање акција...</p></div>
+  <a id="guideActionsMore" class="btn light" href="/akcije.html" hidden>Види све акције →</a>
  </div>
- <p>Понекад један конкретан корак није довољан. Ако желиш да окупиш људе око ширег проблема или циља, можеш да покренеш кампању. Кампања може да траје дуже и да обухвати више различитих акција које воде ка истом циљу.</p>
- <div class="example"><strong>Шта је кампања?</strong><br>Кампања је шира прича око које окупљамо људе да бисмо постигли заједнички циљ. Кроз њу повезујемо више активности, идеја и људи.</div>
- <details><summary>Која је разлика између акције и кампање?</summary><p>Акција је конкретна активност коју спроводимо. Кампања је шири циљ који може да обухвати више акција. Једна кампања, на пример, може да укључи уређење више јавних простора, разговор са надлежнима и информисање грађана.</p></details>
- <details><summary>Могу ли да се прикључим већ постојећој кампањи?</summary><p>Да. Можеш да подржиш циљ кампање, укључиш се у њене активности или предложиш начин на који можеш да помогнеш.</p></details>
- <div class="buttons"><a class="btn" href="#guideCampaigns">Погледај кампање →</a><a class="btn secondary" href="/index.html">Предложи кампању</a></div>
+ <div class="buttons"><a class="btn light" href="/akcije.html">Отвори све акције</a></div>
+</section>
+<section class="choice">
+ <div class="choice-top"><span class="num">04</span><h2>Желиш да подржиш рад?</h2></div>
+ <p>Повезивање људи, припрема акција и одржавање овог простора захтевају време и средства. Ако не можеш да учествујеш на терену, рад можеш да подржиш куповином производа из наше понуде.</p>
+ <div class="buttons"><a class="btn" href="/prodavnica.html">Погледај производе →</a><a class="btn light" href="/podrska.html">Више о подршци</a></div>
 </section>
 <section class="support">
- <h2>Подржи наш рад</h2>
- <p>Не мораш бити физички присутан на терену да би допринео. Организовање акција, повезивање људи и одржавање овог пројекта захтевају време и средства. Наш рад можеш да подржиш и куповином производа из наше понуде. У наредном кораку овде ћемо повезати страницу производа и поруџбину.</p>
- <div class="buttons"><a class="btn" href="/prodavnica.html">Погледај производе →</a></div>
+ <h2>Не знаш одакле да почнеш?</h2>
+ <p>И то је у реду. Напиши шта те брине или шта би желео да се промени. Заједно можемо да пронађемо људе, информације и начин да направимо први корак.</p>
+ <div class="buttons"><button class="btn" type="button" onclick="document.querySelector('.open-proposal').click()">Представи проблем или идеју →</button></div>
 </section>
 </main>
+<div class="proposal-backdrop" id="proposalBackdrop" hidden></div>
+<section class="proposal-sheet" id="proposalSheet" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Представи проблем или покрени акцију">
+ <div class="proposal-sheet-head"><strong>Покрени нешто у својој заједници</strong><button type="button" id="closeProposal" aria-label="Затвори">×</button></div>
+ <iframe id="proposalFrame" title="Предлог акције" src="about:blank"></iframe>
+</section>
 <footer>ОДГОВОРНА ВЕЛИКА ПЛАНА · Место за заједничко деловање</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="/config.js"></script><script src="/database.js"></script><script src="/akcije-data.js"></script>
@@ -88,25 +120,20 @@ footer{background:#041329;color:#d4e1f3;text-align:center;padding:24px;font-size
  function message(id,text,cls){const el=document.getElementById(id);if(el)el.innerHTML='<p class="'+cls+'">'+safe(text)+'</p>';}
  async function actions(){
   const el=document.getElementById('guideActions');
+  const more=document.getElementById('guideActionsMore');
   if(!el)return;
   try{
-   const {data,error}=await window.odgovornaPlanaDB
-    .from('actions')
-    .select('*')
-    
-    .eq('is_published',true)
-    .order('created_at',{ascending:false});
+   const {data,error}=await window.odgovornaPlanaDB.from('actions').select('*').eq('is_published',true).order('created_at',{ascending:false});
    if(error)throw error;
-   if(!data||!data.length){message('guideActions','База је доступна, али тренутно нема објављених акција.','empty');return;}
-   el.innerHTML=data.map(a=>{
+   const items=data||[];
+   if(!items.length){message('guideActions','Тренутно нема акције која ти одговара. Можеш да предложиш своју и повежеш људе око идеје.','empty');return;}
+   if(more)more.hidden=items.length<=3;
+   el.innerHTML=items.slice(0,3).map(a=>{
     const url='/akcija.html?slug='+encodeURIComponent(a.slug||a.id);
     const status=a.status==='completed'?'ЗАВРШЕНА АКЦИЈА':a.status==='planned'?'ПЛАНИРАНА АКЦИЈА':a.status==='in_progress'?'АКТИВНА АКЦИЈА':'АКЦИЈА';
-    return '<article class="live-card">'+(a.image_url?'<img loading="lazy" src="'+safe(a.image_url)+'" alt="'+safe(a.title||'Акција')+'">':'')+'<div class="live-card-body"><span class="live-tag">'+status+'</span><h4>'+safe(a.title||'Акција')+'</h4><p>'+safe(a.summary||a.intro||a.description||'Погледај детаље ове акције.')+'</p>'+(a.location?'<span class="live-meta">Место: '+safe(a.location)+'</span>':'')+'<a class="btn" href="'+safe(url)+'">Погледај акцију →</a></div></article>';
+    return '<article class="live-card">'+(a.image_url?'<img loading="lazy" src="'+safe(a.image_url)+'" alt="'+safe(a.title||'Акција')+'">':'<div class="live-card-image-placeholder"></div>')+'<div class="live-card-body"><span class="live-tag">'+status+'</span><h4>'+safe(a.title||'Акција')+'</h4><p>'+safe(a.summary||a.intro||a.description||'Погледај детаље ове акције.')+'</p>'+(a.location?'<span class="live-meta">Место: '+safe(a.location)+'</span>':'')+'<a class="btn" href="'+safe(url)+'">Погледај акцију →</a></div></article>';
    }).join('');
-  }catch(error){
-   console.error('Грешка при учитавању акција:',error);
-   message('guideActions','Акције нису учитане: '+(error.message||'непозната грешка'),'empty');
-  }
+  }catch(error){console.error('Грешка при учитавању акција:',error);message('guideActions','Акције тренутно нису учитане. '+(error.message||''),'empty');}
  }
  async function campaigns(){
   const el=document.getElementById('guideCampaigns');
@@ -119,5 +146,17 @@ footer{background:#041329;color:#d4e1f3;text-align:center;padding:24px;font-size
  }
  actions();campaigns();
 })();
-</script><script>(function(){const menu=document.getElementById('sideMenu'),back=document.getElementById('menuBackdrop');if(!menu||!back)return;function close(){menu.classList.remove('open');back.classList.remove('open');menu.setAttribute('aria-hidden','true');setTimeout(()=>back.hidden=true,260)}document.getElementById('openMenu').addEventListener('click',()=>{back.hidden=false;menu.setAttribute('aria-hidden','false');requestAnimationFrame(()=>{back.classList.add('open');menu.classList.add('open')})});document.getElementById('closeMenu').addEventListener('click',close);back.addEventListener('click',close)})();</script><script src="/bottom-nav.js"></script>
+</script>
+<script>
+(function(){
+ const sheet=document.getElementById('proposalSheet'),back=document.getElementById('proposalBackdrop'),frame=document.getElementById('proposalFrame');
+ function open(){back.hidden=false;frame.src='/predlog-akcije.html?embed=1';requestAnimationFrame(()=>sheet.classList.add('open'));sheet.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';}
+ function close(){sheet.classList.remove('open');sheet.setAttribute('aria-hidden','true');document.body.style.overflow='';setTimeout(()=>{back.hidden=true;frame.src='about:blank';},280);}
+ document.querySelectorAll('.open-proposal').forEach(b=>b.addEventListener('click',open));
+ document.getElementById('closeProposal').addEventListener('click',close);
+ back.addEventListener('click',close);
+ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!back.hidden)close();});
+})();
+</script>
+<script>(function(){const menu=document.getElementById('sideMenu'),back=document.getElementById('menuBackdrop');if(!menu||!back)return;function close(){menu.classList.remove('open');back.classList.remove('open');menu.setAttribute('aria-hidden','true');setTimeout(()=>back.hidden=true,260)}document.getElementById('openMenu').addEventListener('click',()=>{back.hidden=false;menu.setAttribute('aria-hidden','false');requestAnimationFrame(()=>{back.classList.add('open');menu.classList.add('open')})});document.getElementById('closeMenu').addEventListener('click',close);back.addEventListener('click',close)})();</script><script src="/bottom-nav.js"></script>
 </body></html>
