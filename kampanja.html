@@ -152,7 +152,13 @@ body.campaign-page .content-back{display:none}
     const description=type==='action'?String(fd.get('details')||'').trim():'Пријава за кампању „'+c.title+'“. Подаци из формулара: '+JSON.stringify(data);
     const payload={submission_type:submissionType,title:subject,description:description,full_name:person,phone:phone,viber_phone:phone,location:place||null,support_type:supportType,social_links:{source:'kampanja.html',kind:'campaign_support',campaign_id:c.id,campaign_title:c.title,form_type:type,form_data:data},status:'new'};
     try{
-     const result=await db.from('civic_submissions').insert(payload);
+     let result;
+     if(type==='action'){
+      const known=!!fd.get('action_date');
+      result=await db.from('action_proposals').insert({title:String(fd.get('title')||'').trim(),description:String(fd.get('details')||'').trim(),location:String(fd.get('location')||'').trim()||null,proposer_name:person,proposer_phone:phone,proposer_email:null,proposer_viber:phone,proposer_social:{source:'kampanja.html',campaign_id:c.id,campaign_title:c.title,needs:String(fd.get('needs')||''),join_info:String(fd.get('join_info')||'')},goal:String(fd.get('goal')||'').trim()||null,date_known:known,action_date:known?fd.get('action_date'):null,action_time:null,campaign_id:c.id,status:'pending'});
+     }else{
+      result=await db.from('civic_submissions').insert(payload);
+     }
      if(result.error)throw result.error;
      form.innerHTML='<div style="padding:12px 0;color:#16834b;font-weight:750" role="status">Пријава је успешно сачувана. Стигла је у Контролни центар и биће прегледана. Хвала ти!</div><button type="button" id="supportDone">Затвори</button>';
      document.getElementById('supportDone').onclick=closeSheet;
