@@ -605,6 +605,14 @@ loadSingleAction().catch(error=>{
  if(view){const main=document.querySelector('main.hidden-content');if(main){main.classList.remove('hidden-content');main.removeAttribute('aria-hidden');}view.hidden=false;const detail=error&&error.message?String(error.message):String(error);view.innerHTML='<div class="single-action-loading"><strong>Грешка при учитавању акције.</strong><p>Детаљ: '+escapeActionText(detail)+'</p><p>Пошаљи ми снимак ове поруке.</p></div>';}
 });
 </script>
-  <script src="/bottom-sheet.js"></script>\n<script src="/bottom-nav.js"></script>
+  <script src="/bottom-sheet.js"></script>
+<script>
+if(location.hash==="#open-association-sheet"){
+  window.openJoinFlow();
+  window.showJoinFlowSection("association");
+  history.replaceState(null,"",location.pathname+location.search);
+}
+</script>
+<script src="/bottom-nav.js"></script>
 <script src="/shared-proposal-modal.js"></script>
 </body></html>
