@@ -110,12 +110,6 @@ footer{background:#041329;color:#d4e1f3;text-align:center;padding:24px;font-size
 
 </main>
 
-<div class="proposal-backdrop" id="campaignProposalBackdrop" hidden></div><section class="proposal-sheet" id="campaignProposalSheet" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Предлог кампање"><div class="proposal-sheet-head"><strong>Покрени своју кампању</strong><button type="button" id="closeCampaignProposal" aria-label="Затвори">×</button></div><iframe id="campaignProposalFrame" title="Предлог кампање" src="about:blank"></iframe></section>
-<div class="proposal-backdrop" id="proposalBackdrop" hidden></div>
-<section class="proposal-sheet" id="proposalSheet" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Покрени акцију">
- <div class="proposal-sheet-head"><strong>Покрени нешто у својој заједници</strong><button type="button" id="closeProposal" aria-label="Затвори">×</button></div>
- <iframe id="proposalFrame" title="Предлог акције" src="about:blank"></iframe>
-</section>
 <footer>ОДГОВОРНА ВЕЛИКА ПЛАНА · Место за заједничко деловање</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="/config.js"></script><script src="/database.js"></script><script src="/akcije-data.js"></script>
@@ -158,28 +152,6 @@ footer{background:#041329;color:#d4e1f3;text-align:center;padding:24px;font-size
 })();
 </script>
 
-<script>
-(function(){
- const sheet=document.getElementById('campaignProposalSheet'),back=document.getElementById('campaignProposalBackdrop'),frame=document.getElementById('campaignProposalFrame');
- if(!sheet||!back||!frame)return;
- function open(){back.hidden=false;frame.src='/predlog-kampanje.html?embed=1';requestAnimationFrame(()=>sheet.classList.add('open'));sheet.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';}
- function close(){sheet.classList.remove('open');sheet.setAttribute('aria-hidden','true');document.body.style.overflow='';setTimeout(()=>{back.hidden=true;frame.src='about:blank';},280);}
- document.addEventListener('click',e=>{const trigger=e.target.closest('.open-campaign-proposal');if(trigger){e.preventDefault();open();}});
- document.getElementById('closeCampaignProposal').addEventListener('click',close);back.addEventListener('click',close);
- document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!back.hidden)close();});
-})();
-</script>
-<script>
-(function(){
- const sheet=document.getElementById('proposalSheet'),back=document.getElementById('proposalBackdrop'),frame=document.getElementById('proposalFrame');
- function open(){back.hidden=false;frame.src='/predlog-akcije.html?embed=1';requestAnimationFrame(()=>sheet.classList.add('open'));sheet.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';}
- function close(){sheet.classList.remove('open');sheet.setAttribute('aria-hidden','true');document.body.style.overflow='';setTimeout(()=>{back.hidden=true;frame.src='about:blank';},280);}
- document.querySelectorAll('.open-proposal').forEach(b=>b.addEventListener('click',open));
- document.getElementById('closeProposal').addEventListener('click',close);
- back.addEventListener('click',close);
- document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!back.hidden)close();});
-})();
-</script>
 <script>(function(){const menu=document.getElementById('sideMenu'),back=document.getElementById('menuBackdrop');if(!menu||!back)return;function close(){menu.classList.remove('open');back.classList.remove('open');menu.setAttribute('aria-hidden','true');setTimeout(()=>back.hidden=true,260)}document.getElementById('openMenu').addEventListener('click',()=>{back.hidden=false;menu.setAttribute('aria-hidden','false');requestAnimationFrame(()=>{back.classList.add('open');menu.classList.add('open')})});document.getElementById('closeMenu').addEventListener('click',close);back.addEventListener('click',close)})();</script><script src="/bottom-nav.js"></script>
 <script src="/shared-proposal-modal.js"></script>
 </body></html>
