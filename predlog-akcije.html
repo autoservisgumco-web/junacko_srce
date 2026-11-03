@@ -30,7 +30,7 @@ input:focus,textarea:focus{outline:3px solid #d7e5ff;border-color:var(--blue)}
 .help-trigger{width:100%;display:flex;align-items:center;gap:12px;text-align:left;background:#eef4ff;color:var(--ink);border:1px solid #d8e5ff;border-radius:12px;padding:14px;font:inherit;font-weight:750;cursor:pointer}
 .help-trigger .q{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:#dce9ff;color:var(--blue);font-weight:900;flex:none}
 .help-trigger .arrow{margin-left:auto;color:var(--blue)}
-.next-step{margin-top:16px;padding:14px 16px;border:1px solid #d6e3f7;border-radius:12px;background:#f3f7ff;color:var(--navy);font-weight:750;text-align:left;width:100%}.next-step:disabled{display:none}.step-locked{border:1px dashed #cbd5e1;border-radius:12px;padding:15px;color:#718096;background:#f8fafc}
+.next-step{margin-top:16px;padding:14px 16px;border:1px solid #d6e3f7;border-radius:12px;background:#f3f7ff;color:var(--navy);font-weight:750;text-align:left;width:100%}.next-step:disabled{display:none}.wizard-progress{margin:0 0 24px;color:#64748b;font-size:12px;font-weight:800;letter-spacing:1px}.wizard-track{height:6px;background:#e8eef7;border-radius:9px;margin-top:9px;overflow:hidden}.wizard-track i{display:block;height:100%;width:20%;background:var(--blue);border-radius:9px;transition:width .2s}.wizard-step{min-height:240px}.wizard-nav{display:flex;gap:10px;margin-top:22px}.wizard-back,.wizard-next{flex:1;padding:15px 18px;border-radius:11px;font-weight:800}.wizard-back{background:#edf2f8;color:var(--navy)}.wizard-next{background:var(--blue);color:#fff}.wizard-nav .primary{flex:1;margin:0}.step-locked{border:1px dashed #cbd5e1;border-radius:12px;padding:15px;color:#718096;background:#f8fafc}
 .step-locked strong{display:block;color:#526176}
 .step{border-top:1px solid var(--line);padding-top:22px;margin-top:22px}
 .step-head{font-size:21px;font-weight:800;margin-bottom:5px}
@@ -82,59 +82,43 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
 
 <section class="panel">
 <form id="proposalForm">
-<h2>1. О акцији</h2>
-<p class="sub">Опиши шта желиш да покренеш. Што јасније представиш идеју, лакше ћемо заједно направити следећи корак.</p>
-<div class="field">
-<label for="title">Назив или кратак опис идеје *</label>
-<input id="title" name="title" maxlength="140" required placeholder="На пример: Уређење пијаце у Крњеву">
-</div>
-<div class="field" id="locationField" hidden>
-<label for="location">Где би требало нешто урадити?</label>
-<input id="location" name="location" maxlength="180" placeholder="Насеље, улица, парк или други простор">
-</div>
-<div class="field" id="descriptionField" hidden>
-<label for="description">Опиши предлог акције *</label>
-<textarea id="description" name="description" minlength="10" maxlength="3000" required placeholder="Шта је проблем и шта мислиш да би требало урадити?"></textarea>
-</div>
-<div class="field" id="goalField" hidden>
-<label for="goal">Шта желиш да постигнемо? <span class="hint">Није обавезно</span></label>
-<textarea id="goal" name="goal" maxlength="2000" style="min-height:82px" placeholder="Опиши какав резултат би волео/волела да видиш."></textarea>
-</div>
-<button class="next-step" id="continueDetails" type="button" hidden>Настави →</button>
+<div class="wizard-progress"><span id="wizardCount">КОРАК 1 ОД 5</span><div class="wizard-track"><i id="wizardBar"></i></div></div>
+<section class="wizard-step" data-step="0">
+<h2>1. Како би назвао своју идеју?</h2>
+<p class="sub">Напиши кратак назив који одмах говори шта желиш да покренеш. Не мора бити коначан.</p>
+<div class="field"><label for="title">Назив или кратак опис идеје *</label><input id="title" name="title" maxlength="140" required placeholder="На пример: Уређење пијаце у Крњеву"></div>
+</section>
+<section class="wizard-step" data-step="1" hidden>
+<h2>2. Где би требало нешто урадити?</h2>
+<p class="sub">Наведи насеље, улицу или простор ако знаш. Ако још ниси сигуран, овај корак можеш прескочити.</p>
+<div class="field"><label for="location">Место акције <span class="hint">Није обавезно</span></label><input id="location" name="location" maxlength="180" placeholder="Насеље, улица, парк или други простор"></div>
+</section>
+<section class="wizard-step" data-step="2" hidden>
+<h2>3. Опиши своју идеју</h2>
+<p class="sub">Шта си приметио? У чему је проблем и шта мислиш да бисмо могли да урадимо? Пиши својим речима — не мораш имати готов план.</p>
+<div class="field"><label for="description">Опиши предлог акције *</label><textarea id="description" name="description" minlength="10" maxlength="3000" required placeholder="Шта је проблем и шта мислиш да би требало урадити?"></textarea></div>
+<div class="field"><label for="goal">Шта желиш да постигнемо? <span class="hint">Није обавезно</span></label><textarea id="goal" name="goal" maxlength="2000" style="min-height:82px" placeholder="Опиши какав резултат би волео/волела да видиш."></textarea></div>
 <button class="help-trigger" type="button" id="openGuide"><span class="q">?</span><span>Како написати добар предлог?</span><span class="arrow">↗</span></button>
-
-<div class="step" id="termStep">
-<div class="step-head">2. Када планираш акцију?</div>
-<p class="step-copy">Ако још не знаш када ће се одржати, нема проблема. Предлог можеш послати и без одређеног термина.</p>
-<div id="termChoices" class="step-locked"><strong>🔒 Овај корак ће се отворити када попуниш основне податке о акцији.</strong></div>
-<div id="termFields" hidden>
-<label class="choice"><input type="radio" name="date_known" value="false" checked><span>Термин још није одређен<small>Имам идеју, а датум и време ћемо договорити касније.</small></span></label>
-<label class="choice"><input type="radio" name="date_known" value="true"><span>Знам када ће се одржати<small>Унећу датум и време акције.</small></span></label>
+</section>
+<section class="wizard-step" data-step="3" hidden>
+<h2>4. Када планираш акцију?</h2>
+<p class="sub">Ако још не знаш датум или сатницу, нема проблема. Предлог можеш послати и без одређеног термина.</p>
+<label class="choice"><input type="radio" name="date_known" value="false" checked><span>Термин још није одређен<small>Датум ћемо договорити касније.</small></span></label>
+<label class="choice"><input type="radio" name="date_known" value="true"><span>Знам датум акције<small>Унећу датум, а време само ако га знам.</small></span></label>
 <div id="dateFields" hidden>
 <div class="field"><label for="action_date">Датум акције *</label><input id="action_date" name="action_date" type="date"></div>
-<label class="choice"><input type="checkbox" id="timeKnown"><span>Знам тачно време<small>Ако још не знаш сатницу, остави ово непотврђено.</small></span></label>
+<label class="choice"><input type="checkbox" id="timeKnown"><span>Знам тачно време<small>Означи само ако знаш у колико сати почиње.</small></span></label>
 <div class="field" id="timeField" hidden><label for="action_time">Време почетка</label><input id="action_time" name="action_time" type="time"></div>
 </div>
-</div>
-</div>
-
-<div class="step" id="proposerStep">
-<div class="step-head">3. Покретач акције</div>
-<p class="step-copy">Упиши своје име. Ако буде потребно нешто да разјаснимо, можемо се чути преко Viber-а.</p>
-<div id="nameLocked" class="step-locked"><strong>🔒 Овај корак ће се отворити након што попуниш податке о акцији.</strong></div>
-<div id="nameField" hidden class="field"><label for="proposer_name">Име и презиме *</label><input id="proposer_name" name="proposer_name" maxlength="120" autocomplete="name" placeholder="Унеси своје име и презиме"></div>
-</div>
-
-<div class="step">
-<strong>Потребна ти је помоћ?</strong>
-<p class="step-copy" style="margin-top:5px">Ако нешто није јасно или не можеш да се снађеш, слободно ми пошаљи поруку на Viber.</p>
-<a class="viber" href="viber://chat?number=%2B381655812195">Порука преко Viber-а</a>
-<p class="phone">065 581 2195</p>
-<p class="no-call">Молим те, пошаљи ми поруку. Немој ме звати.</p>
-</div>
-
+</section>
+<section class="wizard-step" data-step="4" hidden>
+<h2>5. Ко покреће предлог?</h2>
+<p class="sub">Упиши име и презиме. Податак нам служи да знамо ко је предложио акцију и да можемо да се договоримо о следећим корацима.</p>
+<div class="field"><label for="proposer_name">Име и презиме *</label><input id="proposer_name" name="proposer_name" maxlength="120" autocomplete="name" placeholder="Унеси своје име и презиме" required></div>
+<div class="field"><strong>Потребна ти је помоћ?</strong><p class="step-copy" style="margin-top:5px">Ако нешто није јасно или не можеш да се снађеш, пошаљи ми поруку.</p><a class="viber" href="viber://chat?number=%2B381655812195">Порука преко Viber-а</a><p class="phone">065 581 2195</p><p class="no-call">Молим те, пошаљи ми поруку. Немој ме звати.</p></div>
 <label class="consent"><input type="checkbox" id="consent" required><span>Сагласан/сагласна сам да се моји подаци користе ради контакта у вези са овим предлогом.</span></label>
-<button class="primary" id="submitProposal" type="submit" disabled>Пошаљи предлог акције →</button>
+</section>
+<div class="wizard-nav"><button type="button" id="wizardBack" class="wizard-back" hidden>← Назад</button><button type="button" id="wizardNext" class="wizard-next">Настави →</button><button class="primary" id="submitProposal" type="submit" hidden disabled>Пошаљи предлог акције →</button></div>
 <div id="message" class="message" role="status" aria-live="polite"></div>
 <p class="notice">Предлог прво прегледамо. Након одобрења, договорићемо даље кораке и објављивање акције.</p>
 </form>
@@ -177,45 +161,42 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
 const db=window.odgovornaPlanaDB;
 const $=id=>document.getElementById(id);
 const form=$('proposalForm');
-const termFields=$('termFields'),dateFields=$('dateFields');
-function titleReady(){return $('title').value.trim().length>0;}
-function descriptionReady(){return $('description').value.trim().length>=10;}
-function ready(){return titleReady()&&descriptionReady();}
-function updateSteps(){
- const t=titleReady(),d=descriptionReady();
- $('locationField').hidden=!t;
- $('descriptionField').hidden=!t;
- $('goalField').hidden=!(t&&d);
- $('continueDetails').hidden=!(t&&d);
- $('termChoices').hidden=!(t&&d);
- termFields.hidden=!(t&&d);
- $('nameLocked').hidden=!(t&&d);
- $('nameField').hidden=!(t&&d);
- updateSubmit();
-}
+const dateFields=$('dateFields');
+let wizardStep=0;
+const wizardSteps=[...form.querySelectorAll('.wizard-step')];
 function selectedDateKnown(){return form.querySelector('input[name="date_known"]:checked')?.value==='true';}
 function updateDate(){
  const known=selectedDateKnown();
  dateFields.hidden=!known;
  $('action_date').required=known;
  $('timeField').hidden=!$('timeKnown').checked;
- updateSubmit();
+ $('action_time').required=$('timeKnown').checked;
 }
-function updateSubmit(){
- const known=selectedDateKnown();
- const dateOk=!known||!!$('action_date').value;
- const timeOk=!$('timeKnown').checked||!!$('action_time').value;
- $('submitProposal').disabled=!(ready()&&$('proposer_name').value.trim().length>=2&&$('consent').checked&&dateOk&&timeOk);
+function renderWizard(){
+ wizardSteps.forEach((el,i)=>el.hidden=i!==wizardStep);
+ $('wizardCount').textContent='КОРАК '+(wizardStep+1)+' ОД 5';
+ $('wizardBar').style.width=((wizardStep+1)*20)+'%';
+ $('wizardBack').hidden=wizardStep===0;
+ $('wizardNext').hidden=wizardStep===4;
+ $('submitProposal').hidden=wizardStep!==4;
+ updateDate();
 }
-['title','location','description'].forEach(id=>$(id).addEventListener('input',updateSteps));
-$('continueDetails').addEventListener('click',()=>{$('goalField').hidden=false;$('termChoices').hidden=false;termFields.hidden=false;$('nameLocked').hidden=false;$('nameField').hidden=false;$('termStep').scrollIntoView({behavior:'smooth',block:'start'});});
-$('proposer_name').addEventListener('input',updateSubmit);
-$('consent').addEventListener('change',updateSubmit);
+function validateStep(){
+ const fields=wizardSteps[wizardStep].querySelectorAll('input,textarea');
+ for(const field of fields){
+  if(field.type==='radio'||field.type==='checkbox')continue;
+  if(field.required&&!field.value.trim()){field.reportValidity();return false;}
+  if(field.id==='description'&&field.value.trim().length<10){field.reportValidity();return false;}
+ }
+ if(wizardStep===3&&selectedDateKnown()&&!$('action_date').value){$('action_date').reportValidity();return false;}
+ if(wizardStep===3&&$('timeKnown').checked&&!$('action_time').value){$('action_time').reportValidity();return false;}
+ return true;
+}
+$('wizardNext').addEventListener('click',()=>{if(!validateStep())return;wizardStep=Math.min(4,wizardStep+1);renderWizard();});
+$('wizardBack').addEventListener('click',()=>{wizardStep=Math.max(0,wizardStep-1);renderWizard();});
 form.querySelectorAll('input[name="date_known"]').forEach(x=>x.addEventListener('change',updateDate));
-$('action_date').addEventListener('change',updateSubmit);
-$('action_time').addEventListener('input',updateSubmit);
 $('timeKnown').addEventListener('change',updateDate);
-updateSteps();updateDate();
+renderWizard();
 
 function showMessage(text,type){const m=$('message');m.textContent=text;m.className='message show '+type;}
 form.addEventListener('submit',async e=>{
@@ -240,15 +221,13 @@ form.addEventListener('submit',async e=>{
  try{
   const {error}=await db.from('action_proposals').insert(payload);
   if(error)throw error;
-  form.reset();
-  $('termFields').hidden=true;$('nameField').hidden=true;$('termChoices').hidden=false;$('nameLocked').hidden=false;
-  updateSteps();updateDate();
+  form.reset();wizardStep=0;renderWizard();
   showMessage('Хвала ти! Предлог акције је успешно послат. Прегледаћемо га и јавити ти се ако буде потребно да нешто додатно договоримо.','ok');
   btn.textContent='Предлог је послат ✓';
  }catch(err){
   console.error('Грешка при слању предлога:',err);
   showMessage('Предлог није послат. Покушај поново или ми пошаљи поруку на Viber.','err');
-  btn.textContent='Пошаљи предлог акције →';updateSubmit();
+  btn.textContent='Пошаљи предлог акције →';btn.disabled=false;
  }
 });
 
