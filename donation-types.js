@@ -61,7 +61,7 @@
     const s = settings || {};
     const paypalCandidate = String(s.paypal_url || s.paypal_link || s.paypal_me_url || "");
     const paypalUrl = /^https?:\/\//i.test(paypalCandidate) ? paypalCandidate : "";
-    const accountDigits = String(s.bank_account || "").replace(/\\D/g, "");
+    const accountDigits = String(s.bank_account || "").replace(/\D/g, "");
     const hasIps = accountDigits.length === 18 && !!String(s.recipient_name || "").trim();
     const hasBank = !!(s.bank_account || s.recipient_name || s.payment_purpose || s.reference_number);
     const row = (label, value) => value ? '<div class="donation-detail-row"><span>' + esc(label) + '</span><strong>' + esc(value) + '</strong><button type="button" class="donation-copy" data-copy="' + esc(value) + '">Копирај</button></div>' : "";
@@ -93,11 +93,11 @@
 
   window.DonationTypes = Object.freeze({ list: TYPES, getType, renderItems, renderPanel });
   function buildIpsPayload(s, amount) {
-    const account = String(s.bank_account || "").replace(/\\D/g, "");
-    const clean = (v, n) => String(v || "").replace(/[|\\r\\n]/g, " ").replace(/\\s+/g, " ").trim().slice(0, n || 70);
+    const account = String(s.bank_account || "").replace(/\D/g, "");
+    const clean = (v, n) => String(v || "").replace(/[|\r\n]/g, " ").replace(/\s+/g, " ").trim().slice(0, n || 70);
     const recipient = clean(s.recipient_name, 70);
     if (account.length !== 18 || !recipient || !Number.isInteger(Number(amount)) || Number(amount) <= 0) return "";
-    const code = /^\\d{3}$/.test(String(s.payment_code || "")) ? String(s.payment_code) : "289";
+    const code = /^\d{3}$/.test(String(s.payment_code || "")) ? String(s.payment_code) : "289";
     const parts = ["K:PR", "V:01", "C:1", "R:" + account, "N:" + recipient, "I:RSD," + Number(amount).toFixed(2), "SF:" + code, "S:" + clean(s.payment_purpose || "Донација", 70)];
     const reference = clean(s.reference_number, 25);
     if (reference) parts.push("RO:" + reference);
