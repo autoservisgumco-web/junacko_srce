@@ -112,13 +112,11 @@ footer{padding:20px;text-align:center;background:#041329;color:#d4e1f3;font-size
  function showTab(name){
   Object.entries(tabs).forEach(([key,item])=>{item.panel.hidden=key!==name;});
   choices.hidden=true;
-  intro.hidden=true;
   window.scrollTo({top:0,behavior:'smooth'});
  }
  function backToChoices(){
   Object.values(tabs).forEach(item=>item.panel.hidden=true);
   choices.hidden=false;
-  intro.hidden=false;
   document.querySelectorAll('[data-entry-tab]').forEach(item=>item.setAttribute('aria-pressed','false'));
   choices.scrollIntoView({behavior:'smooth',block:'start'});
  }
