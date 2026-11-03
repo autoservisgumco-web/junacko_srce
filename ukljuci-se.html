@@ -164,7 +164,7 @@ footer{background:#041329;color:#d4e1f3;text-align:center;padding:24px;font-size
  if(!sheet||!back||!frame)return;
  function open(){back.hidden=false;frame.src='/predlog-kampanje.html?embed=1';requestAnimationFrame(()=>sheet.classList.add('open'));sheet.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';}
  function close(){sheet.classList.remove('open');sheet.setAttribute('aria-hidden','true');document.body.style.overflow='';setTimeout(()=>{back.hidden=true;frame.src='about:blank';},280);}
- document.querySelectorAll('.open-campaign-proposal').forEach(b=>b.addEventListener('click',open));
+ document.addEventListener('click',e=>{const trigger=e.target.closest('.open-campaign-proposal');if(trigger){e.preventDefault();open();}});
  document.getElementById('closeCampaignProposal').addEventListener('click',close);back.addEventListener('click',close);
  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!back.hidden)close();});
 })();
