@@ -114,6 +114,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
 <h2>5. Ко покреће предлог?</h2>
 <p class="sub">Упиши име и презиме. Податак нам служи да знамо ко је предложио акцију и да можемо да се договоримо о следећим корацима.</p>
 <div class="field"><label for="proposer_name">Име и презиме *</label><input id="proposer_name" name="proposer_name" maxlength="120" autocomplete="name" placeholder="Унеси своје име и презиме" required></div>
+<div class="field"><label for="proposer_phone">Број телефона *</label><input id="proposer_phone" name="proposer_phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="30" minlength="6" placeholder="На пример: 064 123 4567" required><p class="hint">Унеси број на који можемо да те контактирамо. Може бити број за позив, Viber или WhatsApp.</p></div>
 <div class="field"><strong>Потребна ти је помоћ?</strong><p class="step-copy" style="margin-top:5px">Ако нешто није јасно или не можеш да се снађеш, пошаљи ми поруку.</p><a class="viber" href="viber://chat?number=%2B381655812195">Порука преко Viber-а</a><p class="phone">065 581 2195</p><p class="no-call">Молим те, пошаљи ми поруку. Немој ме звати.</p></div>
 <label class="consent"><input type="checkbox" id="consent" required><span>Сагласан/сагласна сам да се моји подаци користе ради контакта у вези са овим предлогом.</span></label>
 </section>
@@ -207,6 +208,7 @@ form.addEventListener('submit',async e=>{
   description:$('description').value.trim(),
   location:$('location').value.trim()||null,
   proposer_name:$('proposer_name').value.trim(),
+  proposer_phone:$('proposer_phone').value.trim(),
   proposer_email:null,
   proposer_viber:null,
   proposer_social:{source:'predlog-akcije.html'},
