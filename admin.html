@@ -40,10 +40,10 @@ button{border:0;border-radius:9px;padding:11px 17px;font:inherit;font-weight:750
 <header><a class="brand" href="./">♡ Одговорна Плана</a><a href="./">← Назад на сајт</a></header>
 <main>
 <h1>Администрација</h1>
-<p class="intro">Овде стижу предлози акција и пријаве грађана. За сада их прегледаш и означаваш да ли су прихваћени.</p>
+<p class="intro">Овде су пријаве за учешће, подршка, чланство, предлози акција и наруџбине.</p>
 <section class="box" id="authBox">
 <h2>Пријава администратора</h2>
-<p class="meta">Приступ је ограничен на администраторски налог.</p>
+<p class="meta">Пријави се администраторским налогом autoservisgumco@gmail.com.</p>
 <form id="authForm">
 <label for="email">Е-пошта</label><input id="email" type="email" autocomplete="username" required>
 <label for="password">Лозинка</label><input id="password" type="password" autocomplete="current-password" required minlength="8">
@@ -71,7 +71,7 @@ let submissions=[],participants=[],currentFilter='all',orders=[];
 function showMessage(text,error=true){message.textContent=text;message.style.color=error?'#b42318':'#176b3a'}
 async function refreshSession(){
  const {data:{session}}=await db.auth.getSession();
- if(session){authBox.hidden=true;dashboard.hidden=false;await loadSubmissions();await loadOrders()}
+ if(session){if((session.user?.email||'').toLowerCase()!=='autoservisgumco@gmail.com'){await db.auth.signOut();showMessage('Овај налог нема администраторска права. Пријави се налогом autoservisgumco@gmail.com.');authBox.hidden=false;dashboard.hidden=true;return;}authBox.hidden=true;dashboard.hidden=false;await loadSubmissions();await loadOrders();await loadActionProposals();}
  else{authBox.hidden=false;dashboard.hidden=true}
 }
 document.getElementById('authForm').addEventListener('submit',async e=>{
@@ -82,7 +82,7 @@ document.getElementById('authForm').addEventListener('submit',async e=>{
 });
 document.getElementById('signup').addEventListener('click',async()=>{
  const email=document.getElementById('email').value.trim().toLowerCase(),password=document.getElementById('password').value;
- if(email!=='jefimijaorg@gmail.com'){showMessage('Регистрација је дозвољена само за одређену администраторску адресу.');return}
+ if(email!=='autoservisgumco@gmail.com'){showMessage('Регистрација је дозвољена само за одређену администраторску адресу.');return}
  if(password.length<8){showMessage('Унесите лозинку од најмање 8 карактера.');return}
  const {error}=await db.auth.signUp({email,password});
  if(error){showMessage('Регистрација није успела: '+error.message);return}
