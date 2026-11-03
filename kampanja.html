@@ -190,7 +190,7 @@ body.campaign-page .content-back{display:none}
    }catch(err){console.error(err);openSheet('Начини учешћа','Тренутно није могуће учитати начине помоћи.','Покушај поново касније.');}
   };
 const oldProposal=document.getElementById('openCampaignProposal');
-  if(oldProposal)oldProposal.addEventListener('click',()=>showSupportForm('action'));
+  if(oldProposal)oldProposal.addEventListener('click',openActionProposalForm);
   const bar=document.createElement('div');bar.className='campaign-joinbar';bar.innerHTML='<button class="campaign-cta" type="button" id="supportCampaignButton">Подржи кампању</button>';document.body.appendChild(bar);
   document.getElementById('supportCampaignButton').addEventListener('click',window.openSupportChooser);
  }catch(error){showDebug('Грешка при учитавању кампање',error);root.innerHTML='<div class="campaign-empty">Детаљи кампање нису учитани: '+esc(error.message||String(error))+'</div>';}
