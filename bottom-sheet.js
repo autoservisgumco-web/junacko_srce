@@ -1,6 +1,50 @@
 /* Заједнички садржај за bottom sheet — index.html обезбеђује сам панел и setJoinHeader(). */
 (function(){
  'use strict';
+
+ const bottomSheet=document.getElementById('bottomSheet'),sheetBackdrop=document.getElementById('sheetBackdrop'),sheetContent=document.getElementById('sheetContent');
+ let sheetTarget=null,sheetParent=null,sheetNext=null,sheetTouchY=0;
+ window.setJoinHeader=function(kicker,title,description,backAction){
+  const top=document.getElementById('sheetTop'),heading=document.getElementById('sheetHeading'),back=document.getElementById('sheetBack');
+  top.classList.add('join-header');
+  document.getElementById('sheetKicker').textContent=kicker||'ОДГОВОРНА ПЛАНА';
+  document.getElementById('sheetTitle').textContent='';
+  document.getElementById('sheetHeadingTitle').textContent=title||'';
+  document.getElementById('sheetDescription').textContent=description||'';
+  heading.hidden=false;back.hidden=!backAction;back.onclick=backAction||null;
+ };
+ window.showPanel=function(id,actionId='',actionTitle=''){
+  const target=document.getElementById(id);if(!target)return;
+  if(id==='join'){
+   document.getElementById('joinActionId').value=actionId;document.getElementById('joinActionTitle').value=actionTitle;
+   document.querySelector('#join h2').textContent='Придружи се акцији';document.querySelector('#join>p').textContent=actionTitle;document.getElementById('joinMessage').textContent='';
+  }
+  if(sheetTarget)window.hidePanels();
+  sheetTarget=target;sheetParent=target.parentNode;sheetNext=target.nextSibling;sheetContent.appendChild(target);
+  target.hidden=false;target.classList.add('active');
+  const isJoin=id==='joinChoice';
+  document.getElementById('sheetTop').classList.toggle('join-header',isJoin);
+  document.getElementById('sheetBack').hidden=true;document.getElementById('sheetHeading').hidden=true;
+  document.getElementById('sheetKicker').textContent='';
+  document.getElementById('sheetTitle').textContent=isJoin?'':id==='proposal'?'Предложи акцију':id==='campaignProposal'?'Покрени кампању':id==='campaignJoin'?'Прикључи се кампањи':id==='campaignDetail'?'О кампањи':id==='join'?'Придружи се акцији':id==='membership'?'Пријава за чланство':id==='support'?'Подржи акцију':'Акције којима можеш да се придружиш';
+  if(isJoin)window.setJoinHeader('ОДГОВОРНА ПЛАНА · ЗАЈЕДНИЧКО ДЕЛОВАЊЕ','Укључи се.','Изабери како желиш да се укључиш.',null);
+  sheetBackdrop.hidden=false;bottomSheet.hidden=false;bottomSheet.setAttribute('aria-hidden','false');
+  requestAnimationFrame(()=>{sheetBackdrop.classList.add('open');bottomSheet.classList.add('open')});document.body.classList.add('sheet-open');
+ };
+ window.openJoinFlow=function(){window.renderJoinChoices();window.showPanel('joinChoice');};
+ window.hidePanels=function(){
+  if(!sheetTarget)return;
+  bottomSheet.classList.remove('open');sheetBackdrop.classList.remove('open');bottomSheet.setAttribute('aria-hidden','true');document.body.classList.remove('sheet-open');
+  sheetTarget.classList.remove('active');if(sheetParent)sheetParent.insertBefore(sheetTarget,sheetNext&&sheetNext.parentNode===sheetParent?sheetNext:null);
+  sheetTarget.hidden=true;sheetTarget=null;sheetParent=null;sheetNext=null;
+  setTimeout(()=>{bottomSheet.hidden=true;sheetBackdrop.hidden=true},330);
+ };
+ document.getElementById('closeSheet').addEventListener('click',window.hidePanels);
+ sheetBackdrop.addEventListener('click',window.hidePanels);
+ document.addEventListener('keydown',e=>{if(e.key==='Escape')window.hidePanels();});
+ bottomSheet.addEventListener('touchstart',e=>{sheetTouchY=e.touches[0].clientY;},{passive:true});
+ bottomSheet.addEventListener('touchend',e=>{if(e.changedTouches[0].clientY-sheetTouchY>90&&sheetContent.scrollTop===0)window.hidePanels();},{passive:true});
+
  const $=id=>document.getElementById(id);
  const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  window.renderJoinChoices=function(){
