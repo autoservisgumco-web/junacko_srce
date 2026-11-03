@@ -95,7 +95,56 @@ body.campaign-page .content-back{display:none}
   html+='<section class="campaign-section"><h2>Кампања се гради заједно</h2><p>Имаш предлог, знање или време? Постани део заједничког рада.</p><p style="margin-top:12px"><a href="/kampanje.html">Погледај све кампање →</a></p></section>';
   debugStage='Приказ кампање на страници';
   root.innerHTML=html;
+  debugStage='Учитавање начина укључивања у кампању';
+  let supportRoles=[],volunteerOptions=[];
+  try{
+   const [rr,oo]=await Promise.all([db.from('campaign_support_roles').select('id,label,role_type,description,icon,route,order_number').eq('campaign_id',c.id).eq('is_active',true).eq('is_published',true).order('order_number'),db.from('campaign_volunteer_options').select('label').eq('campaign_id',c.id)]);
+   if(!rr.error)supportRoles=rr.data||[];if(!oo.error)volunteerOptions=oo.data||[];
+  }catch(err){console.warn('Начини подршке нису учитани',err);}
   const openSheet=(title,subtitle,body)=>{
+   let overlay=document.getElementById('campaignOverlay');
+   if(!overlay){overlay=document.createElement('div');overlay.id='campaignOverlay';overlay.className='campaign-overlay';overlay.innerHTML='<section class="campaign-sheet" role="dialog" aria-modal="true"><div class="sheet-head"><div><h2 id="sheetTitle"></h2><p id="sheetSubtitle"></p></div><button class="sheet-close" type="button" id="closeCampaignSheet">×</button></div><div id="sheetBody"></div></section>';overlay.addEventListener('click',e=>{if(e.target===overlay)closeSheet();});document.body.appendChild(overlay);}
+   overlay.querySelector('#sheetTitle').textContent=title;overlay.querySelector('#sheetSubtitle').textContent=subtitle;overlay.querySelector('#sheetBody').innerHTML=body;overlay.classList.add('open');document.body.style.overflow='hidden';overlay.querySelector('#closeCampaignSheet').onclick=closeSheet;
+  };
+  function closeSheet(){document.getElementById('campaignOverlay')?.classList.remove('open');document.body.style.overflow='';}
+  window.closeCampaignSheet=closeSheet;
+  window.openCampaignActionProposal=()=>{
+   const formHtml='<form class="support-form" id="campaignActionProposalForm"><label>Назив акције *<input name="title" required maxlength="140"></label><label>Место акције<input name="location" maxlength="180"></label><label>Опис предлога *<textarea name="description" required minlength="10" maxlength="3000"></textarea></label><label>Шта желиш да постигнемо?<textarea name="goal" maxlength="2000"></textarea></label><label><span><input type="checkbox" name="date_known" style="width:auto"> Знам датум акције</span></label><div id="campaignActionDateFields" hidden><label>Датум акције *<input type="date" name="action_date"></label><label>Време почетка<input type="time" name="action_time"></label></div><label>Име и презиме *<input name="proposer_name" required maxlength="120"></label><label>Број телефона *<input name="proposer_phone" required type="tel" minlength="6" maxlength="30"></label><label><span><input type="checkbox" name="consent" required style="width:auto"> Сагласан/сагласна сам да се моји подаци користе ради контакта у вези са овим предлогом.</span></label><p class="support-submit-message" role="status" aria-live="polite"></p><button type="submit">Пошаљи предлог акције</button></form>';
+   openSheet('Додај акцију за кампању','Предлог ће бити повезан са кампањом „'+esc(c.title)+'“.',formHtml);
+   const form=document.getElementById('campaignActionProposalForm'),dateCheck=form.elements.date_known,dateWrap=document.getElementById('campaignActionDateFields'),dateInput=form.elements.action_date;
+   dateCheck.addEventListener('change',()=>{dateWrap.hidden=!dateCheck.checked;dateInput.required=dateCheck.checked;});
+   form.addEventListener('submit',async e=>{
+    e.preventDefault();if(!form.reportValidity())return;
+    const button=form.querySelector('button[type="submit"]'),message=form.querySelector('.support-submit-message');button.disabled=true;button.textContent='Шаљем предлог…';
+    const values=new FormData(form),known=dateCheck.checked;
+    const payload={title:String(values.get('title')||'').trim(),description:String(values.get('description')||'').trim(),location:String(values.get('location')||'').trim()||null,proposer_name:String(values.get('proposer_name')||'').trim(),proposer_phone:String(values.get('proposer_phone')||'').trim(),proposer_email:null,proposer_viber:null,proposer_social:{source:'kampanja.html',campaign_slug:c.slug||null},campaign_id:c.id,goal:String(values.get('goal')||'').trim()||null,date_known:known,action_date:known?values.get('action_date'):null,action_time:known?(values.get('action_time')||null):null,status:'pending'};
+    try{const result=await db.from('action_proposals').insert(payload);if(result.error)throw result.error;form.innerHTML='<p role="status" style="color:#16834b;font-weight:750">Предлог акције је успешно послат. Хвала ти! Прегледаћемо га и јавити се.</p><button type="button" id="proposalDone">Затвори</button>';document.getElementById('proposalDone').onclick=closeSheet;}
+    catch(err){console.error(err);message.textContent='Предлог није послат. Покушај поново.';button.disabled=false;button.textContent='Пошаљи предлог акције';}
+   });
+  };
+  window.openSupportChooser=()=>{
+   const proposal='<button class="support-launch" type="button" onclick="openCampaignActionProposal()"><span class="support-icon"><i class="fas fa-plus"></i></span><span><strong>Додај акцију за ову кампању</strong><small>Предложи конкретну акцију у оквиру ове кампање.</small></span></button>';
+   const cards=supportRoles.map((r,i)=>'<button class="support-launch" type="button" onclick="openCampaignSupportForm('+i+')"><span class="support-icon"><i class="fas '+esc(r.icon||'fa-heart')+'"></i></span><span><strong>'+esc(r.label)+'</strong><small>'+esc(r.description||'Изабери овај начин укључивања.')+'</small></span></button>').join('');
+   openSheet('Како желиш да се укључиш?','Изабери начин на који можеш да допринесеш кампањи.','<div class="support-options">'+proposal+(cards||'<p class="donation-empty">Тренутно нема објављених начина подршке. Можеш да предложиш нову акцију.</p>')+'</div>');
+  };
+  window.openCampaignSupportForm=(idx)=>{
+   const role=supportRoles[idx];if(!role)return;const kind=String(role.role_type||role.route||'other').toLowerCase(),label=role.label||'Подршка кампањи';
+   let fields='<label>Име и презиме<input name="name" required minlength="2"></label><label>Телефон<input name="phone" required type="tel" minlength="6"></label><label>Место<input name="place"></label>';
+   if(/volunteer|volon/i.test(kind+' '+label))fields+='<label>Област у којој желиш да помогнеш<select name="volunteer_option"><option value="">Изабери област</option>'+volunteerOptions.map(o=>'<option>'+esc(o.label)+'</option>').join('')+'</select></label><label>У чему још можеш да помогнеш?<textarea name="skills" required></textarea></label><label>Када си доступан/доступна?<input name="availability"></label>';
+   else fields+='<label>Како желиш да помогнеш?<textarea name="details" required minlength="5"></textarea></label>';
+   openSheet(label,'Пријава за кампању „'+esc(c.title)+'“','<form class="support-form" id="campaignSupportForm">'+fields+'<p class="support-submit-message" role="status" aria-live="polite"></p><button type="submit">Пошаљи пријаву</button></form>');
+   const form=document.getElementById('campaignSupportForm');
+   form.addEventListener('submit',async e=>{
+    e.preventDefault();if(!form.reportValidity())return;const button=form.querySelector('button[type="submit"]'),message=form.querySelector('.support-submit-message'),fd=new FormData(form);button.disabled=true;button.textContent='Шаљем…';
+    const details=Object.fromEntries(fd.entries());delete details.name;delete details.phone;delete details.place;
+    const payload={submission_type:'help',title:'Пријава за кампању: '+label,description:'Желим да помогнем кампањи '+c.title+'. Додатни подаци: '+JSON.stringify(details),full_name:String(fd.get('name')||'').trim(),phone:String(fd.get('phone')||'').trim(),viber_phone:String(fd.get('phone')||'').trim(),location:String(fd.get('place')||'').trim()||null,support_type:label,social_links:{source:location.pathname,kind:'campaign',target_id:role.id,target_title:label,campaign_id:c.id,campaign_title:c.title,details},status:'new'};
+    try{const result=await db.from('civic_submissions').insert(payload);if(result.error)throw result.error;form.innerHTML='<p role="status" style="color:#16834b;font-weight:750">Пријава је успешно послата. Хвала ти!</p><button type="button" id="supportDone">Затвори</button>';document.getElementById('supportDone').onclick=closeSheet;}
+    catch(err){console.error(err);message.textContent='Пријава није послата. Покушај поново.';button.disabled=false;button.textContent='Пошаљи пријаву';}
+   });
+  };
+  const bar=document.createElement('div');bar.className='campaign-joinbar';bar.innerHTML='<button class="campaign-cta" type="button" id="supportCampaignButton">Подржи кампању</button>';document.body.appendChild(bar);
+  document.getElementById('supportCampaignButton').addEventListener('click',window.openSupportChooser);
+(title,subtitle,body)=>{
    let overlay=document.getElementById('campaignOverlay');
    if(!overlay){overlay=document.createElement('div');overlay.id='campaignOverlay';overlay.className='campaign-overlay';overlay.innerHTML='<section class="campaign-sheet" role="dialog" aria-modal="true"><div class="sheet-head"><div><h2 id="sheetTitle"></h2><p id="sheetSubtitle"></p></div><button class="sheet-close" type="button" id="closeCampaignSheet">×</button></div><div id="sheetBody"></div></section>';overlay.addEventListener('click',e=>{if(e.target===overlay)closeSheet();});document.body.appendChild(overlay);}
    overlay.querySelector('#sheetTitle').textContent=title;overlay.querySelector('#sheetSubtitle').textContent=subtitle;overlay.querySelector('#sheetBody').innerHTML=body;overlay.classList.add('open');document.body.style.overflow='hidden';
@@ -117,8 +166,7 @@ body.campaign-page .content-back{display:none}
     catch(error){console.error(error);message.textContent='Предлог није послат. Покушај поново.';message.style.color='#b42318';button.disabled=false;button.textContent='Пошаљи предлог акције';}
    });
   });
-  const bar=document.createElement('div');bar.className='campaign-joinbar';bar.innerHTML='<button class="campaign-cta" type="button" id="supportCampaignButton">Подржи кампању</button>';document.body.appendChild(bar);
-  document.getElementById('supportCampaignButton').addEventListener('click',()=>openSheet('Подржи кампању','Начини подршке овој кампањи биће ускоро доступни.','<p>Можеш да предложиш конкретну акцију или да се вратиш на списак кампања.</p>'));
+
  }catch(error){showDebug('Грешка при учитавању кампање',error);root.innerHTML='<div class="campaign-empty">Детаљи кампање нису учитани: '+esc(error.message||String(error))+'</div>';}
 })();</script>  <script src="/bottom-nav.js"></script>
 </body></html>
