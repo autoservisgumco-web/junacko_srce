@@ -339,27 +339,33 @@ function actionCard(a){
 }
 async function loadPageData(){
  const campaignRoot=$('campaignGrid'),actionRoot=$('actionGrid'),productRoot=$('productList');
- try{
-  const [campaignResult,actionResult,productResult]=await Promise.all([
-   db.from('campaigns').select('id,title,slug,description,goal,status,hero_image,intro_text,is_published').eq('is_published',true).neq('status','draft').order('created_at',{ascending:false}),
-   db.from('actions').select('id,title,slug,summary,description,location,action_date,image_url,status,intro,campaign_id,is_published').eq('is_published',true).in('status',['planned','in_progress']).order('created_at',{ascending:false}),
-   db.from('products').select('id,name,slug,short_description,price,currency,image_url,is_active').eq('is_active',true).order('sort_order')
-  ]);
-  if(campaignResult.error)throw campaignResult.error;
-  if(actionResult.error)throw actionResult.error;
-  if(productResult.error)throw productResult.error;
-  campaignData=campaignResult.data||[];actionData=actionResult.data||[];
-  campaignRoot.innerHTML=campaignData.length?campaignData.slice(0,3).map(c=>campaignCard(c,actionData.filter(a=>a.campaign_id===c.id))).join(''):'<div class="empty-state">Тренутно нема објављених кампања. Можеш да предложиш нову.</div>';
+ const [campaignResult,actionResult,productResult]=await Promise.all([
+  db.from('campaigns').select('id,title,slug,description,goal,status,hero_image,intro_text,is_published').eq('is_published',true).neq('status','draft').order('created_at',{ascending:false}),
+  db.from('actions').select('id,title,slug,summary,description,location,action_date,image_url,status,intro,campaign_id,is_published').eq('is_published',true).in('status',['planned','in_progress']).order('created_at',{ascending:false}),
+  db.from('products').select('id,name,slug,short_description,price,currency,image_url,is_active').eq('is_active',true).order('sort_order')
+ ]);
+ if(campaignResult.error){
+  console.error('Грешка при учитавању кампања:',campaignResult.error);
+  campaignRoot.innerHTML='<div class="empty-state">Кампање тренутно нису могле да се учитају.</div>';
+ }else{
+  campaignData=campaignResult.data||[];
+  campaignRoot.innerHTML=campaignData.length?campaignData.slice(0,3).map(c=>campaignCard(c,actionData.filter(a=>a.campaign_id===c.id))).join(''):'<div class="empty-state">Тренутно нема објављених кампања.</div>';
   $('campaignMore').hidden=campaignData.length<=3;
-  actionRoot.innerHTML=actionData.length?actionData.slice(0,3).map(actionCard).join(''):'<div class="empty-state">Тренутно нема објављених акција отворених за учешће. Предложи своју акцију.</div>';
+ }
+ if(actionResult.error){
+  console.error('Грешка при учитавању акција:',actionResult.error);
+  actionRoot.innerHTML='<div class="empty-state">Акције тренутно нису могле да се учитају.</div>';
+ }else{
+  actionData=actionResult.data||[];
+  actionRoot.innerHTML=actionData.length?actionData.slice(0,3).map(actionCard).join(''):'<div class="empty-state">Тренутно нема објављених акција отворених за учешће.</div>';
   $('actionMore').hidden=actionData.length<=3;
-  const products=productResult.data||[];
-  productRoot.innerHTML=products.length?products.map(p=>'<a class="product-card" href="../prodavnica.html"><span class="product-mark">♡</span><span class="product-info"><strong>'+esc(p.name)+'</strong><span>'+esc(p.short_description||'Куповином подржаваш заједнички рад.')+'</span></span><span class="product-price">'+esc(money(p.price,p.currency))+'</span></a>').join(''):'<div class="empty-state">Производи ће ускоро бити доступни.</div>';
- }catch(error){
-  console.error('Грешка при учитавању садржаја:',error);
-  campaignRoot.innerHTML='<div class="empty-state">Кампање тренутно нису могле да се учитају. Покушај поново касније.</div>';
-  actionRoot.innerHTML='<div class="empty-state">Акције тренутно нису могле да се учитају. Покушај поново касније.</div>';
+ }
+ if(productResult.error){
+  console.error('Грешка при учитавању производа:',productResult.error);
   productRoot.innerHTML='<div class="empty-state">Подаци о производима тренутно нису доступни.</div>';
+ }else{
+  const products=productResult.data||[];
+  productRoot.innerHTML=products.length?products.map(p=>'<a class="product-card" href="/prodavnica.html"><span class="product-mark">♡</span><span class="product-info"><strong>'+esc(p.name)+'</strong><span>'+esc(p.short_description||'Куповином подржаваш заједнички рад.')+'</span></span><span class="product-price">'+esc(money(p.price,p.currency))+'</span></a>').join(''):'<div class="empty-state">Производи ће ускоро бити доступни.</div>';
  }
 }
 function openForm(kind,options={}){
