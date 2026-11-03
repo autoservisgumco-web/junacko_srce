@@ -130,6 +130,7 @@ body.campaign-page .content-back{display:none}
     catch(err){console.error(err);message.textContent='Предлог није послат. Покушај поново.';button.disabled=false;button.textContent='Пошаљи предлог акције';}
    });
   };
+  window.openCampaignActionProposal=()=>document.getElementById('openCampaignProposal')?.click();
   window.openSupportChooser=()=>{
    const proposal='<button class="support-launch" type="button" onclick="openCampaignActionProposal()"><span class="support-icon"><i class="fas fa-plus"></i></span><span><strong>Додај акцију за ову кампању</strong><small>Предложи конкретну акцију у оквиру ове кампање.</small></span></button>';
    const cards=supportRoles.map((r,i)=>'<button class="support-launch" type="button" onclick="openCampaignSupportForm('+i+')"><span class="support-icon"><i class="fas '+esc(r.icon||'fa-heart')+'"></i></span><span><strong>'+esc(r.label)+'</strong><small>'+esc(r.description||'Изабери овај начин укључивања.')+'</small></span></button>').join('');
