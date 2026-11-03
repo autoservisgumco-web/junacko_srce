@@ -21,6 +21,18 @@ body{margin:0;background:#f1f5f9;color:var(--ink);font-family:system-ui,-apple-s
 .page-intro h1{font-size:clamp(34px,9vw,52px);line-height:1.05;letter-spacing:-1px;margin:9px 0 12px}
 .page-intro p{font-size:16px;line-height:1.55;color:#e1edfa;margin:0;max-width:650px}
 main{width:min(850px,calc(100% - 28px));margin:22px auto 36px}
+.entry-choices{width:min(850px,calc(100% - 28px));margin:18px auto 0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.entry-choices button{display:flex;align-items:center;gap:12px;min-width:0;padding:16px 14px;background:#fff;border:1px solid var(--line);border-radius:15px;color:var(--navy);font:inherit;text-align:left;cursor:pointer;box-shadow:0 5px 18px #061a3508}
+.entry-choices button>span:nth-child(2){display:flex;flex-direction:column;gap:4px;min-width:0;flex:1}
+.entry-choices strong{font-size:16px}.entry-choices small{font-size:12px;line-height:1.4;color:var(--muted)}.entry-choices button>b{font-size:20px;color:var(--blue)}
+.entry-icon{width:40px;height:40px;flex:0 0 40px;border-radius:12px;background:#eaf2ff;color:var(--blue);display:grid;place-items:center;font-size:23px;font-weight:800}
+.entry-choices button[aria-pressed=true]{border-color:#2166f3;background:#f4f8ff;box-shadow:0 0 0 2px #2166f31a}
+.next-steps{width:min(850px,calc(100% - 28px));margin:0 auto 38px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.next-steps a{display:flex;flex-direction:column;gap:7px;padding:19px;background:#eaf2fc;border:1px solid #d7e6f8;border-radius:15px;color:var(--navy);text-decoration:none}
+.next-steps a span{font-size:10px;letter-spacing:1px;font-weight:850;color:#2166f3}.next-steps a strong{font-size:16px;line-height:1.35}.next-steps a b{font-size:20px;color:#2166f3}
+@media(max-width:680px){.entry-choices{grid-template-columns:1fr;gap:9px;margin-top:14px}.entry-choices button{padding:12px 14px}.entry-icon{width:38px;height:38px;flex-basis:38px}}
+@media(max-width:600px){.next-steps{grid-template-columns:1fr}}
+
 .panel-heading{margin:0 0 7px;color:var(--navy);font-size:25px;line-height:1.2}
 .panel-lead{margin:0 0 18px;color:var(--muted);font-size:14px;line-height:1.55}
 .cards{display:grid;grid-template-columns:1fr;gap:13px}
@@ -56,11 +68,20 @@ footer{padding:20px;text-align:center;background:#041329;color:#d4e1f3;font-size
 <div class="menu-backdrop" id="menuBackdrop" hidden></div>
 <aside class="side-menu" id="sideMenu" aria-hidden="true"><div class="side-menu-head"><span>♡ Одговорна Плана</span><button class="side-menu-close" id="closeMenu" type="button" aria-label="Затвори мени">×</button></div><nav aria-label="Мени"><a href="/o-nama.html">О нама</a><a href="/kako-funkcionise.html">Како функционише платформа</a><a href="/kontakt.html">Контакт</a></nav></aside>
 <section class="page-intro"><div class="page-intro-inner"><span class="kicker">ОДГОВОРНА ПЛАНА · ЗАЈЕДНИЧКО ДЕЛОВАЊЕ</span><h1>Укључи се.</h1><p>Свако може да допринесе на свој начин. Изабери да ли желиш да подржиш кампању, прикључиш се акцији или постанеш део удружења.</p></div></section>
+<section class="entry-choices" aria-label="Изабери начин учешћа">
+ <button type="button" data-entry-tab="campaign" aria-pressed="true"><span class="entry-icon">◎</span><span><strong>Кампање</strong><small>Подржи важне теме и заједничке циљеве.</small></span><b>→</b></button>
+ <button type="button" data-entry-tab="action" aria-pressed="false"><span class="entry-icon">✓</span><span><strong>Акције</strong><small>Укључи се у конкретан рад на терену.</small></span><b>→</b></button>
+ <button type="button" data-entry-tab="association" aria-pressed="false"><span class="entry-icon">♡</span><span><strong>Удружење</strong><small>Постани део људи који трајно делују.</small></span><b>→</b></button>
+</section>
 <main>
 <section id="campaignPanel" class="tab-panel" aria-labelledby="campaignTitle"><h2 class="panel-heading" id="campaignTitle">Кампање</h2><p class="panel-lead">Кампање окупљају људе око важних проблема и заједничких циљева.</p><div class="cards" id="campaignList"><p class="status">Учитавање кампања…</p></div><button class="add-button" type="button" data-proposal="campaign">＋ Додај своју кампању</button></section>
 <section id="actionPanel" class="tab-panel" aria-labelledby="actionTitle" hidden><h2 class="panel-heading" id="actionTitle">Акције</h2><p class="panel-lead">Акције су конкретни кораци којима заједно мењамо ствари у својој улици, насељу и општини.</p><div class="cards" id="actionList"><p class="status">Учитавање акција…</p></div><button class="add-button" type="button" data-proposal="action">＋ Додај своју акцију</button></section>
 <section id="associationPanel" class="tab-panel" aria-labelledby="associationTitle" hidden><h2 class="panel-heading" id="associationTitle">Удружење</h2><p class="panel-lead">Људи који желе да преузму активну улогу у својој заједници.</p><div class="association-card"><div class="association-icon" aria-hidden="true">♧</div><h2>Придружи се удружењу Одговорна Плана</h2><p>Удружење повезује људе који желе да своје време, знање, искуство и идеје ставе у службу заједнице.</p><p>Можеш да учествујеш у организовању активности, помогнеш својим знањем или предложиш шта би требало да мењамо у нашој општини.</p><div class="association-points"><div class="association-point"><b>✓</b><span>Учешће у акцијама и заједничким активностима</span></div><div class="association-point"><b>✓</b><span>Предлагање идеја и покретање иницијатива</span></div><div class="association-point"><b>✓</b><span>Дељење знања, искуства и времена</span></div></div><p>Информације о условима и поступку учлањења добићеш од удружења.</p><a class="primary-button" href="/kontakt.html">Контактирај удружење</a></div></section>
 </main>
+<section class="next-steps" aria-label="Још начина да допринесеш">
+ <a href="/kontakt.html"><span>ПРИЈАВИ ПРОБЛЕМ</span><strong>Укажи на оно што треба мењати.</strong><b>→</b></a>
+ <a href="/prodavnica.html"><span>ПОДРЖИ НАШ РАД</span><strong>Подржи заједнички рад куповином производа.</strong><b>→</b></a>
+</section>
 <footer>ОДГОВОРНА ПЛАНА · Место за заједничко деловање</footer>
 <nav class="bottom-join-nav" aria-label="Навигација — укључи се">
 <button type="button" data-tab="campaign" aria-current="true">◎<span>Кампање</span></button>
@@ -75,6 +96,7 @@ footer{padding:20px;text-align:center;background:#041329;color:#d4e1f3;font-size
  const tabs={campaign:{button:document.querySelector('[data-tab="campaign"]'),panel:document.getElementById('campaignPanel')},action:{button:document.querySelector('[data-tab="action"]'),panel:document.getElementById('actionPanel')},association:{button:document.querySelector('[data-tab="association"]'),panel:document.getElementById('associationPanel')}};
  function showTab(name){Object.entries(tabs).forEach(([key,item])=>{const active=key===name;item.panel.hidden=!active;item.button.setAttribute('aria-current',String(active));});window.scrollTo({top:0,behavior:'smooth'});}
  Object.entries(tabs).forEach(([name,item])=>item.button.addEventListener('click',()=>showTab(name)));
+ document.querySelectorAll('[data-entry-tab]').forEach(button=>button.addEventListener('click',()=>{showTab(button.dataset.entryTab);document.querySelectorAll('[data-entry-tab]').forEach(item=>item.setAttribute('aria-pressed',String(item===button)));document.getElementById(button.dataset.entryTab+'Panel').scrollIntoView({behavior:'smooth',block:'start'});}));
  const esc=value=>String(value??'').replace(/[&<>"']/g,char=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
  const campaignRoot=document.getElementById('campaignList'),actionRoot=document.getElementById('actionList');
  async function loadCampaigns(){try{const client=window.db||window.odgovornaPlanaDB;if(!client)throw new Error('База није иницијализована.');const {data,error}=await client.from('campaigns').select('id,title,slug,description,intro_text,goal,hero_image,status,is_published,created_at').eq('is_published',true).eq('status','active').order('created_at',{ascending:false});if(error)throw error;if(!data?.length){campaignRoot.innerHTML='<p class="status">Тренутно нема објављених кампања.</p>';return;}campaignRoot.innerHTML=data.map(item=>{const image=item.hero_image?'<img loading="lazy" src="'+esc(item.hero_image)+'" alt="">':'<div class="item-image-placeholder"></div>';return '<a class="item-card" href="/kampanja.html?slug='+encodeURIComponent(item.slug||item.id)+'">'+image+'<div class="item-copy"><span class="item-tag">КАМПАЊА</span><h3>'+esc(item.title||'Кампања')+'</h3><p>'+esc(item.intro_text||item.description||item.goal||'Погледај заједнички циљ и начин да допринесеш.')+'</p><span class="item-more">Погледај кампању →</span></div></a>';}).join('');}catch(error){console.error(error);campaignRoot.innerHTML='<p class="status">Кампање тренутно нису учитане. Покушај поново касније.</p>';}}
