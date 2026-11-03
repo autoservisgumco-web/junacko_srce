@@ -39,16 +39,17 @@ main{max-width:1000px;margin:auto;padding:25px 16px 70px}.crumb{font-size:13px;c
 <label class="agree"><input type="checkbox" id="consent" required><span>Сагласан/сагласна сам да ме организатори Јуначког срца контактирају у вези са могућностима за учешће и помоћ. *</span></label>
 <button class="btn primary" type="submit">Желим да помогнем</button>
 <div class="success" id="success" role="status" aria-live="polite"></div>
-<div class="notice">Образац је тренутно прототип: пријава се не шаље и не чува у бази података. Пре објављивања као активне услуге треба повезати образац са базом и одредити ко обрађује пријаве.</div>
+<div class="notice">Пријава се чува у систему Одговорне Плане. Организатори ће ти се јавити ради договора.</div>
 </form>
 </section>
 <aside class="panel"><h2>Шта се дешава после пријаве?</h2><div class="sidepoint"><strong>1. Кажеш шта те занима</strong><span class="muted">Не мораш одмах да изабереш акцију.</span></div><div class="sidepoint"><strong>2. Остајеш у контакту</strong><span class="muted">Када буде прилике која одговара твојим могућностима, организатори могу да ти се јаве.</span></div><div class="sidepoint"><strong>3. Укључујеш се када можеш</strong><span class="muted">Сам одлучујеш да ли ти конкретна активност одговара.</span></div><p><a href="akcija-uredimo-planu.html">Или погледај пример конкретне акције →</a></p></aside>
 </div>
 </main>
 <footer>Јуначко срце · Није довољно знати. Треба и деловати.</footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="/config.js"></script><script src="/database.js"></script>
 <script>
 const form=document.getElementById('helpForm');
-form.addEventListener('submit',event=>{event.preventDefault();if(!form.querySelector('input[name="help"]:checked')){alert('Изабери бар један начин на који би желео/желела да помогнеш.');return;}const success=document.getElementById('success');success.textContent='Хвала, '+document.getElementById('name').value.trim()+'! Образац је попуњен као пробни пример, али пријава још није послата јер страница није повезана са базом података.';success.classList.add('show');success.scrollIntoView({behavior:'smooth',block:'nearest'});});
+form.addEventListener('submit',async event=>{event.preventDefault();if(!form.reportValidity())return;const selected=[...form.querySelectorAll('input[name="help"]:checked')].map(x=>x.value);if(!selected.length){alert('Изабери бар један начин на који би желео/желела да помогнеш.');return;}const button=form.querySelector('button[type="submit"]'),fd=new FormData(form),contact=String(fd.get('contact')||'').trim(),isEmail=contact.includes('@');button.disabled=true;button.textContent='Шаљем пријаву…';try{const {error}=await window.db.from('civic_submissions').insert({submission_type:'help',title:'Општа пријава за помоћ Јуначком срцу',description:'Начини помоћи: '+selected.join(', ')+'. Доступност: '+String(fd.get('availability')||'није наведена')+'. Напомена: '+String(fd.get('note')||'нема додатне напомене'),full_name:String(fd.get('name')||'').trim(),email:isEmail?contact:null,phone:isEmail?null:contact,viber_phone:isEmail?null:contact,support_type:selected.join(', '),social_links:{source:'zelim-da-pomognem',availability:String(fd.get('availability')||'')},status:'new'});if(error)throw error;const success=document.getElementById('success');success.textContent='Хвала! Твоја пријава је успешно послата. Јавићемо ти се.';success.classList.add('show');success.scrollIntoView({behavior:'smooth',block:'nearest'});form.reset();}catch(error){console.error(error);const success=document.getElementById('success');success.textContent='Пријава није послата. Покушај поново.';success.classList.add('show');}finally{button.disabled=false;button.textContent='Желим да помогнем';}});
 form.addEventListener('reset',()=>document.getElementById('success').classList.remove('show'));
 </script>
   <script src="bottom-nav.js"></script>
