@@ -71,7 +71,7 @@ let submissions=[],participants=[],currentFilter='all',orders=[];
 function showMessage(text,error=true){message.textContent=text;message.style.color=error?'#b42318':'#176b3a'}
 async function refreshSession(){
  const {data:{session}}=await db.auth.getSession();
- if(session){if((session.user?.email||'').toLowerCase()!=='autoservisgumco@gmail.com'){await db.auth.signOut();showMessage('Овај налог нема администраторска права. Пријави се налогом autoservisgumco@gmail.com.');authBox.hidden=false;dashboard.hidden=true;return;}authBox.hidden=true;dashboard.hidden=false;ensureAdminExtraPanels();await loadSubmissions();await loadOrders();await loadActionProposals();}
+ if(session){if((session.user?.email||'').toLowerCase()!=='autoservisgumco@gmail.com'){await db.auth.signOut();showMessage('Овај налог нема администраторска права. Пријави се налогом autoservisgumco@gmail.com.');authBox.hidden=false;dashboard.hidden=true;return;}authBox.hidden=true;dashboard.hidden=false;ensureAdminExtraPanels();await loadSubmissions();await loadOrders();await loadActionProposals();await loadLegacyPeople();}
  else{authBox.hidden=false;dashboard.hidden=true}
 }
 document.getElementById('authForm').addEventListener('submit',async e=>{
@@ -184,7 +184,7 @@ function renderMembershipList(){
  rows.forEach(item=>membershipList.appendChild(renderSubmission(item)));
 }
 function ensureAdminExtraPanels(){
- if(!document.getElementById('actionProposals')){
+ if(!document.getElementById('legacyPeopleApplications')){\n  const section=document.createElement('section');section.className='box';\n  const heading=document.createElement('h2');heading.textContent='Људи и пријаве из старе базе';section.appendChild(heading);\n  const intro=document.createElement('p');intro.className='meta';intro.textContent='Архивиране пријаве и евиденција људи извучене из резервне копије од 5. августа 2026.';section.appendChild(intro);\n  const people=document.createElement('div');people.id='legacyPeopleRegistry';section.appendChild(people);\n  const subheading=document.createElement('h3');subheading.textContent='Старе пријаве';section.appendChild(subheading);\n  const target=document.createElement('div');target.id='legacyPeopleApplications';section.appendChild(target);\n  const refresh=document.createElement('button');refresh.className='quiet';refresh.textContent='Освежи старе податке';refresh.addEventListener('click',loadLegacyPeople);section.appendChild(refresh);\n  document.getElementById('membershipBox').before(section);\n }\n if(!document.getElementById('actionProposals')){
   const section=document.createElement('section');section.className='box';
   const heading=document.createElement('h2');heading.textContent='Предлози нових акција';section.appendChild(heading);
   const refresh=document.createElement('button');refresh.className='quiet';refresh.textContent='Освежи предлоге';refresh.addEventListener('click',loadActionProposals);section.appendChild(refresh);
@@ -206,6 +206,25 @@ async function loadActionProposals(){
  if(error){target.textContent='Предлози нису доступни.';return;}
  target.replaceChildren();
  (data||[]).forEach(item=>{const card=document.createElement('article');card.className='submission';const title=document.createElement('h3');title.textContent=item.title+' · '+item.status;card.appendChild(title);const detail=document.createElement('p');detail.textContent=(item.proposer_name||'')+' · '+(item.proposer_viber||'')+' · '+(item.proposer_email||'')+' · '+(item.location||'');card.appendChild(detail);const desc=document.createElement('p');desc.textContent=item.description||'';card.appendChild(desc);[['published','Објави'],['rejected','Одбиј'],['pending','Врати на чекање']].forEach(([status,label])=>{const button=document.createElement('button');button.textContent=label;button.className='quiet';button.addEventListener('click',async()=>{button.disabled=true;const {error:updateError}=await db.from('action_proposals').update({status}).eq('id',item.id);button.disabled=false;if(updateError){alert('Статус није сачуван.');return;}loadActionProposals();});card.appendChild(button);});target.appendChild(card);});
+}
+async function loadLegacyPeople(){
+ const peopleTarget=document.getElementById('legacyPeopleRegistry'),appsTarget=document.getElementById('legacyPeopleApplications');
+ if(!peopleTarget||!appsTarget)return;
+ peopleTarget.innerHTML='<p class="empty">Учитавање евиденције...</p>';appsTarget.innerHTML='<p class="empty">Учитавање старих пријава...</p>';
+ const [{data:people,error:peopleError},{data:apps,error:appsError}]=await Promise.all([
+  db.from('registered_people').select('id,full_name,phone,email,place,is_member,membership_status,account_status,legacy_id').order('full_name'),
+  db.from('people_applications').select('id,legacy_id,full_name,phone,email,place,application_type,target_type,target_title,role_type,contribution_type,message,status,legacy_created_at').order('legacy_created_at',{ascending:false})
+ ]);
+ if(peopleError){peopleTarget.textContent='Евиденција људи није доступна.';}else{
+  peopleTarget.replaceChildren();const summary=document.createElement('p');summary.className='meta';summary.textContent='Увезено људи: '+(people||[]).length;peopleTarget.appendChild(summary);
+  (people||[]).forEach(p=>{const card=document.createElement('article');card.className='submission';card.innerHTML='<h3>'+esc(p.full_name)+'</h3><div class="meta">Телефон: '+esc(p.phone||'—')+' · Имејл: '+esc(p.email||'—')+' · Место: '+esc(p.place||'—')+'<br>Чланство: '+esc(p.membership_status||'—')+' · Налог: '+esc(p.account_status||'—')+'</div>';peopleTarget.appendChild(card);});
+ }
+ if(appsError){appsTarget.textContent='Старе пријаве нису доступне.';return;}
+ appsTarget.replaceChildren();const summary=document.createElement('p');summary.className='meta';summary.textContent='Увезено пријава: '+(apps||[]).length;appsTarget.appendChild(summary);
+ (apps||[]).forEach(a=>{const card=document.createElement('article');card.className='submission';const date=a.legacy_created_at?new Date(a.legacy_created_at).toLocaleString('sr-RS'):'';const title=a.application_type==='membership_request'?'Пријава за чланство':a.application_type==='action_join'?'Пријава за акцију':a.application_type==='action_proposal'?'Предлог акције':a.application_type;const contributions=Array.isArray(a.contribution_type)?a.contribution_type.join(', '):'';
+ card.innerHTML='<div class="toolbar"><span class="status '+(['accepted','reviewed','approved'].includes(a.status)?'accepted':a.status==='rejected'?'rejected':'')+'">'+esc(statusLabel(a.status))+'</span><span class="meta">'+esc(date)+'</span></div><h3>'+esc(a.full_name)+' — '+esc(title)+'</h3><div class="meta">Место: '+esc(a.place||'—')+' · Телефон: '+esc(a.phone||'—')+' · Имејл: '+esc(a.email||'—')+'<br>Циљ: '+esc(a.target_title||a.target_type||'—')+' · Улога: '+esc(a.role_type||'—')+'<br>Допринос: '+esc(contributions||'—')+'</div><div class="description">'+esc(a.message||a.proposed_description||'Без додатне поруке')+'</div><div class="meta">Стара ознака пријаве: #'+esc(a.legacy_id)+' · Сачувано као архивски податак</div>';
+ appsTarget.appendChild(card);
+ });
 }
 function renderHelpList(){
  const target=document.getElementById('helpApplications');if(!target)return;
