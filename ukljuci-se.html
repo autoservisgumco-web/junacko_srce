@@ -169,12 +169,14 @@ footer{padding:20px;text-align:center;background:#041329;color:#d4e1f3;font-size
 <script>
 (async function(){try{const db=window.odgovornaPlanaDB||window.db;if(!db)return;const {data,error}=await db.from('products').select('name,short_description,description,price,image_url,is_active').eq('slug','privezak-odgovorna-plana').eq('is_active',true).single();if(error)throw error;if(data){if(data.name)document.getElementById('joinProductName').textContent=data.name;const description=data.short_description||data.description;if(description)document.getElementById('joinProductDescription').textContent=description;if(data.price!=null)document.getElementById('joinProductPrice').textContent=Number(data.price).toLocaleString('sr-RS')+' дин.';if(data.image_url)document.getElementById('joinProductImage').src=data.image_url;}}catch(e){console.warn('Подаци производа нису учитани из базе.',e)}})();
 </script>
-<script src="/bottom-nav.js?v=20261103-association"></script>
+<script src="/bottom-nav.js?v=20261103-tabs"></script>
 <script>
-document.querySelector('[data-open-association="true"]')?.addEventListener('click',function(event){
+document.addEventListener('click',function(event){
+ const link=event.target.closest('[data-open-entry-tab]');
+ if(!link)return;
  event.preventDefault();
- const associationTab=document.querySelector('[data-entry-tab="association"]');
- if(associationTab) associationTab.click();
+ const choice=document.querySelector('[data-entry-tab="'+link.dataset.openEntryTab+'"]');
+ if(choice)choice.click();
 });
 if(location.hash==='#associationPanel'){
  const associationTab=document.querySelector('[data-entry-tab="association"]');
