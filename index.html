@@ -682,7 +682,7 @@ function homeActionCard(action){
 }
 async function loadHomeActions(){
  const list=document.getElementById('homeActionCards');if(!list)return;
- const {data,error}=await civicDb.from('actions').select('id,title,slug,summary,description,location,status,action_date,image_url').eq('is_published',true).order('created_at',{ascending:false}).limit(3);
+ const {data,error}=await civicDb.from('actions').select('id,title,slug,summary,description,location,status,action_date,image_url').eq('status','in_progress').eq('is_published',true).order('created_at',{ascending:false}).limit(3);
  list.replaceChildren();
  if(error||!data){list.innerHTML='<p class="home-live-loading">Акције тренутно нису доступне. Покушај поново касније.</p>';return;}
  if(!data.length){list.innerHTML='<p class="home-live-loading">Тренутно нема објављених акција. Можеш да покренеш нову.</p>';return;}
