@@ -61,18 +61,21 @@
     const s = settings || {};
     const paypalCandidate = String(s.paypal_url || s.paypal_link || s.paypal_me_url || "");
     const paypalUrl = /^https?:\/\//i.test(paypalCandidate) ? paypalCandidate : "";
+    const accountDigits = String(s.bank_account || "").replace(/\\D/g, "");
+    const hasIps = accountDigits.length === 18 && !!String(s.recipient_name || "").trim();
     const hasBank = !!(s.bank_account || s.recipient_name || s.payment_purpose || s.reference_number);
     const row = (label, value) => value ? '<div class="donation-detail-row"><span>' + esc(label) + '</span><strong>' + esc(value) + '</strong><button type="button" class="donation-copy" data-copy="' + esc(value) + '">Копирај</button></div>' : "";
     const bankContent = hasBank ? '<div class="donation-payment-card"><p class="donation-payment-note">Износ донације: <strong data-donation-amount>—</strong></p>' + row("Прималац", s.recipient_name) + row("Број рачуна", s.bank_account) + row("Сврха уплате", s.payment_purpose) + row("Позив на број", s.reference_number) + (s.payment_instructions ? '<p class="donation-payment-note">' + esc(s.payment_instructions) + '</p>' : "") + '</div>' : '<div class="donation-empty">Подаци за банковни трансфер још нису унети.</div>';
     const slipContent = hasBank ? '<div class="donation-payment-card donation-slip"><div class="donation-slip-heading">НАЛОГ ЗА УПЛАТУ</div><div class="donation-slip-fields"><div><span>Уплатилац</span><strong>Уписује уплатилац</strong></div><div><span>Износ</span><strong data-donation-amount>—</strong></div><div><span>Сврха уплате</span><strong>' + esc(s.payment_purpose || "Донација") + '</strong></div><div><span>Прималац</span><strong>' + esc(s.recipient_name || "—") + '</strong></div><div><span>Рачун примаоца</span><strong>' + esc(s.bank_account || "—") + '</strong></div><div><span>Позив на број</span><strong>' + esc(s.reference_number || "—") + '</strong></div></div><button type="button" class="donation-print-slip" onclick="window.print()">Одштампај / сачувај као PDF</button></div>' : '<div class="donation-empty">Подаци за уплатницу још нису унети.</div>';
     const tabs = [{ id: "bank", label: "Банковни трансфер", content: bankContent }, { id: "slip", label: "Уплатница", content: slipContent }];
     if (paypalUrl) tabs.push({ id: "paypal", label: "PayPal", content: '<div class="donation-payment-card"><p>Износ донације: <strong data-donation-amount>—</strong></p><a class="donation-paypal-button" data-paypal-donate data-base-url="' + esc(paypalUrl) + '" href="' + esc(paypalUrl) + '" target="_blank" rel="noopener noreferrer">Донирај преко PayPal-а</a><p class="donation-payment-note">Пре потврде плаћања проверите да ли је износ исправно приказан на PayPal-у.</p></div>' });
+    if (hasIps) tabs.push({ id: "ips", label: "IPS QR код", content: '<div class="donation-payment-card donation-ips-card"><p>Скенирај QR код у апликацији своје банке и провери податке пре потврде уплате.</p><div class="donation-ips-qr" data-ips-qr aria-live="polite">Изабери износ да би се направио IPS QR код.</div><p class="donation-payment-note">Износ: <strong data-donation-amount>—</strong></p><button type="button" class="donation-ips-download" data-ips-download disabled>Преузми QR код</button><p class="donation-ips-status" data-ips-status></p></div>' });
     const first = String(s.western_union_first_name || "").trim(), last = String(s.western_union_last_name || "").trim();
     if (s.show_western_union === true && first && last) {
       const name = first + " " + last;
       tabs.push({ id: "western-union", label: "Western Union", content: '<div class="donation-payment-card"><p>Износ донације: <strong data-donation-amount>—</strong></p>' + row("Име и презиме", name) + row("Држава", s.western_union_country || "Србија") + row("Град", s.western_union_city) + row("Телефон", s.western_union_phone) + (s.western_union_instructions ? '<p>' + esc(s.western_union_instructions) + '</p>' : "") + '<p class="donation-payment-note">Пре слања проверите доступност услуге за конкретног примаоца.</p></div>' });
     }
-    return '<div class="donation-amount-step" data-donation-checkout><h4>Изабери износ донације</h4><div class="donation-amount-options">' + [200,500,1000,2000].map(v => '<button type="button" class="donation-amount-choice" data-amount-choice="' + v + '">' + v.toLocaleString("sr-RS") + ' дин.</button>').join("") + '</div><label class="donation-amount-custom-label">Други износ (РСД)<input type="number" min="1" step="1" inputmode="numeric" data-donation-amount-input placeholder="Унеси износ"></label><p data-amount-error hidden>Унеси цео износ већи од нуле.</p><div data-donation-methods hidden><h4>Изабери начин уплате</h4><div class="donation-payment-tabs"><div class="donation-tab-list" role="tablist">' + tabs.map((t,i) => '<button type="button" class="donation-tab' + (i===0 ? " is-active" : "") + '" role="tab" aria-selected="' + (i===0 ? "true" : "false") + '" data-donation-tab="' + t.id + '">' + t.label + '</button>').join("") + '</div>' + tabs.map((t,i) => '<section class="donation-tab-panel' + (i===0 ? " is-active" : "") + '" data-donation-panel="' + t.id + '"' + (i===0 ? "" : " hidden") + '>' + t.content + '</section>').join("") + '</div></div></div>';
+    return '<div class="donation-amount-step" data-donation-checkout data-donation-settings="' + esc(JSON.stringify(s)) + '"><h4>Изабери износ донације</h4><div class="donation-amount-options">' + [200,500,1000,2000].map(v => '<button type="button" class="donation-amount-choice" data-amount-choice="' + v + '">' + v.toLocaleString("sr-RS") + ' дин.</button>').join("") + '</div><label class="donation-amount-custom-label">Други износ (РСД)<input type="number" min="1" step="1" inputmode="numeric" data-donation-amount-input placeholder="Унеси износ"></label><p data-amount-error hidden>Унеси цео износ већи од нуле.</p><div data-donation-methods hidden><h4>Изабери начин уплате</h4><div class="donation-payment-tabs"><div class="donation-tab-list" role="tablist" data-donation-tabs>' + tabs.map((t,i) => '<button type="button" class="donation-tab' + (i===0 ? " is-active" : "") + '" role="tab" aria-selected="' + (i===0 ? "true" : "false") + '" data-donation-tab="' + t.id + '">' + t.label + '</button>').join("") + '</div>' + tabs.map((t,i) => '<section class="donation-tab-panel' + (i===0 ? " is-active" : "") + '" data-donation-panel="' + t.id + '"' + (i===0 ? "" : " hidden") + '>' + t.content + '</section>').join("") + '</div></div></div>';
   }
   function renderPanel(settings, items) {
     const moneyItems = items.filter(item => item.type === "money");
@@ -89,6 +92,53 @@
   }
 
   window.DonationTypes = Object.freeze({ list: TYPES, getType, renderItems, renderPanel });
+  function buildIpsPayload(s, amount) {
+    const account = String(s.bank_account || "").replace(/\\D/g, "");
+    const clean = (v, n) => String(v || "").replace(/[|\\r\\n]/g, " ").replace(/\\s+/g, " ").trim().slice(0, n || 70);
+    const recipient = clean(s.recipient_name, 70);
+    if (account.length !== 18 || !recipient || !Number.isInteger(Number(amount)) || Number(amount) <= 0) return "";
+    const code = /^\\d{3}$/.test(String(s.payment_code || "")) ? String(s.payment_code) : "289";
+    const parts = ["K:PR", "V:01", "C:1", "R:" + account, "N:" + recipient, "I:RSD," + Number(amount).toFixed(2), "SF:" + code, "S:" + clean(s.payment_purpose || "Донација", 70)];
+    const reference = clean(s.reference_number, 25);
+    if (reference) parts.push("RO:" + reference);
+    return parts.join("|");
+  }
+  let ipsLibraryPromise;
+  function loadIpsQrLibrary() {
+    if (window.QRCode) return Promise.resolve();
+    if (ipsLibraryPromise) return ipsLibraryPromise;
+    ipsLibraryPromise = new Promise((resolve, reject) => {
+      const script = document.createElement("script");
+      script.src = "https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js";
+      script.async = true;
+      script.onload = () => window.QRCode ? resolve() : reject(new Error("QR библиотека није доступна."));
+      script.onerror = () => reject(new Error("Неуспешно учитавање QR библиотеке."));
+      document.head.appendChild(script);
+    });
+    return ipsLibraryPromise;
+  }
+  async function renderIpsQr(root, amount) {
+    const target = root.querySelector("[data-ips-qr]");
+    const download = root.querySelector("[data-ips-download]");
+    const status = root.querySelector("[data-ips-status]");
+    if (!target) return;
+    let settings = {};
+    try { settings = JSON.parse(root.dataset.donationSettings || "{}"); } catch (_) {}
+    const payload = buildIpsPayload(settings, amount);
+    target.innerHTML = "";
+    if (!payload) { target.textContent = "Подаци за IPS QR нису исправни. Провери број рачуна и износ."; if (download) download.disabled = true; return; }
+    try {
+      await loadIpsQrLibrary();
+      if (!root.isConnected) return;
+      new window.QRCode(target, { text: payload, width: 240, height: 240, correctLevel: window.QRCode.CorrectLevel.M });
+      if (download) download.disabled = false;
+      if (status) status.textContent = "IPS QR код је направљен.";
+    } catch (error) {
+      target.textContent = "QR код тренутно није могуће направити.";
+      if (download) download.disabled = true;
+      if (status) status.textContent = error.message;
+    }
+  }
   function updateDonationAmount(root, raw) {
     const amount = Number(String(raw).replace(",", "."));
     const valid = Number.isFinite(amount) && amount > 0 && Number.isInteger(amount);
@@ -97,6 +147,7 @@
     if (methods) methods.hidden = !valid;
     if (error) error.hidden = valid || !raw;
     root.querySelectorAll("[data-donation-amount]").forEach(el => el.textContent = valid ? amount.toLocaleString("sr-RS") + " RSD" : "—");
+    if (valid) renderIpsQr(root, amount); else { const qr = root.querySelector("[data-ips-qr]"); if (qr) qr.textContent = "Изабери износ да би се направио IPS QR код."; const dl = root.querySelector("[data-ips-download]"); if (dl) dl.disabled = true; }
     const paypal = root.querySelector("[data-paypal-donate]");
     if (paypal && valid) {
       const base = paypal.dataset.baseUrl || paypal.href;
