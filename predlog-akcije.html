@@ -90,7 +90,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
 </div>
 <div class="field">
 <label for="location">Где би требало нешто урадити? *</label>
-<input id="location" name="location" maxlength="180" required placeholder="Насеље, улица, парк или други простор">
+<input id="location" name="location" maxlength="180" placeholder="Насеље, улица, парк или други простор">
 </div>
 <div class="field">
 <label for="description">Опиши предлог акције *</label>
@@ -175,7 +175,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
 const db=window.odgovornaPlanaDB;
 const $=id=>document.getElementById(id);
 const form=$('proposalForm');
-const required=['title','location','description'];
+const required=['title','description'];
 const termFields=$('termFields'),dateFields=$('dateFields');
 function ready(){return required.every(id=>$(id).value.trim().length>0);}
 function updateSteps(){
@@ -217,7 +217,7 @@ form.addEventListener('submit',async e=>{
  const payload={
   title:$('title').value.trim(),
   description:$('description').value.trim(),
-  location:$('location').value.trim(),
+  location:$('location').value.trim()||null,
   proposer_name:$('proposer_name').value.trim(),
   proposer_email:null,
   proposer_viber:null,
