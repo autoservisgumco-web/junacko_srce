@@ -26,7 +26,7 @@ main{padding:30px clamp(16px,3vw,38px) 60px;max-width:1600px;width:100%;margin:a
 document.getElementById('authForm').addEventListener('submit',function(){const m=document.getElementById('message');m.textContent='Захтев за пријаву је покренут. Ако се ова порука не промени, проверава се учитавање система за пријаву.';m.style.display='block';m.style.padding='10px';m.style.background='#49351d';m.style.border='1px solid #a97832';m.style.borderRadius='9px';});
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" onerror="const m=document.getElementById('message');m.textContent='ГРЕШКА: Није учитана библиотека за пријаву (Supabase). Проверите интернет везу или блокирање CDN адресе.';m.style.display='block';m.style.padding='10px';m.style.background='#713044';m.style.border='1px solid #b85c70';m.style.borderRadius='9px';"></script><script>
-const db=window.supabase.createClient('https://hmfeizkmpmxcnzhwxgbn.supabase.co','sb_publishable_JPtLezaiIeq4MsQ2f3LSlg_nT01Chxe');
+const db=window.supabase.createClient('https://hmfeizkmpmxcnzhwxgbn.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhtZmVpemttcG14Y256aHd4Z2JuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMzMjkyNzgsImV4cCI6MjEwODkwNTI3OH0.oTZopOJEGUnxK69BOYPP11CQoGrLqUJowqpPU2uiY-4');
 const $=id=>document.getElementById(id);let records=[],view='home',requestKind='all';
 const participationTypes=['membership','help','adoption'];const requestTypes=['action','campaign','problem'];
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
