@@ -1,148 +1,66 @@
 <!doctype html>
-<html lang="sr-Cyrl">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#102b4e">
-<title>Администрација — Одговорна Плана</title>
+<html lang="sr-Cyrl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#101d2b"><title>Администрација — Одговорна Велика Плана</title>
 <style>
-:root{--navy:#061A35;--blue:#2166F3;--sky:#F1F5F9;--ink:#142844;--muted:#64748b}
-*{box-sizing:border-box}body{margin:0;background:var(--sky);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
-header{background:var(--navy);color:#fff;padding:22px max(5vw,20px);display:flex;justify-content:space-between;align-items:center;gap:15px}
-header a{color:#fff;text-decoration:none;font-weight:700}.brand{font-size:20px;font-weight:850}
-main{max-width:1000px;margin:38px auto;padding:0 18px 50px}
-h1{color:var(--navy);margin:0 0 8px;font-size:clamp(28px,5vw,38px)}.intro{color:var(--muted);margin:0 0 25px}
-.box,.submission{background:#fff;border:1px solid #e1eaf2;border-radius:15px;padding:22px;margin:16px 0}
-label{display:block;font-weight:700;margin:13px 0 6px;color:var(--navy)}
-input{width:100%;padding:12px;border:1px solid #cbd9e5;border-radius:9px;font:inherit}
-button{border:0;border-radius:9px;padding:11px 17px;font:inherit;font-weight:750;cursor:pointer}
-.primary{background:var(--blue);color:#fff}.secondary{background:var(--navy);color:#fff}.quiet{background:#e8eef5;color:var(--navy)}
-.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}.status{font-size:13px;font-weight:800;padding:6px 10px;border-radius:20px;background:#edf2f7;color:#475569}
-.status.accepted{background:#e4f6e9;color:#176b3a}.status.rejected{background:#fff0ef;color:#b42318}
-.submission h2{font-size:20px;color:var(--navy);margin:10px 0}.meta{font-size:14px;color:var(--muted);line-height:1.6}
-.description{white-space:pre-wrap;line-height:1.6;margin:14px 0}
-.empty{padding:28px;text-align:center;color:var(--muted);background:#fff;border-radius:14px}
-#dashboard[hidden],#authBox[hidden]{display:none}
-.toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.stats-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin:18px 0}.stat-card{background:#fff;border:1px solid #e1eaf2;border-radius:13px;padding:15px}.stat-card span{display:block;color:var(--muted);font-size:13px;font-weight:700}.stat-card strong{display:block;color:var(--navy);font-size:30px;line-height:1.25;margin-top:5px}.category-nav{display:flex;gap:9px;flex-wrap:wrap;margin:18px 0 8px}.contact-row{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:10px}.contact-row a{display:inline-flex;align-items:center;text-decoration:none;border-radius:8px;padding:7px 11px;font-size:13px;font-weight:750;background:#e8eef5;color:#102b4e}.contact-row a.viber{background:#7360a8;color:#fff}.contact-number{font-weight:750;color:var(--ink)}.submission .tag{font-size:13px;font-weight:800;color:#2166F3}
-#message{color:#b42318;margin-top:12px;font-size:14px}
-@media(max-width:700px){.stats-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.stat-card:first-child{grid-column:span 2}}@media(max-width:600px){header{align-items:flex-start;flex-direction:column}.box,.submission{padding:17px}}
-</style>
-</head>
-<body>
-<header><a class="brand" href="./">♡ Одговорна Плана</a><a href="./">← Назад на сајт</a></header>
+:root{--bg:#101d2b;--panel:#1c3043;--panel2:#243b50;--gold:#d5a94d;--white:#f5f7fa;--muted:#aebdca;--line:#35495c}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--white);font:15px/1.5 system-ui,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer;border:0;border-radius:9px;padding:10px 14px;font-weight:750}.primary{background:var(--gold);color:#172333}.secondary{background:#30495f;color:#fff;border:1px solid #486077}.quiet{background:#263c50;color:#e7edf3;border:1px solid #3c5266}.danger{background:#59383a;color:#ffe1df}header{height:66px;padding:0 20px;background:#0b1724;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px;position:sticky;top:0;z-index:10}.brand{font-weight:900;font-size:14px}.brand small{display:block;color:var(--gold);font-size:10px;letter-spacing:1.5px}.shell{display:grid;grid-template-columns:230px 1fr;min-height:calc(100vh - 66px)}aside{background:#132334;padding:18px 12px;border-right:1px solid var(--line)}.nav-label{font-size:10px;color:#8295a8;font-weight:900;letter-spacing:1.5px;padding:8px 10px}.nav{display:grid;gap:5px}.nav button{background:transparent;color:#d9e1e8;text-align:left;display:flex;gap:10px;align-items:center;width:100%;border:1px solid transparent}.nav button.active{background:#263b50;border-color:#40566b}.nav .ico{color:var(--gold);width:20px}.count{margin-left:auto;color:var(--gold);font-size:12px}main{padding:28px clamp(15px,3vw,38px) 60px;max-width:1450px;width:100%;margin:auto}.eyebrow{color:var(--gold);font-size:11px;font-weight:900;letter-spacing:1.6px}h1{font-size:clamp(27px,4vw,36px);margin:5px 0}.intro{color:var(--muted);margin:0 0 22px}.toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin:18px 0}.stat,.panel,.record{background:var(--panel);border:1px solid var(--line);border-radius:13px}.stat{padding:15px}.stat strong{display:block;font-size:28px}.stat span,.muted{color:var(--muted);font-size:12px}.panel{padding:17px;margin:14px 0}.panel h2{font-size:18px;margin:0 0 12px}.search,.select,input[type=email],input[type=password],textarea{background:#14283a;color:#fff;border:1px solid #40566b;border-radius:9px;padding:11px 12px}.search{width:min(360px,100%)}.cards{display:grid;gap:10px;margin-top:14px}.record{padding:15px}.record-top{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}.tag{font-size:11px;color:var(--gold);font-weight:850}.record h3{font-size:18px;margin:8px 0 2px}.record p{color:#d3dce4;white-space:pre-wrap;margin:10px 0}.status{font-size:11px;font-weight:850;border-radius:20px;padding:5px 9px;background:#394b5d}.status.new{background:#5b4829;color:#ffe3a5}.status.accepted,.status.published{background:#234e3b;color:#b7f0cb}.status.rejected{background:#59383a;color:#ffd0ce}.empty{padding:26px;text-align:center;color:var(--muted);border:1px dashed #4a6074;border-radius:12px}.hidden{display:none!important}#authBox{max-width:440px;margin:9vh auto;background:var(--panel);padding:25px;border:1px solid var(--line);border-radius:16px}label{display:block;font-weight:750;margin:13px 0 6px}#message{color:#ffb8b4;font-size:13px;min-height:20px}.backdrop{position:fixed;inset:0;background:#0009;z-index:30}.sheet{position:fixed;z-index:31;left:50%;bottom:0;transform:translate(-50%,105%);transition:transform .25s;width:min(760px,100%);max-height:88dvh;overflow:auto;background:#172a3c;border:1px solid #486077;border-bottom:0;border-radius:20px 20px 0 0;padding:20px}.sheet.open{transform:translate(-50%,0)}.description{white-space:pre-wrap;background:#20364a;padding:14px;border-radius:10px;margin:12px 0}.sheet select,.sheet textarea{width:100%;margin:6px 0 12px}.sheet-actions{display:flex;gap:8px;flex-wrap:wrap;margin:15px 0}
+@media(max-width:800px){.shell{grid-template-columns:1fr}aside{position:sticky;top:66px;z-index:9;padding:7px;overflow:auto;border-right:0;border-bottom:1px solid var(--line)}.nav-label{display:none}.nav{display:flex;min-width:max-content}.nav button{width:auto;font-size:12px;padding:9px 11px}.stats{grid-template-columns:repeat(2,1fr)}main{padding-top:19px}}@media(max-width:500px){header{padding:0 12px}.brand{font-size:12px}.stats{gap:7px}.stat{padding:11px}.stat strong{font-size:23px}}
+</style></head><body>
+<section id="authBox"><div class="eyebrow">ОДГОВОРНА ВЕЛИКА ПЛАНА</div><h1>Администрација</h1><p class="intro">Приступ систему за управљање пријавама и иницијативама.</p><form id="authForm"><label for="email">Е-пошта</label><input id="email" type="email" autocomplete="username" required style="width:100%"><label for="password">Лозинка</label><input id="password" type="password" autocomplete="current-password" minlength="8" required style="width:100%"><p id="message" role="status"></p><button class="primary" type="submit">Пријави се</button></form></section>
+<div id="app" class="hidden"><header><div class="brand">ОДГОВОРНА ВЕЛИКА ПЛАНА<small>АДМИНИСТРАТИВНИ ЦЕНТАР</small></div><div class="toolbar"><a href="./" style="color:#e4edf5;text-decoration:none;font-size:13px">Јавни сајт ↗</a><button class="quiet" id="logout">Одјави се</button></div></header>
+<div class="shell"><aside><div class="nav-label">УПРАВЉАЊЕ</div><nav class="nav" id="nav">
+<button class="active" data-view="home"><span class="ico">⌂</span>Преглед</button><button data-view="requests"><span class="ico">▤</span>Захтеви <span class="count" id="countRequests">0</span></button><button data-view="participation"><span class="ico">＋</span>Пријаве за учешће <span class="count" id="countParticipation">0</span></button><button data-view="citizens"><span class="ico">♙</span>Активни грађани</button><button data-view="campaigns"><span class="ico">◉</span>Кампање</button><button data-view="actions"><span class="ico">⚑</span>Акције</button><button data-view="archive"><span class="ico">▣</span>Архива</button><button data-view="documents"><span class="ico">▧</span>Документација</button></nav></aside>
 <main>
-<h1>Администрација</h1>
-<p class="intro">Овде стижу предлози акција и пријаве грађана. За сада их прегледаш и означаваш да ли су прихваћени.</p>
-<section class="box" id="authBox">
-<h2>Пријава администратора</h2>
-<p class="meta">Приступ је ограничен на администраторски налог.</p>
-<form id="authForm">
-<label for="email">Е-пошта</label><input id="email" type="email" autocomplete="username" required>
-<label for="password">Лозинка</label><input id="password" type="password" autocomplete="current-password" required minlength="8">
-<div class="actions"><button class="primary" type="submit">Пријави се</button><button class="quiet" type="button" id="signup">Региструј администраторски налог</button></div>
-<p id="message" role="status"></p>
-</form>
-</section>
-<section id="dashboard" hidden>
-<div class="toolbar"><div><h2>Пристигле пријаве и предлози</h2><p class="meta">Статус можеш да промениш кад год желиш.</p></div><button class="quiet" id="logout">Одјави се</button></div>
-<section class="stats-grid" aria-label="Статистика пријава"><article class="stat-card"><span>Укупно пријава</span><strong id="statTotal">0</strong></article><article class="stat-card"><span>Одобрене</span><strong id="statApproved">0</strong></article><article class="stat-card"><span>Одбијене</span><strong id="statRejected">0</strong></article><article class="stat-card"><span>На чекању</span><strong id="statPending">0</strong></article><article class="stat-card"><span>Завршене</span><strong id="statCompleted">0</strong></article></section><nav class="category-nav" aria-label="Врста пријаве"><button class="primary" type="button" data-category="participation">Пријаве за учешће</button><button class="quiet" type="button" data-category="proposals">Кампање, акције и предлози</button></nav><div class="actions" style="margin:12px 0 20px"><button class="quiet" data-filter="all">Све</button><button class="quiet" data-filter="new">Нерешене</button><button class="quiet" data-filter="accepted">Прихваћене</button><button class="quiet" data-filter="rejected">Одбијене</button></div>
-<div id="submissions"><p class="empty">Учитавање...</p></div>
-<p id="listMessage" class="meta" role="status"></p>
-</section>
-</main>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script>
-const db=window.supabase.createClient('https://hmfeizkmpmxcnzhwxgbn.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhtZmVpemttcG14Y256aHd4Z2JuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMzMjkyNzgsImV4cCI6MjEwODkwNTI3OH0.oTZopOJEGUnxK69BOYPP11CQoGrLqUJowqpPU2uiY-4');
-
-const authBox=document.getElementById('authBox'),dashboard=document.getElementById('dashboard'),message=document.getElementById('message'),list=document.getElementById('submissions');
-let submissions=[],currentFilter='all',currentCategory='participation';
-function showMessage(text,error=true){message.textContent=text;message.style.color=error?'#b42318':'#176b3a'}
-async function refreshSession(){
- const {data:{session}}=await db.auth.getSession();
- if(session){authBox.hidden=true;dashboard.hidden=false;await loadSubmissions()}
- else{authBox.hidden=false;dashboard.hidden=true}
+<section class="view" id="view-home"><div class="eyebrow">ЦЕНТРАЛНИ ПРЕГЛЕД</div><h1>Последње активности</h1><p class="intro">Најновије пријаве и активности у систему.</p><div class="stats"><article class="stat"><strong id="statAll">0</strong><span>Све пријаве</span></article><article class="stat"><strong id="statNew">0</strong><span>Нове за преглед</span></article><article class="stat"><strong id="statAccepted">0</strong><span>Прихваћене</span></article><article class="stat"><strong id="statCitizens">0</strong><span>Активни грађани</span></article></div><section class="panel"><div class="toolbar"><h2>Последње пристигло</h2><button class="secondary" data-goto="requests">Сви захтеви →</button></div><div id="latest" class="cards"><div class="empty">Учитавање...</div></div></section></section>
+<section class="view hidden" id="view-requests"><div class="eyebrow">ПРИЈЕМНА ПОШТА</div><h1>Захтеви и предлози</h1><p class="intro">Предлози кампања, акција, опште идеје и пријаве проблема.</p><div class="toolbar"><input id="searchRequests" class="search" placeholder="Претрага по имену, називу или садржају"><select id="filterRequests" class="select"><option value="all">Сви статуси</option><option value="new">Нови</option><option value="reviewing">На разматрању</option><option value="accepted">Прихваћени</option><option value="rejected">Одбијени</option></select></div><div class="filters" id="requestKinds"><button class="primary" data-kind="all">Све врсте</button><button class="quiet" data-kind="action">Предлози акција</button><button class="quiet" data-kind="campaign">Предлози кампања</button><button class="quiet" data-kind="problem">Пријаве проблема</button></div><div id="requestsList" class="cards"></div></section>
+<section class="view hidden" id="view-participation"><div class="eyebrow">УКЉУЧИВАЊЕ ГРАЂАНА</div><h1>Пријаве за учешће</h1><p class="intro">Грађани који желе да се прикључе већ постојећој активности.</p><div class="toolbar"><input id="searchParticipation" class="search" placeholder="Претрага по имену или контакту"><select id="filterParticipation" class="select"><option value="all">Сви статуси</option><option value="new">Нове</option><option value="accepted">Прихваћене</option><option value="rejected">Одбијене</option></select></div><div id="participationList" class="cards"></div></section>
+<section class="view hidden" id="view-citizens"><div class="eyebrow">ЗАЈЕДНИЦА</div><h1>Активни грађани</h1><p class="intro">Грађани чије су пријаве за учешће прихваћене. Свака пријава остаје повезана са својом активношћу.</p><input id="searchCitizens" class="search" placeholder="Претрага по имену или контакту"><div id="citizensList" class="cards"></div></section>
+<section class="view hidden" id="view-campaigns"><div class="eyebrow">ТЕМЕ И ИНИЦИЈАТИВЕ</div><h1>Кампање</h1><p class="intro">Објављене кампање. Прихваћен предлог није аутоматски кампања — прво га администрација разматра.</p><div id="campaignsList" class="cards"></div></section>
+<section class="view hidden" id="view-actions"><div class="eyebrow">КОНКРЕТНЕ АКТИВНОСТИ</div><h1>Акције</h1><p class="intro">Објављене акције којима грађани могу да се придруже.</p><div id="actionsList" class="cards"></div></section>
+<section class="view hidden" id="view-archive"><div class="eyebrow">ИСТОРИЈА</div><h1>Архива</h1><p class="intro">Одбијене и завршене пријаве. Подаци остају сачувани.</p><div id="archiveList" class="cards"></div></section>
+<section class="view hidden" id="view-documents"><div class="eyebrow">ПРИЛОЗИ И ЕВИДЕНЦИЈА</div><h1>Документација</h1><p class="intro">Документи и прилози које су грађани доставили уз своје пријаве.</p><div id="documentsList" class="cards"></div></section>
+<p id="listMessage" class="muted" role="status"></p></main></div></div>
+<div id="backdrop" class="backdrop hidden"></div><section id="sheet" class="sheet" role="dialog" aria-modal="true"><div class="toolbar"><h2 id="sheetTitle">Детаљи</h2><button id="closeSheet" class="quiet">Затвори ✕</button></div><div id="sheetBody"></div></section>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script>
+const db=window.supabase.createClient('https://hmfeizkmpmxcnzhwxgbn.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhbGciOiJIUzI1NiIsInJlZiI6ImhtZmVpemttcG14Y256aHd4Z2JuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMzMjkyNzgsImV4cCI6MjEwODkwNTI3OH0.oTZopOJEGUnxK69BOYPP11CQoGrLqUJowqpPU2uiY-');
+const $=id=>document.getElementById(id);let records=[],view='home',requestKind='all';
+const participationTypes=['membership','help','adoption'];const requestTypes=['action','campaign','problem'];
+const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const date=v=>v?new Date(v).toLocaleString('sr-RS'):'Датум није наведен';
+const typeName=t=>({action:'Предлог акције',campaign:'Предлог кампање',problem:'Пријава проблема',membership:'Пријава за чланство',help:'Пријава за учешће',adoption:'Пријава за удомљавање'})[t]||'Пријава';
+const statusName=s=>({new:'Нова',reviewing:'На разматрању',accepted:'Прихваћена',published:'Објављено',rejected:'Одбијена',completed:'Завршена'})[s]||'На чекању';
+function statusClass(s){return ['accepted','published'].includes(s)?'accepted':s==='rejected'?'rejected':s==='new'||!s?'new':''}
+function isPart(x){return participationTypes.includes(x.submission_type)}
+function isRequest(x){return requestTypes.includes(x.submission_type)}
+function showView(name){view=name;document.querySelectorAll('.view').forEach(v=>v.classList.add('hidden'));$('view-'+name).classList.remove('hidden');document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===name));history.replaceState(null,'','#'+name);renderAll()}
+document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>showView(b.dataset.view)));
+document.querySelectorAll('[data-goto]').forEach(b=>b.addEventListener('click',()=>showView(b.dataset.goto)));
+function card(x){const p=x.full_name||'Име није наведено',contact=x.phone||x.viber_phone||x.email||'Контакт није наведен';return '<article class="record"><div class="record-top"><span class="tag">'+esc(typeName(x.submission_type))+'</span><span class="status '+statusClass(x.status)+'">'+esc(statusName(x.status))+'</span></div><h3>'+esc(x.title||p)+'</h3><div class="muted">'+esc(p)+' · '+esc(contact)+' · '+esc(date(x.created_at))+'</div><p>'+esc(x.description||'Нема додатног описа.')+'</p><div class="toolbar"><span class="muted">'+esc(x.location||'Локација није наведена')+'</span><button class="secondary" data-open="'+esc(x.id)+'">Отвори пријаву →</button></div></article>'}
+function fill(id,items,empty){$(id).innerHTML=items.length?items.map(card).join(''):'<div class="empty">'+empty+'</div>'}
+function searchMatch(x,q){return !q||(String(x.full_name||'')+' '+String(x.title||'')+' '+String(x.description||'')+' '+String(x.phone||x.viber_phone||'')+' '+String(x.email||'')).toLowerCase().includes(q.toLowerCase())}
+function renderAll(){
+ const req=records.filter(isRequest),part=records.filter(isPart),active=part.filter(x=>x.status==='accepted'),arch=records.filter(x=>['rejected','completed'].includes(x.status));
+ $('statAll').textContent=records.length;$('statNew').textContent=records.filter(x=>!x.status||x.status==='new'||x.status==='reviewing').length;$('statAccepted').textContent=records.filter(x=>['accepted','published'].includes(x.status)).length;$('statCitizens').textContent=active.length;
+ $('countRequests').textContent=req.filter(x=>!['rejected','completed'].includes(x.status)).length;$('countParticipation').textContent=part.filter(x=>!['rejected','completed'].includes(x.status)).length;
+ fill('latest',records.slice(0,5),'Још нема пристиглих пријава.');
+ const rq=req.filter(x=>(requestKind==='all'||x.submission_type===requestKind)&&searchMatch(x,$('searchRequests').value)).filter(x=>{let f=$('filterRequests').value;return f==='all'||(f==='new'?(!x.status||x.status==='new'):f==='reviewing'?x.status==='reviewing':f==='accepted'?['accepted','published'].includes(x.status):x.status===f)});fill('requestsList',rq,'Нема захтева за изабране филтере.');
+ const pp=part.filter(x=>searchMatch(x,$('searchParticipation').value)).filter(x=>{let f=$('filterParticipation').value;return f==='all'||(f==='new'?(!x.status||x.status==='new'):x.status===f)});fill('participationList',pp,'Нема пријава за учешће.');
+ const q=$('searchCitizens').value;fill('citizensList',active.filter(x=>searchMatch(x,q)),'Још нема прихваћених пријава за учешће.');
+ fill('campaignsList',records.filter(x=>x.submission_type==='campaign'&&x.status==='published'),'Кампање ће се овде појавити када буду креиране и објављене.');
+ fill('actionsList',records.filter(x=>x.submission_type==='action'&&x.status==='published'),'Акције ће се овде појавити када буду креиране и објављене.');
+ fill('archiveList',arch,'Архива је празна.');
+ const docs=[];records.forEach(x=>(x.social_links&&Array.isArray(x.social_links.attachments)?x.social_links.attachments:[]).forEach(f=>docs.push({x,f})));
+ $('documentsList').innerHTML=docs.length?docs.map(({x,f})=>'<article class="record"><strong>'+esc(f.name||'Прилог')+'</strong><div class="muted">'+esc(x.full_name||'')+' · '+esc(x.title||'')+' · '+esc(date(x.created_at))+'</div><button class="secondary" data-file="'+esc(x.id)+'" data-path="'+esc(f.path)+'">Отвори документ ↗</button></article>').join(''):'<div class="empty">Нема приложених докумената.</div>';
 }
-document.getElementById('authForm').addEventListener('submit',async e=>{
- e.preventDefault();const email=document.getElementById('email').value.trim().toLowerCase(),password=document.getElementById('password').value;
- const {error}=await db.auth.signInWithPassword({email,password});
- if(error){showMessage('Пријава није успела. Проверите е-пошту и лозинку.');return}
- showMessage('',false);await refreshSession();
-});
-document.getElementById('signup').addEventListener('click',async()=>{
- const email=document.getElementById('email').value.trim().toLowerCase(),password=document.getElementById('password').value;
- if(email!=='autoservisgumco@gmail.com'){showMessage('Регистрација је дозвољена само за одређену администраторску адресу.');return}
- if(password.length<8){showMessage('Унесите лозинку од најмање 8 карактера.');return}
- const {error}=await db.auth.signUp({email,password});
- if(error){showMessage('Регистрација није успела: '+error.message);return}
- showMessage('Захтев за регистрацију је послат. Проверите е-пошту ради потврде налога.',false);
-});
-document.getElementById('logout').addEventListener('click',async()=>{await db.auth.signOut();await refreshSession()});
-function esc(value){return String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]))}
-function statusLabel(status){return status==='published'?'Објављено':status==='accepted'?'Прихваћено':status==='reviewing'?'У прегледу':status==='completed'?'Завршено':status==='rejected'?'Није прихваћено':'Чека одлуку'}
-function renderSubmission(item){
- const card=document.createElement('article');card.className='submission';
- const date=item.created_at?new Date(item.created_at).toLocaleString('sr-RS'):'';
- const kind=({action:'Предлог акције',problem:'Пријава проблема',campaign:'Предлог кампање',membership:'Пријава за чланство',help:'Пријава за акцију',adoption:'Пријава за удомљавање'})[item.submission_type]||'Пријава';
- const person=item.full_name||'Није наведено',phone=item.viber_phone||item.phone||'Није наведен',email=item.email||'Није наведен';
- const actionTitle=item.social_links&&item.social_links.action_title?'За акцију: '+item.social_links.action_title:'';
- const extra=[item.support_type?'Врста подршке: '+item.support_type:'',item.location?'Локација: '+item.location:''].filter(Boolean).join(' · ');
- card.innerHTML='<div class="toolbar"><span class="tag">'+esc(kind)+'</span><span class="status '+(item.status==='accepted'?'accepted':item.status==='rejected'?'rejected':'')+'">'+esc(statusLabel(item.status))+'</span></div>'+
- '<h2>'+esc(item.title)+'</h2><div class="meta"><strong>'+esc(person)+'</strong><br>Имејл: '+esc(email)+'<br>'+esc(date)+'<br>'+esc(actionTitle)+'<br>'+esc(extra)+'</div>'+(item.phone||item.viber_phone||item.email?'<div class="contact-row">'+((item.phone||item.viber_phone)?'<span class="contact-number">'+esc(item.viber_phone||item.phone)+'</span><a href="tel:'+esc((item.phone||item.viber_phone).replace(/[^0-9+]/g,''))+'">Позови</a><a class="viber" href="viber://chat?number='+encodeURIComponent((item.viber_phone||item.phone).replace(/[^0-9+]/g,''))+'">Viber</a>':'')+(item.email?'<a href="mailto:'+esc(item.email)+'">Email</a>':'')+'</div>':'')+
- '<div class="description">'+esc(item.description)+'</div>'+
- '<div class="actions">'+(item.submission_type==='action'&&item.status!=='published'?'<button class="secondary" data-status="published">Објави акцију</button>':'')+(item.status!=='accepted'&&item.status!=='published'?'<button class="primary" data-status="accepted">✓ Прихвати</button>':'')+(item.status!=='rejected'?'<button class="quiet" data-status="rejected">✕ Одбиј</button>':'')+(item.status&&item.status!=='new'?'<button class="quiet" data-status="new">Врати на чекање</button>':'')+'</div>';
- renderAttachments(item,card);
- card.querySelectorAll('button[data-status]').forEach(btn=>btn.addEventListener('click',()=>updateStatus(item.id,btn.dataset.status,btn)));
- return card;
-}
-async function renderAttachments(item,card){
- const files=item.social_links&&Array.isArray(item.social_links.attachments)?item.social_links.attachments:[];
- if(!files.length)return;
- const section=document.createElement('section');section.className='box';section.style.marginTop='14px';
- const heading=document.createElement('h3');heading.textContent='Приложени фајлови ('+files.length+')';heading.style.margin='0 0 10px';section.appendChild(heading);
- const list=document.createElement('div');list.className='actions';section.appendChild(list);card.appendChild(section);
- for(const file of files){
-  const row=document.createElement('div');row.className='meta';row.textContent=file.name||'Прилог';
-  const {data,error}=await db.storage.from('action-proposal-files').createSignedUrl(file.path,3600);
-  if(!error&&data&&data.signedUrl){
-   const link=document.createElement('a');link.href=data.signedUrl;link.target='_blank';link.rel='noopener noreferrer';link.className='quiet';link.textContent='Прегледај / преузми';link.style.textDecoration='none';link.style.borderRadius='8px';link.style.padding='8px 11px';link.style.fontWeight='750';row.appendChild(link);
-  }else{
-   const unavailable=document.createElement('span');unavailable.textContent=' · Фајл тренутно није доступан';row.appendChild(unavailable);
-  }
-  if(file.size){const size=document.createElement('span');size.textContent=' · '+(file.size/1024/1024).toFixed(2)+' MB';row.appendChild(size);}
-  list.appendChild(row);
- }
-}
-async function loadSubmissions(){
- list.innerHTML='<p class="empty">Учитавање пријава...</p>';
+async function load(){for(const id of ['latest','requestsList','participationList','citizensList','campaignsList','actionsList','archiveList','documentsList'])$(id).innerHTML='<div class="empty">Учитавање...</div>';
  const {data,error}=await db.from('civic_submissions').select('id,submission_type,title,description,full_name,email,phone,viber_phone,location,support_type,status,created_at,social_links').order('created_at',{ascending:false});
- if(error){list.innerHTML='<p class="empty">Не могу да учитам пријаве. Проверите да ли сте пријављени администраторским налогом.</p>';return}
- submissions=data||[];renderStats();renderList();
-}
-function renderStats(){
- const approved=submissions.filter(x=>x.status==='accepted'||x.status==='published').length;
- const rejected=submissions.filter(x=>x.status==='rejected').length;
- const completed=submissions.filter(x=>x.status==='completed').length;
- const pending=submissions.length-approved-rejected-completed;
- document.getElementById('statTotal').textContent=submissions.length;
- document.getElementById('statApproved').textContent=approved;
- document.getElementById('statRejected').textContent=rejected;
- document.getElementById('statPending').textContent=pending;
- document.getElementById('statCompleted').textContent=completed;
-}
-function renderList(){
- const participationTypes=['membership','help','adoption'];const proposalTypes=['action','campaign','problem'];const types=currentCategory==='participation'?participationTypes:proposalTypes;const grouped=submissions.filter(x=>types.includes(x.submission_type));const rows=currentFilter==='all'?grouped:grouped.filter(x=>currentFilter==='new'?(!x.status||x.status==='new'):currentFilter==='accepted'?(x.status==='accepted'||x.status==='published'):x.status===currentFilter);
- list.replaceChildren();
- if(!rows.length){list.innerHTML='<p class="empty">Нема пријава у овој категорији.</p>';return}
- rows.forEach(item=>list.appendChild(renderSubmission(item)));
-}
-async function updateStatus(id,status,button){
- button.disabled=true;const {error}=await db.from('civic_submissions').update({status}).eq('id',id);
- button.disabled=false;
- const note=document.getElementById('listMessage');
- if(error){note.textContent='Статус није сачуван. Покушајте поново.';return}
- note.textContent='Статус је сачуван.';const row=submissions.find(x=>x.id===id);if(row)row.status=status;renderList();
-}
-document.querySelectorAll('[data-filter]').forEach(btn=>btn.addEventListener('click',()=>{currentFilter=btn.dataset.filter;renderList()}));document.querySelectorAll('[data-category]').forEach(btn=>btn.addEventListener('click',()=>{currentCategory=btn.dataset.category;document.querySelectorAll('[data-category]').forEach(b=>{b.className=b===btn?'primary':'quiet'});renderList()}));
-db.auth.onAuthStateChange(()=>{refreshSession()});
-refreshSession();
-</script>
-</body></html>
+ if(error){$('listMessage').textContent='Пријаве нису учитане. Проверите приступ и дозволе у бази.';return}records=data||[];renderAll()}
+function openSheet(x){$('sheetTitle').textContent=x.title||typeName(x.submission_type);const phone=x.phone||x.viber_phone||'';$('sheetBody').innerHTML='<div class="muted">'+esc(typeName(x.submission_type))+' · '+esc(date(x.created_at))+'</div><h3>'+esc(x.full_name||'Име није наведено')+'</h3><div class="muted">Телефон: '+esc(phone||'—')+' · Имејл: '+esc(x.email||'—')+' · Локација: '+esc(x.location||'—')+'</div><div class="description">'+esc(x.description||'Нема описа.')+'</div><label for="newStatus">Статус пријаве</label><select id="newStatus" class="select" style="width:100%"><option value="new">Нова</option><option value="reviewing">На разматрању</option><option value="accepted">Прихваћена</option><option value="rejected">Одбијена</option><option value="completed">Завршена</option><option value="published">Објављено</option></select><div class="sheet-actions"><button class="primary" id="saveStatus">Сачувај статус</button>'+(phone?'<a class="secondary" style="padding:10px 13px;border-radius:9px;color:white;text-decoration:none" href="tel:'+encodeURIComponent(phone)+'">Позови</a>':'')+(x.email?'<a class="secondary" style="padding:10px 13px;border-radius:9px;color:white;text-decoration:none" href="mailto:'+encodeURIComponent(x.email)+'">Пошаљи имејл</a>':'')+'</div><p class="muted">Оригинална пријава остаје сачувана. Прихватање предлога само по себи не креира кампању или акцију.</p>';
+ $('newStatus').value=x.status||'new';$('backdrop').classList.remove('hidden');$('sheet').classList.add('open');$('saveStatus').onclick=()=>saveStatus(x.id,$('newStatus').value)}
+async function saveStatus(id,status){const {error}=await db.from('civic_submissions').update({status}).eq('id',id);if(error){$('listMessage').textContent='Статус није сачуван. Покушај поново.';return}const r=records.find(x=>String(x.id)===String(id));if(r)r.status=status;$('backdrop').classList.add('hidden');$('sheet').classList.remove('open');renderAll();$('listMessage').textContent='Статус је успешно сачуван.'}
+document.addEventListener('click',async e=>{const b=e.target.closest('[data-open]');if(b){const x=records.find(r=>String(r.id)===b.dataset.open);if(x)openSheet(x)}const f=e.target.closest('[data-file]');if(f){const x=records.find(r=>String(r.id)===f.dataset.file);const {data,error}=await db.storage.from('action-proposal-files').createSignedUrl(f.dataset.path,3600);if(!error&&data?.signedUrl)window.open(data.signedUrl,'_blank','noopener');else $('listMessage').textContent='Документ тренутно није доступан.'}});
+function closeSheet(){$('backdrop').classList.add('hidden');$('sheet').classList.remove('open')}$('closeSheet').onclick=closeSheet;$('backdrop').onclick=closeSheet;
+['searchRequests','filterRequests','searchParticipation','filterParticipation','searchCitizens'].forEach(id=>$(id).addEventListener('input',renderAll));
+$('requestKinds').addEventListener('click',e=>{const b=e.target.closest('[data-kind]');if(!b)return;requestKind=b.dataset.kind;document.querySelectorAll('[data-kind]').forEach(x=>x.className=x===b?'primary':'quiet');renderAll()});
+$('authForm').addEventListener('submit',async e=>{e.preventDefault();$('message').textContent='Проверавам приступ...';const {error}=await db.auth.signInWithPassword({email:$('email').value.trim().toLowerCase(),password:$('password').value});if(error){$('message').textContent='Пријава није успела. Проверите е-пошту и лозинку.';return}await refresh()});
+async function refresh(){const {data:{session}}=await db.auth.getSession();$('authBox').classList.toggle('hidden',!!session);$('app').classList.toggle('hidden',!session);if(session){let hash=location.hash.slice(1);showView(document.getElementById('view-'+hash)?hash:'home');await load()}}
+$('logout').onclick=async()=>{await db.auth.signOut();await refresh()};db.auth.onAuthStateChange(()=>refresh());refresh();
+</script></body></html>
