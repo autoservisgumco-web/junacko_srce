@@ -126,7 +126,6 @@ async function loadPost(){
 }
 loadPost();
 </script>
-<script>
-(()=>{const menu=document.getElementById('sideMenu'),backdrop=document.getElementById('menuBackdrop');const open=()=>{menu.classList.add('open');backdrop.hidden=false;requestAnimationFrame(()=>backdrop.classList.add('open'));menu.setAttribute('aria-hidden','false');document.body.style.overflow='hidden'};const close=()=>{menu.classList.remove('open');backdrop.classList.remove('open');menu.setAttribute('aria-hidden','true');document.body.style.overflow='';setTimeout(()=>{backdrop.hidden=true},250)};document.getElementById('openMenu')?.addEventListener('click',open);document.getElementById('closeMenu')?.addEventListener('click',close);backdrop?.addEventListener('click',close);document.addEventListener('keydown',e=>{if(e.key==='Escape')close()})})();
-</script>
+
+<script src="/bottom-nav.js"></script>
 </body></html>
