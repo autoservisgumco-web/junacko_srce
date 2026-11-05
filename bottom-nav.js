@@ -20,6 +20,19 @@
     nav.appendChild(a);
   });
 
+  nav.addEventListener('click',event=>{
+    const link=event.target.closest('a[data-open-sheet-tab]');
+    if(!link)return;
+    event.preventDefault();
+    const kind=link.getAttribute('data-open-sheet-tab');
+    if(typeof window.openJoinFlow==='function'&&typeof window.showJoinFlowSection==='function'){
+      window.openJoinFlow();
+      window.showJoinFlowSection(kind);
+    }else{
+      window.location.href='/index.html?open='+encodeURIComponent(kind);
+    }
+  });
+
 
   document.querySelectorAll('.mobile-bottom-nav').forEach(el=>el.remove());
   document.body.appendChild(nav);
