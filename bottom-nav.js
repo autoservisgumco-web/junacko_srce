@@ -9,7 +9,7 @@
     {href:'/index.html',icon:'⌂',label:'Почетна',target:'/index.html'},
     {href:'/akcije.html',icon:'✓',label:'Акције',target:'/akcije.html',sheet:'action'},
     {href:'/kampanje.html',icon:'◎',label:'Кампање',target:'/kampanje.html',sheet:'campaign'},
-    {href:'#association-sheet',icon:'♡',label:'Подршка удружењу',target:'#association-sheet',sheet:'association'}
+    {href:'/ukljuci-se.html',icon:'♡',label:'Укључи се',target:'/ukljuci-se.html'}
   ];
   items.forEach((item,index)=>{
     const a=document.createElement('a');
@@ -19,21 +19,7 @@
     if(path===item.target)a.setAttribute('aria-current','page');
     nav.appendChild(a);
   });
-  nav.addEventListener('click',event=>{
-    const link=event.target.closest('a[data-open-sheet-tab]');
-    if(!link)return;
-    // Подршка удружењу увек отвара заједнички bottom sheet. Ако смо на другој страници, прво се враћамо на почетну која садржи панел.
-    event.preventDefault();
-    const kind=link.getAttribute('data-open-sheet-tab');
-    if(typeof window.openJoinFlow==='function'&&typeof window.showJoinFlowSection==='function'){
-      window.openJoinFlow();
-      window.showJoinFlowSection(kind==='association'?'association':kind);
-      nav.querySelectorAll('a').forEach(item=>item.removeAttribute('aria-current'));
-      link.setAttribute('aria-current','page');
-    }else{
-      window.location.href='/index.html?open='+encodeURIComponent(kind);
-    }
-  });
+
 
   document.querySelectorAll('.mobile-bottom-nav').forEach(el=>el.remove());
   document.body.appendChild(nav);
