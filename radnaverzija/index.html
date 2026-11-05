@@ -3,72 +3,97 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#061A35">
-<title>Да ли смо и колико одговорни? — Одговорна Плана</title>
-<meta name="description" content="Одговорност не можемо захтевати само од других. Почиње у свакодневном животу, а постаје темељ одговорније заједнице.">
+<meta name="theme-color" content="#071b36">
+<title>Да ли смо и колико одговорни? — Одговорна Велика Плана</title>
+<meta name="description" content="Не можемо градити одговорно друштво ако одговорност посматрамо као обавезу других. Промена почиње од нас.">
 <link rel="canonical" href="https://odgovornaplana.org/radnaverzija/">
 <meta property="og:type" content="article">
 <meta property="og:locale" content="sr_RS">
-<meta property="og:site_name" content="Одговорна Плана">
 <meta property="og:title" content="Да ли смо и колико одговорни?">
-<meta property="og:description" content="Не можемо градити одговорно друштво ако одговорност посматрамо као обавезу других.">
-
+<meta property="og:description" content="Промена друштва почиње питањем које морамо да поставимо и себи.">
 <style>
-.blog-page{background:#f1f5f9;color:#142844}
-.blog-header{background:#061a35;color:#fff;padding:16px 0}
-.blog-head-inner,.blog-wrap{width:min(850px,calc(100% - 36px));margin:auto}
-.blog-brand{font-weight:900;letter-spacing:.4px}
-.blog-brand small{display:block;color:#a9c5f5;font-size:10px;letter-spacing:1.5px;margin-top:4px}
-.blog-back{display:inline-block;color:#dceaff;text-decoration:none;font-size:14px;font-weight:750;margin-top:12px}
-.blog-hero{background:linear-gradient(120deg,#061a35,#0d3263 70%,#2166f3);color:#fff;padding:64px 0 58px}
-.blog-kicker{font-size:11px;font-weight:900;letter-spacing:2px;color:#a9c5f5}
-.blog-hero h1{font-size:clamp(36px,7vw,62px);line-height:1.08;letter-spacing:-1.4px;margin:14px 0 12px;max-width:780px}
-.blog-hero p{font-size:18px;line-height:1.6;color:#dceaff;max-width:700px;margin:0}
-.blog-article{background:#fff;border:1px solid #dce5f0;border-radius:18px;padding:clamp(24px,5vw,54px);margin:34px auto 58px;box-shadow:0 14px 42px #061a3510}
-.blog-article p{font-size:17px;line-height:1.85;color:#314967;margin:0 0 20px}
-.blog-article h2{font-size:25px;line-height:1.25;color:#061a35;margin:34px 0 14px}
-.blog-article .lead{font-size:20px;color:#142844;font-weight:650}
-.blog-article strong{color:#061a35}
-.blog-article blockquote{margin:30px 0;padding:18px 22px;border-left:4px solid #2166f3;background:#f1f5f9;color:#061a35;font-size:21px;line-height:1.5;font-weight:850}
-.blog-cta{border-top:1px solid #dce5f0;margin-top:36px;padding-top:24px}
-.blog-cta p{font-size:15px;margin-bottom:16px}
-.blog-cta a{display:inline-block;background:#2166f3;color:white;text-decoration:none;padding:12px 18px;border-radius:10px;font-weight:850}
-@media(max-width:620px){.blog-hero{padding:46px 0}.blog-article{margin:20px auto 40px;padding:23px 20px}.blog-article p{font-size:16px}.blog-article blockquote{font-size:19px}}
+:root{--navy:#071b36;--blue:#1769bd;--yellow:#ffd21a;--ink:#10233f;--muted:#53647b}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#fff;color:var(--ink);font-family:Arial,Helvetica,sans-serif}
+.site-header{height:86px;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(20px,4vw,58px);position:relative;z-index:2}
+.brand{display:flex;align-items:center;gap:14px;color:#fff;text-decoration:none;font-weight:900;font-size:clamp(20px,2.4vw,30px);line-height:1.02}
+.brand-mark{width:54px;height:44px;border:3px solid #fff;border-radius:50% 50% 12px 12px;display:grid;place-items:center;font-size:25px;color:var(--yellow);transform:skew(-8deg)}
+.brand span small{display:block;color:var(--yellow);font-size:.72em;margin-top:5px}
+.menu{font-size:34px;line-height:1;color:#fff;text-decoration:none;padding:4px 0 4px 16px}
+.hero{min-height:min(760px,78vh);height:clamp(500px,72vw,760px);position:relative;display:flex;align-items:center;overflow:hidden;color:#fff;background:#102947 url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=2200&q=85') center 43%/cover no-repeat}
+.hero:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(3,15,32,.88) 0%,rgba(3,15,32,.58) 52%,rgba(3,15,32,.2) 100%),linear-gradient(0deg,rgba(3,15,32,.5),transparent 45%)}
+.hero-content{position:relative;width:min(1240px,calc(100% - 64px));margin:0 auto;padding:60px 0 90px}
+.kicker{font-size:13px;letter-spacing:3px;text-transform:uppercase;font-weight:900;color:#d9e8ff}
+.hero h1{font-size:clamp(48px,8.1vw,112px);line-height:.98;letter-spacing:-.055em;text-transform:uppercase;max-width:1000px;margin:25px 0 26px;font-weight:950;text-shadow:0 4px 22px #0007}
+.hero h1 em{font-style:normal;color:var(--yellow);display:block}
+.hero-sub{font-size:clamp(17px,2vw,24px);line-height:1.45;max-width:650px;margin:0;padding-left:20px;border-left:5px solid #e51b2b}
+.article-meta{width:min(980px,calc(100% - 44px));margin:0 auto;padding:34px 0 8px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;color:#64748b;font-size:14px}
+.category{display:inline-block;background:#1672c8;color:#fff;border-radius:30px;padding:10px 18px;font-weight:800}
+.article{width:min(980px,calc(100% - 44px));margin:0 auto;padding:22px 0 70px}
+.article h2{font-size:clamp(32px,4vw,48px);line-height:1.08;letter-spacing:-.035em;color:var(--navy);margin:16px 0 22px}
+.article p{font-size:clamp(17px,1.55vw,20px);line-height:1.78;color:#263951;margin:0 0 22px}
+.article .lead{font-size:clamp(19px,1.8vw,23px);font-weight:650;color:#172b49}
+.article strong{color:#071b36}
+.article h3{font-size:clamp(25px,3vw,34px);color:var(--navy);margin:42px 0 16px}
+.pullquote{margin:38px 0;padding:28px clamp(22px,4vw,42px);background:#e5f2ff;border-left:7px solid #1672c8;border-radius:0 16px 16px 0;color:#0b2a50;font-size:clamp(22px,2.5vw,30px);line-height:1.42;font-weight:900}
+.action-panel{margin:40px 0 0;background:#071b36;color:#fff;padding:clamp(28px,5vw,54px);position:relative;overflow:hidden}
+.action-panel:after{content:"";position:absolute;width:240px;height:240px;border:32px solid #ffffff0c;border-radius:50%;right:-70px;top:-90px}
+.action-panel h3{color:#fff;font-size:clamp(30px,4vw,46px);margin:0 0 14px;position:relative}
+.action-panel p{color:#d8e5f5;max-width:720px;position:relative}
+.action-link{display:inline-block;background:var(--yellow);color:#10233f;text-decoration:none;font-weight:900;padding:15px 23px;border-radius:4px;margin-top:8px;position:relative}
+.site-footer{background:#041329;color:#b9c8dc;text-align:center;padding:25px 20px;font-size:13px}
+@media(max-width:650px){
+.site-header{height:72px;padding:0 18px}.brand-mark{width:43px;height:37px;font-size:20px}.brand{font-size:19px;gap:10px}.menu{font-size:30px}
+.hero{height:70svh;min-height:510px;max-height:680px;background-position:53% center}
+.hero:before{background:linear-gradient(90deg,rgba(3,15,32,.78),rgba(3,15,32,.32)),linear-gradient(0deg,rgba(3,15,32,.6),transparent 70%)}
+.hero-content{width:calc(100% - 38px);padding:40px 0 62px}
+.hero h1{font-size:clamp(43px,12vw,68px);line-height:1.02;margin:20px 0}
+.hero-sub{font-size:17px;max-width:95%}
+.article-meta{width:calc(100% - 38px);padding-top:25px;font-size:12px;gap:9px}
+.article{width:calc(100% - 38px);padding-top:16px}
+.article p{line-height:1.72;margin-bottom:19px}
+.pullquote{margin:28px 0;padding:22px;font-size:22px}
+.action-panel{margin:30px -19px 0;padding:32px 22px}
+}
 </style>
 </head>
-<body class="blog-page">
-<header class="blog-header"><div class="blog-head-inner">
- <div class="blog-brand">ОДГОВОРНА ПЛАНА<small>МЕСТО ЗА ЗАЈЕДНИЧКО ДЕЛОВАЊЕ</small></div>
- <a class="blog-back" href="/">← Назад на почетну</a>
-</div></header>
-<section class="blog-hero"><div class="blog-wrap">
- <div class="blog-kicker">РАЗМИШЉАЊА · ОДГОВОРНОСТ</div>
- <h1>Да ли смо и колико одговорни?</h1>
- <p>Пре него што од других затражимо одговорност, вреди да се запитамо колико смо спремни да је и сами прихватимо.</p>
-</div></section>
-<main class="blog-wrap">
-<article class="blog-article">
- <p class="lead">Волимо да причамо о томе ко је крив. Крива је власт, криве су институције, криви су политичари, криви су они који не раде свој посао. И често смо потпуно у праву.</p>
- <p>Али постоји једно питање које много ређе постављамо: <strong>А какви смо ми?</strong></p>
- <p>Погледајмо свакодневни живот. Не поштујемо договоре, каснимо и не осећамо потребу да се извинимо. Преузимамо обавезе које не испуњавамо. За сопствене грешке тражимо оправдања, а за туђе имамо осуду. Заобилазимо правила када нам не одговарају, а љутимо се када их други не поштују.</p>
- <p>И све то често сматрамо ситницама.</p>
- <p>Али управо ту настаје проблем. Оно што прихватамо као нормално у личном животу преносимо и на односе са другим људима, на посао, комшилук, заједницу и, на крају, на начин на који функционише читаво друштво.</p>
- <p>Неодговорност није особина само оних који обављају јавне функције. Она постоји и међу нама. Разлика је у томе што неко својом неодговорношћу утиче на неколико људи, а неко одлукама утиче на хиљаде или милионе.</p>
- <p>Зато није довољно само мењати оне који су на власти. Ако задржимо исте обрасце понашања, ако наставимо да оправдавамо непоштење када нам користи и да тражимо од других оно што сами не примењујемо, променићемо људе, али не и суштину проблема.</p>
- <h2>Шта онда можемо да урадимо?</h2>
- <p>Почнимо од једноставних ствари. Држимо се својих речи и договора. Признајмо грешке. Поштујмо правила чак и када нам не иду у прилог. Не пребацујмо своје обавезе на друге. Не ћутимо када видимо неправду, али будимо спремни да прихватимо критику када и сами погрешимо.</p>
- <p>Исто тако, захтевајмо одговорност од оних који управљају јавним пословима. Питајмо, тражимо информације, контролишимо трошење јавног новца и учествујмо у доношењу одлука које се тичу наше заједнице.</p>
- <p>Јер одговорност није само лична врлина. Она је основа поверења, сарадње и функционисања сваке заједнице.</p>
- <blockquote>Ако желимо одговорније друштво, морамо престати да одговорност посматрамо као обавезу других и почети да је живимо као сопствени принцип.</blockquote>
- <p>Не морамо чекати да се промене сви други да бисмо почели да мењамо ствари око себе.</p>
- <p><strong>Промена не почиње онда када неко други постане одговоран. Почиње онда када свако од нас преузме свој део одговорности.</strong></p>
- <div class="blog-cta">
-  <p>Одговорна Плана је простор за људе који не желе само да указују на проблеме, већ да траже решења и заједно покрећу промене.</p>
-  <a href="../index.html">Укључи се и предложи акцију →</a>
- </div>
+<body>
+<header class="site-header">
+<a class="brand" href="/" aria-label="Одговорна Велика Плана — почетна"><span class="brand-mark">ОД</span><span>ОДГОВОРНА<small>ВЕЛИКА ПЛАНА</small></span></a>
+<a class="menu" href="/" aria-label="Мени">☰</a>
+</header>
+<main>
+<section class="hero" aria-label="Насловна фотографија блога">
+<div class="hero-content">
+<div class="kicker">Грађанска одговорност · Размишљања</div>
+<h1>Да ли смо и <em>колико</em> одговорни?</h1>
+<p class="hero-sub">Промена друштва почиње питањем које морамо да поставимо и себи.</p>
+</div>
+</section>
+<div class="article-meta"><span class="category">Размишљања и одговорност</span><span>5. новембар 2026.</span><span>·</span><span>Одговорна Велика Плана</span></div>
+<article class="article">
+<h2>А какви смо ми?</h2>
+<p class="lead">Волимо да причамо о томе ко је крив. Крива је власт, криве су институције, криви су политичари, криви су они који не раде свој посао. И често смо потпуно у праву.</p>
+<p>Али постоји једно питање које много ређе постављамо: <strong>А какви смо ми?</strong></p>
+<p>Погледајмо свакодневни живот. Не поштујемо договоре, каснимо и не осећамо потребу да се извинимо. Преузимамо обавезе које не испуњавамо. За сопствене грешке тражимо оправдања, а за туђе имамо осуду. Заобилазимо правила када нам не одговарају, а љутимо се када их други не поштују.</p>
+<p>И све то често сматрамо ситницама.</p>
+<p>Али управо ту настаје проблем. Оно што прихватамо као нормално у личном животу преносимо и на односе са другим људима, на посао, комшилук, заједницу и, на крају, на начин на који функционише читаво друштво.</p>
+<div class="pullquote">Одговорност није само ствар власти. Она почиње у свакодневном животу — међу нама.</div>
+<p>Неодговорност није особина само оних који обављају јавне функције. Она постоји и међу нама. Разлика је у томе што неко својом неодговорношћу утиче на неколико људи, а неко одлукама утиче на хиљаде или милионе.</p>
+<p>Зато није довољно само мењати оне који су на власти. Ако задржимо исте обрасце понашања, ако наставимо да оправдавамо непоштење када нам користи и да тражимо од других оно што сами не примењујемо, променићемо људе, али не и суштину проблема.</p>
+<h3>Шта онда можемо да урадимо?</h3>
+<p>Почнимо од једноставних ствари. Држимо се својих речи и договора. Признајмо грешке. Поштујмо правила чак и када нам не иду у прилог. Не пребацујмо своје обавезе на друге. Не ћутимо када видимо неправду, али будимо спремни да прихватимо критику када и сами погрешимо.</p>
+<p>Исто тако, захтевајмо одговорност од оних који управљају јавним пословима. Питајмо, тражимо информације, контролишимо трошење јавног новца и учествујмо у доношењу одлука које се тичу наше заједнице.</p>
+<p>Јер одговорност није само лична врлина. Она је основа поверења, сарадње и функционисања сваке заједнице.</p>
+<div class="pullquote">„Промена не почиње онда када неко други постане одговоран. Почиње онда када свако од нас преузме свој део одговорности.“</div>
+<section class="action-panel">
+<h3>Промена почиње од нас.</h3>
+<p>Не морамо чекати да се промене сви други да бисмо почели да мењамо ствари око себе. Одговорна Велика Плана је простор за људе који не желе само да указују на проблеме, већ да траже решења и заједно покрећу промене.</p>
+<a class="action-link" href="/">УКЉУЧИ СЕ И ПРЕДЛОЖИ АКЦИЈУ →</a>
+</section>
 </article>
 </main>
-<footer><div class="blog-wrap">ОДГОВОРНА ПЛАНА · Место за заједничко деловање · © <span id="year"></span></div></footer>
-<script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+<footer class="site-footer">ОДГОВОРНА ВЕЛИКА ПЛАНА · За одговорну заједницу.</footer>
 </body>
 </html>
