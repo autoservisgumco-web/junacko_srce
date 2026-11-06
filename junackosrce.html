@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="sr-Cyrl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#071b32">
+<title>Јуначко Срце — Мапа деловања</title>
+<style>
+:root{color-scheme:dark;--bg:#071b32;--panel:#102b49;--line:#294663;--text:#f4f7fb;--muted:#b8c8d9;--green:#39b879;--amber:#e8ad4c}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% 0,#15395b 0,#071b32 58%);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--text);line-height:1.6}
+main{width:min(1120px,calc(100% - 32px));margin:auto;padding:42px 0 70px}
+header{text-align:center;margin:0 auto 34px;max-width:800px}.eyebrow{font-size:12px;letter-spacing:3px;color:#9cc7eb;font-weight:800}h1{font-size:clamp(34px,6vw,62px);line-height:1.05;margin:12px 0 16px;letter-spacing:-1.5px}header p{color:var(--muted);font-size:18px;margin:0}
+.center{width:min(520px,100%);margin:0 auto 26px;padding:24px;text-align:center;border:1px solid #6b91b2;border-radius:20px;background:linear-gradient(135deg,#183d60,#102945);box-shadow:0 18px 50px #0003}.center .symbol{font-size:34px}.center h2{font-size:23px;margin:4px 0}.center p{margin:0;color:var(--muted)}
+.connector{height:28px;width:2px;background:#7894ae;margin:auto}
+.branches{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:start}
+.branch{border:1px solid var(--line);border-radius:20px;overflow:hidden;background:#0c2340;box-shadow:0 16px 42px #0002}
+.branch-head{padding:25px 25px 20px;border-bottom:1px solid var(--line)}.business .branch-head{background:linear-gradient(135deg,#123d37,#102c3d)}.political .branch-head{background:linear-gradient(135deg,#49351b,#2d2b30)}
+.branch-label{font-size:11px;letter-spacing:2px;font-weight:850;color:#c3d5e5}.branch h2{font-size:29px;margin:7px 0}.branch-head p{margin:0;color:#d0dce8}
+.branch-body{padding:18px;display:grid;gap:12px}
+.node{border:1px solid #294663;border-radius:14px;background:#102b49;overflow:hidden}
+.node-toggle{width:100%;display:flex;justify-content:space-between;align-items:center;gap:14px;padding:16px 17px;border:0;background:transparent;color:var(--text);font:inherit;text-align:left;cursor:pointer}
+.node-toggle strong{font-size:16px}.node-toggle span:last-child{font-size:22px;color:#a9c5dd;transition:transform .2s}.node.open .node-toggle span:last-child{transform:rotate(45deg)}
+.node-content{display:none;padding:0 17px 17px;color:var(--muted);font-size:14px}.node.open .node-content{display:block}.node-content p{margin:0 0 10px}.node-content ul{margin:8px 0 0;padding-left:20px}.node-content li{margin:5px 0}
+.pill{display:inline-block;margin:4px 5px 0 0;padding:5px 9px;border-radius:30px;background:#193b58;color:#dceaf6;font-size:12px}
+.note{margin:28px auto 0;max-width:850px;padding:18px 20px;border-left:3px solid #78a8d0;background:#102b49;border-radius:0 12px 12px 0;color:#d4e0eb}
+.controls{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:20px 0 30px}.controls button{border:1px solid #52718e;border-radius:30px;background:#102b49;color:#fff;padding:10px 17px;font:inherit;cursor:pointer}.controls button:hover{background:#1b4265}
+footer{text-align:center;color:#91a8bf;font-size:13px;padding:28px 12px;border-top:1px solid #203b56}
+a.back{display:inline-block;color:#b9d9f3;text-decoration:none;margin-bottom:22px}a.back:hover{text-decoration:underline}
+@media(max-width:760px){main{padding-top:25px}.branches{grid-template-columns:1fr;gap:16px}.branch h2{font-size:25px}.center{padding:20px}.connector{height:18px}header p{font-size:16px}}
+</style>
+</head>
+<body>
+<main>
+<a class="back" href="./index.html">← Назад на почетну страницу</a>
+<header><div class="eyebrow">ЈУНАЧКО СРЦЕ · МАПА ДЕЛОВАЊА</div><h1>Једна визија. Два независна пута.</h1><p>Ово је мапа онога што покрећем, градим и за шта преузимам одговорност.</p></header>
+<section class="center"><div class="symbol">✦</div><h2>ЈА — ПОКРЕТАЧ И ОКОСНИЦА</h2><p>Визија · вредности · иницијатива · одговорност</p></section>
+<div class="connector"></div>
+<div class="controls"><button type="button" id="openAll">Отвори све</button><button type="button" id="closeAll">Затвори све</button></div>
+<section class="branches">
+<article class="branch business">
+<div class="branch-head"><div class="branch-label">ПРВИ ПРАВАЦ · ЕКОНОМСКА НЕЗАВИСНОСТ</div><h2>♥ Јуначко Срце</h2><p>Профитабилно друштвено одговорно пословање које обезбеђује моју независност и ствара основу за друштвени рад.</p></div>
+<div class="branch-body">
+<div class="node open"><button class="node-toggle" aria-expanded="true"><strong>Пословање и финансијска независност</strong><span>+</span></button><div class="node-content"><p>Приход остварујемо продајом и пласманом производа. Из прихода се најпре покривају набавка, логистика, порези и остали трошкови; друштвени рад финансира се из остварене добити.</p><ul><li>Продаја и пласман производа</li><li>Развој продајних канала и дистрибуције</li><li>Одрживо пословање и реинвестирање добити</li></ul></div></div>
+<div class="node"><button class="node-toggle" aria-expanded="false"><strong>Јунаштво — вредности и кампање</strong><span>+</span></button><div class="node-content"><p>Кампање које буде храброст, слободу, аутентичност и лични развој. Подршка људима који покрећу позитивне промене.</p><div class="pill">Слобода</div><div class="pill">Аутентичност</div><div class="pill">Храброст</div><div class="pill">Лични развој</div></div></div>
+<div class="node"><button class="node-toggle" aria-expanded="false"><strong>Одговорна Велика Плана</strong><span>+</span></button><div class="node-content"><p>Грађански рад и локалне иницијативе. Одговорност за јавни простор морају да деле институције и грађани.</p><ul><li>План за псе и хумано решавање проблема напуштених животиња</li><li>Чистије улице, јавне површине и животна средина</li><li>Јавни превоз и повезаност села</li><li>Буџет, транспарентност и контрола јавне потрошње</li><li>Инфраструктура, месне заједнице и учешће грађана</li></ul></div></div>
+<div class="node"><button class="node-toggle" aria-expanded="false"><strong>Сарадња и повезивање</strong><span>+</span></button><div class="node-content"><p>Повезивање удружења, активиста, стваралаца и људи са добрим идејама.</p><ul><li>Бесплатна маркетиншка и организациона подршка</li><li>Заједничке иницијативе и пројекти</li><li>Промоција људи и идеја које заслужују да буду видљиве</li></ul></div></div>
+<div class="node"><button class="node-toggle" aria-expanded="false"><strong>Наручи домаће</strong><span>+</span></button><div class="node-content"><p>Посебан пословни пројекат за пласман производа домаћих произвођача и повезивање произвођача са купцима.</p><ul><li>Подршка локалним произвођачима</li><li>Недељне туре и систем наручивања</li><li>Достава и преузимање, укључујући Београд</li></ul></div></div>
+</div></article>
+<article class="branch political">
+<div class="branch-head"><div class="branch-label">ДРУГИ ПРАВАЦ · ЈАВНО И ПОЛИТИЧКО ДЕЛОВАЊЕ</div><h2>⚖ Политички ангажман</h2><p>Мој лични избор и јавна одговорност — независни од пословања Јуначког Срца.</p></div>
+<div class="branch-body">
+<div class="node open"><button class="node-toggle" aria-expanded="true"><strong>Изградња тима</strong><span>+</span></button><div class="node-content"><p>Окупљање способних, часних и одговорних људи који желе да раде у интересу грађана.</p></div></div>
+<div class="node"><button class="node-toggle" aria-expanded="false"><strong>Организациони пут</strong><span>+</span></button><div class="node-content"><p>Разматрање да ли је делотворније приступити постојећој локалној политичкој групи или изградити сопствени тим.</p></div></div>
+<div class="node"><button class="node-toggle" aria-expanded="false"><strong>Програм за локалне изборе</strong><span>+</span></button><div class="node-content"><p>Припрема конкретног програма заснованог на стварним проблемима Велике Плане и околних села, са јасним решењима и мерљивим обавезама.</p></div></div>
+<div class="node"><button class="node-toggle" aria-expanded="false"><strong>Кандидати и заступање грађана</strong><span>+</span></button><div class="node-content"><p>Проналажење стручних и одговорних кандидата за одборнике који ће заступати интересе грађана, а не личне или партијске привилегије.</p></div></div>
+<div class="node"><button class="node-toggle" aria-expanded="false"><strong>Одвојеност и одговорност</strong><span>+</span></button><div class="node-content"><p>Политички ангажман има сопствену организацију, финансирање и одговорност. Није део пословања Јуначког Срца и не финансира се из његове добити.</p></div></div>
+</div></article>
+</section>
+<div class="note"><strong>Важно:</strong> Јуначко Срце је моја економска основа и извор независности. Политички ангажман је засебан лични и јавни пут. Та два правца повезује моја лична одговорност, али имају одвојене организационе, финансијске и пословне границе.</div>
+</main>
+<footer>Јуначко Срце · За људе, не за профит.</footer>
+<script>
+document.querySelectorAll('.node-toggle').forEach(button=>button.addEventListener('click',()=>{const node=button.closest('.node');node.classList.toggle('open');button.setAttribute('aria-expanded',String(node.classList.contains('open')))}));
+document.getElementById('openAll').addEventListener('click',()=>document.querySelectorAll('.node').forEach(node=>{node.classList.add('open');node.querySelector('button').setAttribute('aria-expanded','true')}));
+document.getElementById('closeAll').addEventListener('click',()=>document.querySelectorAll('.node').forEach(node=>{node.classList.remove('open');node.querySelector('button').setAttribute('aria-expanded','false')}));
+</script>
+</body></html>
