@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="sr-Cyrl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#061A35">
+<title>Информације од јавног значаја — Одговорна Плана</title><link rel="stylesheet" href="style.css">
+<style>
+.content-page{min-height:75vh;padding:30px 0 70px}.content-page .wrap{width:min(1100px,calc(100% - 32px));margin:auto}
+.back-link{display:inline-block;margin-bottom:18px;color:#2166F3;text-decoration:none;font-weight:800}
+.io-kicker{font-size:11px;letter-spacing:2px;font-weight:900;color:#2166F3}
+.io-title{font-size:clamp(30px,5vw,48px);line-height:1.08;color:#061A35;margin:8px 0 12px;letter-spacing:-1px}
+.io-lead{color:#526780;max-width:800px;margin:0 0 22px;line-height:1.6}
+.io-status{display:inline-flex;border-radius:30px;padding:7px 12px;background:#e8f1fb;color:#174b91;font-size:12px;font-weight:850;margin:0 0 12px}
+.io-layout{display:grid;grid-template-columns:minmax(260px,.78fr) minmax(0,1.4fr);gap:18px;align-items:start}
+.io-panel{background:#fff;border:1px solid #dce5f0;border-radius:16px;padding:20px;box-shadow:0 8px 28px #061a3508;margin:0 0 16px;min-width:0}
+.io-panel h2{color:#061A35;font-size:20px;margin:0 0 14px}
+.io-facts{display:grid;gap:12px}.io-fact{padding-bottom:10px;border-bottom:1px solid #e8eef5}.io-fact:last-child{border-bottom:0;padding-bottom:0}
+.io-fact small{display:block;color:#74869a;font-size:11px;font-weight:800;letter-spacing:.5px;text-transform:uppercase}
+.io-fact strong{display:block;color:#142844;font-size:14px;line-height:1.5;margin-top:3px;overflow-wrap:anywhere}
+.io-request{white-space:pre-wrap;line-height:1.75;color:#243d5b;font-size:15px}
+.io-timeline{display:grid;gap:12px}.io-event{border-left:3px solid #2166F3;padding:2px 0 5px 14px}
+.io-event time{display:block;color:#2166F3;font-size:11px;font-weight:850;margin-bottom:3px}
+.io-event h3{font-size:15px;color:#102b4e;margin:0 0 4px}.io-event p{color:#526780;margin:0;font-size:13px;line-height:1.55;white-space:pre-wrap}
+.io-docs{display:grid;gap:9px}.io-doc{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px;border:1px solid #e1eaf2;border-radius:11px;background:#f8fbff}
+.io-doc a{color:#174b91;text-decoration:none;font-weight:800;overflow-wrap:anywhere}.io-doc small{display:block;color:#74869a;font-size:11px;margin-top:3px}
+.io-empty{padding:18px;border:1px dashed #b9c9df;border-radius:12px;color:#64748b;background:#fff}
+@media(max-width:760px){.content-page{padding:20px 0 50px}.io-layout{grid-template-columns:1fr}.io-panel{padding:17px}.io-title{font-size:32px}.io-request{font-size:14px}}
+</style></head>
+<body>
+<header><div class="wrap"><a href="index.html" style="color:#fff;text-decoration:none;font-weight:900;letter-spacing:.4px">ОДГОВОРНА ПЛАНА<small style="display:block;color:#a9c5f5;font-size:10px;letter-spacing:1.5px">МЕСТО ЗА ЗАЈЕДНИЧКО ДЕЛОВАЊЕ</small></a></div></header>
+<main class="content-page"><div class="wrap"><a class="back-link" href="akcije.html">← Све акције</a><div id="iojzDetail"><div class="io-empty">Учитавање предмета…</div></div></div></main>
+<footer><div class="wrap">ОДГОВОРНА ПЛАНА · Информације од јавног значаја · © <span id="year"></span></div></footer>
+<script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const db=window.supabase.createClient('https://hmfeizkmpmxcnzhwxgbn.supabase.co','sb_publishable_JPtLezaiIeq4MsQ2f3LSlg_nT01Chxe');
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const slug=new URLSearchParams(location.search).get('slug');
+const fmt=v=>{if(!v)return '—';const d=new Date(v+'T00:00:00');return Number.isNaN(d.getTime())?esc(v):d.toLocaleDateString('sr-RS')};
+const fact=(label,value)=>value?'<div class="io-fact"><small>'+label+'</small><strong>'+esc(value)+'</strong></div>':'';
+(async()=>{
+ const root=document.getElementById('iojzDetail');
+ if(!slug){root.innerHTML='<div class="io-empty">Није изабран предмет.</div>';return}
+ try{
+  const {data:a,error}=await db.from('actions').select('*').eq('slug',slug).eq('is_published',true).maybeSingle();
+  if(error)throw error;
+  if(!a){root.innerHTML='<div class="io-empty">Предмет није пронађен или није објављен.</div>';return}
+  if(a.action_type!=='informacije_od_javnog_znacaja'){root.innerHTML='<div class="io-empty">Ова акција није типа „Информације од јавног значаја“. <a href="akcija.html?slug='+encodeURIComponent(slug)+'">Отвори општи приказ акције.</a></div>';return}
+  const d=a.type_data&&typeof a.type_data==='object'?a.type_data:{};
+  document.title=(a.title||'Информације од јавног значаја')+' — Одговорна Плана';
+  const status=d.status_text||a.status||'Предмет је у евиденцији';
+  const timeline=Array.isArray(d.timeline)?d.timeline:[];
+  const documents=Array.isArray(d.documents)?d.documents:[];
+  const items=Array.isArray(d.request_items)?d.request_items:[];
+  const requestBody=d.request_text||'Текст захтева још није унет.';
+  let html='<div class="io-kicker">ИНФОРМАЦИЈЕ ОД ЈАВНОГ ЗНАЧАЈА</div><span class="io-status">'+esc(status)+'</span><h1 class="io-title">'+esc(a.title||d.subject||'Захтев за приступ информацијама')+'</h1><p class="io-lead">'+esc(a.summary||a.intro||a.description||'Јавна евиденција захтева и поступања органа власти.')+'</p>';
+  html+='<div class="io-layout"><aside><section class="io-panel"><h2>Подаци о предмету</h2><div class="io-facts">'+fact('Институција',d.institution)+fact('Број предмета',d.reference_number)+fact('Датум подношења',fmt(d.request_date||a.action_date))+fact('Датум пријема',fmt(d.receipt_date))+fact('Рок за поступање',(d.deadline_days||15)+' дана')+fact('Рок истиче',fmt(d.deadline_date))+fact('Датум одговора',fmt(d.response_date))+fact('Правни основ',d.legal_basis)+'</div></section>';
+  if(d.appeal_text)html+='<section class="io-panel"><h2>Жалба и наредни кораци</h2><p class="io-request">'+esc(d.appeal_text)+'</p></section>';
+  html+='</aside><div><section class="io-panel"><h2>О предмету</h2><p class="io-request">'+esc(d.subject||a.summary||a.title||'')+'</p></section>';
+  html+='<section class="io-panel"><h2>Текст захтева</h2><div class="io-request">'+esc(requestBody)+'</div>';
+  if(items.length)html+='<ol class="io-request">'+items.map(x=>'<li>'+esc(typeof x==='string'?x:(x.text||x.description||''))+'</li>').join('')+'</ol>';
+  html+='</section>';
+  if(timeline.length)html+='<section class="io-panel"><h2>Ток поступања</h2><div class="io-timeline">'+timeline.map(t=>'<article class="io-event"><time>'+esc(fmt(t.date))+'</time><h3>'+esc(t.title||'Догађај')+'</h3><p>'+esc(t.description||'')+'</p></article>').join('')+'</div></section>';
+  if(d.response_text)html+='<section class="io-panel"><h2>Одговор институције и исход</h2><p class="io-request">'+esc(d.response_text)+'</p></section>';
+  html+='<section class="io-panel"><h2>Документација</h2>'+(documents.length?'<div class="io-docs">'+documents.map(doc=>'<div class="io-doc"><div><a href="'+esc(doc.url||'#')+'" target="_blank" rel="noopener">'+esc(doc.title||'Документ')+'</a><small>'+esc(fmt(doc.date))+'</small></div><span aria-hidden="true">↗</span></div>').join('')+'</div>':'<div class="io-empty">Документи још нису приложени.</div>')+'</section></div></div>';
+  root.innerHTML=html;
+ }catch(e){console.error(e);root.innerHTML='<div class="io-empty">Подаци о предмету тренутно нису доступни.</div>'}
+})();
+</script></body></html>
