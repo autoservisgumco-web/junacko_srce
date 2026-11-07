@@ -53,6 +53,7 @@ body.action-detail-page .site-nav a[href="/akcije.html"]{border-bottom:3px solid
  .action-callout>div{min-width:calc(100% - 55px)}.action-callout h2{font-size:20px}.action-callout p{font-size:14px}.action-callout .action-red{width:100%}
  .action-banner{padding:20px;min-height:145px;margin:16px 0 0}
 }
+.iojz-public{border:1px solid #d6e4f2;background:#fff}.iojz-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap}.iojz-kicker{font-size:11px;letter-spacing:1.5px;font-weight:850;color:#2a6ba3}.iojz-head h2{margin:6px 0 0!important}.iojz-status{display:inline-flex;padding:8px 12px;border-radius:30px;background:#eaf2fa;color:#1d5d91;font-size:12px;font-weight:850}.iojz-subject{font-weight:750;color:#173b69;margin:14px 0}.iojz-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:16px 0}.iojz-facts>div{background:#f4f8fc;border-radius:11px;padding:12px}.iojz-facts small{display:block;color:#64748b;font-size:11px;margin-bottom:4px}.iojz-facts strong{display:block;color:#123f78;font-size:14px}.iojz-overdue{background:#fff4e8;border:1px solid #f4d4b2;color:#9a4d10;border-radius:10px;padding:12px 14px;margin:14px 0;font-weight:700}.iojz-details{border-top:1px solid #e4ebf2;margin-top:15px;padding-top:13px}.iojz-details summary{cursor:pointer;color:#123f78;font-weight:800}.iojz-items{list-style:none;padding:0;margin:12px 0}.iojz-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid #edf1f5}.iojz-item-number{width:27px;height:27px;flex:0 0 27px;display:grid;place-items:center;background:#eaf2fa;color:#2166a8;border-radius:8px;font-weight:850}.iojz-item p{margin:0 0 5px;color:#26384d;line-height:1.5}.iojz-item small{color:#64748b;font-weight:750}.iojz-timeline{border-left:2px solid #cbddec;margin:15px 0 5px 8px;padding-left:20px}.iojz-event{position:relative;padding:0 0 16px}.iojz-event:before{content:"";position:absolute;left:-26px;top:5px;width:10px;height:10px;border-radius:50%;background:#2a6ba3;border:3px solid #e6f1fa}.iojz-event time{font-size:12px;color:#64748b}.iojz-event strong{display:block;color:#123f78;margin:3px 0}.iojz-event p{margin:0;color:#526174;line-height:1.5}@media(max-width:650px){.iojz-facts{grid-template-columns:1fr}.iojz-head h2{font-size:19px!important}}
 </style>
 </head>
 <body class="content-page-body action-detail-page">
@@ -109,6 +110,27 @@ const mapFrame=location=>'<iframe loading="lazy" title="Мапа локациј�
   if(a.activities)html+=panel('plan','✓','Шта планирамо',a.activities);
   if(a.materials)html+=panel('potrebno','＋','Шта је потребно',a.materials);
   if(place)html+='<section class="action-panel"><h2><span>●</span>Место</h2><div class="action-place"><p>'+esc(place)+'</p>'+mapFrame(place)+'</div></section>';
+  // Посебан јавни приказ за акције типа приступа информацијама од јавног значаја.
+  if(a.action_type==='informacije_od_javnog_znacaja'){
+    const {data:req,error:reqError}=await db.from('iojz_requests').select('*').eq('action_id',a.id).maybeSingle();
+    if(!reqError&&req){
+      const [{data:requestItems},{data:requestEvents}]=await Promise.all([
+        db.from('iojz_request_items').select('*').eq('request_id',req.id).order('item_order'),
+        db.from('iojz_timeline').select('*').eq('request_id',req.id).order('event_date',{ascending:true})
+      ]);
+      const fmt=d=>d?new Date(d+'T12:00:00').toLocaleDateString('sr-RS',{day:'2-digit',month:'long',year:'numeric'}):'Није евидентирано';
+      const requestStatus={draft:'У припреми',sent:'Послат институцији',received:'Пријем потврђен',waiting:'Чека се одговор',extended:'Рок је продужен',answered:'Одговор је стигао',appealed:'Уложена жалба',closed:'Поступак затворен'};
+      const itemStatus={pending:'Чека се',provided:'Достављено',partially_provided:'Делимично достављено',refused:'Одбијено',not_available:'Информација не постоји'};
+      const isOverdue=req.deadline_due_at&&req.deadline_due_at<new Date().toISOString().slice(0,10)&&!['answered','closed'].includes(req.status);
+      const requestedItems=(requestItems||[]).map(it=>'<li class="iojz-item"><span class="iojz-item-number">'+it.item_order+'</span><div><p>'+esc(it.requested_information)+'</p><small>'+esc(itemStatus[it.response_status]||'Чека се одговор')+'</small></div></li>').join('');
+      const events=(requestEvents||[]).map(ev=>'<div class="iojz-event"><time>'+fmt(ev.event_date)+'</time><strong>'+esc(ev.title)+'</strong><p>'+esc(ev.description||'')+'</p></div>').join('');
+      html+='<section class="action-panel iojz-public"><div class="iojz-head"><div><span class="iojz-kicker">ПОСТУПАК ПРИСТУПА ИНФОРМАЦИЈАМА</span><h2>Захтев за информације од јавног значаја</h2></div><span class="iojz-status">'+esc(requestStatus[req.status]||req.status)+'</span></div>'+
+      '<p class="iojz-subject">'+esc(req.subject||a.title)+'</p><div class="iojz-facts"><div><small>Институција</small><strong>'+esc(req.institution_name)+'</strong></div><div><small>Датум слања</small><strong>'+fmt(req.sent_at)+'</strong></div><div><small>Рок за одговор</small><strong>'+fmt(req.deadline_due_at)+'</strong></div></div>'+
+      (isOverdue?'<div class="iojz-overdue">Рок за одговор је истекао. Одговор институције још није евидентиран.</div>':'')+
+      '<details class="iojz-details" open><summary>Шта смо тражили ('+(requestItems||[]).length+' ставки)</summary><ol class="iojz-items">'+requestedItems+'</ol></details>'+
+      '<details class="iojz-details"><summary>Хронологија поступка</summary><div class="iojz-timeline">'+(events||'<p>Нема забележених догађаја.</p>')+'</div></details></section>';
+    }
+  }
   html+='<section class="action-callout"><span class="action-heart">♥</span><div><h2>Укључи се!</h2><p>Заједно можемо више. Пријави се, подржи акцију и помози да наша заједница буде боље место за све.</p></div><button type="button" class="action-red" id="joinThisAction">♟ &nbsp;Пријави се</button></section>';
   html+='<section class="action-banner"><h2>Имаш проблем који не треба да остане само прича?</h2><p>Покрени акцију и заједно тражимо решење.</p><a class="action-red" href="/predlog-akcije.html">ϟ &nbsp;Покрени акцију</a></section>';
   root.className='';root.innerHTML=html;
