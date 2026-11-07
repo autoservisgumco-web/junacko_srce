@@ -100,8 +100,8 @@ function openCampaign(id){
 function openAction(id){
  const x=actions.find(v=>String(v.id)===String(id));if(!x)return;const apps=supportApps.filter(a=>String(a.action_id)===String(id));
  const td=x.type_data&&typeof x.type_data==='object'?x.type_data:{};
- const timelineText=(Array.isArray(td.timeline)?td.timeline:[]).map(v=>[v.date||'',v.title||'',v.description||''].join(' | ')).join('\\n');
- const documentsText=(Array.isArray(td.documents)?td.documents:[]).map(v=>[v.title||'',v.url||'',v.date||''].join(' | ')).join('\\n');
+ const timelineText=(Array.isArray(td.timeline)?td.timeline:[]).map(v=>[v.date||'',v.title||'',v.description||''].join(' | ')).join('\n');
+ const documentsText=(Array.isArray(td.documents)?td.documents:[]).map(v=>[v.title||'',v.url||'',v.date||''].join(' | ')).join('\n');
  $('sheetTitle').textContent='Управљање акцијом';
  $('sheetBody').innerHTML=(x.image_url?'<img src="'+esc(x.image_url)+'" alt="" style="width:100%;max-height:190px;object-fit:cover;border-radius:12px;margin:12px 0">':'')+
  '<div class="muted">АКЦИЈА · '+esc(x.slug||'')+'</div><label>Тип акције</label><select id="maType" class="select" style="width:100%"><option value="general" '+((x.action_type||'general')==='general'?'selected':'')+'>Општа акција</option><option value="informacije_od_javnog_znacaja" '+(x.action_type==='informacije_od_javnog_znacaja'?'selected':'')+'>Информације од јавног значаја</option></select>'+
@@ -124,7 +124,7 @@ function openAction(id){
  (apps.length?apps.map(a=>'<article class="record"><strong>'+esc(a.full_name)+'</strong><div class="muted">'+esc(a.phone||a.email||'Контакт није наведен')+' · '+esc(a.status)+'</div></article>').join(''):'<div class="empty">Нема пријава за ову акцију.</div>');
  $('backdrop').classList.remove('hidden');$('sheet').classList.add('open');
  $('maType').onchange=()=>{$('iojzFields').style.display=$('maType').value==='informacije_od_javnog_znacaja'?'block':'none'};
- const parseLines=(value,keys)=>String(value||'').split('\\n').map(line=>line.trim()).filter(Boolean).map(line=>{const parts=line.split('|').map(v=>v.trim());return Object.fromEntries(keys.map((key,i)=>[key,parts[i]||'']))});
+ const parseLines=(value,keys)=>String(value||'').split('\n').map(line=>line.trim()).filter(Boolean).map(line=>{const parts=line.split('|').map(v=>v.trim());return Object.fromEntries(keys.map((key,i)=>[key,parts[i]||'']))});
  $('saveAction').onclick=async()=>{
   const actionType=$('maType').value;
   const typeData=actionType==='informacije_od_javnog_znacaja'?{institution:$('iojzInstitution').value.trim(),request_date:$('iojzRequestDate').value||null,reference_number:$('iojzReference').value.trim(),subject:$('iojzSubject').value.trim(),legal_basis:$('iojzLegal').value.trim(),request_text:$('iojzRequestText').value,deadline_days:Number($('iojzDeadlineDays').value||15),receipt_date:$('iojzReceiptDate').value||null,deadline_date:$('iojzDeadlineDate').value||null,response_date:$('iojzResponseDate').value||null,status_text:$('iojzStatusText').value.trim(),timeline:parseLines($('iojzTimeline').value,['date','title','description']),documents:parseLines($('iojzDocuments').value,['title','url','date']),response_text:$('iojzResponseText').value,appeal_text:$('iojzAppealText').value}:(x.type_data||{});
