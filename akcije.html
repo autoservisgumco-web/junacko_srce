@@ -88,7 +88,9 @@ const root=document.getElementById('actionList'),diag=document.getElementById('d
 const report=lines=>{diag.replaceChildren();lines.forEach(line=>{const p=document.createElement('p');p.textContent=line;diag.appendChild(p);});};
 try{
  if(!window.supabase)throw new Error('Supabase библиотека није учитана.');
- const {data,error}=await window.ucitajAkcije();
+ const request=window.ucitajAkcije();
+ const timeout=new Promise((_,reject)=>setTimeout(()=>reject(new Error('Supabase није одговорио у року од 15 секунди. Проверите интернет везу, API адресу/кључ и Supabase статус.')),15000));
+ const {data,error}=await Promise.race([request,timeout]);
  if(error)throw error;
  report(['Веза са Supabase: успостављена.','Табела actions: читање успешно.','Број акција видљивих јавном налогу: '+(data?.length??0)+'.','Ако недостају акције, проверити RLS SELECT правила и да ли су редови у табели actions.']);
  if(!data?.length){root.innerHTML='<div class="content-empty">База је доступна, али јавни налог не види ниједну акцију. Проверите RLS SELECT правила.</div>';return;}
@@ -116,7 +118,7 @@ try{
  searchInput.addEventListener('input',()=>{searchText=searchInput.value.trim().toLocaleLowerCase('sr');renderActions();});
  filterToggle.addEventListener('click',()=>{const open=filterToggle.getAttribute('aria-expanded')!=='true';filterToggle.setAttribute('aria-expanded',String(open));filterPanel.hidden=!open;});
  renderFilters();renderActions();
-}catch(e){console.error('Грешка при читању акција:',e);report(['ГРЕШКА при читању табеле actions.','Порука: '+(e.message||String(e)),'Код: '+(e.code||'није доступан'),'Детаљи: '+(e.details||'нема'),'Проверити назив табеле/колона, Data API дозволе и RLS SELECT политику.']);root.innerHTML='<div class="content-empty">Акције нису учитане. Отвори „Дијагностика учитавања“ испод списка.</div>';}
+}catch(e){console.error('Грешка при читању акција:',e);report(['ГРЕШКА при читању табеле actions.','Порука: '+(e.message||String(e)),'Код: '+(e.code||'није доступан'),'Детаљи: '+(e.details||'нема'),'Проверити назив табеле/колона, Data API дозволе и RLS SELECT политику.']);root.innerHTML='<div class="content-empty"><strong>Акције тренутно нису учитане.</strong><br>Отвори „Дијагностика учитавања“ да видиш тачан разлог, па освежи страницу.</div>';}
 })();</script>  <script src="/bottom-nav.js"></script>
 <script src="/shared-proposal-modal.js?v=20261103-2"></script>
 </body></html>
