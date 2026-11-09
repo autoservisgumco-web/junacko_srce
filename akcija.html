@@ -185,16 +185,20 @@ const mapFrame=location=>'<iframe loading="lazy" title="Мапа локациј�
       const requestPanel='<section class="action-panel iojz-public"><div class="iojz-head"><div><span class="iojz-kicker">ПОСТУПАК ПРИСТУПА ИНФОРМАЦИЈАМА</span><h2>Захтев за информације од јавног значаја</h2></div><span class="iojz-status">'+esc(requestStatus[req.status]||req.status)+'</span></div><p class="iojz-subject">'+esc(req.subject||a.title)+'</p>'+facts+detail+'<details class="iojz-details"><summary>Подаци о захтеву и хронологија</summary><p class="iojz-list-lead">Референца: '+esc(req.reference_number||'Није евидентирана')+'</p><ol class="iojz-items">'+requestedItems+'</ol><div class="iojz-timeline">'+(events||'<p>Нема забележених догађаја.</p>')+'</div></details></section>';
       if(activeQuestion){
         let documentHtml='';
-        if(a.slug==='dokumentacija-stara-klanica-velika-plana'||a.id==='32b3ffca-2eb5-46a7-b657-ef7d19bc5ff4'){
-          const docs=[
-            {name:'Одговор за Јовицу Вратницу.pdf',label:'Одговор на захтев',description:'Званичан одговор достављен подносиоцу захтева'},
-            {name:'Odgovor Odeljenja za privredu i lokalno ekonomski razvoj.pdf',label:'Одговор Одељења за привреду и локални економски развој',description:'Документ надлежног општинског одељења'}
-          ];
-          const links=await Promise.all(docs.map(async doc=>{
-            const {data,error}=await db.storage.from('action-proposal-files').createSignedUrl(doc.name,3600);
-            return {...doc,url:error?null:data?.signedUrl||null};
-          }));
-          documentHtml='<section class="iojz-documents"><div class="iojz-documents-heading"><span class="iojz-kicker">ЗВАНИЧНА ДОКУМЕНТА</span><h2>Документација и PDF одговори</h2><p>Оригинални документи које је доставила Општина.</p></div><div class="iojz-document-list">'+links.map(doc=>'<article class="iojz-document-card"><span class="iojz-pdf-icon">PDF</span><div class="iojz-document-copy"><strong>'+esc(doc.label)+'</strong><small>'+esc(doc.description)+'</small></div>'+(doc.url?'<div class="iojz-document-actions"><a href="'+esc(doc.url)+'" target="_blank" rel="noopener">Отвори PDF</a><a href="'+esc(doc.url)+'" download="'+esc(doc.name)+'">Преузми документ</a></div>':'<p class="iojz-document-error">Документ тренутно није доступан. Покушајте поново касније.</p>')+'</article>').join('')+'</div></section>';
+        const {data:dbDocs,error:docsError}=await db.from('iojz_documents')
+          .select('title,file_name,file_url,document_date')
+          .eq('request_id',req.id)
+          .eq('is_public',true)
+          .order('document_date',{ascending:true});
+        if(docsError) console.warn('Документација није доступна',docsError);
+        const docs=(dbDocs||[]).map(doc=>({
+          label:doc.title||doc.file_name||'Службени документ',
+          name:doc.file_name||'Документ.pdf',
+          description:doc.document_date?'Датум документа: '+fmt(doc.document_date):'Званични документ уз захтев',
+          url:doc.file_url||null
+        }));
+        if(docs.length){
+          documentHtml='<section class="iojz-documents"><div class="iojz-documents-heading"><span class="iojz-kicker">ЗВАНИЧНА ДОКУМЕНТА</span><h2>Документација и PDF одговори</h2><p>Оригинални документи повезани са овим захтевом.</p></div><div class="iojz-document-list">'+docs.map(doc=>'<article class="iojz-document-card"><span class="iojz-pdf-icon">PDF</span><div class="iojz-document-copy"><strong>'+esc(doc.label)+'</strong><small>'+esc(doc.description)+'</small></div>'+(doc.url?'<div class="iojz-document-actions"><a href="'+esc(doc.url)+'" target="_blank" rel="noopener">Отвори документ</a></div>':'<p class="iojz-document-error">Линк документа није доступан.</p>')+'</article>').join('')+'</div></section>';
         }
         html='<div class="iojz-page iojz-single-question"><section class="site-shared-hero hero-full iojz-question-hero"><div class="hero-inner"><div class="hero-copy"><p class="eyebrow">ОДГОВОРНА ПЛАНА · ИНФОРМАЦИЈЕ ОД ЈАВНОГ ЗНАЧАЈА</p><h1>Питање '+String(activeQuestion.question_order).padStart(2,'0')+'</h1><p class="lead">'+esc(activeQuestion.title)+'</p><div class="iojz-answer-status '+statusClass(activeQuestion.status)+'"><span>СТАТУС ОДГОВОРА</span><strong>'+esc(questionStatus[activeQuestion.status]||'Статус није унет')+'</strong></div><div class="hero-buttons"><a class="iojz-hero-back" href="akcija.html?slug='+encodeURIComponent(a.slug||a.id)+'">← Сва питања</a></div></div></div></section><section class="iojz-question-screen"><section class="iojz-answer-block"><h2>Оригинални текст питања</h2><div class="iojz-original-text">'+esc(activeQuestion.question_text)+'</div></section><section class="iojz-answer-block"><h2>Одговор институције</h2><div class="iojz-prose">'+(activeQuestion.answer_text?esc(activeQuestion.answer_text):'Одговор још није евидентиран.')+'</div></section>'+documentHtml+'</section></div>';
       }else{
