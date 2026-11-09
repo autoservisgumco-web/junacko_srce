@@ -1,18 +1,65 @@
 <!doctype html>
 <html lang="sr-Cyrl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#061A35"><title>Архива акција — Одговорна Плана</title><link rel="stylesheet" href="style.css">
 <style>
-.content-page{min-height:75vh;padding:38px 0 70px}.content-page .wrap{width:min(1100px,calc(100% - 32px));margin:auto}.page-kicker{font-size:11px;letter-spacing:2px;font-weight:900;color:#2166F3}.page-title{font-size:clamp(32px,5vw,48px);line-height:1.1;color:#061A35;margin:8px 0 12px}.page-lead{color:#526780;max-width:780px;margin:0 0 28px}.content-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}.content-card{overflow:hidden;background:#fff;border:1px solid #dce5f0;border-radius:16px;box-shadow:0 8px 28px #061a350a}.content-card img{width:100%;height:190px;object-fit:cover;display:block;background:#e8eef6}.content-card-body{padding:20px}.content-card h2{font-size:21px;line-height:1.25;margin:0 0 8px;color:#061A35}.content-card p{margin:0 0 14px;color:#526780;white-space:pre-line}.status{display:inline-block;border-radius:30px;padding:5px 10px;background:#e8f1fb;color:#174b91;font-size:12px;font-weight:800;margin-bottom:10px}.page-btn{display:inline-block;text-decoration:none;background:#2166F3;color:#fff;padding:10px 16px;border-radius:9px;font-weight:800}.page-empty{padding:24px;background:#fff;border:1px dashed #b9c9df;border-radius:14px;color:#64748b}.single-hero{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center;margin:18px 0 30px}.single-hero img{width:100%;max-height:390px;object-fit:cover;border-radius:16px;background:#e8eef6}.single-copy{min-width:0}.detail-section{background:#fff;border:1px solid #dce5f0;border-radius:15px;padding:22px;margin:16px 0}.detail-section h2{margin:0 0 10px;color:#061A35}.detail-section p{white-space:pre-line;color:#314967}.detail-list{display:grid;gap:10px}.detail-item{padding:14px;border:1px solid #e1eaf2;border-radius:10px;background:#f8fbff}.back-link{display:inline-block;margin-bottom:16px;color:#2166F3;text-decoration:none;font-weight:800}.related-actions{display:grid;gap:12px}.related-actions a{display:block;padding:14px;border:1px solid #dce5f0;border-radius:10px;text-decoration:none;color:#061A35;background:#fff;font-weight:750}
+.content-page{min-height:75vh;padding:38px 0 70px}.content-page .wrap{width:min(1100px,calc(100% - 32px));margin:auto}.page-kicker{font-size:11px;letter-spacing:2px;font-weight:900;color:#2166F3}.page-title{font-size:clamp(32px,5vw,48px);line-height:1.1;color:#061A35;margin:8px 0 12px}.page-lead{color:#526780;max-width:780px;margin:0 0 28px}.content-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}.content-card{overflow:hidden;background:#fff;border:1px solid #dce5f0;border-radius:16px;box-shadow:0 8px 28px #061a350a}.content-card img{width:100%;height:190px;object-fit:cover;display:block;background:#e8eef6}.content-card-body{padding:20px}.content-card h2{font-size:21px;line-height:1.25;margin:0 0 8px;color:#061A35}.content-card p{margin:0 0 14px;color:#526780;white-space:pre-line}.status{display:inline-block;border-radius:30px;padding:5px 10px;background:#e8f1fb;color:#174b91;font-size:12px;font-weight:800;margin-bottom:10px}.page-btn{display:inline-block;text-decoration:none;background:#2166F3;color:#fff;padding:10px 16px;border-radius:9px;font-weight:800}.page-empty{padding:24px;background:#fff;border:1px dashed #b9c9df;border-radius:14px;color:#64748b}.action-filters{display:flex;flex-wrap:wrap;gap:9px;margin:0 0 22px}.action-filter{appearance:none;border:1px solid #d5e0ee;background:#fff;color:#34506e;border-radius:30px;padding:9px 15px;font:inherit;font-size:13px;font-weight:800;cursor:pointer;transition:.2s}.action-filter:hover{border-color:#2166F3;color:#174b91}.action-filter[aria-pressed="true"]{background:#061A35;border-color:#061A35;color:#fff}.action-filter-count{display:inline-grid;place-items:center;min-width:21px;height:21px;margin-left:5px;padding:0 5px;border-radius:20px;background:#edf3fa;color:inherit;font-size:11px}.action-filter[aria-pressed="true"] .action-filter-count{background:#ffffff24}.action-type{display:inline-block;margin:0 0 8px;color:#2166F3;font-size:11px;font-weight:900;letter-spacing:.5px;text-transform:uppercase}.single-hero{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center;margin:18px 0 30px}.single-hero img{width:100%;max-height:390px;object-fit:cover;border-radius:16px;background:#e8eef6}.single-copy{min-width:0}.detail-section{background:#fff;border:1px solid #dce5f0;border-radius:15px;padding:22px;margin:16px 0}.detail-section h2{margin:0 0 10px;color:#061A35}.detail-section p{white-space:pre-line;color:#314967}.detail-list{display:grid;gap:10px}.detail-item{padding:14px;border:1px solid #e1eaf2;border-radius:10px;background:#f8fbff}.back-link{display:inline-block;margin-bottom:16px;color:#2166F3;text-decoration:none;font-weight:800}.related-actions{display:grid;gap:12px}.related-actions a{display:block;padding:14px;border:1px solid #dce5f0;border-radius:10px;text-decoration:none;color:#061A35;background:#fff;font-weight:750}
 @media(max-width:700px){.single-hero{grid-template-columns:1fr}.single-hero img{max-height:250px}}
 </style></head><body>
 <header><div class="wrap"><a href="index.html" style="color:#fff;text-decoration:none;font-weight:900;letter-spacing:.4px">ОДГОВОРНА ПЛАНА<small style="display:block;color:#a9c5f5;font-size:10px;letter-spacing:1.5px">МЕСТО ЗА ЗАЈЕДНИЧКО ДЕЛОВАЊЕ</small></a></div></header>
-<main class="content-page"><div class="wrap"><a class="back-link" href="index.html">← Почетна</a><div class="page-kicker">ЗАЈЕДНИЧКО ДЕЛОВАЊЕ</div><h1 class="page-title">Архива акција</h1><p class="page-lead">Погледај објављене акције и пронађи начин да се укључиш.</p><div id="actionList" class="content-grid"><div class="page-empty">Учитавање акција…</div></div></div></main>
+<main class="content-page"><div class="wrap"><a class="back-link" href="index.html">← Почетна</a><div class="page-kicker">ЗАЈЕДНИЧКО ДЕЛОВАЊЕ</div><h1 class="page-title">Архива акција</h1><p class="page-lead">Погледај објављене акције и пронађи начин да се укључиш.</p><nav id="actionFilters" class="action-filters" aria-label="Филтрирање акција по врсти"></nav><div id="actionList" class="content-grid"><div class="page-empty">Учитавање акција…</div></div></div></main>
 <footer><div class="wrap">ОДГОВОРНА ПЛАНА · Место за заједничко деловање · © <span id="year"></span></div></footer>
 <script>document.getElementById('year').textContent=new Date().getFullYear();</script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>const db=window.supabase.createClient('https://hmfeizkmpmxcnzhwxgbn.supabase.co','sb_publishable_JPtLezaiIeq4MsQ2f3LSlg_nT01Chxe');const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));const param=new URLSearchParams(location.search).get('slug');</script>
-<script>(async()=>{const root=document.getElementById('actionList');try{const {data,error}=await db.from('actions').select('id,title,slug,summary,description,location,status,image_url,intro,action_date,action_type').eq('is_published',true).order('created_at',{ascending:false});if(error)throw error;if(!data?.length){root.innerHTML='<div class="page-empty">Тренутно нема објављених акција.</div>';return;}root.innerHTML=data.map(a=>{
- const isIOJZ=a.action_type==='informacije_od_javnog_znacaja';
- const detailPage=isIOJZ?'akcija-informacije.html':'akcija.html';
- const typeLabels={general:'Општа акција',informacije_od_javnog_znacaja:'Информације од јавног значаја'};\n const typeLabel=typeLabels[a.action_type]||'Општа акција';
- return '<article class="content-card">'+(a.image_url?'<img src="'+esc(a.image_url)+'" alt="'+esc(a.title)+'">':'')+'<div class="content-card-body"><span class="status">'+esc(a.status||'Објављена')+'</span><div class="page-kicker" style="margin:0 0 8px">'+typeLabel+'</div><h2>'+esc(a.title)+'</h2><p>'+esc(a.summary||a.intro||a.description||'')+(a.location?'\\n📍 '+esc(a.location):'')+'</p><a class="page-btn" href="'+detailPage+'?slug='+encodeURIComponent(a.slug||'')+'">Погледај акцију →</a></div></article>'
-}).join('');}catch(e){console.error(e);root.innerHTML='<div class="page-empty">Акције тренутно нису могле да се учитају.</div>';}})();</script></body></html>
+<script>
+(async()=>{
+ const root=document.getElementById('actionList');
+ const filters=document.getElementById('actionFilters');
+ let actions=[];
+ let activeType='all';
+ const typeLabels={
+  general:'Опште акције',
+  informacije_od_javnog_znacaja:'Информације од јавног значаја'
+ };
+ const statusLabels={
+  planned:'Планирана',
+  in_progress:'У току',
+  completed:'Завршена',
+  cancelled:'Обустављена'
+ };
+ const typeLabel=type=>typeLabels[type]||'Остале акције';
+ const renderFilters=()=>{
+  const counts=actions.reduce((acc,a)=>{const t=a.action_type||'general';acc[t]=(acc[t]||0)+1;return acc;},{});
+  const types=Object.keys(counts).sort((a,b)=>typeLabel(a).localeCompare(typeLabel(b),'sr'));
+  const buttons=[{value:'all',label:'Све акције',count:actions.length},...types.map(t=>({value:t,label:typeLabel(t),count:counts[t]}))];
+  filters.innerHTML=buttons.map(b=>'<button type="button" class="action-filter" data-type="'+esc(b.value)+'" aria-pressed="'+(activeType===b.value?'true':'false')+'">'+esc(b.label)+'<span class="action-filter-count">'+b.count+'</span></button>').join('');
+  filters.querySelectorAll('button').forEach(button=>button.addEventListener('click',()=>{
+   activeType=button.dataset.type;
+   renderFilters();
+   renderActions();
+  }));
+ };
+ const renderActions=()=>{
+  const visible=activeType==='all'?actions:actions.filter(a=>(a.action_type||'general')===activeType);
+  if(!visible.length){root.innerHTML='<div class="page-empty">Нема објављених акција у овој врсти.</div>';return;}
+  root.innerHTML=visible.map(a=>{
+   const isIOJZ=a.action_type==='informacije_od_javnog_znacaja';
+   const detailPage=isIOJZ?'akcija-informacije.html':'akcija.html';
+   const label=typeLabel(a.action_type||'general');
+   const status=statusLabels[a.status]||'Објављена';
+   return '<article class="content-card">'+(a.image_url?'<img src="'+esc(a.image_url)+'" alt="'+esc(a.title)+'" loading="lazy">':'')+'<div class="content-card-body"><span class="status">'+esc(status)+'</span><div class="action-type">'+esc(label)+'</div><h2>'+esc(a.title)+'</h2><p>'+esc(a.summary||a.intro||a.description||'')+(a.location?'\\n📍 '+esc(a.location):'')+'</p><a class="page-btn" href="'+detailPage+'?slug='+encodeURIComponent(a.slug||'')+'">Погледај акцију →</a></div></article>';
+  }).join('');
+ };
+ try{
+  const {data,error}=await db.from('actions').select('id,title,slug,summary,description,location,status,image_url,intro,action_date,action_type').eq('is_published',true).order('created_at',{ascending:false});
+  if(error)throw error;
+  actions=data||[];
+  if(!actions.length){filters.innerHTML='';root.innerHTML='<div class="page-empty">Тренутно нема објављених акција.</div>';return;}
+  renderFilters();
+  renderActions();
+ }catch(e){
+  console.error(e);
+  filters.innerHTML='';
+  root.innerHTML='<div class="page-empty">Акције тренутно нису могле да се учитају.</div>';
+ }
+})();
+</script></body></html>
