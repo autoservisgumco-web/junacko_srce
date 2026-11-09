@@ -54,6 +54,39 @@ body.action-detail-page .site-nav a[href="/akcije.html"]{border-bottom:3px solid
  .action-banner{padding:20px;min-height:145px;margin:16px 0 0}
 }
 .iojz-public{border:1px solid #d6e4f2;background:#fff}.iojz-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap}.iojz-kicker{font-size:11px;letter-spacing:1.5px;font-weight:850;color:#2a6ba3}.iojz-head h2{margin:6px 0 0!important}.iojz-status{display:inline-flex;padding:8px 12px;border-radius:30px;background:#eaf2fa;color:#1d5d91;font-size:12px;font-weight:850}.iojz-subject{font-weight:750;color:#173b69;margin:14px 0}.iojz-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:16px 0}.iojz-facts>div{background:#f4f8fc;border-radius:11px;padding:12px}.iojz-facts small{display:block;color:#64748b;font-size:11px;margin-bottom:4px}.iojz-facts strong{display:block;color:#123f78;font-size:14px}.iojz-overdue{background:#fff4e8;border:1px solid #f4d4b2;color:#9a4d10;border-radius:10px;padding:12px 14px;margin:14px 0;font-weight:700}.iojz-details{border-top:1px solid #e4ebf2;margin-top:15px;padding-top:13px}.iojz-details summary{cursor:pointer;color:#123f78;font-weight:800}.iojz-items{list-style:none;padding:0;margin:12px 0}.iojz-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid #edf1f5}.iojz-item-number{width:27px;height:27px;flex:0 0 27px;display:grid;place-items:center;background:#eaf2fa;color:#2166a8;border-radius:8px;font-weight:850}.iojz-item p{margin:0 0 5px;color:#26384d;line-height:1.5}.iojz-item small{color:#64748b;font-weight:750}.iojz-timeline{border-left:2px solid #cbddec;margin:15px 0 5px 8px;padding-left:20px}.iojz-event{position:relative;padding:0 0 16px}.iojz-event:before{content:"";position:absolute;left:-26px;top:5px;width:10px;height:10px;border-radius:50%;background:#2a6ba3;border:3px solid #e6f1fa}.iojz-event time{font-size:12px;color:#64748b}.iojz-event strong{display:block;color:#123f78;margin:3px 0}.iojz-event p{margin:0;color:#526174;line-height:1.5}@media(max-width:650px){.iojz-facts{grid-template-columns:1fr}.iojz-head h2{font-size:19px!important}}
+
+/* Засебан, чист приказ за поступке приступа информацијама */
+.iojz-page{width:min(1060px,100%);margin:0 auto;padding:28px 0 56px}
+.iojz-return{display:inline-flex;align-items:center;text-decoration:none;color:#2166a3;font-weight:800;margin:0 0 16px;padding:8px 0}
+.iojz-page-hero{position:relative;overflow:hidden;background:linear-gradient(125deg,#082b50 0%,#124c7b 68%,#2a6ba3 100%);color:#fff;border-radius:20px;padding:clamp(24px,4vw,42px);margin-bottom:18px;box-shadow:0 14px 34px #0b29421a}
+.iojz-page-hero:after{content:"";position:absolute;width:260px;height:260px;border:1px solid #ffffff20;border-radius:50%;right:-85px;top:-105px;box-shadow:0 0 0 28px #ffffff08,0 0 0 58px #ffffff06}
+.iojz-page-hero .iojz-kicker{display:block;color:#b9dcf7;letter-spacing:1.6px;font-size:11px}
+.iojz-page-type{display:inline-flex;margin-top:18px;padding:7px 11px;border:1px solid #ffffff45;border-radius:30px;color:#e4f2ff;font-size:11px;font-weight:850;letter-spacing:.7px}
+.iojz-page-hero h1{position:relative;z-index:1;color:#fff;font-size:clamp(27px,4vw,42px);line-height:1.14;letter-spacing:-.8px;margin:14px 0 10px;max-width:850px}
+.iojz-page-hero>p{position:relative;z-index:1;color:#e1effb;font-size:16px;line-height:1.6;max-width:760px;margin:0}
+.iojz-page-meta{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:24px;padding-top:17px;border-top:1px solid #ffffff35;color:#d4e8f8;font-size:13px}
+.iojz-page-meta strong{color:#fff}
+.iojz-page .iojz-public{padding:clamp(18px,3vw,28px);border-radius:18px;box-shadow:0 8px 25px #0b29420a}
+.iojz-page .iojz-facts{grid-template-columns:repeat(3,minmax(0,1fr))}
+.iojz-page .iojz-question-link{min-height:74px;padding:16px}
+.iojz-page .iojz-question-title{padding:clamp(16px,3vw,24px)}
+.iojz-page .iojz-answer-block{padding:20px 0}
+.iojz-page .iojz-original-text{font-size:16px;background:#f4f8fc;padding:18px}
+.iojz-page .iojz-prose{font-size:15px;line-height:1.8}
+.iojz-page .iojz-details{background:#f8fafc;border:1px solid #e4ebf2;border-radius:12px;padding:14px 16px}
+.iojz-page .iojz-details summary{padding:3px 0}
+@media(max-width:650px){
+ .iojz-page{padding:18px 0 36px}
+ .iojz-page-hero{border-radius:15px;padding:22px 18px;margin-bottom:12px}
+ .iojz-page-hero h1{font-size:27px}
+ .iojz-page-meta{display:grid;gap:9px;margin-top:18px;padding-top:14px}
+ .iojz-page .iojz-public{padding:16px}
+ .iojz-page .iojz-facts{grid-template-columns:1fr}
+ .iojz-page .iojz-question-link{min-height:68px;padding:13px 11px}
+ .iojz-page .iojz-answer-block{padding:15px 0}
+ .iojz-page .iojz-original-text{font-size:14px;padding:14px}
+}
+
 /* IOJZ: питања као засебни екрани */
 .iojz-question-list{margin-top:8px}.iojz-list-lead{color:#526174;line-height:1.6;margin:8px 0 16px}
 .iojz-question-link{display:flex;align-items:center;gap:13px;padding:15px 13px;border:1px solid #e1eaf3;border-radius:13px;background:#fff;text-decoration:none;margin:9px 0;color:#172b45;transition:border-color .18s,transform .18s}
@@ -144,10 +177,13 @@ const mapFrame=location=>'<iframe loading="lazy" title="Мапа локациј�
       const detail=activeQuestion?'<div class="iojz-question-screen"><a class="iojz-back" href="akcija.html?slug='+encodeURIComponent(a.slug||a.id)+'">← Назад на сва питања</a><div class="iojz-question-title"><span class="iojz-kicker">ПИТАЊЕ '+activeQuestion.question_order+' ОД '+(questions||[]).length+'</span><h3>'+esc(activeQuestion.title)+'</h3><span class="iojz-status '+statusClass(activeQuestion.status)+'">'+esc(questionStatus[activeQuestion.status]||'Статус није унет')+'</span></div><section class="iojz-answer-block"><h4>Оригинални текст питања</h4><div class="iojz-original-text">'+esc(activeQuestion.question_text)+'</div></section><section class="iojz-answer-block"><h4>Одговор институције</h4><div class="iojz-prose">'+(activeQuestion.answer_text?esc(activeQuestion.answer_text):'Одговор још није евидентиран.')+'</div></section><section class="iojz-answer-block"><h4>Анализа одговора</h4><div class="iojz-prose">'+(activeQuestion.analysis_text?esc(activeQuestion.analysis_text):'Анализа још није унета.')+'</div></section>'+(activeQuestion.missing_information?'<section class="iojz-answer-block"><h4>Шта недостаје?</h4><div class="iojz-prose">'+esc(activeQuestion.missing_information)+'</div></section>':'')+'<nav class="iojz-question-pager">'+(activeQuestion.question_order>1?'<a href="akcija.html?slug='+encodeURIComponent(a.slug||a.id)+'&pitanje='+(activeQuestion.question_order-1)+'">← Претходно питање</a>':'<span></span>')+(activeQuestion.question_order<(questions||[]).length?'<a href="akcija.html?slug='+encodeURIComponent(a.slug||a.id)+'&pitanje='+(activeQuestion.question_order+1)+'">Следеће питање →</a>':'<span></span>')+'</nav></div>':'<div class="iojz-question-list"><p class="iojz-list-lead">Захтев је поднет '+fmt(req.sent_at)+'. Изабери питање да погледаш оригинални текст, одговор институције и анализу. Сваки приказ се отвара засебно.</p>'+(questionsError?'<p class="iojz-error">Питања тренутно нису доступна.</p>':(questions||[]).length?list:'<p>Питања још нису унета.</p>')+'</div>';
       const requestedItems=(requestItems||[]).map(it=>'<li class="iojz-item"><span class="iojz-item-number">'+it.item_order+'</span><div><p>'+esc(it.requested_information)+'</p><small>'+esc(itemStatus[it.response_status]||'Чека се одговор')+'</small></div></li>').join('');
       const events=(requestEvents||[]).map(ev=>'<div class="iojz-event"><time>'+fmt(ev.event_date)+'</time><strong>'+esc(ev.title)+'</strong><p>'+esc(ev.description||'')+'</p></div>').join('');
-      html+='<section class="action-panel iojz-public"><div class="iojz-head"><div><span class="iojz-kicker">ПОСТУПАК ПРИСТУПА ИНФОРМАЦИЈАМА</span><h2>Захтев за информације од јавног значаја</h2></div><span class="iojz-status">'+esc(requestStatus[req.status]||req.status)+'</span></div><p class="iojz-subject">'+esc(req.subject||a.title)+'</p>'+facts+detail+'<details class="iojz-details"><summary>Подаци о захтеву и хронологија</summary><p class="iojz-list-lead">Референца: '+esc(req.reference_number||'Није евидентирана')+'</p><ol class="iojz-items">'+requestedItems+'</ol><div class="iojz-timeline">'+(events||'<p>Нема забележених догађаја.</p>')+'</div></details></section>';
+      const requestPanel='<section class="action-panel iojz-public"><div class="iojz-head"><div><span class="iojz-kicker">ПОСТУПАК ПРИСТУПА ИНФОРМАЦИЈАМА</span><h2>Захтев за информације од јавног значаја</h2></div><span class="iojz-status">'+esc(requestStatus[req.status]||req.status)+'</span></div><p class="iojz-subject">'+esc(req.subject||a.title)+'</p>'+facts+detail+'<details class="iojz-details"><summary>Подаци о захтеву и хронологија</summary><p class="iojz-list-lead">Референца: '+esc(req.reference_number||'Није евидентирана')+'</p><ol class="iojz-items">'+requestedItems+'</ol><div class="iojz-timeline">'+(events||'<p>Нема забележених догађаја.</p>')+'</div></details></section>';
+      html='<div class="iojz-page"><a class="iojz-return" href="/akcije.html">← Све акције</a><header class="iojz-page-hero"><span class="iojz-kicker">ОДГОВОРНА ПЛАНА · ЈАВНОСТ И ОДГОВОРНОСТ</span><span class="iojz-page-type">ИНФОРМАЦИЈЕ ОД ЈАВНОГ ЗНАЧАЈА</span><h1>'+esc(a.title)+'</h1><p>Пратимо шта је затражено, шта је институција доставила и шта још треба разјаснити.</p><div class="iojz-page-meta"><span>Институција: <strong>'+esc(req.institution_name||'Није наведена')+'</strong></span><span>Датум захтева: <strong>'+fmt(req.sent_at)+'</strong></span><span>Одговор: <strong>'+fmt(req.response_date)+'</strong></span></div></header>'+requestPanel+'</div>';
+    } else {
+      html='<div class="iojz-page"><a class="iojz-return" href="/akcije.html">← Све акције</a><section class="action-panel iojz-public"><h2>Подаци о захтеву нису доступни</h2><p>Тренутно није могуће учитати евиденцију захтева. Покушај поново касније.</p></section></div>';
     }
   }
-  html+='<section class="action-callout"><span class="action-heart">♥</span><div><h2>Укључи се!</h2><p>Заједно можемо више. Пријави се, подржи акцију и помози да наша заједница буде боље место за све.</p></div><button type="button" class="action-red" id="joinThisAction">♟ &nbsp;Пријави се</button></section>';
+  if(a.action_type!=='informacije_od_javnog_znacaja') html+='<section class="action-callout"><span class="action-heart">♥</span><div><h2>Укључи се!</h2><p>Заједно можемо више. Пријави се, подржи акцију и помози да наша заједница буде боље место за све.</p></div><button type="button" class="action-red" id="joinThisAction">♟ &nbsp;Пријави се</button></section>';
   html+='<section class="action-banner"><h2>Имаш проблем који не треба да остане само прича?</h2><p>Покрени акцију и заједно тражимо решење.</p><a class="action-red" href="/predlog-akcije.html">ϟ &nbsp;Покрени акцију</a></section>';
   root.className='';root.innerHTML=html;
   root.querySelector('#joinThisAction')?.addEventListener('click',()=>window.OPProposalModal?.openParticipation(a));
