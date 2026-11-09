@@ -197,6 +197,14 @@ const mapFrame=location=>'<iframe loading="lazy" title="Мапа локациј�
           description:doc.document_date?'Датум документа: '+fmt(doc.document_date):'Званични документ уз захтев',
           url:doc.file_url||null
         }));
+        // Задржи и први раније објављени PDF који је до сада био повезан директно из Storage-а.
+        const {data:legacyPdf}=await db.storage.from('action-proposal-files').createSignedUrl('Odgovor za Jovicu Vratnicu.pdf',3600);
+        if(legacyPdf?.signedUrl) docs.unshift({
+          label:'Одговор на захтев — Јовица Вратница',
+          name:'Odgovor za Jovicu Vratnicu.pdf',
+          description:'Званичан одговор достављен подносиоцу захтева',
+          url:legacyPdf.signedUrl
+        });
         if(docs.length){
           documentHtml='<section class="iojz-documents"><div class="iojz-documents-heading"><span class="iojz-kicker">ЗВАНИЧНА ДОКУМЕНТА</span><h2>Документација и PDF одговори</h2><p>Оригинални документи повезани са овим захтевом.</p></div><div class="iojz-document-list">'+docs.map(doc=>'<article class="iojz-document-card"><span class="iojz-pdf-icon">PDF</span><div class="iojz-document-copy"><strong>'+esc(doc.label)+'</strong><small>'+esc(doc.description)+'</small></div>'+(doc.url?'<div class="iojz-document-actions"><a href="'+esc(doc.url)+'" target="_blank" rel="noopener">Отвори документ</a></div>':'<p class="iojz-document-error">Линк документа није доступан.</p>')+'</article>').join('')+'</div></section>';
         }
