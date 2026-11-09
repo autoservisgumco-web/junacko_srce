@@ -329,6 +329,9 @@ body.action-page,body.shop-page{padding-bottom:0}
 #joinChoice .join-flow-options,#joinChoice .join-flow-list{padding-left:16px;padding-right:16px}
 #joinChoice .join-flow-option,#joinChoice .join-flow-card,#joinChoice .association-card,#joinChoice .join-product,#joinChoice .join-order-box{border-radius:18px}
 
+
+/* Груписање акција по врсти на почетној страници */
+.action-type-group{margin:0 auto 28px;max-width:900px}.action-type-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 14px;padding:0 0 10px;border-bottom:1px solid rgba(148,163,184,.35)}.action-type-heading h3{margin:0;color:#fff;font-size:clamp(20px,2.5vw,26px)}.action-type-count{border-radius:30px;background:#e8f3fc;color:#1769aa;padding:5px 11px;font-size:12px;font-weight:800;white-space:nowrap}.action-type-group .action-list{max-width:none;margin:0}.action-type-group .action-card{height:100%}.action-type-group .action-card .tag{margin-bottom:5px}.action-type-group .action-card .btn{margin-top:4px}.action-type-empty{color:#d5e8f8;text-align:center;padding:24px}
 </style>
   <link rel="stylesheet" href="bottom-nav.css">\n<link rel="stylesheet" href="/bottom-sheet.css">
 </head>
@@ -472,7 +475,7 @@ if(new URLSearchParams(window.location.search).has('akcija')){
 </section>
 
 <section class="wrap" id="akcije"><div class="section-head"><h2>Акције којима можеш да се придружиш</h2><p>Изабери оно у чему желиш да помогнеш.</p></div>
-<div class="section-head"><h2>Активне акције</h2><p>Изабери акцију којој желиш да се придружиш.</p></div><div class="cards action-list" id="activeActionsList"><p>Учитавање активних акција...</p></div>
+<div class="section-head"><h2>Активне акције</h2><p>Изабери акцију којој желиш да се придружиш. Акције су груписане према врсти деловања.</p></div><div id="activeActionsList"><p class="action-type-empty">Учитавање активних акција...</p></div>
 <div class="start-action"><div class="start-action-copy"><span class="tag">ИМАШ ИДЕЈУ?</span><h3>Покрени своју акцију</h3><p>Уочи проблем, предложи решење и позови људе из своје заједнице да ти се придруже.</p></div><button class="btn secondary" onclick="showPanel('proposal')">Предложи нову акцију →</button></div>
 <div class="panel" id="support"><button class="close" onclick="hidePanels()">×</button><h2>Подржи акцију</h2><p>Изабери иницијативу коју желиш да подржиш и напиши на који начин можеш да помогнеш.</p><form id="supportForm"><label for="supportName">Твоје име и презиме</label><input id="supportName" required minlength="2" maxlength="120" placeholder="Име и презиме"><label for="supportPhone">Контакт телефон</label><input id="supportPhone" required type="tel" maxlength="60" placeholder="Број телефона"><label for="supportAction">Коју акцију желиш да подржиш?</label><select id="supportAction" required><option value="">Изабери акцију</option><option value="uredjenje-pijace">Уређење пијаце у Крњеву</option></select><label for="supportDescription">Како желиш да подржиш акцију?</label><textarea id="supportDescription" required minlength="10" maxlength="3000" placeholder="Напиши како можеш да помогнеш..."></textarea><button class="btn" type="submit">Пошаљи подршку</button><div id="supportMessage" role="status" aria-live="polite"></div></form></div>
 <div class="panel join-flow-panel" id="joinChoice"><div id="joinFlowContent"></div></div>
@@ -492,6 +495,43 @@ if(new URLSearchParams(window.location.search).has('akcija')){
 const SUPABASE_URL='https://hmfeizkmpmxcnzhwxgbn.supabase.co';
 const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhtZmVpemttcG14Y256aHd4Z2JuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMzMjkyNzgsImV4cCI6MjEwODkwNTI3OH0.oTZopOJEGUnxK69BOYPP11CQoGrLqUJowqpPU2uiY-4';
 const civicDb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+
+/* Приказ активних објављених акција груписаних по врсти. */
+async function loadHomeActionsByType(){
+ const container=document.getElementById('activeActionsList');
+ if(!container)return;
+ const labels={
+  general:'Опште акције',
+  informacije_od_javnog_znacaja:'Информације од јавног значаја',
+  uredjenje_prostora:'Уређење простора',
+  ciscenje_prostora:'Чишћење простора',
+  gradjanska_inicijativa:'Грађанска иницијатива',
+  prikupljanje_potpisa:'Прикупљање потписа',
+  javna_kampanja:'Јавна кампања',
+  druga_akcija:'Остале акције'
+ };
+ const {data,error}=await civicDb.from('actions')
+  .select('id,title,slug,summary,status,action_date,image_url,action_type')
+  .eq('is_published',true)
+  .in('status',['planned','in_progress'])
+  .order('action_date',{ascending:true,nullsFirst:false});
+ if(error){console.error('Грешка при учитавању акција:',error);container.innerHTML='<p class="action-type-empty">Акције тренутно нису доступне. Покушајте поново касније.</p>';return;}
+ if(!data||!data.length){container.innerHTML='<p class="action-type-empty">Тренутно нема објављених активних акција.</p>';return;}
+ const groups=new Map();
+ data.forEach(action=>{const type=action.action_type||'general';if(!groups.has(type))groups.set(type,[]);groups.get(type).push(action);});
+ const esc=value=>String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+ const statusLabel=status=>status==='in_progress'?'У току':'Планирана';
+ container.innerHTML=Array.from(groups.entries()).map(([type,items])=>{
+  const label=labels[type]||'Остале акције';
+  const cards=items.map(action=>{
+   const date=action.action_date?new Date(action.action_date+'T12:00:00').toLocaleDateString('sr-RS'):'';
+   return '<article class="action-card">'+(action.image_url?'<img src="'+esc(action.image_url)+'" alt="" loading="lazy" style="width:100%;max-height:190px;object-fit:cover;border-radius:12px;margin-bottom:14px">':'')+'<span class="tag">'+esc(statusLabel(action.status))+'</span><h3>'+esc(action.title)+'</h3>'+(action.summary?'<p>'+esc(action.summary)+'</p>':'')+(date?'<p><small>Датум: '+esc(date)+'</small></p>':'')+'<a class="btn" href="?akcija='+encodeURIComponent(action.slug||action.id)+'">Погледај акцију</a></article>';
+  }).join('');
+  return '<section class="action-type-group"><div class="action-type-heading"><h3>'+esc(label)+'</h3><span class="action-type-count">'+items.length+' '+(items.length===1?'акција':'акције')+'</span></div><div class="cards action-list">'+cards+'</div></section>';
+ }).join('');
+}
+loadHomeActionsByType();
+
 
 /* Продавница унутар index.html — засебан приказ без почетног hero банера. */
 function showShopPage(){
