@@ -444,6 +444,24 @@ body.action-detail-page .iojz-tab.is-active .iojz-tab-count{background:#e4eff8 !
   body.action-detail-page .iojz-tab-count{min-width:17px !important;height:17px !important}
 }
 
+
+/* IOJZ pitanje: popup preko postojece stranice */
+.iojz-question-link{width:100%;font:inherit;text-align:left;cursor:pointer}
+.iojz-question-modal{display:none;position:fixed;inset:0;z-index:99999;align-items:center;justify-content:center;padding:22px;}
+.iojz-question-modal.is-open{display:flex}
+.iojz-modal-backdrop{position:absolute;inset:0;background:rgba(8,24,42,.72);backdrop-filter:blur(4px)}
+.iojz-modal-dialog{position:relative;z-index:1;width:min(760px,100%);max-height:min(88vh,900px);display:flex;flex-direction:column;background:#fff;border-radius:18px;box-shadow:0 24px 90px rgba(0,0,0,.3);overflow:hidden;animation:iojzModalIn .2s ease-out}
+@keyframes iojzModalIn{from{opacity:0;transform:translateY(14px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
+.iojz-modal-top{display:flex;align-items:center;justify-content:space-between;padding:15px 20px;background:#f3f7fb;border-bottom:1px solid #e1eaf3;color:#173e65;font-weight:850;font-size:14px;flex:none}
+.iojz-modal-close{width:34px;height:34px;border:0;border-radius:50%;background:#e3edf6;color:#234f76;font-size:25px;line-height:1;cursor:pointer}
+.iojz-modal-body{padding:8px 22px 18px;overflow-y:auto;overscroll-behavior:contain}
+.iojz-modal-question[hidden]{display:none}
+.iojz-modal-question .iojz-question-title{margin-top:12px}
+.iojz-modal-footer{display:flex;justify-content:space-between;gap:12px;padding:12px 20px;border-top:1px solid #e1eaf3;background:#fff;flex:none}
+.iojz-modal-footer button{border:0;background:#eaf2f9;color:#1d5d91;border-radius:9px;padding:10px 14px;font:700 12px inherit;cursor:pointer}
+.iojz-modal-footer button:disabled{opacity:.35;cursor:default}
+body.iojz-modal-open{overflow:hidden}
+@media(max-width:650px){.iojz-question-modal{padding:0;align-items:flex-end}.iojz-modal-dialog{width:100%;max-height:92dvh;border-radius:18px 18px 0 0}.iojz-modal-top{padding:13px 16px}.iojz-modal-body{padding:6px 16px 16px}.iojz-modal-footer{padding:11px 16px env(safe-area-inset-bottom,11px)}}
 </style>
 </head>
 <body class="content-page-body action-detail-page">
@@ -575,6 +593,27 @@ const mapFrame=location=>'<iframe loading="lazy" title="Мапа локациј�
     });
     root.querySelectorAll('.iojz-tab-panel').forEach(panel=>panel.classList.toggle('is-active',panel.dataset.panel===selected));
   }));
+  const questionModal=root.querySelector('#iojzQuestionModal');
+  let openedQuestion=0;
+  const questionCards=Array.from(root.querySelectorAll('[data-question-modal]'));
+  const showQuestion=(order)=>{
+    const index=questionCards.findIndex(card=>Number(card.dataset.questionModal)===Number(order));
+    if(index<0)return;
+    openedQuestion=index;
+    questionCards.forEach((card,i)=>card.hidden=i!==index);
+    questionModal.classList.add('is-open');
+    questionModal.setAttribute('aria-hidden','false');
+    document.body.classList.add('iojz-modal-open');
+    questionModal.querySelector('.iojz-modal-body').scrollTop=0;
+    questionModal.querySelector('[data-question-step="-1"]').disabled=index===0;
+    questionModal.querySelector('[data-question-step="1"]').disabled=index===questionCards.length-1;
+    questionModal.querySelector('.iojz-modal-close').focus();
+  };
+  const closeQuestion=()=>{questionModal.classList.remove('is-open');questionModal.setAttribute('aria-hidden','true');document.body.classList.remove('iojz-modal-open');};
+  root.querySelectorAll('[data-open-question]').forEach(btn=>btn.addEventListener('click',()=>showQuestion(btn.dataset.openQuestion)));
+  questionModal.querySelectorAll('[data-close-question]').forEach(btn=>btn.addEventListener('click',closeQuestion));
+  questionModal.querySelectorAll('[data-question-step]').forEach(btn=>btn.addEventListener('click',()=>{if(!btn.disabled)showQuestion(Number(questionCards[openedQuestion].dataset.questionModal)+Number(btn.dataset.questionStep));}));
+  document.addEventListener('keydown',event=>{if(event.key==='Escape'&&questionModal.classList.contains('is-open'))closeQuestion();});
   if(new URLSearchParams(location.search).has('pitanje')) window.scrollTo(0,0);
   root.querySelector('#joinThisAction')?.addEventListener('click',()=>window.OPProposalModal?.openParticipation(a));
  }catch(e){console.error(e);root.innerHTML='<div class="action-empty">Детаљи акције тренутно нису доступни.</div>';}
