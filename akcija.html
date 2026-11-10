@@ -384,6 +384,66 @@ body.action-detail-page .site-header {margin-bottom:0 !important}
   .iojz-page .iojz-facts { grid-template-columns: minmax(0,1.5fr) repeat(2,minmax(0,1fr)); }
 }
 
+
+/* Zavrsni izgled IOJZ zahteva — hero od ivice do ivice, odmah ispod navigacije */
+body.action-detail-page .iojz-page{
+  width:100% !important;max-width:none !important;margin:0 !important;
+  padding:0 0 48px !important;overflow-x:clip;
+}
+body.action-detail-page .iojz-page .iojz-page-hero{
+  width:100vw !important;max-width:none !important;min-height:210px !important;height:auto !important;
+  margin:0 0 16px calc(50% - 50vw) !important;
+  padding:34px max(24px,calc((100vw - 1060px)/2)) 30px !important;
+  border:0 !important;border-radius:0 !important;box-shadow:none !important;
+  background:linear-gradient(115deg,#174b78 0%,#2a6ba3 70%,#4387bb 100%) !important;
+}
+body.action-detail-page .iojz-page .iojz-page-hero h1{max-width:850px !important}
+body.action-detail-page .iojz-page .iojz-public{
+  width:min(1060px,calc(100% - 36px)) !important;margin:0 auto !important;
+  padding:clamp(18px,3vw,28px) !important;border-radius:14px !important;
+}
+body.action-detail-page .iojz-tabs{
+  display:flex !important;align-items:stretch !important;gap:8px !important;
+  margin:20px 0 14px !important;padding:0 2px !important;overflow-x:auto !important;
+  border-bottom:1px solid #dce5ee !important;border-radius:0 !important;background:transparent !important;
+}
+body.action-detail-page .iojz-tab{
+  position:relative !important;flex:1 1 0 !important;min-width:0 !important;
+  display:flex !important;align-items:center !important;justify-content:center !important;gap:6px !important;
+  border:1px solid transparent !important;border-bottom:0 !important;border-radius:9px 9px 0 0 !important;
+  padding:11px 13px 13px !important;margin:0 0 -1px !important;
+  background:#eaf1f7 !important;color:#607286 !important;font:700 13px/1.2 inherit !important;
+  white-space:nowrap !important;cursor:pointer !important;
+  transition:background .18s ease,color .18s ease,box-shadow .18s ease !important;
+}
+body.action-detail-page .iojz-tab:hover{background:#dfeaf3 !important;color:#174b78 !important}
+body.action-detail-page .iojz-tab.is-active{
+  background:#fff !important;color:#174b78 !important;border-color:#dce5ee !important;
+  box-shadow:inset 0 -3px 0 #2a6ba3 !important;
+}
+body.action-detail-page .iojz-tab-count{
+  display:inline-grid !important;place-items:center !important;min-width:19px !important;height:19px !important;
+  padding:0 5px !important;border-radius:20px !important;background:#d8e6f1 !important;
+  color:#315f84 !important;font-size:10px !important;line-height:1 !important;
+}
+body.action-detail-page .iojz-tab.is-active .iojz-tab-count{background:#e4eff8 !important;color:#2166a3 !important}
+@media(max-width:760px){
+  body.action-detail-page .iojz-page{padding:0 0 32px !important}
+  body.action-detail-page .iojz-page .iojz-page-hero{
+    min-height:0 !important;margin:0 0 12px calc(50% - 50vw) !important;padding:22px 17px 20px !important;
+  }
+  body.action-detail-page .iojz-page .iojz-page-hero h1{font-size:25px !important}
+  body.action-detail-page .iojz-page .iojz-public{
+    width:calc(100% - 24px) !important;padding:15px !important;border-radius:12px !important;
+  }
+  body.action-detail-page .iojz-tabs{gap:6px !important;margin:15px 0 12px !important}
+  body.action-detail-page .iojz-tab{padding:10px 6px 12px !important;font-size:12px !important}
+}
+@media(max-width:380px){
+  body.action-detail-page .iojz-tab{font-size:11px !important;gap:4px !important}
+  body.action-detail-page .iojz-tab-count{min-width:17px !important;height:17px !important}
+}
+
 </style>
 </head>
 <body class="content-page-body action-detail-page">
@@ -468,7 +528,7 @@ const mapFrame=location=>'<iframe loading="lazy" title="Мапа локациј�
       if(tabDocsError) console.warn('Документација није доступна',tabDocsError);
       const publicDocs=(tabDocs||[]).map(doc=>'<article class="iojz-document-card"><span class="iojz-pdf-icon">PDF</span><div class="iojz-document-copy"><strong>'+esc(doc.title||doc.file_name||'Службени документ')+'</strong><small>'+(doc.document_date?'Датум документа: '+fmt(doc.document_date):'Званични документ уз захтев')+'</small></div>'+(doc.file_url?'<div class="iojz-document-actions"><a href="'+esc(doc.file_url)+'" target="_blank" rel="noopener">Отвори документ</a></div>':'<span class="iojz-document-error">Линк документа није доступан.</span>')+'</article>').join('');
       if(publicDocs) tabDocumentHtml='<div class="iojz-documents"><div class="iojz-document-list">'+publicDocs+'</div></div>';
-      const requestPanel='<section class="action-panel iojz-public"><div class="iojz-head"><div><span class="iojz-kicker">ПОСТУПАК ПРИСТУПА ИНФОРМАЦИЈАМА</span><h2>Захтев за информације од јавног значаја</h2></div><span class="iojz-status">'+esc(requestStatus[req.status]||req.status)+'</span></div><p class="iojz-subject">'+esc(req.subject||a.title)+'</p>'+facts+'<div class="iojz-tabs" role="tablist" aria-label="Садржај захтева"><button class="iojz-tab is-active" type="button" role="tab" aria-selected="true" data-tab="tok">Ток поступка</button><button class="iojz-tab" type="button" role="tab" aria-selected="false" data-tab="pitanja">Питања</button><button class="iojz-tab" type="button" role="tab" aria-selected="false" data-tab="dokumenti">Документи</button></div><div class="iojz-tab-panel is-active" role="tabpanel" data-panel="tok">'+chronology+'</div><div class="iojz-tab-panel" role="tabpanel" data-panel="pitanja">'+detail+'</div><div class="iojz-tab-panel" role="tabpanel" data-panel="dokumenti">'+tabDocumentHtml+'</div></section>';
+      const requestPanel='<section class="action-panel iojz-public"><div class="iojz-head"><div><span class="iojz-kicker">ПОСТУПАК ПРИСТУПА ИНФОРМАЦИЈАМА</span><h2>Захтев за информације од јавног значаја</h2></div><span class="iojz-status">'+esc(requestStatus[req.status]||req.status)+'</span></div><p class="iojz-subject">'+esc(req.subject||a.title)+'</p>'+facts+'<div class="iojz-tabs" role="tablist" aria-label="Садржај захтева"><button class="iojz-tab is-active" type="button" role="tab" aria-selected="true" data-tab="tok">Ток поступка</button><button class="iojz-tab" type="button" role="tab" aria-selected="false" data-tab="pitanja">Питања <span class="iojz-tab-count">'+(questions||[]).length+</span></button><button class="iojz-tab" type="button" role="tab" aria-selected="false" data-tab="dokumenti">Документи <span class="iojz-tab-count">'+(tabDocs||[]).length+</span></button></div><div class="iojz-tab-panel is-active" role="tabpanel" data-panel="tok">'+chronology+'</div><div class="iojz-tab-panel" role="tabpanel" data-panel="pitanja">'+detail+'</div><div class="iojz-tab-panel" role="tabpanel" data-panel="dokumenti">'+tabDocumentHtml+'</div></section>';
       if(activeQuestion){
         let documentHtml='';
         const {data:dbDocs,error:docsError}=await db.from('iojz_documents')
@@ -496,10 +556,10 @@ const mapFrame=location=>'<iframe loading="lazy" title="Мапа локациј�
         }
         html='<div class="iojz-page iojz-single-question"><section class="site-shared-hero hero-full iojz-question-hero"><div class="hero-inner"><div class="hero-copy"><p class="eyebrow">ОДГОВОРНА ПЛАНА · ИНФОРМАЦИЈЕ ОД ЈАВНОГ ЗНАЧАЈА</p><h1>Питање '+String(activeQuestion.question_order).padStart(2,'0')+'</h1><p class="lead">'+esc(activeQuestion.title)+'</p><div class="iojz-answer-status '+statusClass(activeQuestion.status)+'"><span>СТАТУС ОДГОВОРА</span><strong>'+esc(questionStatus[activeQuestion.status]||'Статус није унет')+'</strong></div><div class="hero-buttons"><a class="iojz-hero-back" href="akcija.html?slug='+encodeURIComponent(a.slug||a.id)+'">← Сва питања</a></div></div></div></section><section class="iojz-question-screen"><section class="iojz-answer-block"><h2>Оригинални текст питања</h2><div class="iojz-original-text">'+esc(activeQuestion.question_text)+'</div></section><section class="iojz-answer-block"><h2>Одговор институције</h2><div class="iojz-prose">'+(activeQuestion.answer_text?esc(activeQuestion.answer_text):'Одговор још није евидентиран.')+'</div></section>'+documentHtml+'</section></div>';
       }else{
-        html='<div class="iojz-page"><a class="iojz-return" href="/akcije.html">← Све акције</a><header class="iojz-page-hero"><span class="iojz-kicker">ОДГОВОРНА ПЛАНА · ЈАВНОСТ И ОДГОВОРНОСТ</span><span class="iojz-page-type">ИНФОРМАЦИЈЕ ОД ЈАВНОГ ЗНАЧАЈА</span><h1>'+esc(a.title)+'</h1><p>Пратимо шта је затражено, шта је институција доставила и шта још треба разјаснити.</p></header>'+requestPanel+'</div>';
+        html='<div class="iojz-page"><header class="iojz-page-hero"><span class="iojz-kicker">ОДГОВОРНА ПЛАНА · ЈАВНОСТ И ОДГОВОРНОСТ</span><span class="iojz-page-type">ИНФОРМАЦИЈЕ ОД ЈАВНОГ ЗНАЧАЈА</span><h1>'+esc(a.title)+'</h1><p>Пратимо шта је затражено, шта је институција доставила и шта још треба разјаснити.</p></header>'+requestPanel+'</div>';
       }
     } else {
-      html='<div class="iojz-page"><a class="iojz-return" href="/akcije.html">← Све акције</a><section class="action-panel iojz-public"><h2>Подаци о захтеву нису доступни</h2><p>Тренутно није могуће учитати евиденцију захтева. Покушај поново касније.</p></section></div>';
+      html='<div class="iojz-page"><section class="action-panel iojz-public"><h2>Подаци о захтеву нису доступни</h2><p>Тренутно није могуће учитати евиденцију захтева. Покушај поново касније.</p></section></div>';
     }
   }
   if(a.action_type!=='informacije_od_javnog_znacaja') html+='<section class="action-callout"><span class="action-heart">♥</span><div><h2>Укључи се!</h2><p>Заједно можемо више. Пријави се, подржи акцију и помози да наша заједница буде боље место за све.</p></div><button type="button" class="action-red" id="joinThisAction">♟ &nbsp;Пријави се</button></section>';
