@@ -104,6 +104,94 @@ body.action-detail-page .site-nav a[href="/akcije.html"]{border-bottom:3px solid
 .iojz-question-pager{display:flex;justify-content:space-between;gap:12px;margin-top:18px}.iojz-question-pager a{color:#1d5d91;text-decoration:none;font-weight:800;padding:10px 0}
 .iojz-error{padding:12px;background:#fff1f1;color:#9b2525;border-radius:10px}
 @media(max-width:650px){.iojz-question-link{padding:13px 10px;gap:10px}.iojz-q-copy strong{font-size:14px}.iojz-question-title{padding:14px}.iojz-question-title h3{font-size:20px}.iojz-original-text,.iojz-prose{font-size:14px;line-height:1.65}.iojz-answer-block{padding:14px 0}.iojz-question-pager a{font-size:13px}}
+
+/* MOBILNI HERO — IOJZ: kompaktan, bez odsecanja naslova */
+@media (max-width: 760px) {
+  .iojz-page {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    padding: 14px 12px 32px;
+    overflow-x: hidden;
+  }
+  .iojz-page .iojz-page-hero {
+    display: block;
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    min-height: 0;
+    height: auto;
+    box-sizing: border-box;
+    padding: 18px 16px;
+    margin: 0 0 12px;
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .iojz-page .iojz-page-hero:after {
+    width: 130px;
+    height: 130px;
+    right: -58px;
+    top: -62px;
+    pointer-events: none;
+  }
+  .iojz-page .iojz-page-hero .iojz-kicker {
+    position: relative;
+    z-index: 1;
+    display: block;
+    font-size: 9px;
+    line-height: 1.35;
+    letter-spacing: 1px;
+    overflow-wrap: anywhere;
+  }
+  .iojz-page .iojz-page-hero .iojz-page-type {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin-top: 10px;
+    padding: 6px 9px;
+    font-size: 9px;
+    line-height: 1.25;
+    white-space: normal;
+  }
+  .iojz-page .iojz-page-hero h1 {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    margin: 10px 0 7px;
+    font-size: clamp(21px, 6vw, 27px);
+    line-height: 1.16;
+    letter-spacing: -.45px;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+  .iojz-page .iojz-page-hero > p {
+    position: relative;
+    z-index: 1;
+    max-width: 100%;
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.45;
+  }
+  .iojz-page .iojz-page-meta {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 6px;
+    margin-top: 12px;
+    padding-top: 10px;
+    font-size: 11px;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+  }
+}
+
 </style>
 </head>
 <body class="content-page-body action-detail-page">
