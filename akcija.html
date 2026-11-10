@@ -315,6 +315,67 @@ body.action-detail-page .site-header {margin-bottom:0 !important}
 .iojz-question-list {margin-top:0 !important;padding-top:0 !important}
 .iojz-list-lead {margin:0 0 10px !important}
 
+
+/* IOJZ mobile polish: compact hero and horizontal information cards */
+@media (max-width: 650px) {
+  .iojz-page { padding: 10px 10px 30px !important; }
+  .iojz-page .iojz-page-hero {
+    padding: 14px 15px 16px !important;
+    margin: 0 0 10px !important;
+    min-height: 0 !important;
+    border-radius: 12px !important;
+    background: linear-gradient(115deg,#082b50 0%,#124c7b 72%,#2a6ba3 100%) !important;
+  }
+  .iojz-page .iojz-page-hero .iojz-kicker {
+    font-size: 8px !important;
+    letter-spacing: .65px !important;
+    line-height: 1.25 !important;
+  }
+  .iojz-page .iojz-page-type {
+    margin-top: 7px !important;
+    padding: 5px 8px !important;
+    font-size: 8px !important;
+  }
+  .iojz-page .iojz-page-hero h1 {
+    margin: 9px 0 0 !important;
+    font-size: clamp(20px,5.5vw,25px) !important;
+    line-height: 1.12 !important;
+    max-width: 100% !important;
+  }
+  .iojz-page .iojz-page-hero > p { display: none !important; }
+  .iojz-page .iojz-page-meta {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    gap: 6px 12px !important;
+    margin-top: 9px !important;
+    padding-top: 8px !important;
+    font-size: 10px !important;
+  }
+  .iojz-page .iojz-facts {
+    display: grid !important;
+    grid-template-columns: repeat(2,minmax(0,1fr)) !important;
+    gap: 7px !important;
+    margin: 10px 0 !important;
+  }
+  .iojz-page .iojz-facts > div {
+    min-width: 0 !important;
+    padding: 9px 10px !important;
+    border-radius: 10px !important;
+  }
+  .iojz-page .iojz-facts > div:first-child { grid-column: 1 / -1; }
+  .iojz-page .iojz-facts small { font-size: 10px !important; }
+  .iojz-page .iojz-facts strong {
+    font-size: 12px !important;
+    line-height: 1.3 !important;
+    overflow-wrap: anywhere !important;
+  }
+  .iojz-page .iojz-public { padding: 13px !important; }
+}
+@media (min-width: 651px) {
+  .iojz-page .iojz-facts { grid-template-columns: minmax(0,1.5fr) repeat(2,minmax(0,1fr)); }
+}
+
 </style>
 </head>
 <body class="content-page-body action-detail-page">
