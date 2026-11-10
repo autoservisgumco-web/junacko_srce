@@ -192,6 +192,28 @@ body.action-detail-page .site-nav a[href="/akcije.html"]{border-bottom:3px solid
   }
 }
 
+
+/* FINAL FIX: kompaktan hero za IOJZ stranicu na mobilnim ekranima */
+@media screen and (max-width:760px) {
+  .iojz-page .iojz-page-hero {
+    height:auto !important;
+    min-height:0 !important;
+    max-height:none !important;
+    padding:13px 15px 15px !important;
+    margin:0 0 10px !important;
+    border-radius:12px !important;
+    display:flex !important;
+    flex-direction:column !important;
+    gap:0 !important;
+  }
+  .iojz-page .iojz-page-hero:after { width:90px !important;height:90px !important;right:-42px !important;top:-44px !important; }
+  .iojz-page .iojz-page-hero .iojz-kicker { font-size:8px !important;line-height:1.2 !important;letter-spacing:.7px !important;margin:0 !important; }
+  .iojz-page .iojz-page-hero .iojz-page-type { margin-top:6px !important;padding:4px 8px !important;font-size:8px !important;line-height:1.2 !important; }
+  .iojz-page .iojz-page-hero h1 { font-size:21px !important;line-height:1.12 !important;margin:7px 0 0 !important;letter-spacing:-.3px !important; }
+  .iojz-page .iojz-page-hero > p,
+  .iojz-page .iojz-page-hero .iojz-page-meta { display:none !important; }
+}
+
 </style>
 </head>
 <body class="content-page-body action-detail-page">
