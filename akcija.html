@@ -214,6 +214,62 @@ body.action-detail-page .site-nav a[href="/akcije.html"]{border-bottom:3px solid
   .iojz-page .iojz-page-hero .iojz-page-meta { display:none !important; }
 }
 
+
+/* JEDINSTVENI HERO SISTEM — sve vrste stranica akcija */
+.action-overview,
+.iojz-page .iojz-page-hero,
+.iojz-single-question .iojz-question-hero {
+  box-sizing:border-box !important;
+  position:relative !important;
+  overflow:hidden !important;
+  width:100% !important;
+  min-height:248px !important;
+  height:auto !important;
+  margin:0 0 18px !important;
+  padding:34px 36px !important;
+  border:0 !important;
+  border-radius:20px !important;
+  background:linear-gradient(125deg,#082b50 0%,#124c7b 68%,#2a6ba3 100%) !important;
+  color:#fff !important;
+  box-shadow:0 14px 34px #0b29421a !important;
+}
+.action-overview {display:flex !important;align-items:center !important;justify-content:space-between !important;gap:24px !important;}
+.action-overview-main {position:relative;z-index:1;max-width:900px}
+.action-overview .action-kind,
+.iojz-page .iojz-page-type {display:inline-flex !important;margin:0 0 12px !important;padding:6px 11px !important;border:1px solid #ffffff45 !important;border-radius:30px !important;background:#ffffff12 !important;color:#e4f2ff !important;font-size:11px !important;font-weight:850 !important;letter-spacing:.7px !important}
+.action-overview h1,
+.iojz-page .iojz-page-hero h1,
+.iojz-single-question .iojz-question-hero h1 {position:relative;z-index:1;color:#fff !important;font-size:clamp(27px,3.4vw,40px) !important;line-height:1.14 !important;letter-spacing:-.7px !important;margin:0 0 10px !important;max-width:850px}
+.action-overview .action-summary,
+.iojz-page .iojz-page-hero>p,
+.iojz-single-question .iojz-question-hero .lead {position:relative;z-index:1;color:#e1effb !important;font-size:16px !important;line-height:1.55 !important;max-width:760px;margin:0 !important}
+.action-overview .action-meta {border-color:#ffffff35 !important;color:#d4e8f8 !important}
+.action-overview .action-meta-item {border-color:#ffffff30 !important;color:#d4e8f8 !important}
+.action-overview .action-meta-item strong {color:#fff !important}
+.action-overview .action-stat {border-color:#ffffff35 !important}
+.action-overview .action-stat-number,.action-overview .action-stat-label {color:#fff !important}
+.iojz-page .iojz-page-hero .iojz-kicker {display:block;color:#b9dcf7 !important;font-size:11px !important;letter-spacing:1.3px !important;margin:0 0 10px !important}
+.iojz-single-question .iojz-question-hero.site-shared-hero.hero-full {min-height:248px !important;height:auto !important;padding:34px 36px !important}
+.iojz-single-question .iojz-question-hero .hero-inner {width:100% !important;min-height:0 !important;margin:0 !important}
+.iojz-single-question .iojz-question-hero .hero-copy {max-width:850px !important}
+.iojz-single-question .iojz-question-hero .eyebrow {color:#b9dcf7 !important;font-size:11px !important;letter-spacing:1.3px !important;margin:0 0 10px !important}
+.iojz-single-question .iojz-answer-status {margin-top:12px !important}
+.iojz-single-question .iojz-question-hero .hero-buttons {margin-top:14px !important}
+.action-cover {display:none !important}
+@media(max-width:760px) {
+ .action-overview,.iojz-page .iojz-page-hero,.iojz-single-question .iojz-question-hero,
+ .iojz-single-question .iojz-question-hero.site-shared-hero.hero-full {
+   min-height:180px !important;height:auto !important;padding:20px 18px !important;
+   margin-bottom:12px !important;border-radius:15px !important;
+ }
+ .action-overview {display:flex !important;flex-direction:column !important;align-items:flex-start !important;gap:12px !important}
+ .action-overview h1,.iojz-page .iojz-page-hero h1,.iojz-single-question .iojz-question-hero h1 {font-size:25px !important;line-height:1.13 !important;margin:0 0 8px !important}
+ .action-overview .action-summary,.iojz-page .iojz-page-hero>p,.iojz-single-question .iojz-question-hero .lead {font-size:14px !important;line-height:1.45 !important}
+ .action-overview .action-stat {border:0 !important;padding:0 !important;align-items:flex-start !important;text-align:left !important}
+ .iojz-single-question .iojz-question-hero .hero-inner {min-height:0 !important}
+ .iojz-single-question .iojz-question-hero .hero-buttons {margin-top:12px !important}
+}
+
 </style>
 </head>
 <body class="content-page-body action-detail-page">
