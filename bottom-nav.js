@@ -33,7 +33,6 @@
     }
   });
 
-
   document.querySelectorAll('.mobile-bottom-nav').forEach(el=>el.remove());
   document.body.appendChild(nav);
 
@@ -71,5 +70,13 @@
       statusToggle.setAttribute('aria-expanded',String(opening));
       details.hidden=!opening;
     });
+  }
+
+  // Навигација кампање се учитава само на страници појединачне кампање.
+  if(document.body.classList.contains('campaign-page')){
+    const campaignTabs=document.createElement('script');
+    campaignTabs.src='/campaign-tabs.js';
+    campaignTabs.defer=true;
+    document.body.appendChild(campaignTabs);
   }
 })();
