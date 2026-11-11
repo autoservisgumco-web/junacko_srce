@@ -59,6 +59,20 @@
 
   function renderPayment(settings) {
     const s = settings || {};
+    const configuredMethods = Array.isArray(s.payment_methods)
+      ? s.payment_methods.filter(method => method && method.is_active !== false)
+      : null;
+    if (configuredMethods) {
+      const activeTypes = configuredMethods.map(method => method.type);
+      s.show_bank_payment = activeTypes.includes("bank_transfer");
+      s.show_ips = activeTypes.includes("ips_qr");
+      s.show_paypal = activeTypes.includes("paypal");
+      const paypalMethod = configuredMethods.find(method => method.type === "paypal");
+      if (paypalMethod && paypalMethod.config) {
+        s.paypal_url = paypalMethod.config.url || s.paypal_url || "";
+        s.paypal_email = paypalMethod.config.email || s.paypal_email || "";
+      }
+    }
     const paypalCandidate = String(s.paypal_url || s.paypal_link || s.paypal_me_url || "");
     const paypalUrl = /^https?:\/\//i.test(paypalCandidate) ? paypalCandidate : "";
     const accountDigits = String(s.bank_account || "").replace(/\D/g, "");
@@ -73,6 +87,34 @@
     if (s.show_paypal !== false && paypalUrl) tabs.push({ id: "paypal", label: "PayPal", content: '<div class="donation-payment-card"><p>Износ донације: <strong data-donation-amount>—</strong></p><a class="donation-paypal-button" data-paypal-donate data-base-url="' + esc(paypalUrl) + '" href="' + esc(paypalUrl) + '" target="_blank" rel="noopener noreferrer">Донирај преко PayPal-а</a>' + (s.paypal_email ? row("PayPal адреса", s.paypal_email) : '') + '<p class="donation-payment-note">Пре потврде плаћања проверите име примаоца и износ.</p></div>' });
     else if (s.show_paypal !== false && s.paypal_email) tabs.push({ id: "paypal", label: "PayPal", content: '<div class="donation-payment-card"><p><strong>PayPal адреса за донацију</strong></p><div class="donation-paypal-address">' + esc(s.paypal_email) + '</div>' + row("PayPal налог", s.paypal_email) + '<p class="donation-payment-note">Отвори PayPal, изабери слање новца (Send), унеси ову адресу и износ донације. Пре слања провери име примаоца.</p></div>' });
     if (s.show_ips !== false && hasIps) tabs.push({ id: "ips", label: "IPS QR код", content: '<div class="donation-payment-card donation-ips-card"><p>Скенирај QR код у апликацији своје банке и провери податке пре потврде уплате.</p><div class="donation-ips-qr" data-ips-qr aria-live="polite">Изабери износ да би се направио IPS QR код.</div><p class="donation-payment-note">Износ: <strong data-donation-amount>—</strong></p><button type="button" class="donation-ips-download" data-ips-download disabled>Преузми QR код</button><p class="donation-ips-status" data-ips-status></p></div>' });
+    if (configuredMethods) {
+      configuredMethods
+        .filter(method => ["sms", "online", "other"].includes(method.type))
+        .sort((a, b) => Number(a.sort_order || 0) - Number(b.sort_order || 0))
+        .forEach((method, index) => {
+          const config = method.config || {};
+          const title = esc(method.title || method.type);
+          const description = method.description ? '<p>' + esc(method.description) + '</p>' : '';
+          let content = '<div class="donation-payment-card">' + description;
+          if (method.type === "sms") {
+            const number = String(config.number || config.target || "").replace(/[^+\\d]/g, "");
+            const message = String(config.message || "1");
+            const price = config.price ? ' (' + esc(config.price) + ')' : '';
+            const smsHref = number ? 'sms:' + encodeURIComponent(number) + '?body=' + encodeURIComponent(message) : '';
+            content += number
+              ? '<a class="donation-paypal-button" href="' + esc(smsHref) + '">Пошаљи SMS на ' + esc(number) + price + '</a><p class="donation-payment-note">Текст поруке: <strong>' + esc(message) + '</strong>. Порука се шаље тек када је потврдиш у SMS апликацији.</p>'
+              : '<p>SMS број још није унет.</p>';
+          } else {
+            const url = String(config.url || config.target || "");
+            const safeUrl = /^https?:\\/\\//i.test(url) ? url : "";
+            content += safeUrl
+              ? '<a class="donation-paypal-button" href="' + esc(safeUrl) + '" target="_blank" rel="noopener noreferrer">' + title + '</a>'
+              : '<p>Линк за овај начин донирања још није унет.</p>';
+          }
+          content += '</div>';
+          tabs.push({ id: 'custom-' + index, label: title, content });
+        });
+    }
     if (!tabs.length) tabs.push({ id: "info", label: "Информације", content: '<div class="donation-empty">Начини уплате тренутно нису доступни.</div>' });
     const first = String(s.western_union_first_name || "").trim(), last = String(s.western_union_last_name || "").trim();
     if (s.show_western_union === true && first && last) {
