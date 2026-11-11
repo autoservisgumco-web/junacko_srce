@@ -77,6 +77,21 @@ body.campaign-page .content-back{display:none}
 .campaign-sheet .sheet-head{flex:none;position:sticky;top:0;background:#fff;z-index:2;padding-bottom:10px}
 #sheetBody{min-height:0;flex:1 1 auto;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding:0 2px 20px}
 @media(max-width:560px){.campaign-overlay{padding:8px 0 calc(74px + env(safe-area-inset-bottom))}.campaign-sheet{width:100%;max-height:84dvh;border-radius:20px 20px 0 0;padding:16px 15px 10px}.campaign-sheet .sheet-head{margin-bottom:10px}}
+.partner-section{background:#eef5fc;border:1px solid #dce8f5;border-radius:16px;padding:24px;margin-top:18px}
+.partner-section-head span{display:block;color:#2166a8;font-size:12px;font-weight:850;letter-spacing:1.2px}
+.partner-section-head h2{margin:7px 0 8px;color:#123f78;font-size:25px}
+.partner-section-head p{color:#52677e;line-height:1.6;margin:0 0 16px}
+.partner-card{display:flex;align-items:center;justify-content:space-between;gap:18px;background:#fff;border:1px solid #dce6f1;border-radius:14px;padding:18px}
+.partner-card-copy{min-width:0}.partner-card-copy strong{display:block;color:#163f70;font-size:18px}.partner-card-copy p{margin:6px 0 0;color:#64748b;line-height:1.55;font-size:14px}
+.partner-open-button{flex:none;border:0;border-radius:10px;padding:12px 16px;background:#2166a8;color:#fff;font-weight:800;cursor:pointer}
+.partner-profile-copy{color:#40566f;line-height:1.75}.partner-profile-copy p{margin:0 0 14px}
+.partner-profile-meta{display:grid;gap:7px;margin:16px 0;padding:14px;background:#f3f7fc;border-radius:12px;color:#40566f;font-size:14px}
+.partner-profile-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:20px}
+.partner-profile-actions button{border:0;border-radius:11px;padding:14px 12px;font-weight:850;cursor:pointer}
+.partner-volunteer-button{background:#2166a8;color:#fff}.partner-donate-button{background:#d71920;color:#fff}
+.partner-donation-note{font-size:12px;color:#7b5b20;background:#fff8e8;border:1px solid #f1dfb8;border-radius:10px;padding:11px;line-height:1.5}
+@media(max-width:760px){.partner-section{padding:18px 15px}.partner-card{align-items:flex-start;flex-direction:column}.partner-open-button{width:100%}.partner-profile-actions{grid-template-columns:1fr}}
+.campaign-sheet #sheetBody{overflow:auto;min-height:0;padding-bottom:8px}
 </style>
 </head><body class="content-page-body campaign-page">
 <header class="site-header"><a class="site-brand" href="/index.html" aria-label="Одговорна Плана — почетна"><span class="brand-heart">♡</span><span>Одговорна<br>Плана</span></a><nav class="site-nav" aria-label="Главна навигација"><a href="/index.html">Почетна</a><a href="/kampanje.html">Кампање</a><a href="/akcije.html">Акције</a><a href="/podrska.html">Подршка</a></nav><button class="menu-trigger" id="openMenu" type="button" aria-label="Отвори мени">☰</button></header><div class="menu-backdrop" id="menuBackdrop" hidden></div><aside class="side-menu" id="sideMenu" aria-hidden="true"><div class="side-menu-head"><span>♡ Одговорна Плана</span><button class="side-menu-close" id="closeMenu" type="button" aria-label="Затвори мени">×</button></div><nav aria-label="Мени"><a href="/o-nama.html">О нама</a><a href="/kako-funkcionise.html">Како функционише платформа</a><a href="/kontakt.html">Контакт</a></nav></aside><main class="content-main"><div class="content-wrap"><div id="campaignDetail"><div class="content-empty">Учитавање кампање…</div></div></div></main>
@@ -129,6 +144,17 @@ body.campaign-page .content-back{display:none}
   if(goalsRes.error)throw goalsRes.error;
   if(activitiesRes.error)throw activitiesRes.error;
   const sections=sectionsRes.data||[],goals=goalsRes.data||[],activities=activitiesRes.data||[];
+  debugStage='Учитавање партнера кампање';
+  const partnerLinksRes=await db.from('campaign_partners').select('partner_id,relationship_type,description,display_order').eq('campaign_id',c.id).order('display_order');
+  if(partnerLinksRes.error)throw partnerLinksRes.error;
+  const partnerIds=(partnerLinksRes.data||[]).map(link=>link.partner_id).filter(Boolean);
+  let partners=[];
+  if(partnerIds.length){
+   const partnersRes=await db.from('partners').select('*').in('id',partnerIds).eq('is_active',true).eq('is_published',true);
+   if(partnersRes.error)throw partnersRes.error;
+   const byId=new Map((partnersRes.data||[]).map(partner=>[partner.id,partner]));
+   partners=(partnerLinksRes.data||[]).map(link=>({ ...byId.get(link.partner_id),campaign_relationship:link })).filter(partner=>partner.id);
+  }
   const addSection=(heading,value,cls='')=>{if(value)html+='<section class="campaign-section '+cls+'"><h2>'+esc(heading)+'</h2><p>'+esc(value)+'</p></section>';};
   html+='<section class="campaign-section campaign-content-intro"><h2>О кампањи</h2><p>'+esc(c.problem_text||c.description||'')+'</p></section>';
   if(goals.length){
@@ -139,6 +165,9 @@ body.campaign-page .content-back{display:none}
   }
   if(activities.length){
    html+='<section class="campaign-section campaign-activities"><h2>Шта је до сада урађено</h2><div class="campaign-activity-list">'+activities.map(a=>'<article class="campaign-activity-item"><span class="campaign-activity-status">'+(a.status==='completed'?'Завршено':a.status==='in_progress'?'У току':'Објављено')+'</span><div><h3>'+esc(a.title)+'</h3>'+(a.description?'<p>'+esc(a.description)+'</p>':'')+'</div></article>').join('')+'</div></section>';
+  }
+  if(partners.length){
+   html+='<section class="partner-section"><div class="partner-section-head"><span>ПАРТНЕРИ И САРАДНИЦИ</span><h2>Са ким радимо</h2><p>Промене се граде заједно са људима и организацијама које свакодневно раде на решавању проблема.</p></div><div class="partner-cards">'+partners.map(partner=>'<article class="partner-card"><div class="partner-card-copy"><strong>'+esc(partner.name)+'</strong><p>'+esc(partner.short_description||partner.campaign_relationship.description||'Партнер кампање „'+c.title+'“.')+'</p></div><button type="button" class="partner-open-button" data-open-partner="'+esc(partner.id)+'">Упознај удружење →</button></article>').join('')+'</div></section>';
   }
   html+='<section class="campaign-section campaign-start-action"><h2>Имаш идеју за конкретну акцију?</h2><p>Предложи шта можемо да урадимо у оквиру ове кампање. Твој предлог ће бити повезан са кампањом „'+esc(c.title)+'“.</p><p style="margin-top:16px"><button type="button" class="campaign-cta" id="openCampaignProposal">＋ Додај акцију</button></p></section>';
   html+='<section class="campaign-section"><h2>Кампања се гради заједно</h2><p>Имаш предлог, знање или време? Постани део заједничког рада.</p><p style="margin-top:12px"><a href="/kampanje.html">Погледај све кампање →</a></p></section>';
@@ -154,6 +183,47 @@ body.campaign-page .content-back{display:none}
   window.closeCampaignSheet=closeSheet;
   const commonFields='<label>Име и презиме *<input name="name" required minlength="2" maxlength="120"></label><label>Телефон или Viber *<input name="phone" required type="tel" minlength="6" maxlength="40"></label><label>Место<input name="place" maxlength="160"></label>';
   const formShell=fields=>'<form class="support-form" id="campaignSupportForm">'+commonFields+fields+'<label><span><input type="checkbox" name="consent" required style="width:auto"> Сагласан/сагласна сам да се моји подаци користе ради контакта у вези са овом пријавом.</span></label><p class="support-submit-message" role="status" aria-live="polite"></p><button type="submit">Пошаљи пријаву</button></form>';
+  async function openPartnerProfile(partner){
+   const paragraphs=String(partner.description||'').split(/\n\s*\n/).filter(Boolean).map(part=>'<p>'+esc(part).replace(/\n/g,'<br>')+'</p>').join('');
+   const meta=[partner.address,partner.phone?'Телефон: '+partner.phone:'',partner.email?'Имејл: '+partner.email:'',partner.pib?'ПИБ: '+partner.pib:''].filter(Boolean);
+   const profile='<div class="partner-profile-copy">'+paragraphs+'</div>'+(meta.length?'<div class="partner-profile-meta">'+meta.map(x=>'<div>'+esc(x)+'</div>').join('')+'</div>':'')+'<div class="partner-profile-actions"><button type="button" class="partner-volunteer-button" id="partnerVolunteer">🤝 Постани волонтер</button><button type="button" class="partner-donate-button" id="partnerDonate">❤ Подржи донацијом</button></div>';
+   openSheet(partner.name,'Партнер кампање „'+c.title+'“',profile);
+   document.getElementById('partnerVolunteer')?.addEventListener('click',()=>openPartnerVolunteerForm(partner));
+   document.getElementById('partnerDonate')?.addEventListener('click',()=>openPartnerDonation(partner));
+  }
+  function openPartnerVolunteerForm(partner){
+   const fields='<label>Како желиш да помогнеш? *<select name="volunteer_interest" required><option value="">Изабери</option><option>Свакодневна брига о псима</option><option>Шетња и социјализација паса</option><option>Превоз животиња</option><option>Помоћ око удомљавања</option><option>Друго</option></select></label><label>Када и колико често можеш да помогнеш?<textarea name="availability" maxlength="1200"></textarea></label><label>Искуство или додатна напомена<textarea name="experience" maxlength="1500"></textarea></label>';
+   openSheet('Постани волонтер','Пријава за волонтирање у удружењу „'+partner.name+'“.',formShell(fields));
+   const form=document.getElementById('campaignSupportForm');
+   form.addEventListener('submit',async e=>{
+    e.preventDefault();if(!form.reportValidity())return;
+    const fd=new FormData(form),btn=form.querySelector('button[type="submit"]'),msg=form.querySelector('.support-submit-message');
+    const name=String(fd.get('name')||'').trim(),phone=String(fd.get('phone')||'').trim(),place=String(fd.get('place')||'').trim();
+    btn.disabled=true;btn.textContent='Шаљем пријаву…';
+    const interest=String(fd.get('volunteer_interest')||''),availability=String(fd.get('availability')||''),experience=String(fd.get('experience')||'');
+    const description='Пријава за волонтирање у удружењу „'+partner.name+'“.\nОбласт: '+interest+'\nДоступност: '+availability+'\nИскуство: '+experience;
+    const result=await db.from('civic_submissions').insert({submission_type:'help',title:'Волонтирање — '+partner.name,description,full_name:name,phone,viber_phone:phone,location:place||null,support_type:'Волонтирање за удружење '+partner.name,social_links:{source:'partner_profile',partner_id:partner.id,partner_name:partner.name,campaign_id:c.id,campaign_title:c.title,volunteer_interest:interest},status:'new'});
+    if(result.error){console.error(result.error);msg.textContent='Пријава није послата. Покушај поново.';msg.style.color='#b42318';btn.disabled=false;btn.textContent='Пошаљи пријаву';return;}
+    form.innerHTML='<p role="status" style="color:#16834b;font-weight:750">Пријава је успешно сачувана. Хвала ти што желиш да помогнеш Мрвици.</p><button type="button" id="supportDone">Затвори</button>';document.getElementById('supportDone').onclick=closeSheet;
+   });
+  }
+  async function openPartnerDonation(partner){
+   openSheet('Подржи Мрвицу донацијом','Донација је намењена директно удружењу.', '<p>Учитавање података за донацију…</p>');
+   try{
+    const optionRes=await db.from('support_options').select('id').eq('slug','legacy-money-a874affc').eq('is_active',true).maybeSingle();
+    if(optionRes.error)throw optionRes.error;
+    if(!optionRes.data)throw new Error('Подешавање донација није пронађено.');
+    const settingsRes=await db.from('donation_settings').select('*').eq('support_option_id',optionRes.data.id).eq('is_active',true).maybeSingle();
+    if(settingsRes.error)throw settingsRes.error;
+    const row=settingsRes.data;
+    if(!row)throw new Error('Подаци за донацију још нису унети.');
+    const paymentSettings={recipient_name:row.recipient_name,bank_name:row.bank_name,bank_account:row.dinarski_racun,payment_purpose:'Донација за рад удружења „Мрвица“',payment_code:null,reference_number:row.reference_number,currency:row.currency||'RSD',paypal_email:row.paypal_email,paypal_url:row.paypal_link,show_paypal:row.show_paypal!==false,payment_instructions:'Донација се уплаћује директно Удружењу за заштиту животиња „Мрвица“.',contact_name:partner.contact_person||partner.name,contact_phone:partner.phone,contact_email:partner.email};
+    const donationItem={type:'money',title:'Новчана донација',description:'Средства се уплаћују директно удружењу „Мрвица“.'};
+    const panel=window.DonationTypes?window.DonationTypes.renderPanel(paymentSettings,[donationItem]):'<p>Форма за донације тренутно није доступна.</p>';
+    openSheet('Подржи Мрвицу донацијом','Средства се уплаћују директно удружењу.',panel+'<p class="partner-donation-note">Пре уплате проверите податке о примаоцу. Шифра плаћања и IPS QR нису приказани док не потврдимо све податке за уплату.</p>');
+   }catch(error){console.error(error);openSheet('Донације за Мрвицу','Подршка удружењу', '<p class="partner-donation-note">Подаци за донацију тренутно нису доступни. Молимо да се јавите удружењу директно док не потврдимо податке за уплату.</p>');}
+  }
+  partners.forEach(partner=>document.querySelector('[data-open-partner="'+partner.id+'"]')?.addEventListener('click',()=>openPartnerProfile(partner)));
   const fieldName=v=>String(v||'field').replace(/[^a-zA-Z0-9_-]/g,'_');
   const renderField=f=>{
    const key=fieldName(f.field_key),label=esc(f.label||f.field_key||'Додатне информације'),req=f.is_required?' required':'',mark=f.is_required?' *':'',ph=esc(f.placeholder||''),type=f.field_type||'text';
