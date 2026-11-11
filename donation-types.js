@@ -97,7 +97,7 @@
           const description = method.description ? '<p>' + esc(method.description) + '</p>' : '';
           let content = '<div class="donation-payment-card">' + description;
           if (method.type === "sms") {
-            const number = String(config.number || config.target || "").replace(/[^+\\d]/g, "");
+            const number = String(config.number || config.target || "").replace(/[^+\d]/g, "");
             const message = String(config.message || "1");
             const price = config.price ? ' (' + esc(config.price) + ')' : '';
             const smsHref = number ? 'sms:' + encodeURIComponent(number) + '?body=' + encodeURIComponent(message) : '';
@@ -106,7 +106,7 @@
               : '<p>SMS број још није унет.</p>';
           } else {
             const url = String(config.url || config.target || "");
-            const safeUrl = /^https?:\\/\\//i.test(url) ? url : "";
+            const safeUrl = /^https?:\/\//i.test(url) ? url : "";
             content += safeUrl
               ? '<a class="donation-paypal-button" href="' + esc(safeUrl) + '" target="_blank" rel="noopener noreferrer">' + title + '</a>'
               : '<p>Линк за овај начин донирања још није унет.</p>';
