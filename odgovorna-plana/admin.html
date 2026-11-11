@@ -28,6 +28,7 @@ document.getElementById('authForm').addEventListener('submit',function(){const m
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" onerror="const m=document.getElementById('message');m.textContent='ГРЕШКА: Није учитана библиотека за пријаву (Supabase). Проверите интернет везу или блокирање CDN адресе.';m.style.display='block';m.style.padding='10px';m.style.background='#713044';m.style.border='1px solid #b85c70';m.style.borderRadius='9px';"></script><script>
 const db=window.supabase.createClient('https://hmfeizkmpmxcnzhwxgbn.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhtZmVpemttcG14Y256aHd4Z2JuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMzMjkyNzgsImV4cCI6MjEwODkwNTI3OH0.oTZopOJEGUnxK69BOYPP11CQoGrLqUJowqpPU2uiY-4');
 const $=id=>document.getElementById(id);let records=[],campaigns=[],actions=[],supportApps=[],peopleApps=[],registeredPeople=[],view='home',requestKind='all',peopleFilter='all';
+const deepLinkParams=new URLSearchParams(location.search);let deepLinkHandled=false;
 const participationTypes=['membership','help','adoption'];const requestTypes=['action','campaign','problem'];
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const date=v=>v?new Date(v).toLocaleString('sr-RS'):'Датум није наведен';
@@ -36,7 +37,7 @@ const statusName=s=>({new:'Нова',reviewing:'На разматрању',accep
 function statusClass(s){return ['accepted','published'].includes(s)?'accepted':s==='rejected'?'rejected':s==='new'||!s?'new':''}
 function isPart(x){return participationTypes.includes(x.submission_type)}
 function isRequest(x){return requestTypes.includes(x.submission_type)}
-function showView(name){const target=$('view-'+name);if(!target)return;view=name;document.querySelectorAll('.view').forEach(v=>v.classList.add('hidden'));target.classList.remove('hidden');document.querySelectorAll('[data-view]').forEach(b=>{const active=b.dataset.view===name;b.classList.toggle('active',active);if(active)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});history.replaceState(null,'','#'+name);renderAll()}
+function showView(name){const target=$('view-'+name);if(!target)return;view=name;document.querySelectorAll('.view').forEach(v=>v.classList.add('hidden'));target.classList.remove('hidden');document.querySelectorAll('[data-view]').forEach(b=>{const active=b.dataset.view===name;b.classList.toggle('active',active);if(active)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});history.replaceState(null,'',location.pathname+location.search+'#'+name);renderAll()}
 $('nav').addEventListener('click',e=>{const b=e.target.closest('[data-view]');if(b)showView(b.dataset.view)});
 document.querySelectorAll('[data-goto]').forEach(b=>b.addEventListener('click',()=>showView(b.dataset.goto)));
 $('view-home').addEventListener('click',e=>{const el=e.target.closest('[data-stat]');if(!el)return;const kind=el.dataset.stat;if(kind==='all'){showView('all');$('filterAll').value='all'}else if(kind==='new'){showView('all');$('filterAll').value='new'}else if(kind==='accepted'){showView('all');$('filterAll').value='accepted'}else if(kind==='citizens'){showView('participation');$('filterParticipation').value='accepted'}renderAll()});
@@ -81,7 +82,7 @@ async function load(){for(const id of ['latest','requestsList','participationLis
  if(civ.error){$('listMessage').textContent='Пријаве нису учитане. Проверите приступ и дозволе у бази.';return}
  records=civ.data||[];campaigns=cam.error?[]:cam.data||[];actions=act.error?[]:act.data||[];supportApps=sup.error?[]:sup.data||[];peopleApps=pa.error?[]:pa.data||[];registeredPeople=rp.error?[]:rp.data||[];
  const failures=[cam,act,sup,pa,rp].filter(x=>x.error);$('listMessage').textContent=failures.length?'Део додатних евиденција није доступан због дозвола базе. Основне пријаве су учитане.':'';
- renderAll()}
+ renderAll();await openDeepLink()}
 function openCampaign(id){
  const x=campaigns.find(v=>v.id===id);if(!x)return;const apps=supportApps.filter(a=>a.campaign_id===id);const linked=actions.filter(a=>a.campaign_id===id);
  $('sheetTitle').textContent='Управљање кампањом';
@@ -136,6 +137,54 @@ function openAction(id){
   Object.assign(x,patch);renderAll();openAction(id);$('listMessage').textContent='Акција је ажурирана.';
  };
 }
+
+function openActionProposal(x){
+ const social=x.proposer_social&&typeof x.proposer_social==='object'?x.proposer_social:{};
+ const linkedCampaign=campaigns.find(c=>String(c.id)===String(x.campaign_id));
+ $('sheetTitle').textContent='Предлог нове акције';
+ $('sheetBody').innerHTML='<div class="muted">ПРЕДЛОГ НОВЕ АКЦИЈЕ · '+esc(date(x.created_at))+'</div><h3>'+esc(x.title||'Предлог без назива')+'</h3>'+
+ '<div class="description">'+esc(x.description||'Нема описа.')+'</div><div class="record"><strong>Подносилац:</strong> '+esc(x.proposer_name||'Није наведено')+
+ '<br><strong>Телефон:</strong> '+esc(x.proposer_phone||x.proposer_viber||'—')+'<br><strong>Е-пошта:</strong> '+esc(x.proposer_email||'—')+
+ '<br><strong>Место:</strong> '+esc(x.location||'—')+'<br><strong>Циљ:</strong> '+esc(x.goal||'—')+
+ '<br><strong>Предложени датум:</strong> '+esc(x.date_known?(x.action_date||'Није наведен'):'Датум није познат')+
+ '<br><strong>Време:</strong> '+esc(x.action_time||'—')+'<br><strong>Кампања:</strong> '+esc(linkedCampaign?.title||'Није повезана')+'</div>'+
+ (social.needs?'<label>Потребе за реализацију</label><div class="description">'+esc(social.needs)+'</div>':'')+
+ '<label>Статус предлога</label><select id="proposalStatus" class="select" style="width:100%"><option value="pending">На чекању</option><option value="published">Прихваћен / објављен</option><option value="rejected">Одбијен</option></select>'+
+ '<div class="sheet-actions"><button class="primary" id="saveProposalStatus">Сачувај статус</button>'+
+ (x.proposer_phone?'<a class="secondary" style="padding:10px 13px;border-radius:9px;color:white;text-decoration:none" href="tel:'+encodeURIComponent(x.proposer_phone)+'">Позови</a>':'')+'</div>'+
+ '<p class="muted">Промена статуса не прави аутоматски нову акцију. Предлог остаје сачуван као посебан запис.</p>';
+ $('proposalStatus').value=x.status||'pending';$('backdrop').classList.remove('hidden');$('sheet').classList.add('open');
+ $('saveProposalStatus').onclick=async()=>{const status=$('proposalStatus').value;const {data,error}=await db.from('action_proposals').update({status}).eq('id',x.id).select('id,status').maybeSingle();if(error||!data){$('listMessage').textContent='Статус предлога није сачуван.'+(error?' '+error.message:'');return}x.status=status;closeSheet();$('listMessage').textContent='Статус предлога је успешно сачуван.'};
+}
+async function openOrder(x){
+ const {data:items,error:itemsError}=await db.from('order_items').select('product_name,quantity,unit_price,line_total').eq('order_id',x.id).order('created_at',{ascending:true});
+ if(itemsError){$('listMessage').textContent='Ставке наруџбине нису учитане: '+itemsError.message;return}
+ const currency=esc(x.currency||'RSD');
+ const itemHtml=(items||[]).length?items.map(i=>'<div class="record"><strong>'+esc(i.product_name||'Производ')+'</strong><div class="muted">'+esc(i.quantity)+' × '+esc(Number(i.unit_price||0).toLocaleString('sr-RS'))+' '+currency+' · Укупно: '+esc(Number(i.line_total||0).toLocaleString('sr-RS'))+' '+currency+'</div></div>').join(''):'<div class="empty">Нема ставки у овој наруџбини.</div>';
+ $('sheetTitle').textContent='Куповина · наруџбина #'+esc(x.order_number||'');
+ $('sheetBody').innerHTML='<div class="muted">КУПОВИНА · '+esc(date(x.created_at))+'</div><h3>'+esc(x.customer_name||'Купац није наведен')+'</h3>'+
+ '<div class="record"><strong>Контакт</strong><br>Телефон: '+esc(x.phone||'—')+'<br>Е-пошта: '+esc(x.email||'—')+
+ '<br><br><strong>Достава</strong><br>'+esc(x.delivery_address||'—')+', '+esc(x.city||'')+' '+esc(x.postal_code||'')+
+ '<br><br><strong>Напомена купца</strong><br>'+esc(x.customer_note||'Нема напомене.')+'</div><h3>Ставке наруџбине</h3>'+itemHtml+
+ '<div class="record"><strong>Међузбир:</strong> '+esc(Number(x.subtotal||0).toLocaleString('sr-RS'))+' '+currency+
+ '<br><strong>Достава:</strong> '+esc(Number(x.delivery_fee||0).toLocaleString('sr-RS'))+' '+currency+
+ '<br><strong>Укупно:</strong> '+esc(Number(x.total||0).toLocaleString('sr-RS'))+' '+currency+'</div>'+
+ '<label>Статус наруџбине</label><select id="orderStatus" class="select" style="width:100%"><option value="new">Нова</option><option value="confirmed">Потврђена</option><option value="processing">У обради</option><option value="shipped">Послата</option><option value="completed">Завршена</option><option value="cancelled">Отказана</option></select>'+
+ '<label>Статус плаћања</label><select id="orderPaymentStatus" class="select" style="width:100%"><option value="unpaid">Није плаћено</option><option value="pending">На чекању</option><option value="paid">Плаћено</option><option value="refunded">Рефундирано</option></select>'+
+ '<div class="sheet-actions"><button class="primary" id="saveOrder">Сачувај статус наруџбине</button>'+
+ (x.phone?'<a class="secondary" style="padding:10px 13px;border-radius:9px;color:white;text-decoration:none" href="tel:'+encodeURIComponent(x.phone)+'">Позови купца</a>':'')+'</div>';
+ $('orderStatus').value=x.status||'new';$('orderPaymentStatus').value=x.payment_status||'unpaid';$('backdrop').classList.remove('hidden');$('sheet').classList.add('open');
+ $('saveOrder').onclick=async()=>{const patch={status:$('orderStatus').value,payment_status:$('orderPaymentStatus').value,updated_at:new Date().toISOString()};const {data,error}=await db.from('orders').update(patch).eq('id',x.id).select('id,status,payment_status').maybeSingle();if(error||!data){$('listMessage').textContent='Статус наруџбине није сачуван.'+(error?' '+error.message:'');return}Object.assign(x,patch);closeSheet();$('listMessage').textContent='Статус наруџбине је успешно сачуван.'};
+}
+async function openDeepLink(){
+ if(deepLinkHandled)return;const table=deepLinkParams.get('table'),id=deepLinkParams.get('id');if(!table&&!id)return;
+ if(!['civic_submissions','action_proposals','orders'].includes(table)||!id){deepLinkHandled=true;$('listMessage').textContent='Линк ка пријави није исправан.';return}
+ deepLinkHandled=true;$('listMessage').textContent='Отварам изабрану пријаву…';
+ const {data,error}=await db.from(table).select('*').eq('id',id).maybeSingle();
+ if(error||!data){$('listMessage').textContent='Пријава није пронађена или немаш овлашћење за њен преглед.';return}
+ if(table==='civic_submissions')openSheet(data);else if(table==='action_proposals')openActionProposal(data);else await openOrder(data);
+}
+
 function openSheet(x){$('sheetTitle').textContent=x.title||typeName(x.submission_type);const phone=x.phone||x.viber_phone||'';$('sheetBody').innerHTML='<div class="muted">'+esc(typeName(x.submission_type))+' · '+esc(date(x.created_at))+'</div><h3>'+esc(x.full_name||'Име није наведено')+'</h3><div class="muted">Телефон: '+esc(phone||'—')+' · Имејл: '+esc(x.email||'—')+' · Локација: '+esc(x.location||'—')+'</div><div class="description">'+esc(x.description||'Нема описа.')+'</div><label for="newStatus">Статус пријаве</label><select id="newStatus" class="select" style="width:100%"><option value="new">Нова</option><option value="reviewing">На разматрању</option><option value="accepted">Прихваћена</option><option value="rejected">Одбијена</option><option value="completed">Завршена</option><option value="published">Објављено</option></select><div class="sheet-actions"><button class="primary" id="saveStatus">Сачувај статус</button>'+(phone?'<a class="secondary" style="padding:10px 13px;border-radius:9px;color:white;text-decoration:none" href="tel:'+encodeURIComponent(phone)+'">Позови</a>':'')+(x.email?'<a class="secondary" style="padding:10px 13px;border-radius:9px;color:white;text-decoration:none" href="mailto:'+encodeURIComponent(x.email)+'">Пошаљи имејл</a>':'')+'</div><label for="internalNote">Интерна напомена администратора</label><textarea id="internalNote" rows="4" placeholder="Напомена видљива само у овом прегледачу..."></textarea><div class="sheet-actions"><button class="secondary" id="saveNote">Сачувај напомену</button></div><p class="muted">Напомене се чувају локално у овом прегледачу. Оригинална пријава остаје сачувана. Прихватање предлога само по себи не креира кампању или акцију.</p>';
  $('newStatus').value=x.status||'new';$('internalNote').value=localStorage.getItem('ovp-note-'+x.id)||'';$('saveNote').onclick=()=>{localStorage.setItem('ovp-note-'+x.id,$('internalNote').value);$('listMessage').textContent='Интерна напомена је сачувана у овом прегледачу.'};$('backdrop').classList.remove('hidden');$('sheet').classList.add('open');$('saveStatus').onclick=()=>saveStatus(x.id,$('newStatus').value)}
 async function saveStatus(id,status){const {error}=await db.from('civic_submissions').update({status}).eq('id',id);if(error){$('listMessage').textContent='Статус није сачуван. Покушај поново.';return}const r=records.find(x=>String(x.id)===String(id));if(r)r.status=status;$('backdrop').classList.add('hidden');$('sheet').classList.remove('open');renderAll();$('listMessage').textContent='Статус је успешно сачуван.'}
