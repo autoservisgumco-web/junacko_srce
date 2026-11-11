@@ -59,7 +59,7 @@
 
   function renderPayment(settings) {
     const s = settings || {};
-    const configuredMethods = Array.isArray(s.payment_methods)
+    const configuredMethods = Array.isArray(s.payment_methods) && s.payment_methods.length
       ? s.payment_methods.filter(method => method && method.is_active !== false)
       : null;
     if (configuredMethods) {
