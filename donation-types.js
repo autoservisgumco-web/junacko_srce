@@ -215,24 +215,24 @@
     }
     const tab = event.target.closest("[data-donation-tab]");
     if (tab) {
-      const root = tab.closest("[data-donation-tabs]");
-      if (root) {
+      // Tabovi i paneli su deca checkout-a, ali paneli nisu deca samog tab-list elementa.
+      const checkout = tab.closest("[data-donation-checkout]");
+      if (checkout) {
         const selected = tab.dataset.donationTab;
-        root.querySelectorAll("[data-donation-tab]").forEach(button => {
+        checkout.querySelectorAll("[data-donation-tab]").forEach(button => {
           const active = button === tab;
           button.classList.toggle("is-active", active);
           button.setAttribute("aria-selected", active ? "true" : "false");
         });
-        root.querySelectorAll("[data-donation-panel]").forEach(panel => {
+        checkout.querySelectorAll("[data-donation-panel]").forEach(panel => {
           const active = panel.dataset.donationPanel === selected;
           panel.classList.toggle("is-active", active);
           panel.hidden = !active;
         });
         if (selected === "ips") {
-          const checkout = root.closest("[data-donation-checkout]");
-          const amountInput = checkout && checkout.querySelector("[data-donation-amount-input]");
+          const amountInput = checkout.querySelector("[data-donation-amount-input]");
           const amount = Number(amountInput && amountInput.value);
-          if (checkout && Number.isInteger(amount) && amount > 0) renderIpsQr(checkout, amount);
+          if (Number.isInteger(amount) && amount > 0) renderIpsQr(checkout, amount);
         }
       }
       return;
