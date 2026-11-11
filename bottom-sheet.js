@@ -277,13 +277,34 @@ async function uploadActionProposalFiles(files,submissionId){
  }
  return paths;
 }
+async function loadSupportActionOptions(){
+ const select=document.getElementById('supportAction');if(!select)return;
+ try{
+  const {data,error}=await civicDb.from('actions').select('id,title').eq('is_published',true).in('status',['planned','in_progress']).order('action_date',{ascending:true,nullsFirst:false});
+  if(error)throw error;
+  select.replaceChildren(new Option('Изабери акцију',''));
+  (data||[]).forEach(action=>select.add(new Option(action.title,action.id)));
+  if(!data?.length)select.replaceChildren(new Option('Тренутно нема активних објављених акција',''));
+ }catch(error){
+  console.error('Грешка при учитавању акција за подршку:',error);
+  select.replaceChildren(new Option('Акције тренутно нису доступне',''));
+ }
+}
+loadSupportActionOptions();
 document.getElementById('supportForm')?.addEventListener('submit',async event=>{
- event.preventDefault();const form=event.currentTarget;if(!form.reportValidity())return;const btn=form.querySelector('button[type="submit"]');btn.disabled=true;btn.textContent='Слање...';
- const selected=document.getElementById('supportAction');const actionTitle=selected.options[selected.selectedIndex].text;
- const payload={submission_type:'help',title:'Подршка акцији: '+actionTitle,description:document.getElementById('supportDescription').value.trim(),full_name:document.getElementById('supportName').value.trim(),phone:document.getElementById('supportPhone').value.trim(),viber_phone:document.getElementById('supportPhone').value.trim(),support_type:'Подршка акцији',social_links:{action_slug:selected.value},status:'new'};
- const {error}=await civicDb.from('civic_submissions').insert(payload);btn.disabled=false;btn.textContent='Пошаљи подршку';
- if(error){showSubmitMessage('supportMessage','Подршка није послата. Проверите податке и покушајте поново.',true);return;}
- form.reset();showSubmitMessage('supportMessage','success',false);
+ event.preventDefault();const form=event.currentTarget;if(!form.reportValidity())return;
+ const btn=form.querySelector('button[type="submit"]'),selected=document.getElementById('supportAction');
+ const actionId=selected.value,actionTitle=selected.options[selected.selectedIndex]?.text||'изабрану акцију';
+ if(!actionId){showSubmitMessage('supportMessage','Изабери објављену акцију коју желиш да подржиш.',true);return;}
+ btn.disabled=true;btn.textContent='Слање...';
+ const payload={submission_type:'help',title:'Подршка акцији: '+actionTitle,description:document.getElementById('supportDescription').value.trim(),full_name:document.getElementById('supportName').value.trim(),phone:document.getElementById('supportPhone').value.trim(),viber_phone:document.getElementById('supportPhone').value.trim(),support_type:'Подршка акцији',social_links:{action_id:actionId,action_title:actionTitle},status:'new'};
+ try{
+  const {error}=await civicDb.from('civic_submissions').insert(payload);if(error)throw error;
+  form.reset();showSubmitMessage('supportMessage','success',false);
+ }catch(error){
+  console.error('Грешка при слању подршке за акцију:',error);
+  showSubmitMessage('supportMessage','Подршка није послата. Проверите интернет везу и покушајте поново.',true);
+ }finally{btn.disabled=false;btn.textContent='Пошаљи подршку';}
 });
 document.getElementById('campaignProposalForm')?.addEventListener('submit',async event=>{
  event.preventDefault();const form=event.currentTarget;const btn=form.querySelector('button[type="submit"]');if(!form.reportValidity())return;
