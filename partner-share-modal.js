@@ -22,26 +22,28 @@
     const name = document.querySelector('.partner-hero h1')?.textContent?.trim() || 'удружења';
     const summary = document.querySelector('.partner-hero-inner > p')?.textContent?.trim() || '';
     const description = document.querySelector('.partner-description')?.innerText?.trim() || summary;
-    const needs = document.querySelector('.partner-needs, [data-partner-needs]')?.innerText?.trim()
-      || 'Потребни су људи који могу да помогну својим временом, знањем и искуством, као и материјална и финансијска подршка за активности удружења.';
+    const supportMessage = document.querySelector('.partner-support-message, [data-partner-support-message]')?.innerText?.trim()
+      || document.querySelector('.partner-needs, [data-partner-needs]')?.innerText?.trim()
+      || '';
+    const helpMethods = document.querySelector('.partner-help-methods, [data-partner-help-methods]')?.innerText?.trim()
+      || 'Волонтирањем и укључивањем у активности удружења; донацијама и материјалном помоћи; дељењем објаве и ширењем информација о њиховом раду.';
+
     const contactLinks = Array.from(document.querySelectorAll('.partner-meta a'));
     const phone = contactLinks.find(a => a.href.startsWith('tel:'))?.textContent?.trim();
     const email = contactLinks.find(a => a.href.startsWith('mailto:'))?.textContent?.trim();
     const url = location.href.split('#')[0];
-    const title = 'Подржимо рад удружења ' + name + ' | Одговорна Плана';
+    const title = 'ПОМОЗИМО ' + name.toLocaleUpperCase('sr-RS') + ' | Одговорна Плана';
 
     const paragraphs = [
-      '❤️ УПОЗНАЈТЕ И ПОДРЖИТЕ УДРУЖЕЊЕ ' + name.toLocaleUpperCase('sr-RS') + '!',
+      '❤️ ПОМОЗИМО ' + name.toLocaleUpperCase('sr-RS') + '!',
+      'О њиховом раду',
       description || summary || (name + ' својим радом доприноси заједници.'),
-      '🤝 ШТА ЈЕ ПОТРЕБНО?',
-      needs,
-      'Свако може да помогне у складу са својим могућностима — укључивањем у активности, волонтирањем, уступањем знања и ресурса, материјалном или финансијском подршком.',
-      '📩 КАКО ДА ПОМОГНЕТЕ?',
-      'Погледајте страницу удружења, сазнајте више о његовом раду и јавите се директно путем наведених контаката или преко пријаве за волонтирање и опција за донацију на страници.',
-      phone ? 'Телефон: ' + phone : '',
-      email ? 'Имејл: ' + email : '',
-      'Поделите ову објаву — и ширење информација је вид подршке!',
-      url
+      supportMessage ? 'ЊИХОВ ПОЗИВ ЗА ПОМОЋ\n' + supportMessage : '',
+      'КАКО МОЖЕТЕ ДА ПОМОГНЕТЕ?',
+      helpMethods,
+      phone ? 'Контакт телефон: ' + phone : '',
+      email ? 'Контакт имејл: ' + email : '',
+      'Страница партнера: ' + url
     ].filter(Boolean);
 
     const message = paragraphs.slice(0, -1).join('\n\n');
