@@ -136,7 +136,7 @@ body.campaign-page .content-wrap{max-width:none;padding:0}
  .campaign-cover{height:300px;min-height:270px;border-radius:0 0 16px 16px;background-position:center 42%}
  .campaign-hero-copy{padding:28px 20px 23px}
  .campaign-hero-copy h1{font-size:36px;line-height:1.08;letter-spacing:-.8px;margin:8px 0 9px}
- .campaign-hero-copy p{font-size:14px;line-height:1.5;max-width:100%;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+ .campaign-hero-copy p{font-size:14px;line-height:1.5;max-width:100%;display:block;overflow:visible}
  .campaign-status{top:12px;right:14px;padding:7px 11px;font-size:11px}
  .campaign-content-intro,.campaign-goals,.campaign-story,.campaign-activities,.partner-section,.campaign-start-action{width:calc(100% - 24px);margin:14px auto 0!important;border-radius:15px!important}
  .campaign-content-intro,.campaign-goals,.campaign-story,.campaign-activities,.partner-section,.campaign-start-action{padding:19px 16px!important}
@@ -179,7 +179,7 @@ body.campaign-page .content-wrap{max-width:none;padding:0}
  window.addEventListener('error',event=>showDebug('JavaScript грешка',event.error||event.message));
  window.addEventListener('unhandledrejection',event=>showDebug('Необрађена Promise грешка',event.reason));
  const esc=s=>String(s??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
- const toCyrillic=value=>String(value??'').replace(/љ|Љ|њ|Њ|џ|Џ|ђ|Ђ|ж|Ж|ч|Ч|ћ|Ћ|ш|Ш|а|А|б|Б|в|В|г|Г|д|Д|е|Е|з|З|и|И|ј|Ј|к|К|л|Л|м|М|н|Н|о|О|п|П|р|Р|с|С|т|Т|у|У|ф|Ф|х|Х|ц|Ц/gu,ch=>({'љ':'љ','Љ':'Љ','њ':'њ','Њ':'Њ','џ':'џ','Џ':'Џ','ђ':'ђ','Ђ':'Ђ','ж':'ж','Ж':'Ж','ч':'ч','Ч':'Ч','ћ':'ћ','Ћ':'Ћ','ш':'ш','Ш':'Ш','а':'а','А':'А','б':'б','Б':'Б','в':'в','В':'В','г':'г','Г':'Г','д':'д','Д':'Д','е':'е','Е':'Е','з':'з','З':'З','и':'и','И':'И','ј':'ј','Ј':'Ј','к':'к','К':'К','л':'л','Л':'Л','м':'м','М':'М','н':'н','Н':'Н','о':'о','О':'О','п':'п','П':'П','р':'р','Р':'Р','с':'с','С':'С','т':'т','Т':'Т','у':'у','У':'У','ф':'ф','Ф':'Ф','х':'х','Х':'Х','ц':'ц','Ц':'Ц'}[ch]));
+ const toCyrillic=value=>{let s=String(value??'').replace(/PayPal/g,'__PAYPAL__');s=s.replace(/DŽ|Dž|dž|LJ|Lj|lj|NJ|Nj|nj/g,m=>({'DŽ':'Џ','Dž':'Џ','dž':'џ','LJ':'Љ','Lj':'Љ','lj':'љ','NJ':'Њ','Nj':'Њ','nj':'њ'}[m]));s=s.replace(/[a-zA-ZđĐžŽčČćĆšŠ]/g,ch=>({'a':'а','A':'А','b':'б','B':'Б','c':'ц','C':'Ц','č':'ч','Č':'Ч','ć':'ћ','Ć':'Ћ','d':'д','D':'Д','đ':'ђ','Đ':'Ђ','e':'е','E':'Е','f':'ф','F':'Ф','g':'г','G':'Г','h':'х','H':'Х','i':'и','I':'И','j':'ј','J':'Ј','k':'к','K':'К','l':'л','L':'Л','m':'м','M':'М','n':'н','N':'Н','o':'о','O':'О','p':'п','P':'П','r':'р','R':'Р','s':'с','S':'С','š':'ш','Š':'Ш','t':'т','T':'Т','u':'у','U':'У','v':'в','V':'В','z':'з','Z':'З','ž':'ж','Ž':'Ж'}[ch]||ch));return s.replace(/__PAYPAL__/g,'PayPal')};
  const txt=value=>esc(toCyrillic(value).replace(/ПауПал/gi,'PayPal'));
  const param=new URLSearchParams(location.search).get('slug');
  const db=window.db;
