@@ -214,11 +214,10 @@ body.campaign-page .content-back{display:none}
     if(settingsRes.error)throw settingsRes.error;
     const row=settingsRes.data;
     if(!row)throw new Error('Подаци за донацију још нису унети.');
-    const purpose=row.payment_purpose||'Донација за рад удружења „Мрвица“';
-    const bankCard=row.show_bank_payment!==false&&row.dinarski_racun?'<article class="partner-donation-card"><h3>Банковна уплата</h3><p><strong>Прималац:</strong> '+esc(row.recipient_name||partner.name)+'</p><p><strong>Банка:</strong> '+esc(row.bank_name||'')+'</p><p><strong>Рачун:</strong> '+esc(row.dinarski_racun)+'</p><button type="button" data-copy="'+esc(row.dinarski_racun)+'">Копирај број рачуна</button><p><strong>Сврха уплате:</strong> '+esc(purpose)+'</p></article>':'';
-    const paypalCard=row.show_paypal!==false&&row.paypal_email?'<article class="partner-donation-card"><h3>PayPal</h3><p>'+esc(row.paypal_email)+'</p><button type="button" data-copy="'+esc(row.paypal_email)+'">Копирај PayPal адресу</button></article>':'';
-    const panel='<div class="partner-donation-details"><p>Донације се уплаћују директно Удружењу за заштиту животиња „Мрвица“.</p>'+bankCard+paypalCard+'</div>';
-    openSheet('Подржи Мрвицу донацијом','Средства се уплаћују директно удружењу.',panel+'<p class="partner-donation-note">Пре уплате проверите податке о примаоцу. Шифра плаћања и IPS QR нису приказани док не потврдимо све податке за уплату.</p>');
+    const paymentSettings={recipient_name:row.recipient_name||partner.name,bank_name:row.bank_name,bank_account:row.dinarski_racun,payment_purpose:row.payment_purpose,payment_code:row.payment_code,reference_number:row.reference_number,currency:row.currency||'RSD',paypal_email:row.paypal_email,show_bank_payment:row.show_bank_payment!==false,show_paypal:row.show_paypal!==false,show_payment_slip:false,show_ips:false,payment_instructions:row.instructions,contact_name:partner.contact_person||partner.name,contact_phone:partner.phone,contact_email:partner.email};
+    const donationItem={type:'money',title:'Новчана донација',description:'Средства се уплаћују директно удружењу „Мрвица“.'};
+    const panel=window.DonationTypes?window.DonationTypes.renderPanel(paymentSettings,[donationItem]):'<p>Форма за донације тренутно није доступна.</p>';
+    openSheet('Подржи Мрвицу донацијом','Средства се уплаћују директно удружењу.',panel+'<p class="partner-donation-note">Пре уплате проверите податке о примаоцу. Уплатница и IPS QR биће укључени након потврде шифре плаћања.</p>');
    }catch(error){console.error(error);openSheet('Донације за Мрвицу','Подршка удружењу', '<p class="partner-donation-note">Подаци за донацију тренутно нису доступни. Молимо да се јавите удружењу директно док не потврдимо податке за уплату.</p>');}
   }
   partners.forEach(partner=>document.querySelector('[data-open-partner="'+partner.id+'"]')?.addEventListener('click',()=>openPartnerProfile(partner)));
