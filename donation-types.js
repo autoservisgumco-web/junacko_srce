@@ -207,13 +207,15 @@
     if (root) { root.querySelectorAll("[data-amount-choice]").forEach(x => x.classList.remove("is-active")); updateDonationAmount(root, event.target.value); }
   });
     document.addEventListener("click", async event => {
-    const amountChoice = event.target.closest("[data-amount-choice]");
+    const target = event.target instanceof Element ? event.target : event.target?.parentElement;
+    if (!target) return;
+    const amountChoice = target.closest("[data-amount-choice]");
     if (amountChoice) {
       const root = amountChoice.closest("[data-donation-checkout]");
       if (root) { root.querySelectorAll("[data-amount-choice]").forEach(x => x.classList.toggle("is-active", x === amountChoice)); const input = root.querySelector("[data-donation-amount-input]"); if (input) input.value = amountChoice.dataset.amountChoice; updateDonationAmount(root, amountChoice.dataset.amountChoice); }
       return;
     }
-    const tab = event.target.closest("[data-donation-tab]");
+    const tab = target.closest("[data-donation-tab]");
     if (tab) {
       // Tabovi i paneli su deca checkout-a, ali paneli nisu deca samog tab-list elementa.
       const checkout = tab.closest("[data-donation-checkout]");
@@ -238,7 +240,7 @@
       return;
     }
 
-    const ipsDownload = event.target.closest("[data-ips-download]");
+    const ipsDownload = target.closest("[data-ips-download]");
     if (ipsDownload) {
       const root = ipsDownload.closest("[data-donation-checkout]");
       const canvas = root && root.querySelector("[data-ips-qr] canvas");
@@ -247,7 +249,7 @@
       if (url) { const a = document.createElement("a"); a.href = url; a.download = "ips-uplata.png"; a.click(); }
       return;
     }
-    const button = event.target.closest("[data-copy]");
+    const button = target.closest("[data-copy]");
     if (!button) return;
     try {
       await navigator.clipboard.writeText(button.dataset.copy);
