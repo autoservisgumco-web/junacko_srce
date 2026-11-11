@@ -65,6 +65,7 @@
     if (configuredMethods) {
       const activeTypes = configuredMethods.map(method => method.type);
       s.show_bank_payment = activeTypes.includes("bank_transfer");
+      s.show_payment_slip = activeTypes.includes("bank_transfer");
       s.show_ips = activeTypes.includes("ips_qr");
       s.show_paypal = activeTypes.includes("paypal");
       const paypalMethod = configuredMethods.find(method => method.type === "paypal");
