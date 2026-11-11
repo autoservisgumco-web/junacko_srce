@@ -210,14 +210,11 @@ body.campaign-page .content-back{display:none}
   async function openPartnerDonation(partner){
    openSheet('Подржи Мрвицу донацијом','Донација је намењена директно удружењу.', '<p>Учитавање података за донацију…</p>');
    try{
-    const optionRes=await db.from('support_options').select('id').eq('slug','legacy-money-a874affc').eq('is_active',true).maybeSingle();
-    if(optionRes.error)throw optionRes.error;
-    if(!optionRes.data)throw new Error('Подешавање донација није пронађено.');
-    const settingsRes=await db.from('donation_settings').select('*').eq('support_option_id',optionRes.data.id).eq('is_active',true).maybeSingle();
+    const settingsRes=await db.from('partner_donation_settings').select('*').eq('partner_id',partner.id).eq('is_active',true).maybeSingle();
     if(settingsRes.error)throw settingsRes.error;
     const row=settingsRes.data;
     if(!row)throw new Error('Подаци за донацију још нису унети.');
-    const purpose='Донација за рад удружења „Мрвица“';
+    const purpose=row.payment_purpose||'Донација за рад удружења „Мрвица“';
     const bankCard=row.show_bank_payment!==false&&row.dinarski_racun?'<article class="partner-donation-card"><h3>Банковна уплата</h3><p><strong>Прималац:</strong> '+esc(row.recipient_name||partner.name)+'</p><p><strong>Банка:</strong> '+esc(row.bank_name||'')+'</p><p><strong>Рачун:</strong> '+esc(row.dinarski_racun)+'</p><button type="button" data-copy="'+esc(row.dinarski_racun)+'">Копирај број рачуна</button><p><strong>Сврха уплате:</strong> '+esc(purpose)+'</p></article>':'';
     const paypalCard=row.show_paypal!==false&&row.paypal_email?'<article class="partner-donation-card"><h3>PayPal</h3><p>'+esc(row.paypal_email)+'</p><button type="button" data-copy="'+esc(row.paypal_email)+'">Копирај PayPal адресу</button></article>':'';
     const panel='<div class="partner-donation-details"><p>Донације се уплаћују директно Удружењу за заштиту животиња „Мрвица“.</p>'+bankCard+paypalCard+'</div>';
