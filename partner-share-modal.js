@@ -31,7 +31,8 @@
     const contactLinks = Array.from(document.querySelectorAll('.partner-meta a'));
     const phone = contactLinks.find(a => a.href.startsWith('tel:'))?.textContent?.trim();
     const email = contactLinks.find(a => a.href.startsWith('mailto:'))?.textContent?.trim();
-    const url = location.href.split('#')[0];
+    const slug = new URLSearchParams(location.search).get('slug') || '';
+    const url = 'https://hmfeizkmpmxcnzhwxgbn.supabase.co/functions/v1/partner-share?slug=' + encodeURIComponent(slug);
     const title = 'ПОМОЗИМО ' + name.toLocaleUpperCase('sr-RS') + ' | Одговорна Плана';
 
     const paragraphs = [
