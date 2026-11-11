@@ -158,6 +158,46 @@ body.campaign-page .content-wrap{max-width:none;padding:0}
  .campaign-start-action h2{font-size:19px}
 }
 </style>
+
+<style id="campaign-landing-hub">
+.campaign-landing-intro,.campaign-hub,.campaign-landing-bottom{width:min(1080px,calc(100% - 40px));box-sizing:border-box;margin:20px auto 0}
+.campaign-landing-intro{padding:25px 28px;background:#edf4fc;border:1px solid #dce8f5;border-radius:18px}
+.campaign-eyebrow{display:block;color:#2166a8;font-size:11px;font-weight:900;letter-spacing:1.5px;margin-bottom:7px}
+.campaign-landing-intro h2,.campaign-hub-heading h2,.campaign-landing-bottom h2{margin:0 0 8px;color:#123f78;font-size:clamp(21px,2.5vw,28px);line-height:1.25}
+.campaign-landing-intro p,.campaign-hub-heading p,.campaign-landing-bottom p{margin:0;color:#52677e;font-size:15px;line-height:1.7}
+.campaign-hub{padding:8px 0 0}.campaign-hub-heading{margin:0 0 16px}
+.campaign-panel-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.campaign-panel-card{position:relative;display:flex;align-items:center;gap:14px;min-width:0;min-height:94px;padding:17px 18px;text-align:left;background:#fff;border:1px solid #e0e8f1;border-radius:15px;box-shadow:0 5px 18px #102b4e08;color:#163f70;cursor:pointer;transition:border-color .18s,transform .18s,box-shadow .18s}
+.campaign-panel-card:hover{border-color:#9bbce0;transform:translateY(-2px);box-shadow:0 8px 22px #102b4e12}
+.campaign-panel-icon{display:grid;place-items:center;flex:0 0 44px;width:44px;height:44px;border-radius:13px;background:#eaf2fc;color:#2166a8;font-size:25px;font-weight:800}
+.campaign-panel-copy{display:grid;gap:5px;min-width:0;flex:1}.campaign-panel-copy strong{font-size:16px;line-height:1.3;color:#163f70}.campaign-panel-copy small{font-size:13px;line-height:1.45;color:#667b92}
+.campaign-panel-count{font-size:12px;font-weight:850;color:#2166a8;background:#edf4fc;border-radius:20px;padding:5px 9px}.campaign-panel-arrow{font-size:25px;color:#8ba8c8}
+.campaign-landing-bottom{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:23px 26px;margin-bottom:24px;background:#fff;border:1px solid #e0e8f1;border-radius:17px}.campaign-landing-bottom .campaign-cta{flex:none}
+.campaign-sheet-content{color:#40566f;font-size:15px;line-height:1.75}.campaign-sheet-content>p{margin:0 0 14px;white-space:pre-line}
+.campaign-sheet-content .campaign-goal-list{list-style:none;padding:0;margin:14px 0 0;display:grid;gap:10px}
+.campaign-sheet-content .campaign-goal-list li{padding:14px 16px;background:#f5f8fc;border:1px solid #e3ebf4;border-radius:12px}
+.campaign-sheet-content .campaign-goal-list strong{display:block;color:#163f70;font-size:15px}.campaign-sheet-content .campaign-goal-list p{margin:5px 0 0;color:#586e85;font-size:14px;line-height:1.6}
+.campaign-sheet-content .campaign-story-list{display:grid;gap:10px;margin-top:14px}
+.campaign-sheet-content .campaign-story-item{display:flex;gap:13px;padding:15px;background:#f7f9fc;border:1px solid #e4ebf3;border-radius:12px}
+.campaign-sheet-content .campaign-story-number{flex:0 0 34px;width:34px;height:34px;display:grid;place-items:center;border-radius:10px;background:#e8f1fc;color:#2166a8;font-size:15px;font-weight:900}
+.campaign-sheet-content .campaign-story-item h3{margin:0 0 5px;color:#163f70;font-size:16px}.campaign-sheet-content .campaign-story-item h4{margin:0 0 6px;color:#61778f;font-size:13px}.campaign-sheet-content .campaign-story-item p{margin:0;font-size:14px;line-height:1.65}
+.campaign-sheet-content .campaign-activity-list{display:grid;gap:10px;margin:0}
+.campaign-sheet-content .campaign-activity-item{display:flex;align-items:flex-start;gap:12px;padding:14px;background:#f7f9fc;border:1px solid #e4ebf3;border-radius:12px}
+.campaign-sheet-content .campaign-activity-item h3{margin:0 0 5px;color:#163f70;font-size:15px}.campaign-sheet-content .campaign-activity-item p{margin:0;font-size:14px;line-height:1.6}.campaign-sheet-content .campaign-activity-status{white-space:nowrap}
+.campaign-sheet-content .partner-cards{display:grid;gap:10px}.campaign-sheet-content .partner-card{align-items:center}
+.campaign-sheet-content .campaign-empty-note{padding:16px;background:#f5f8fc;border:1px dashed #cbd8e6;border-radius:12px;color:#60758b}
+@media(max-width:760px){
+ .campaign-landing-intro,.campaign-hub,.campaign-landing-bottom{width:calc(100% - 24px);margin-top:14px}
+ .campaign-landing-intro{padding:18px 16px;border-radius:15px}
+ .campaign-landing-intro h2,.campaign-hub-heading h2,.campaign-landing-bottom h2{font-size:21px}
+ .campaign-landing-intro p,.campaign-hub-heading p,.campaign-landing-bottom p{font-size:14px;line-height:1.65}
+ .campaign-hub-heading{margin:0 0 12px;padding:0 2px}.campaign-panel-grid{grid-template-columns:1fr;gap:9px}
+ .campaign-panel-card{min-height:78px;padding:13px 14px;gap:11px;border-radius:13px}
+ .campaign-panel-icon{flex-basis:40px;width:40px;height:40px;font-size:22px}.campaign-panel-copy strong{font-size:15px}.campaign-panel-copy small{font-size:12px}
+ .campaign-landing-bottom{align-items:stretch;flex-direction:column;padding:18px 16px;margin-bottom:20px}.campaign-landing-bottom .campaign-cta{width:100%}
+ .campaign-sheet-content{font-size:14px}.campaign-sheet-content .campaign-activity-item{flex-direction:column;gap:8px}
+}
+</style>
 </head><body class="content-page-body campaign-page">
 <header class="site-header"><a class="site-brand" href="/index.html" aria-label="Одговорна Плана — почетна"><span class="brand-heart">♡</span><span>Одговорна<br>Плана</span></a><nav class="site-nav" aria-label="Главна навигација"><a href="/index.html">Почетна</a><a href="/kampanje.html">Кампање</a><a href="/akcije.html">Акције</a><a href="/podrska.html">Подршка</a></nav><button class="menu-trigger" id="openMenu" type="button" aria-label="Отвори мени">☰</button></header><div class="menu-backdrop" id="menuBackdrop" hidden></div><aside class="side-menu" id="sideMenu" aria-hidden="true"><div class="side-menu-head"><span>♡ Одговорна Плана</span><button class="side-menu-close" id="closeMenu" type="button" aria-label="Затвори мени">×</button></div><nav aria-label="Мени"><a href="/o-nama.html">О нама</a><a href="/kako-funkcionise.html">Како функционише платформа</a><a href="/kontakt.html">Контакт</a></nav></aside><main class="content-main"><div class="content-wrap"><div id="campaignDetail"><div class="content-empty">Учитавање кампање…</div></div></div></main>
 <footer class="content-footer"><div class="content-footer-inner">ОДГОВОРНА ПЛАНА · Место за заједничко деловање · © <span id="year"></span></div></footer>
@@ -222,22 +262,18 @@ body.campaign-page .content-wrap{max-width:none;padding:0}
    const byId=new Map((partnersRes.data||[]).map(partner=>[partner.id,partner]));
    partners=(partnerLinksRes.data||[]).map(link=>({ ...byId.get(link.partner_id),campaign_relationship:link })).filter(partner=>partner.id);
   }
-  const addSection=(heading,value,cls='')=>{if(value)html+='<section class="campaign-section '+cls+'"><h2>'+esc(heading)+'</h2><p>'+esc(value)+'</p></section>';};
-  html+='<section class="campaign-section campaign-content-intro"><h2>О кампањи</h2><p>'+txt(c.problem_text||c.description||'')+'</p></section>';
-  if(goals.length){
-   html+='<section class="campaign-section campaign-goals"><h2>Циљеви кампање</h2><ul class="campaign-goal-list">'+goals.map(g=>'<li><strong>'+txt(g.title)+'</strong>'+(g.description?'<p>'+txt(g.description)+'</p>':'')+'</li>').join('')+'</ul></section>';
-  }
-  if(sections.length){
-   html+='<section class="campaign-story"><div class="campaign-story-heading"><span>НАША ПРИЧА</span><h2>Од проблема до решења</h2></div><div class="campaign-story-list">'+sections.map((item,index)=>'<article class="campaign-story-item"><span class="campaign-story-number">'+String(index+1).padStart(2,'0')+'</span><div><h3>'+txt(item.title)+'</h3>'+(item.subtitle?'<h4>'+txt(item.subtitle)+'</h4>':'')+'<p>'+txt(item.content||'')+'</p></div></article>').join('')+'</div></section>';
-  }
-  if(activities.length){
-   html+='<section class="campaign-section campaign-activities"><h2>Шта је до сада урађено</h2><div class="campaign-activity-list">'+activities.map(a=>'<article class="campaign-activity-item"><span class="campaign-activity-status">'+(a.status==='completed'?'Завршено':a.status==='in_progress'?'У току':'Објављено')+'</span><div><h3>'+txt(a.title)+'</h3>'+(a.description?'<p>'+txt(a.description)+'</p>':'')+'</div></article>').join('')+'</div></section>';
-  }
-  if(partners.length){
-   html+='<section class="partner-section"><div class="partner-section-head"><span>ПАРТНЕРИ И САРАДНИЦИ</span><h2>Са ким радимо</h2><p>Промене се граде заједно са људима и организацијама које свакодневно раде на решавању проблема.</p></div><div class="partner-cards">'+partners.map(partner=>'<article class="partner-card"><div class="partner-card-copy"><strong>'+txt(partner.name)+'</strong><p>'+txt(partner.short_description||partner.campaign_relationship.description||'Партнер кампање „'+c.title+'“.')+'</p></div><a class="partner-open-button" href="/partner.html?slug='+encodeURIComponent(partner.slug)+'">Упознај удружење →</a></article>').join('')+'</div></section>';
-  }
-  html+='<section class="campaign-section campaign-start-action"><h2>Имаш идеју за конкретну акцију?</h2><p>Предложи шта можемо да урадимо у оквиру ове кампање. Твој предлог ће бити повезан са кампањом „'+txt(c.title)+'“.</p><p style="margin-top:16px"><button type="button" class="campaign-cta" id="openCampaignProposal">＋ Додај акцију</button></p></section>';
-  html+='<section class="campaign-section"><h2>Кампања се гради заједно</h2><p>Имаш предлог, знање или време? Постани део заједничког рада.</p><p style="margin-top:12px"><a href="/kampanje.html">Погледај све кампање →</a></p></section>';
+  const panelButton=(key,icon,title,description,count='')=>'<button type="button" class="campaign-panel-card" data-campaign-panel="'+key+'"><span class="campaign-panel-icon">'+icon+'</span><span class="campaign-panel-copy"><strong>'+title+'</strong><small>'+description+'</small></span>'+(count?'<span class="campaign-panel-count">'+count+'</span>':'')+'<span class="campaign-panel-arrow">›</span></button>';
+  const introText=c.problem_text||c.description||'';
+  html+='<section class="campaign-landing-intro"><div><span class="campaign-eyebrow">ЗАШТО ОВА РАДИМО</span><h2>Проблем се не решава уклањањем последица, већ одговорним системом.</h2><p>'+txt(introText)+'</p></div></section>';
+  html+='<section class="campaign-hub"><div class="campaign-hub-heading"><span class="campaign-eyebrow">ИСТРАЖИ КАМПАЊУ</span><h2>Шта те занима?</h2><p>Изабери област и отвори детаљније информације.</p></div><div class="campaign-panel-grid">';
+  if(goals.length||sections.length)html+=panelButton('plan','◎','План и циљеви','Шта тражимо и како желимо да решимо проблем',goals.length?String(goals.length):'');
+  if(activities.length)html+=panelButton('activities','✓','Активности','Шта је до сада урађено и шта следи',String(activities.length));
+  html+=panelButton('documents','▤','Документа','Захтеви, одговори, прописи и важни материјали');
+  html+=panelButton('blog','✎','Блог','Анализе, вести и објашњења');
+  html+=panelButton('support','♡','Укључи се','Изабери како можеш да помогнеш');
+  if(partners.length)html+=panelButton('partners','♧','Партнери','Људи и организације са којима сарађујемо',String(partners.length));
+  html+='</div></section>';
+  html+='<section class="campaign-landing-bottom"><div><span class="campaign-eyebrow">ТВОЈ ДОПРИНОС ЈЕ ВАЖАН</span><h2>Имаш идеју за конкретну акцију?</h2><p>Предложи шта можемо да урадимо у оквиру кампање.</p></div><button type="button" class="campaign-cta" id="openCampaignProposal">＋ Предложи акцију</button></section>';
   debugStage='Приказ кампање на страници';
   root.innerHTML=html;
   debugStage='Припрема начина учешћа и формулара';
@@ -248,6 +284,19 @@ body.campaign-page .content-wrap{max-width:none;padding:0}
   };
   function closeSheet(){document.getElementById('campaignOverlay')?.classList.remove('open');document.body.style.overflow='';}
   window.closeCampaignSheet=closeSheet;
+  const planContent='<div class="campaign-sheet-content"><p>'+txt(c.problem_text||c.description||'')+'</p>'+(goals.length?'<h3>Кључни циљеви</h3><ul class="campaign-goal-list">'+goals.map(g=>'<li><strong>'+txt(g.title)+'</strong>'+(g.description?'<p>'+txt(g.description)+'</p>':'')+'</li>').join('')+'</ul>':'')+(sections.length?'<h3 style="margin:22px 0 8px;color:#163f70">Од проблема до решења</h3><div class="campaign-story-list">'+sections.map((item,index)=>'<article class="campaign-story-item"><span class="campaign-story-number">'+String(index+1).padStart(2,'0')+'</span><div><h3>'+txt(item.title)+'</h3>'+(item.subtitle?'<h4>'+txt(item.subtitle)+'</h4>':'')+'<p>'+txt(item.content||'')+'</p></div></article>').join('')+'</div>':'')+'</div>';
+  const activitiesContent='<div class="campaign-sheet-content">'+(activities.length?'<div class="campaign-activity-list">'+activities.map(a=>'<article class="campaign-activity-item"><span class="campaign-activity-status">'+(a.status==='completed'?'Завршено':a.status==='in_progress'?'У току':'Објављено')+'</span><div><h3>'+txt(a.title)+'</h3>'+(a.description?'<p>'+txt(a.description)+'</p>':'')+'</div></article>').join('')+'</div>':'<div class="campaign-empty-note">Активности још нису објављене.</div>')+'</div>';
+  const partnersContent='<div class="campaign-sheet-content">'+(partners.length?'<div class="partner-cards">'+partners.map(partner=>'<article class="partner-card"><div class="partner-card-copy"><strong>'+txt(partner.name)+'</strong><p>'+txt(partner.short_description||partner.campaign_relationship.description||'Партнер кампање „'+c.title+'“.')+'</p></div><button type="button" class="partner-open-button" data-open-partner="'+esc(partner.id)+'">Упознај удружење</button></article>').join('')+'</div>':'<div class="campaign-empty-note">Партнери још нису објављени.</div>')+'</div>';
+  root.querySelectorAll('[data-campaign-panel]').forEach(button=>button.addEventListener('click',()=>{
+   const key=button.dataset.campaignPanel;
+   if(key==='plan')openSheet('План и циљеви','Шта желимо да постигнемо и како приступамо решавању проблема.',planContent);
+   else if(key==='activities')openSheet('Активности','Преглед досадашњег рада и реализованих корака.',activitiesContent);
+   else if(key==='documents')openSheet('Документа','Захтеви, одговори институција, прописи и други материјали.','<div class="campaign-sheet-content"><div class="campaign-empty-note">Ова целина је предвиђена за документа кампање. Документа још нису повезана са овом страницом, па овде тренутно нема објављених прилога.</div></div>');
+   else if(key==='blog')openSheet('Блог','Текстови, анализе, вести и објашњења.','<div class="campaign-sheet-content"><div class="campaign-empty-note">Ова целина је предвиђена за текстове и објаве кампање. Блог објаве још нису повезане са овом страницом.</div></div>');
+   else if(key==='support')window.openSupportChooser();
+   else if(key==='partners')openSheet('Партнери и сарадници','Људи и организације са којима радимо.',partnersContent);
+  }));
+
   const commonFields='<label>Име и презиме *<input name="name" required minlength="2" maxlength="120"></label><label>Телефон или Viber *<input name="phone" required type="tel" minlength="6" maxlength="40"></label><label>Место<input name="place" maxlength="160"></label>';
   const formShell=fields=>'<form class="support-form" id="campaignSupportForm">'+commonFields+fields+'<label><span><input type="checkbox" name="consent" required style="width:auto"> Сагласан/сагласна сам да се моји подаци користе ради контакта у вези са овом пријавом.</span></label><p class="support-submit-message" role="status" aria-live="polite"></p><button type="submit">Пошаљи пријаву</button></form>';
   async function openPartnerProfile(partner){
