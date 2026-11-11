@@ -34,7 +34,7 @@
 .donation-tab-list{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;padding:5px;background:#edf2f8;border-radius:12px}
 .donation-tab{min-height:44px;padding:9px 8px;border:1px solid transparent;border-radius:9px;background:transparent;color:#334155;font:inherit;font-size:13px;font-weight:800;cursor:pointer}
 .donation-tab.is-active{background:#fff;border-color:#d7e1ed;color:#123b70;box-shadow:0 2px 7px #102b4e12}
-.donation-tab-panel{padding-top:13px}.donation-tab-panel[hidden]{display:none}
+.donation-tab-panel{padding-top:13px}.donation-tab-panel[hidden]{display:none!important}.donation-tab-panel:not([hidden]){display:block}
 .donation-slip-fields{display:grid;gap:0}.donation-slip-fields>div{display:grid;grid-template-columns:130px minmax(0,1fr);gap:10px;padding:9px 0;border-bottom:1px solid #e4ebf3;font-size:13px}
 .donation-slip-fields span{color:#64748b}.donation-slip-fields strong{color:#172033;overflow-wrap:anywhere}
 .donation-print-slip{margin-top:14px;width:100%;min-height:44px;border:0;border-radius:9px;background:#174ea6;color:#fff;font-weight:800;cursor:pointer}
