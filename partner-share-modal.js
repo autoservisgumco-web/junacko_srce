@@ -20,22 +20,38 @@
 
   const getData = () => {
     const name = document.querySelector('.partner-hero h1')?.textContent?.trim() || 'удружења';
-    const summary = document.querySelector('.partner-hero-inner > p')?.textContent?.trim()
-      || document.querySelector('.partner-description')?.textContent?.trim()
-      || 'Људи који својим радом доприносе нашој заједници.';
+    const summary = document.querySelector('.partner-hero-inner > p')?.textContent?.trim() || '';
+    const description = document.querySelector('.partner-description')?.innerText?.trim() || summary;
+    const needs = document.querySelector('.partner-needs, [data-partner-needs]')?.innerText?.trim()
+      || 'Потребни су људи који могу да помогну својим временом, знањем и искуством, као и материјална и финансијска подршка за активности удружења.';
+    const contactLinks = Array.from(document.querySelectorAll('.partner-meta a'));
+    const phone = contactLinks.find(a => a.href.startsWith('tel:'))?.textContent?.trim();
+    const email = contactLinks.find(a => a.href.startsWith('mailto:'))?.textContent?.trim();
     const url = location.href.split('#')[0];
-    const title = 'Подржимо рад — ' + name + ' | Одговорна Плана';
-    const message = '❤️ ПОДРЖИМО РАД ' + name.toLocaleUpperCase('sr-RS') + '!\n\n'
-      + summary + '\n\n'
-      + 'Свако може да помогне — волонтирањем, донацијом или дељењем информација. Погледајте како можете да се укључите и подржите њихов рад.\n\n'
-      + '🤝 Заједно можемо више!';
-    const fullText = message + '\n\n' + url;
+    const title = 'Подржимо рад удружења ' + name + ' | Одговорна Плана';
+
+    const paragraphs = [
+      '❤️ УПОЗНАЈТЕ И ПОДРЖИТЕ УДРУЖЕЊЕ ' + name.toLocaleUpperCase('sr-RS') + '!',
+      description || summary || (name + ' својим радом доприноси заједници.'),
+      '🤝 ШТА ЈЕ ПОТРЕБНО?',
+      needs,
+      'Свако може да помогне у складу са својим могућностима — укључивањем у активности, волонтирањем, уступањем знања и ресурса, материјалном или финансијском подршком.',
+      '📩 КАКО ДА ПОМОГНЕТЕ?',
+      'Погледајте страницу удружења, сазнајте више о његовом раду и јавите се директно путем наведених контаката или преко пријаве за волонтирање и опција за донацију на страници.',
+      phone ? 'Телефон: ' + phone : '',
+      email ? 'Имејл: ' + email : '',
+      'Поделите ову објаву — и ширење информација је вид подршке!',
+      url
+    ].filter(Boolean);
+
+    const message = paragraphs.slice(0, -1).join('\n\n');
+    const fullText = paragraphs.join('\n\n');
     const enc = encodeURIComponent;
     return {
       name, url, title, message, fullText,
       links: {
         Facebook:'https://www.facebook.com/sharer/sharer.php?u='+enc(url)+'&quote='+enc(message),
-        X:'https://twitter.com/intent/tweet?url='+enc(url)+'&text='+enc('❤️ Подржимо рад '+name+'! Свако може да помогне — волонтирањем, донацијом или дељењем.'),
+        X:'https://twitter.com/intent/tweet?url='+enc(url)+'&text='+enc('❤️ Подржимо удружење '+name+'. Погледајте чиме се бави и како можете да помогнете:'),
         WhatsApp:'https://wa.me/?text='+enc(fullText),
         Telegram:'https://t.me/share/url?url='+enc(url)+'&text='+enc(message),
         Email:'mailto:?subject='+enc(title)+'&body='+enc(fullText)
@@ -73,7 +89,7 @@
         field.remove();
         if(!copied)throw new Error('copy failed');
       }
-      status.textContent='✓ Текст и линк су копирани';
+      status.textContent='✓ Текст објаве и линк су копирани';
       status.classList.add('visible');
     } catch(error) {
       status.textContent='Копирање није успело. Покушај поново.';
@@ -103,7 +119,7 @@
     const rect=trigger.getBoundingClientRect();
     const width=240;
     const left=Math.max(10,Math.min(rect.right-width,window.innerWidth-width-10));
-    const estimatedHeight=menu.offsetHeight||350;
+    const estimatedHeight=menu.offsetHeight||390;
     const top=rect.bottom+8+estimatedHeight<window.innerHeight-8
       ?rect.bottom+8
       :Math.max(8,rect.top-estimatedHeight-8);
