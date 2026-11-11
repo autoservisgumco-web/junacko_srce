@@ -37,7 +37,42 @@ document.getElementById('year').textContent=new Date().getFullYear();
   document.getElementById('nativeShare').onclick=async()=>{if(navigator.share){try{await navigator.share({title:shareTitle,text:shareText,url:shareUrl});}catch(e){if(e.name!=='AbortError')document.getElementById('shareStatus').textContent='Дељење тренутно није доступно.';}}else{await copyShareText(shareUrl,'Дељење није подржано у овом прегледачу — линк је копиран.');}};
   const ar=await db.from('partner_articles').select('*').eq('partner_id',p.id).eq('is_published',true).order('display_order').order('published_at',{ascending:false});
   const articleRoot=document.getElementById('partnerArticles');if(ar.error)articleRoot.innerHTML='<p class="partner-empty">Објаве тренутно нису доступне.</p>';else if(!ar.data?.length)articleRoot.innerHTML='<p class="partner-empty">Овде ће се појављивати вести, извештаји и приче о раду партнера.</p>';else articleRoot.innerHTML=ar.data.map(a=>'<article class="partner-article">'+(a.cover_image_url?'<img src="'+esc(a.cover_image_url)+'" alt="">':'')+'<div class="partner-article-copy"><h3>'+esc(a.title)+'</h3>'+(a.excerpt?'<p>'+esc(a.excerpt)+'</p>':'<p>'+esc(a.content)+'</p>')+(a.published_at?'<time>'+new Date(a.published_at).toLocaleDateString('sr-RS')+'</time>':'')+'</div></article>').join('');
-  document.getElementById('volunteerForm').addEventListener('submit',async e=>{e.preventDefault();const f=e.currentTarget;if(!f.reportValidity())return;const d=new FormData(f),btn=f.querySelector('button'),msg=document.getElementById('volunteerStatus');btn.disabled=true;btn.textContent='Шаљем пријаву…';const interest=d.get('interest'),availability=d.get('availability'),experience=d.get('experience');const result=await db.from('civic_submissions').insert({submission_type:'help',title:'Волонтирање — '+p.name,description:'Пријава за волонтирање у удружењу '+p.name+'.\nОбласт: '+interest+'\nДоступност: '+availability+'\nИскуство: '+experience,full_name:d.get('name'),phone:d.get('phone'),viber_phone:d.get('phone'),location:d.get('place')||null,support_type:'Волонтирање за удружење '+p.name,social_links:{source:'partner_profile',partner_id:p.id,partner_name:p.name,volunteer_interest:interest},status:'new'});if(result.error){msg.textContent='Пријава није послата. Покушај поново.';msg.style.color='#b42318';btn.disabled=false;btn.textContent='Пошаљи пријаву';}else{f.innerHTML='<p class="partner-status">Пријава је успешно сачувана. Хвала ти на подршци!</p>'; }});
+   document.getElementById('volunteerForm').addEventListener('submit',async e=>{
+    e.preventDefault();
+    const form=e.currentTarget;
+    if(!form.reportValidity())return;
+    const data=new FormData(form);
+    const button=form.querySelector('button[type="submit"]');
+    const status=document.getElementById('volunteerStatus');
+    const interest=data.get('interest');
+    const availability=data.get('availability');
+    const experience=data.get('experience');
+    button.disabled=true;
+    button.textContent='Шаљем пријаву…';
+    status.textContent='';
+    try{
+     const {error}=await db.from('civic_submissions').insert({
+      submission_type:'help',
+      title:'Волонтирање — '+p.name,
+      description:'Пријава за волонтирање у удружењу '+p.name+'.\\nОбласт: '+interest+'\\nДоступност: '+(availability||'није наведена')+'\\nИскуство: '+(experience||'није наведено'),
+      full_name:data.get('name'),
+      phone:data.get('phone'),
+      viber_phone:data.get('phone'),
+      location:data.get('place')||null,
+      support_type:'Волонтирање за удружење '+p.name,
+      social_links:{source:'partner_profile',partner_id:p.id,partner_name:p.name,volunteer_interest:interest,consent:true},
+      status:'new'
+     });
+     if(error)throw error;
+     form.innerHTML='<p class="partner-status">Пријава је успешно сачувана. Хвала ти на подршци!</p>';
+    }catch(error){
+     console.error('Грешка при слању пријаве за волонтирање:',error);
+     status.textContent='Пријава није послата. Провери интернет везу и покушај поново.';
+     status.style.color='#b42318';
+     button.disabled=false;
+     button.textContent='Пошаљи пријаву';
+    }
+   });
   const ds=await db.from('partner_donation_settings').select('*').eq('partner_id',p.id).eq('is_active',true).maybeSingle(),dr=document.getElementById('donationPanel');
   if(ds.error||!ds.data)dr.innerHTML='<p class="partner-empty">Подаци за донацију тренутно нису доступни. Контактирајте удружење директно.</p>';else{const x=ds.data,settings={recipient_name:x.recipient_name||p.name,bank_name:x.bank_name,bank_account:x.dinarski_racun,payment_purpose:x.payment_purpose,payment_code:x.payment_code,reference_number:x.reference_number,currency:x.currency||'RSD',paypal_email:x.paypal_email,show_bank_payment:x.show_bank_payment!==false,show_paypal:x.show_paypal!==false,show_payment_slip:true,show_ips:true,payment_instructions:x.instructions,payment_methods:x.payment_methods||[],contact_name:p.contact_person||p.name,contact_phone:p.phone,contact_email:p.email};const item={type:'money',title:'Новчана донација',description:'Донација се уплаћује директно удружењу '+p.name+'.'};dr.innerHTML=window.DonationTypes?window.DonationTypes.renderPanel(settings,[item]):'<p class="partner-empty">Форма за донације тренутно није доступна.</p>';}
   if(location.hash==='#donacije')document.getElementById('donacije').scrollIntoView({behavior:'smooth'});
