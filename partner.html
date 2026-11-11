@@ -54,7 +54,7 @@ document.getElementById('year').textContent=new Date().getFullYear();
      const {error}=await db.from('civic_submissions').insert({
       submission_type:'help',
       title:'Волонтирање — '+p.name,
-      description:'Пријава за волонтирање у удружењу '+p.name+'.\\nОбласт: '+interest+'\\nДоступност: '+(availability||'није наведена')+'\\nИскуство: '+(experience||'није наведено'),
+      description:'Пријава за волонтирање у удружењу '+p.name+'.\nОбласт: '+interest+'\nДоступност: '+(availability||'није наведена')+'\nИскуство: '+(experience||'није наведено'),
       full_name:data.get('name'),
       phone:data.get('phone'),
       viber_phone:data.get('phone'),
