@@ -280,7 +280,7 @@ body.campaign-page .content-wrap{max-width:none;padding:0}
   const openSheet=(title,subtitle,body)=>{
    let overlay=document.getElementById('campaignOverlay');
    if(!overlay){overlay=document.createElement('div');overlay.id='campaignOverlay';overlay.className='campaign-overlay';overlay.innerHTML='<section class="campaign-sheet" role="dialog" aria-modal="true"><div class="sheet-head"><div><h2 id="sheetTitle"></h2><p id="sheetSubtitle"></p></div><button class="sheet-close" type="button" id="closeCampaignSheet" aria-label="Затвори">×</button></div><div id="sheetBody"></div></section>';overlay.addEventListener('click',e=>{if(e.target===overlay)closeSheet();});document.body.appendChild(overlay);}
-   overlay.querySelector('#sheetTitle').textContent=title;overlay.querySelector('#sheetSubtitle').textContent=subtitle;overlay.querySelector('#sheetBody').innerHTML=body;overlay.classList.add('open');document.body.style.overflow='hidden';overlay.querySelector('#closeCampaignSheet').onclick=closeSheet;
+   overlay.querySelector('#sheetTitle').textContent=title;overlay.querySelector('#sheetSubtitle').textContent=subtitle;overlay.querySelector('#sheetBody').innerHTML=body;overlay.querySelectorAll('[data-open-partner]').forEach(button=>button.addEventListener('click',()=>{const partner=partners.find(item=>item.id===button.dataset.openPartner);if(partner)openPartnerProfile(partner);}));overlay.classList.add('open');document.body.style.overflow='hidden';overlay.querySelector('#closeCampaignSheet').onclick=closeSheet;
   };
   function closeSheet(){document.getElementById('campaignOverlay')?.classList.remove('open');document.body.style.overflow='';}
   window.closeCampaignSheet=closeSheet;
