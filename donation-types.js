@@ -71,7 +71,7 @@
       const paypalMethod = configuredMethods.find(method => method.type === "paypal");
       if (paypalMethod && paypalMethod.config) {
         s.paypal_url = paypalMethod.config.url || s.paypal_url || "";
-        s.paypal_email = paypalMethod.config.email || s.paypal_email || "";
+        s.paypal_email = paypalMethod.config.email || "";
       }
     }
     const paypalCandidate = String(s.paypal_url || s.paypal_link || s.paypal_me_url || "");
