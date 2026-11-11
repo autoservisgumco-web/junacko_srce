@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="sr-Cyrl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#061A35">
+<title>Продавница — Одговорна Плана</title>
+<meta name="description" content="Продавница Одговорне Плане — мали знак подршке заједничком деловању.">
+<style>
+:root{--navy:#061A35;--blue:#2166F3;--sky:#F1F5F9;--ink:#142844;--muted:#64748b;--red:#d62838}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--sky);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.6}
+header{background:var(--navy);color:#fff;padding:15px max(5vw,20px);display:flex;align-items:center;justify-content:space-between;gap:18px;box-shadow:0 2px 16px #102b4e20}
+.brand{display:flex;align-items:center;gap:11px;color:#fff;text-decoration:none;font-weight:850;font-size:22px;line-height:1.05}.brand-mark{font-size:42px;line-height:1;color:#fff;text-shadow:3px 0 #e83c50,-2px 0 #42b8ff}.brand small{display:block;color:#a9c5f5;font-size:10px;letter-spacing:1.3px;margin-top:5px}
+nav{display:flex;align-items:center;gap:24px}nav a{color:#e3edff;text-decoration:none;font-size:14px;font-weight:700}nav a:hover,nav a[aria-current=page]{color:#8ecbff}
+main{width:min(1080px,calc(100% - 36px));margin:0 auto;padding:36px 0 65px}
+.intro{background:linear-gradient(120deg,#061A35,#0d3263 70%,#2166F3);color:white;border-radius:20px;padding:clamp(25px,5vw,48px);margin-bottom:24px;overflow:hidden;position:relative}
+.kicker{font-size:11px;letter-spacing:2px;font-weight:850;color:#a9d5ff}.intro h1{font-size:clamp(31px,5vw,48px);line-height:1.12;letter-spacing:-1px;margin:10px 0 14px;max-width:760px}.intro p{color:#e0edf8;max-width:780px;margin:0;font-size:16px;line-height:1.75}
+.product{display:grid;grid-template-columns:1fr 1fr;gap:clamp(22px,4vw,42px);background:#fff;border:1px solid #dce5f0;border-radius:20px;padding:clamp(18px,3vw,30px);box-shadow:0 12px 35px #061a350a}
+.product-art{min-height:330px;border-radius:15px;background:radial-gradient(circle at 50% 42%,#fff 0,#f4f7fb 55%,#e4edf8 100%);display:grid;place-items:center;overflow:hidden}
+.product-art img{width:100%;height:100%;object-fit:contain}.product-art{min-height:330px}
+.product-info{display:flex;flex-direction:column;justify-content:center;align-items:flex-start}.tag{display:inline-block;background:#e8f3fc;color:#1769aa;border-radius:30px;padding:6px 11px;font-size:11px;font-weight:800;letter-spacing:.6px}
+h2{font-size:clamp(25px,3.5vw,34px);line-height:1.2;color:var(--navy);margin:13px 0 7px}.price{font-size:32px;font-weight:900;color:var(--red);margin:0 0 10px}.description{color:#52677d;line-height:1.7;margin:0 0 22px}
+.quantity-row{display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;padding:16px 0;border-top:1px solid #e5ebf2;border-bottom:1px solid #e5ebf2}
+.quantity{display:flex;align-items:center;gap:14px}.quantity button{width:38px;height:38px;border:1px solid #cbd9e8;border-radius:9px;background:#f4f8fd;color:var(--navy);font-size:22px;font-weight:750;cursor:pointer}.quantity button:disabled{opacity:.4;cursor:not-allowed}.quantity output{min-width:22px;text-align:center;font-weight:850;font-size:19px}
+.total{text-align:right}.total small{display:block;color:var(--muted);font-size:12px}.total strong{font-size:21px;color:var(--red);white-space:nowrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;border:0;border-radius:10px;background:var(--blue);color:#fff;text-decoration:none;padding:14px 22px;font:inherit;font-weight:800;cursor:pointer}.btn:hover{background:#1554d5}.btn:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid #8ecbff;outline-offset:2px}.order-btn{width:100%;margin-top:18px;background:#d51e2b}.order-btn:hover{background:#b91522}
+.availability{display:flex;gap:9px;align-items:flex-start;background:#edf5ff;border-radius:10px;padding:12px 14px;color:#365775;font-size:13px;margin-top:14px}.availability b{color:var(--navy)}
+.info{margin-top:24px;background:#fff;border:1px solid #dce5f0;border-radius:18px;padding:clamp(20px,3vw,30px)}.info h2{font-size:25px;margin:0 0 20px}.info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}.info-item{display:flex;gap:12px;align-items:flex-start}.info-icon{width:38px;height:38px;flex:0 0 38px;display:grid;place-items:center;background:#eaf2ff;color:#1554a0;border-radius:11px;font-size:19px}.info-item strong{display:block;color:var(--navy);margin-bottom:3px}.info-item p{font-size:14px;color:var(--muted);margin:0;line-height:1.55}
+.closing{margin-top:24px;border-radius:18px;background:#e7f0fb;padding:25px;text-align:center}.closing h2{font-size:24px;margin:0 0 8px}.closing p{color:#52677d;margin:0}
+footer{background:#041329;color:#d4e1f3;text-align:center;padding:24px 18px;font-size:13px}
+.modal-backdrop{position:fixed;inset:0;background:#031329a8;z-index:20;display:none;align-items:flex-end;justify-content:center;padding:18px}.modal-backdrop.open{display:flex}.modal{background:#fff;width:min(620px,100%);max-height:90dvh;overflow:auto;border-radius:20px;padding:22px;box-shadow:0 20px 70px #0004}.modal-head{display:flex;align-items:center;justify-content:space-between;gap:15px;border-bottom:1px solid #e5ebf2;padding-bottom:12px}.modal-head h2{font-size:23px;margin:0}.close{border:0;background:transparent;color:var(--navy);font-size:30px;cursor:pointer;line-height:1}.order-summary{display:flex;justify-content:space-between;gap:15px;background:#f1f5f9;border-radius:11px;padding:13px 15px;margin:16px 0;font-weight:750}.field{margin:13px 0}.field label{display:block;color:var(--navy);font-size:14px;font-weight:750;margin-bottom:6px}.field input{width:100%;border:1px solid #cbd9e5;border-radius:9px;padding:12px;font:inherit}.hint{color:var(--muted);font-size:12px;margin:12px 0 0}.error{color:#b91522;font-size:13px;margin:8px 0}.success{display:none;text-align:center;padding:24px 5px}.success.show{display:block}.success-icon{width:58px;height:58px;margin:0 auto 15px;border-radius:50%;background:#e2f3e9;color:#247348;display:grid;place-items:center;font-size:32px;font-weight:900}.success h2{font-size:25px;margin:0 0 8px}.success p{color:var(--muted);margin:0 0 18px}
+@media(max-width:720px){header{align-items:flex-start}nav{gap:12px;flex-wrap:wrap;justify-content:flex-end}nav a{font-size:12px}.brand{font-size:18px}.brand-mark{font-size:34px}.product{grid-template-columns:1fr}.product-art{min-height:250px}.info-grid{grid-template-columns:1fr}.quantity-row{align-items:flex-start;flex-direction:column}.total{text-align:left}.modal-backdrop{padding:0}.modal{border-radius:20px 20px 0 0;max-height:92dvh}}
+@media(max-width:390px){header{flex-direction:column}.brand{font-size:20px}nav{width:100%;justify-content:space-between}}
+</style>
+  <link rel="stylesheet" href="bottom-nav.css">
+<link rel="stylesheet" href="/stranice.css"><link rel="stylesheet" href="/bottom-nav.css">
+<style>
+.site-shared-hero.hero-full{position:relative;min-height:100vh;height:100vh;height:100dvh;padding:54px max(6.8vw,24px) 42px;display:flex;align-items:center;justify-content:flex-start;background:linear-gradient(90deg,rgba(3,27,59,.98) 0%,rgba(3,35,73,.94) 34%,rgba(3,35,73,.58) 58%,rgba(3,20,42,.12) 100%),linear-gradient(0deg,rgba(3,15,34,.42),transparent 55%),url('https://raw.githubusercontent.com/autoservisgumco-web/junacko_srce/refs/heads/main/Velika_Plana%2B.jpg') center/cover no-repeat!important;text-align:left}
+.site-shared-hero .hero-inner{width:min(1320px,100%);margin:0 auto;display:flex;flex-direction:column;justify-content:center;min-height:calc(100svh - 96px)}
+.site-shared-hero .hero-copy{max-width:690px}
+.site-shared-hero .eyebrow{font-size:13px;letter-spacing:2.6px;color:#8ecbff;margin-bottom:20px}
+.site-shared-hero h1{color:#fff;text-shadow:0 3px 24px rgba(0,0,0,.3);font-size:clamp(48px,6.2vw,86px);line-height:1.04;letter-spacing:-2px;margin:0 0 24px;max-width:720px}
+.site-shared-hero h1 span{color:#35a9ff}
+.site-shared-hero .lead{display:block;color:#f0f6ff;font-size:clamp(17px,1.6vw,22px);line-height:1.62;max-width:560px;margin:0}
+.site-shared-hero .hero-buttons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;width:min(760px,100%);margin-top:42px}
+@media(max-width:760px){.site-shared-hero.hero-full{padding:112px 18px 34px}.site-shared-hero .hero-inner{min-height:calc(100svh - 130px)}.site-shared-hero .hero-buttons{grid-template-columns:1fr;gap:12px}.site-shared-hero h1{font-size:clamp(42px,11vw,60px)}}
+</style>
+</head>
+<body>
+<header class="site-header"><a class="site-brand" href="/index.html" aria-label="Одговорна Плана — почетна"><span class="brand-heart">♡</span><span>Одговорна<br>Плана</span></a><nav class="site-nav" aria-label="Главна навигација"><a href="/index.html">Почетна</a><a href="/kampanje.html">Кампање</a><a href="/akcije.html">Акције</a><a href="/podrska.html">Подршка</a></nav><button class="menu-trigger" id="openMenu" type="button" aria-label="Отвори мени">☰</button></header><div class="menu-backdrop" id="menuBackdrop" hidden></div><aside class="side-menu" id="sideMenu" aria-hidden="true"><div class="side-menu-head"><span>♡ Одговорна Плана</span><button class="side-menu-close" id="closeMenu" type="button" aria-label="Затвори мени">×</button></div><nav aria-label="Мени"><a href="/o-nama.html">О нама</a><a href="/kako-funkcionise.html">Како функционише платформа</a><a href="/kontakt.html">Контакт</a></nav></aside>
+
+<main>
+<section class="intro">
+<div class="kicker">ПОДРЖИ ЗАЈЕДНИЦУ</div>
+<h1>Мали знак подршке. Велика прича.</h1>
+<p>Желимо да Одговорна Плана буде место на коме се не задржавамо само на речима. Место на коме људи могу да покрену идеју, представе иницијативу, организују акцију и пронађу друге који желе да помогну. Ова продавница је један од начина да подржимо тај рад. Куповином производа подржавате развој грађанских активности и заједничких иницијатива у Великој Плани.</p>
+</section>
+<section class="product" aria-labelledby="productTitle">
+<div class="product-art"><img id="productImage" src="https://hmfeizkmpmxcnzhwxgbn.supabase.co/storage/v1/object/public/Proizvodi/Privezak-plana.png" alt="Привезак са грбом Велике Плане" style="display:block;width:100%;height:100%;min-height:330px;max-height:480px;object-fit:contain;padding:12px"></div>
+<div class="product-info">
+<span class="tag">ЗАЈЕДНИЧКА ПОДРШКА</span>
+<h2 id="productTitle">Привезак Одговорна Плана</h2>
+<p class="price" id="priceLabel">150 динара</p>
+<p class="description" id="productDescription">Мали знак припадности заједници која верује да промене почињу од људи. Носи поруку одговорности, солидарности и заједничког деловања.</p>
+<div class="quantity-row">
+<div><strong>Количина</strong><div class="quantity"><button type="button" id="minus" aria-label="Смањи количину">−</button><output id="quantity" aria-live="polite">1</output><button type="button" id="plus" aria-label="Повећај количину">+</button></div></div>
+<div class="total"><small>Укупно</small><strong id="total">150 динара</strong></div>
+</div>
+<button class="btn order-btn" type="button" id="openOrder">Наручи →</button>
+<div class="availability"><span aria-hidden="true">ⓘ</span><span><b>Преузимање и достава:</b> начин преузимања или доставе договара се са купцем након пријема наруџбине.</span></div>
+</div>
+</section>
+<section class="info">
+<h2>Важне информације о куповини</h2>
+<div class="info-grid">
+<div class="info-item"><span class="info-icon">₽</span><div><strong>Цена производа</strong><p>Цена једног привеска је 150 динара. Укупан износ се аутоматски обрачунава према изабраној количини.</p></div></div>
+<div class="info-item"><span class="info-icon">✎</span><div><strong>Како наручити</strong><p>Изаберите жељену количину, кликните на „Наручи“ и попуните обавезне контакт податке.</p></div></div>
+<div class="info-item"><span class="info-icon">⌂</span><div><strong>Преузимање и достава</strong><p>Након пријема наруџбине потребно је договорити начин и место преузимања или доставе.</p></div></div>
+<div class="info-item"><span class="info-icon">♡</span><div><strong>Ваша подршка</strong><p>Куповином помажете развој грађанских иницијатива и активности у Великој Плани.</p></div></div>
+</div>
+</section>
+<section class="closing"><h2>Заједно можемо више.</h2><p>Није ствар само у привеску. Ствар је у људима који желе да учествују, помогну и оставе нешто добро иза себе.</p></section>
+</main>
+<footer>ОДГОВОРНА ПЛАНА · Место за заједничко деловање · <a href="/index.html" style="color:#d4e1f3">Почетна</a></footer>
+<div class="modal-backdrop" id="orderModal" role="dialog" aria-modal="true" aria-labelledby="formTitle">
+<div class="modal">
+<div class="modal-head"><h2 id="formTitle">Подаци за наруџбину</h2><button class="close" type="button" id="closeModal" aria-label="Затвори">×</button></div>
+<div id="formArea">
+<div class="order-summary"><span id="summaryQty">1 × привезак</span><span id="summaryTotal">150 динара</span></div>
+<form id="orderForm">
+<div class="field"><label for="customerName">Име и презиме *</label><input id="customerName" name="name" required minlength="2" maxlength="120" autocomplete="name" placeholder="Унесите име и презиме"></div>
+<div class="field"><label for="customerPhone">Телефон *</label><input id="customerPhone" name="phone" required type="tel" maxlength="40" autocomplete="tel" placeholder="06X XXX XXXX"></div>
+<div class="field"><label for="customerCity">Место *</label><input id="customerCity" name="city" required maxlength="100" autocomplete="address-level2" placeholder="Место становања"></div>
+<div class="field"><label for="customerAddress">Адреса за доставу / преузимање *</label><input id="customerAddress" name="address" required maxlength="180" autocomplete="street-address" placeholder="Улица и број"></div>
+<p class="error" id="formError" role="alert"></p>
+<button class="btn order-btn" type="submit">Потврди наруџбину</button>
+<p class="hint">Подаци се чувају у систему за пријем наруџбина. Наруџбину ћемо потврдити телефоном.</p>
+</form>
+</div>
+<div class="success" id="successArea" aria-live="polite"><div class="success-icon">✓</div><h2>Пробна наруџбина је успешно попуњена!</h2><p id="successText"></p><button class="btn" type="button" id="finishOrder">Назад у продавницу</button></div>
+</div>
+</div>
+<script>
+(()=>{let price=150,productName='Привезак Одговорна Плана';let qty=1;const $=id=>document.getElementById(id);const money=n=>n.toLocaleString('sr-RS')+' динара';
+async function loadProduct(){try{const {data,error}=await window.odgovornaPlanaDB.from('products').select('name,short_description,description,price,image_url,is_active').eq('slug','privezak-odgovorna-plana').eq('is_active',true).single();if(error)throw error;productName=data.name||productName;price=Number(data.price)||price;$('productTitle').textContent=productName;$('priceLabel').textContent=money(price);$('productDescription').textContent=data.short_description||data.description||'';if(data.image_url)$('productImage').src=data.image_url;render();}catch(e){console.error('Производ није учитан из базе:',e)}}
+function render(){ $('quantity').textContent=qty;$('total').textContent=money(qty*price);$('minus').disabled=qty<=1;$('summaryQty').textContent=qty+' × привезак';$('summaryTotal').textContent=money(qty*price);}
+$('minus').addEventListener('click',()=>{qty=Math.max(1,qty-1);render()});$('plus').addEventListener('click',()=>{qty=Math.min(99,qty+1);render()});
+function close(){ $('orderModal').classList.remove('open');document.body.style.overflow='';}
+$('openOrder').addEventListener('click',()=>{render();$('formArea').style.display='block';$('successArea').classList.remove('show');$('orderModal').classList.add('open');document.body.style.overflow='hidden';$('customerName').focus()});
+$('closeModal').addEventListener('click',close);$('orderModal').addEventListener('click',e=>{if(e.target===$('orderModal'))close()});document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+$('orderForm').addEventListener('submit',async e=>{e.preventDefault();const form=e.currentTarget;if(!form.reportValidity())return;const d=new FormData(form),button=form.querySelector('[type="submit"]');$('formError').textContent='';button.disabled=true;button.textContent='Шаљем наруџбину…';try{const {data,error}=await window.odgovornaPlanaDB.rpc('submit_keychain_order',{p_customer_name:String(d.get('name')).trim(),p_phone:String(d.get('phone')).trim(),p_city:String(d.get('city')).trim(),p_delivery_address:String(d.get('address')).trim(),p_quantity:qty});if(error)throw error;$('formArea').style.display='none';$('successArea').classList.add('show');$('successArea').querySelector('h2').textContent='Наруџбина је примљена!';$('successText').textContent=d.get('name')+', наруџбина број '+data+': '+qty+' × привезак, укупно '+money(qty*price)+'. Јавићемо ти се ради потврде.';}catch(err){console.error('Наруџбина није сачувана:',err);$('formError').textContent='Наруџбина није послата. Покушај поново.';}finally{button.disabled=false;button.textContent='Потврди наруџбину';}});
+$('finishOrder').addEventListener('click',()=>{close();$('orderForm').reset();qty=1;render()});render();loadProduct();})();
+</script>
+  <script src="bottom-nav.js"></script>
+<script>(function(){const menu=document.getElementById('sideMenu'),back=document.getElementById('menuBackdrop');if(!menu||!back)return;function close(){menu.classList.remove('open');back.classList.remove('open');menu.setAttribute('aria-hidden','true');setTimeout(()=>back.hidden=true,260)}document.getElementById('openMenu').addEventListener('click',()=>{back.hidden=false;menu.setAttribute('aria-hidden','false');requestAnimationFrame(()=>{back.classList.add('open');menu.classList.add('open')})});document.getElementById('closeMenu').addEventListener('click',close);back.addEventListener('click',close)})();</script><script src="/bottom-nav.js"></script>
+</body></html>

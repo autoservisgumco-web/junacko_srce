@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="sr-Cyrl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#061A35">
+<title>Пробна страница кампање — Одговорна Плана</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f1f5f9;color:#142844;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+header{background:#061a35;color:#fff;padding:18px 20px;font-size:20px;font-weight:800}
+main{max-width:850px;margin:28px auto;padding:0 16px}
+.card{background:#fff;border:1px solid #dce4ed;border-radius:16px;overflow:hidden}
+img{display:block;width:100%;max-height:340px;object-fit:cover;background:#e5eaf0}
+.body{padding:24px}.tag{display:inline-block;padding:6px 11px;border-radius:20px;background:#eaf1f8;color:#24466a;font-size:13px;font-weight:700}
+h1{font-size:clamp(28px,5vw,42px);line-height:1.15;margin:14px 0}
+p{font-size:17px;line-height:1.65;white-space:pre-line}
+#state{background:#fff;border:1px dashed #b9c7d6;border-radius:14px;padding:18px;margin-bottom:16px;color:#53677e}
+#debug{font-size:13px;color:#64748b;overflow-wrap:anywhere;margin-top:18px}
+</style>
+</head>
+<body>
+<header>Одговорна Плана</header>
+<main>
+<div id="state">Пробна страница: учитавам кампању…</div>
+<div id="campaign"></div>
+<div id="debug"></div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/config.js"></script>
+<script src="/database.js"></script>
+<script>
+(async()=>{
+ const state=document.getElementById('state'),root=document.getElementById('campaign'),debug=document.getElementById('debug');
+ const esc=s=>String(s??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+ const slug=new URLSearchParams(location.search).get('slug')||'plan-za-pse';
+ const timeout=(promise)=>Promise.race([promise,new Promise((_,reject)=>setTimeout(()=>reject(new Error('Истекло је 12 секунди чекања на Supabase.')),12000))]);
+ try{
+  if(!window.db)throw new Error('window.db није доступан — провери config.js и database.js.');
+  const result=await timeout(window.db.from('campaigns').select('*').eq('slug',slug).eq('is_published',true).maybeSingle());
+  if(result.error)throw result.error;
+  const c=result.data;
+  if(!c){state.textContent='Упит је успео, али кампања није пронађена као објављена.';debug.textContent='Slug: '+slug+' | is_published: true';return;}
+  const raw=String(c.hero_image||'').trim();
+  const image=raw?(raw.startsWith('http://')||raw.startsWith('https://')?raw:'https://hmfeizkmpmxcnzhwxgbn.supabase.co/storage/v1/object/public/akcije/'+raw.split('/').map(encodeURIComponent).join('/')):'';
+  root.innerHTML='<article class="card">'+(image?'<img src="'+esc(image)+'" alt="'+esc(c.title)+'" onerror="this.style.display=\'none\'">':'')+'<div class="body"><span class="tag">'+esc(c.status||'Кампања')+'</span><h1>'+esc(c.title)+'</h1><p>'+esc(c.intro_text||c.description||c.goal||'Кампања нема унет уводни текст.')+'</p></div></article>';
+  state.textContent='Успешно учитана кампања из базе.';
+  debug.textContent='Тест: campaigns SELECT | slug: '+slug+' | id: '+c.id+' | is_published: '+c.is_published;
+ }catch(e){
+  console.error(e);state.textContent='ГРЕШКА: '+(e.message||String(e));
+  debug.textContent='Код: '+(e.code||'—')+' | Детаљи: '+(e.details||'—')+' | Савет: пошаљи ми снимак ове пробне странице.';
+ }
+})();
+</script>
+</body>
+</html>

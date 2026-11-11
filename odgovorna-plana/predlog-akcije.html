@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="sr-Cyrl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#061a35">
+<title>Предложи акцију — Одговорна Плана</title>
+<link rel="stylesheet" href="/stranice.css">
+<link rel="stylesheet" href="/bottom-nav.css">
+<style>
+:root{--navy:#061a35;--blue:#2166f3;--ink:#10233f;--muted:#66758b;--line:#dce4ee;--paper:#f3f6fa}
+*{box-sizing:border-box}[hidden]{display:none!important}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{width:min(760px,100% - 28px);margin:28px auto 70px}
+.hero{background:var(--navy);color:#fff;padding:34px 24px;border-radius:18px;margin-bottom:18px}
+.hero a{color:#cfe0ff;text-decoration:none;font-size:14px}
+.eyebrow{color:#8db4ff;font-size:12px;font-weight:800;letter-spacing:1.8px;margin:22px 0 8px}
+h1{font-size:clamp(32px,7vw,48px);line-height:1.08;letter-spacing:-1.2px;margin:0 0 12px}
+.hero p{color:#d5e2f5;margin:0;max-width:580px}
+.hero .promise{color:#fff;font-weight:650;margin-top:14px}
+.panel{display:block;background:#fff;border:1px solid var(--line);border-radius:18px;padding:clamp(18px,4vw,28px);margin:16px 0;box-shadow:0 8px 26px #14243a08}
+h2{font-size:23px;line-height:1.2;margin:0 0 7px}
+.sub{color:var(--muted);font-size:14px;margin:0 0 20px}
+.field{margin:16px 0}
+label{display:block;font-size:14px;font-weight:700;margin:0 0 7px}
+input,textarea{width:100%;border:1px solid #cbd5e1;border-radius:11px;padding:13px 14px;font:inherit;font-size:16px;color:var(--ink);background:#fff}
+textarea{min-height:120px;resize:vertical}
+input:focus,textarea:focus{outline:3px solid #d7e5ff;border-color:var(--blue)}
+.hint{display:block;color:var(--muted);font-size:12px;margin-top:6px}
+.help-trigger{width:100%;display:flex;align-items:center;gap:12px;text-align:left;background:#eef4ff;color:var(--ink);border:1px solid #d8e5ff;border-radius:12px;padding:14px;font:inherit;font-weight:750;cursor:pointer}
+.help-trigger .q{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:#dce9ff;color:var(--blue);font-weight:900;flex:none}
+.help-trigger .arrow{margin-left:auto;color:var(--blue)}
+.next-step{margin-top:16px;padding:14px 16px;border:1px solid #d6e3f7;border-radius:12px;background:#f3f7ff;color:var(--navy);font-weight:750;text-align:left;width:100%}.next-step:disabled{display:none}.proposal-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:8px}.proposal-heading h2{margin:0}.guide-link{display:inline-flex;align-items:center;gap:7px;background:#eef4ff;border:1px solid #d8e5ff;color:#1554bd;border-radius:9px;padding:9px 12px;font-size:13px;font-weight:750;white-space:nowrap}.guide-link span{font-size:16px}.wizard-progress{margin:0 0 24px;color:#64748b;font-size:12px;font-weight:800;letter-spacing:1px}.wizard-track{height:6px;background:#e8eef7;border-radius:9px;margin-top:9px;overflow:hidden}.wizard-track i{display:block;height:100%;width:20%;background:var(--blue);border-radius:9px;transition:width .2s}.wizard-step{min-height:240px}.wizard-nav{display:flex;gap:10px;margin-top:22px}.wizard-back,.wizard-next{flex:1;padding:15px 18px;border-radius:11px;font-weight:800}.wizard-back{background:#edf2f8;color:var(--navy)}.wizard-next{background:var(--blue);color:#fff}.wizard-nav .primary{flex:1;margin:0}.step-locked{border:1px dashed #cbd5e1;border-radius:12px;padding:15px;color:#718096;background:#f8fafc}
+.step-locked strong{display:block;color:#526176}
+.step{border-top:1px solid var(--line);padding-top:22px;margin-top:22px}
+.step-head{font-size:21px;font-weight:800;margin-bottom:5px}
+.step-copy{color:var(--muted);font-size:14px;margin:0 0 16px}
+.choice{display:flex;align-items:flex-start;gap:11px;padding:13px;border:1px solid var(--line);border-radius:11px;margin:9px 0;cursor:pointer}
+.choice input{width:18px;height:18px;margin:3px 0 0;accent-color:var(--blue);flex:none}
+.choice span{font-weight:650}
+.choice small{display:block;color:var(--muted);font-weight:400;margin-top:2px}
+button{border:0;border-radius:11px;padding:14px 18px;font:inherit;font-weight:750;cursor:pointer}
+.primary{width:100%;background:var(--blue);color:#fff;margin-top:20px;padding:17px 20px;font-size:17px;letter-spacing:.1px;box-shadow:0 7px 18px #2166f333}
+.primary:hover{background:#174fc2}
+.primary:disabled{opacity:.55;cursor:not-allowed}
+.viber{display:inline-flex;justify-content:center;align-items:center;gap:7px;background:#665cac;color:#fff;text-decoration:none;border-radius:9px;padding:9px 13px;font-size:13px;font-weight:750;width:auto}
+.viber:hover{background:#51478f}
+.phone{text-align:center;font-size:20px;font-weight:850;letter-spacing:.5px;margin:9px 0 0}
+.no-call{text-align:center;color:var(--muted);font-size:12px;margin:2px 0 0}
+.consent{display:flex;align-items:flex-start;gap:10px;font-size:13px;color:#526176;margin-top:20px}
+.consent input{width:18px;height:18px;margin:2px 0 0;flex:none;accent-color:var(--blue)}
+.message{display:none;padding:13px;border-radius:10px;margin-top:14px;font-size:14px}
+.message.show{display:block}
+.message.ok{background:#e8f7ed;color:#176638}.message.err{background:#fff0ed;color:#9b2c1f}
+.notice{text-align:center;color:var(--muted);font-size:12px;margin:12px 0 0}
+.admin{margin-top:44px}
+.admin summary{cursor:pointer;font-weight:750}
+.admin article{border:1px solid var(--line);border-radius:12px;padding:14px;margin:12px 0}
+.admin article h3{margin:0 0 7px}
+.admin article p{white-space:pre-wrap}
+.admin button{background:#eaf1ff;color:var(--ink);margin:5px 5px 5px 0}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
+@media(max-width:520px){main{width:calc(100% - 20px);margin-top:12px}.hero{padding:26px 19px;border-radius:14px}.panel{padding:18px;border-radius:14px}.step-head{font-size:20px}}
+
+body.embed-mode{background:#f3f6fa}
+body.embed-mode>.site-header,body.embed-mode>.menu-backdrop,body.embed-mode>.side-menu,body.embed-mode>footer,body.embed-mode>#bottomNav{display:none!important}
+body.embed-mode main{width:100%;margin:0 auto;padding:12px 14px 28px}
+body.embed-mode .hero{padding:22px 20px;border-radius:13px;margin-bottom:12px}
+body.embed-mode .hero>a{display:none}
+body.embed-mode .eyebrow{margin:0 0 8px}
+body.embed-mode h1{font-size:30px}
+body.embed-mode .panel{margin:10px 0;padding:18px}
+body.embed-mode .wizard-step{min-height:180px}
+
+</style>
+</head>
+<body>
+<script>if(new URLSearchParams(location.search).get("embed")==="1")document.body.classList.add("embed-mode");</script>
+<header class="site-header">
+<a class="site-brand" href="/index.html" aria-label="Одговорна Плана — почетна"><span class="brand-heart">♡</span><span>Одговорна<br>Плана</span></a>
+<nav class="site-nav" aria-label="Главна навигација"><a href="/index.html">Почетна</a><a href="/kampanje.html">Кампање</a><a href="/akcije.html">Акције</a><a href="/podrska.html">Подршка</a></nav>
+<button class="menu-trigger" id="openMenu" type="button" aria-label="Отвори мени">☰</button>
+</header>
+<div class="menu-backdrop" id="menuBackdrop" hidden></div>
+<aside class="side-menu" id="sideMenu" aria-hidden="true"><div class="side-menu-head"><span>♡ Одговорна Плана</span><button class="side-menu-close" id="closeMenu" type="button" aria-label="Затвори мени">×</button></div><nav aria-label="Мени"><a href="/o-nama.html">О нама</a><a href="/kako-funkcionise.html">Како функционише платформа</a><a href="/kontakt.html">Контакт</a></nav></aside>
+<main>
+<section class="hero">
+<a href="/ukljuci-se.html">← Назад на страницу „Укључи се“</a>
+<div class="eyebrow">ТВОЈА ИДЕЈА МОЖЕ ДА ПОКРЕНЕ ПРОМЕНУ</div>
+<h1>Предложи акцију.</h1>
+<p>Приметио си проблем или имаш идеју шта би могло да се уради у твојој средини? Подели је са нама.</p>
+<p class="promise">Не мораш имати готов план. Довољно је да направиш први корак.</p>
+</section>
+<div id="campaignContext" class="panel" hidden style="border-color:#b9d2ff;background:#eef4ff;color:#10233f;margin-top:0"><strong>Предлог за кампању</strong><p id="campaignContextName" style="margin:5px 0 0"></p><span class="hint">Твој предлог ће бити повезан са овом кампањом.</span></div>
+<section class="panel">
+<form id="proposalForm" novalidate>
+<div class="wizard-progress"><span id="wizardCount">КОРАК 1 ОД 5</span><div class="wizard-track"><i id="wizardBar"></i></div></div>
+<section class="wizard-step" data-step="0">
+<h2>1. Како би назвао своју идеју?</h2>
+<p class="sub">Напиши кратак назив који одмах говори шта желиш да покренеш. Не мора бити коначан.</p>
+<div class="field"><label for="title">Назив или кратак опис идеје *</label><input id="title" name="title" maxlength="140" required placeholder="На пример: Уређење пијаце у Крњеву"></div>
+</section>
+<section class="wizard-step" data-step="1" hidden>
+<h2>2. Где би требало нешто урадити?</h2>
+<p class="sub">Наведи насеље, улицу или простор ако знаш. Ако још ниси сигуран, овај корак можеш прескочити.</p>
+<div class="field"><label for="location">Место акције <span class="hint">Није обавезно</span></label><input id="location" name="location" maxlength="180" placeholder="Насеље, улица, парк или други простор"></div>
+</section>
+<section class="wizard-step" data-step="2" hidden>
+<div class="proposal-heading"><h2>3. Напиши предлог акције</h2><button class="guide-link" type="button" id="openGuide">Како написати добар предлог? <span>↗</span></button></div>
+<p class="sub">Опиши шта си приметио и шта мислиш да би требало урадити. Не мораш имати готов план — важно је да поделиш идеју.</p>
+<div class="field"><label for="description">Твој предлог акције *</label><textarea id="description" name="description" minlength="10" maxlength="3000" required placeholder="Шта је проблем и шта мислиш да би требало урадити?"></textarea></div>
+<div class="field"><label for="goal">Шта желиш да постигнемо? <span class="hint">Није обавезно</span></label><textarea id="goal" name="goal" maxlength="2000" style="min-height:82px" placeholder="Опиши какав резултат би волео/волела да видиш."></textarea></div>
+</section>
+<section class="wizard-step" data-step="3" hidden>
+<h2>4. Када планираш акцију?</h2>
+<p class="sub">Ако још не знаш датум или сатницу, нема проблема. Предлог можеш послати и без одређеног термина.</p>
+<label class="choice"><input type="radio" name="date_known" value="false" checked><span>Термин још није одређен<small>Датум ћемо договорити касније.</small></span></label>
+<label class="choice"><input type="radio" name="date_known" value="true"><span>Знам датум акције<small>Унећу датум, а време само ако га знам.</small></span></label>
+<div id="dateFields" hidden>
+<p class="sub">Изабери датум када планираш акцију. На пример, ако планираш окупљање 15. новембра, изабери тај датум. Ако још не знаш тачан датум, врати се на опцију да термин није одређен.</p>
+<div class="field"><label for="action_date">Датум акције *</label><input id="action_date" name="action_date" type="date"></div>
+<div class="field" id="timeField" hidden><label for="action_time">Време почетка <span class="hint">Није обавезно</span></label><input id="action_time" name="action_time" type="time"><p class="hint">На пример: 10:00. Ако још не знаш у колико сати почиње, остави празно.</p></div>
+</div>
+</section>
+<section class="wizard-step" data-step="4" hidden>
+<h2>5. Ко покреће предлог?</h2>
+<p class="sub">Упиши име и презиме. Податак нам служи да знамо ко је предложио акцију и да можемо да се договоримо о следећим корацима.</p>
+<div class="field"><label for="proposer_name">Име и презиме *</label><input id="proposer_name" name="proposer_name" maxlength="120" autocomplete="name" placeholder="Унеси своје име и презиме" required></div>
+<div class="field"><label for="proposer_phone">Број телефона *</label><input id="proposer_phone" name="proposer_phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="30" minlength="6" placeholder="На пример: 064 123 4567" required><p class="hint">Унеси број на који можемо да те контактирамо. Може бити број за позив, Viber или WhatsApp.</p></div>
+<div class="field"><strong>Потребна ти је помоћ?</strong><p class="step-copy" style="margin-top:5px">Ако нешто није јасно или не можеш да се снађеш, пошаљи ми поруку.</p><a class="viber" href="viber://chat?number=%2B381655812195">Порука преко Viber-а</a><p class="phone">065 581 2195</p><p class="no-call">Молим те, пошаљи ми поруку. Немој ме звати.</p></div>
+<label class="consent"><input type="checkbox" id="consent" required><span>Сагласан/сагласна сам да се моји подаци користе ради контакта у вези са овим предлогом.</span></label>
+</section>
+<div class="wizard-nav"><button type="button" id="wizardBack" class="wizard-back" hidden>← Назад</button><button type="button" id="wizardNext" class="wizard-next">Настави →</button><button class="primary" id="submitProposal" type="submit" hidden disabled>Пошаљи предлог акције →</button></div>
+<div id="message" class="message" role="status" aria-live="polite"></div>
+<p class="notice">Предлог прво прегледамо. Након одобрења, договорићемо даље кораке и објављивање акције.</p>
+</form>
+</section>
+
+<details class="panel admin" id="adminPanel" hidden>
+<summary>Администрација предлога</summary>
+<p class="sub">Приватни преглед — само за администратора.</p>
+<div id="adminLogin"><button id="adminSend" type="button">Пошаљи линк за пријаву</button><p id="adminMsg" class="notice"></p></div>
+<div id="adminData" hidden><button id="adminLogout" type="button">Одјави се</button><div id="adminRows"></div></div>
+</details>
+</main>
+<footer>Одговорна Плана · Није довољно знати. Треба и деловати.</footer>
+
+<div class="guide-backdrop" id="guideBackdrop" hidden></div>
+<section class="guide-sheet" id="guideSheet" role="dialog" aria-modal="true" aria-labelledby="guideTitle" hidden>
+<div class="guide-handle"></div>
+<button type="button" class="guide-close" id="closeGuide" aria-label="Затвори">×</button>
+<h2 id="guideTitle">Како написати добар предлог?</h2>
+<p><strong>Не мораш имати решење. Довољно је да препознаш шта треба променити.</strong></p>
+<p>Предлог акције је идеја о томе шта бисмо могли да променимо, поправимо или урадимо у својој средини.</p>
+<p>На пример: уредити запуштену пијацу, очистити простор поред реке, обновити игралиште или организовати помоћ комшијама.</p>
+<p><strong>Акција</strong> је конкретно заједничко деловање којим ту идеју претварамо у дело.</p>
+<p>Не мораш знати датум, време нити имати окупљене људе. То можемо договорити заједно.</p>
+<button type="button" class="primary" id="guideDone">Разумем, настави</button>
+</section>
+<style>
+.guide-backdrop{position:fixed;inset:0;background:#061a35a8;z-index:1000}
+.guide-sheet{position:fixed;z-index:1001;left:0;right:0;bottom:0;max-height:85dvh;overflow:auto;background:#fff;border-radius:22px 22px 0 0;padding:26px 22px calc(24px + env(safe-area-inset-bottom));box-shadow:0 -12px 50px #061a3533}
+.guide-handle{width:42px;height:5px;background:#cbd5e1;border-radius:9px;margin:-12px auto 20px}
+.guide-close{position:absolute;right:16px;top:12px;background:#eef2f7;color:#24344d;width:36px;height:36px;padding:0;font-size:24px}
+.guide-sheet h2{padding-right:36px}.guide-sheet p{color:#42536b}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/config.js"></script>
+<script src="/database.js"></script>
+<script>
+(function(){
+'use strict';
+const db=window.odgovornaPlanaDB;
+const $=id=>document.getElementById(id);
+const form=$('proposalForm');
+const campaignId=new URLSearchParams(location.search).get('campaign_id');
+let linkedCampaign=null;
+const dateFields=$('dateFields');
+let wizardStep=0;
+const wizardSteps=[...form.querySelectorAll('.wizard-step')];
+function selectedDateKnown(){return form.querySelector('input[name="date_known"]:checked')?.value==='true';}
+function updateDate(){
+ const known=selectedDateKnown();
+ dateFields.hidden=!known;
+ $('action_date').required=known;
+ $('timeField').hidden=!known||!$('action_date').value;
+ $('action_time').required=false;
+}
+function renderWizard(){
+ wizardSteps.forEach((el,i)=>el.hidden=i!==wizardStep);
+ $('wizardCount').textContent='КОРАК '+(wizardStep+1)+' ОД 5';
+ $('wizardBar').style.width=((wizardStep+1)*20)+'%';
+ $('wizardBack').hidden=wizardStep===0;
+ $('wizardNext').hidden=wizardStep===4;
+ $('submitProposal').hidden=wizardStep!==4;
+ $('submitProposal').disabled=wizardStep!==4;
+ updateDate();
+}
+function validateStep(){
+ const fields=wizardSteps[wizardStep].querySelectorAll('input,textarea');
+ for(const field of fields){
+  if(field.type==='radio')continue;
+  if(field.type==='checkbox'){
+   if(field.required&&!field.checked){field.reportValidity();return false;}
+   continue;
+  }
+  if(field.required&&!field.value.trim()){field.reportValidity();return false;}
+  if(!field.checkValidity()){field.reportValidity();return false;}
+ }
+ if(wizardStep===3&&selectedDateKnown()&&!$('action_date').value){$('action_date').reportValidity();return false;}
+ return true;
+}
+$('wizardNext').addEventListener('click',()=>{if(!validateStep())return;wizardStep=Math.min(4,wizardStep+1);renderWizard();});
+$('wizardBack').addEventListener('click',()=>{wizardStep=Math.max(0,wizardStep-1);renderWizard();});
+form.querySelectorAll('input[name="date_known"]').forEach(x=>x.addEventListener('change',updateDate));
+$('action_date').addEventListener('change',updateDate);
+renderWizard();
+
+async function loadCampaignContext(){
+ if(!campaignId||! /^[0-9a-f-]{36}$/i.test(campaignId))return;
+ const {data,error}=await db.from('campaigns').select('id,title,slug,is_published').eq('id',campaignId).eq('is_published',true).maybeSingle();
+ if(error){console.warn('Не могу да учитам кампању за предлог:',error);return;}
+ if(!data)return;
+ linkedCampaign=data;
+ $('campaignContextName').textContent=data.title;
+ $('campaignContext').hidden=false;
+}
+loadCampaignContext();
+
+function showMessage(text,type){const m=$('message');m.textContent=text;m.className='message show '+type;}
+form.addEventListener('submit',async e=>{
+ e.preventDefault();
+ if(!validateStep())return;
+ if(!db){showMessage('Веза са базом није доступна. Покушај поново касније.','err');return;}
+ const btn=$('submitProposal');btn.disabled=true;btn.textContent='Шаљем предлог…';
+ const known=selectedDateKnown();
+ const payload={
+  title:$('title').value.trim(),
+  description:$('description').value.trim(),
+  location:$('location').value.trim()||null,
+  proposer_name:$('proposer_name').value.trim(),
+  proposer_phone:$('proposer_phone').value.trim(),
+  proposer_email:null,
+  proposer_viber:null,
+  proposer_social:{source:'predlog-akcije.html'},
+  campaign_id:linkedCampaign?.id||null,
+  goal:$('goal').value.trim()||null,
+  date_known:known,
+  action_date:known?$('action_date').value:null,
+  action_time:known&&$('action_date').value&&$('action_time').value?$('action_time').value:null,
+  status:'pending'
+ };
+ try{
+  const {error}=await db.from('action_proposals').insert(payload);
+  if(error)throw error;
+  form.reset();wizardStep=0;renderWizard();
+  showMessage('Хвала ти! Предлог акције је успешно послат. Прегледаћемо га и јавити ти се ако буде потребно да нешто додатно договоримо.','ok');
+  btn.textContent='Предлог је послат ✓';
+ }catch(err){
+  console.error('Грешка при слању предлога:',err);
+  showMessage('Предлог није послат. Покушај поново или ми пошаљи поруку на Viber.','err');
+  btn.textContent='Пошаљи предлог акције →';btn.disabled=false;
+ }
+});
+
+const backdrop=$('guideBackdrop'),sheet=$('guideSheet');
+function openGuide(){backdrop.hidden=false;sheet.hidden=false;document.body.style.overflow='hidden';}
+function closeGuide(){backdrop.hidden=true;sheet.hidden=true;document.body.style.overflow='';}
+$('openGuide').addEventListener('click',openGuide);$('closeGuide').addEventListener('click',closeGuide);$('guideDone').addEventListener('click',closeGuide);backdrop.addEventListener('click',closeGuide);
+
+const TOKEN='op_proposal_admin_token';
+const adminEmail='autoservisgumco@gmail.com';
+const headers=()=>({apikey:window.APP_CONFIG.supabase.key,Authorization:'Bearer '+sessionStorage.getItem(TOKEN),'Content-Type':'application/json'});
+async function adminLoad(){
+ const token=sessionStorage.getItem(TOKEN);if(!token)return;
+ const auth=await fetch(window.APP_CONFIG.supabase.url+'/auth/v1/user',{headers:{apikey:window.APP_CONFIG.supabase.key,Authorization:'Bearer '+token}});
+ if(!auth.ok){sessionStorage.removeItem(TOKEN);return;}
+ const user=await auth.json();
+ if((user.email||'').toLowerCase()!==adminEmail){$('adminMsg').textContent='Овај налог нема администраторски приступ.';return;}
+ $('adminPanel').hidden=false;$('adminLogin').hidden=true;$('adminData').hidden=false;
+ const r=await fetch(window.APP_CONFIG.supabase.url+'/rest/v1/action_proposals?select=*&order=created_at.desc',{headers:headers()});
+ if(!r.ok){$('adminRows').textContent='Грешка при учитавању предлога.';return;}
+ const rows=await r.json(),root=$('adminRows');root.replaceChildren();
+ rows.forEach(p=>{
+  const card=document.createElement('article'),h=document.createElement('h3'),meta=document.createElement('p'),desc=document.createElement('p');
+  h.textContent=p.title+' · '+p.status;meta.textContent=(p.proposer_name||'')+' · '+(p.location||'')+' · '+(p.action_date||'Термин није одређен');
+  desc.textContent=p.description;card.append(h,meta,desc);
+  if(p.goal){const g=document.createElement('p');g.textContent='Жељени резултат: '+p.goal;card.append(g);}
+  if(p.status==='pending'){const b=document.createElement('button');b.textContent='Означи као објављен';b.onclick=async()=>{const u=await fetch(window.APP_CONFIG.supabase.url+'/rest/v1/action_proposals?id=eq.'+p.id,{method:'PATCH',headers:{...headers(),Prefer:'return=minimal'},body:JSON.stringify({status:'published'})});if(u.ok)adminLoad();};card.append(b);}
+  root.append(card);
+ });
+}
+$('adminSend').addEventListener('click',async()=>{
+ const r=await fetch(window.APP_CONFIG.supabase.url+'/auth/v1/otp',{method:'POST',headers:{apikey:window.APP_CONFIG.supabase.key,'Content-Type':'application/json'},body:JSON.stringify({email:adminEmail,create_user:false,options:{emailRedirectTo:location.href}})});
+ $('adminMsg').textContent=r.ok?'Линк за пријаву је послат на '+adminEmail+'.':'Грешка при слању линка: '+await r.text();
+});
+$('adminLogout').addEventListener('click',()=>{sessionStorage.removeItem(TOKEN);location.reload();});
+const hash=new URLSearchParams(location.hash.replace(/^#/,'')),access=new URL(location.href).searchParams.get('access_token')||hash.get('access_token');
+if(access){sessionStorage.setItem(TOKEN,access);adminLoad();}else if(sessionStorage.getItem(TOKEN))adminLoad();
+
+const menu=$('sideMenu'),menuBackdrop=$('menuBackdrop');
+if(menu&&menuBackdrop){
+ function closeMenu(){menu.classList.remove('open');menuBackdrop.classList.remove('open');menu.setAttribute('aria-hidden','true');setTimeout(()=>menuBackdrop.hidden=true,260);}
+ $('openMenu').addEventListener('click',()=>{menuBackdrop.hidden=false;menu.setAttribute('aria-hidden','false');requestAnimationFrame(()=>{menuBackdrop.classList.add('open');menu.classList.add('open');});});
+ $('closeMenu').addEventListener('click',closeMenu);menuBackdrop.addEventListener('click',closeMenu);
+}
+})();
+</script>
+<script src="/bottom-nav.js"></script>
+</body>
+</html>

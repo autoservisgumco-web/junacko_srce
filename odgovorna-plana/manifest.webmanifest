@@ -1,0 +1,16 @@
+{
+  "id": "./",
+  "name": "Одговорна Плана",
+  "short_name": "Одговорна Плана",
+  "description": "Место за грађане, идеје и заједничко деловање.",
+  "lang": "sr-Cyrl",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F1F5F9",
+  "theme_color": "#061A35",
+  "icons": [
+    {"src": "./odgovorna-plana-icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any"}
+  ]
+}

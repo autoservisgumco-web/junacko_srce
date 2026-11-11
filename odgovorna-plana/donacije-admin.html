@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="sr-Cyrl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#061A35"><title>Подешавање донација — Одговорна Плана</title>
+<link rel="stylesheet" href="/stranice.css">
+<style>
+:root{--navy:#061a35;--blue:#2166f3;--red:#d71920;--ink:#172033;--muted:#64748b;--line:#dce4ee}
+body{margin:0;background:#f3f6fa;color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+.admin-top{background:var(--navy);color:#fff;padding:18px max(4vw,18px);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.admin-top a{color:#fff;text-decoration:none;font-weight:800}
+.admin-wrap{max-width:1050px;margin:28px auto;padding:0 16px 70px}
+.admin-title h1{margin:0;color:var(--navy);font-size:clamp(27px,4vw,38px)}
+.admin-title p{margin:7px 0 20px;color:var(--muted);line-height:1.5}
+.panel{background:#fff;border:1px solid var(--line);border-radius:17px;padding:20px;margin:15px 0;box-shadow:0 5px 20px #0f172a08}
+.panel h2{margin:0 0 7px;color:var(--navy);font-size:21px}
+.help{margin:0 0 15px;color:var(--muted);font-size:13px;line-height:1.5}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.field{display:grid;gap:6px;min-width:0}.field.full{grid-column:1/-1}
+.field label{font-size:13px;font-weight:800;color:#334155}
+.field input,.field textarea,.field select{width:100%;box-sizing:border-box;border:1px solid #cbd5e1;border-radius:10px;padding:11px 12px;font:inherit;color:var(--ink);background:#fff}
+.field textarea{min-height:86px;resize:vertical}
+.btn{border:0;border-radius:10px;padding:11px 15px;font:inherit;font-weight:850;cursor:pointer}
+.btn.primary{background:var(--blue);color:#fff}.btn.light{background:#eaf0f7;color:var(--navy)}.btn.danger{background:#fff1f2;color:#b91c1c;border:1px solid #fecaca}
+.toolbar{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.item-row{border:1px solid var(--line);border-radius:14px;padding:14px;margin:12px 0;background:#fbfdff}
+.item-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr 90px;gap:10px}
+.item-grid label{display:grid;gap:6px;color:#334155;font-size:12px;font-weight:800}
+.item-grid input,.item-grid select,.item-row textarea{width:100%;box-sizing:border-box;min-width:0;border:1px solid #cbd5e1;border-radius:9px;padding:10px;font:inherit;background:#fff}
+.item-row textarea{margin-top:10px;min-height:65px;resize:vertical}
+.item-bottom{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px}
+.item-bottom label{display:flex;align-items:center;gap:7px;color:#475569;font-size:12px;font-weight:800}
+.notice{padding:12px 14px;border-radius:11px;background:#eef5ff;color:#1e3a8a;font-size:13px;line-height:1.5;margin:12px 0}
+#status{font-size:13px;color:var(--muted);margin-top:12px;white-space:pre-wrap}
+#authBox[hidden],#editor[hidden]{display:none}
+@media(max-width:700px){.grid,.item-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.panel{padding:16px}.admin-top{align-items:flex-start;flex-direction:column}}
+</style>
+</head>
+<body>
+<header class="admin-top"><a href="/index.html">♡ Одговорна Плана</a><a href="/admin.html">← Администрација</a></header>
+<main class="admin-wrap">
+<div class="admin-title"><h1>Подешавање донација</h1><p>Овде уређујеш шта је потребно кампањи, коме се грађани јављају и како могу да уплате новчану донацију.</p></div>
+<section id="authBox" class="panel">
+<h2>Пријава администратора</h2>
+<div class="grid">
+<div class="field"><label for="email">Е-пошта</label><input id="email" type="email" autocomplete="username"></div>
+<div class="field"><label for="password">Лозинка</label><input id="password" type="password" autocomplete="current-password"></div>
+</div>
+<div class="toolbar" style="margin-top:14px"><button class="btn primary" id="login">Пријави се</button><span id="authMessage" class="help"></span></div>
+</section>
+<section id="editor" hidden>
+<section class="panel">
+<div class="toolbar"><div><h2>Изабери кампању</h2><p class="help">Подаци се чувају одвојено за сваку кампању.</p></div><button class="btn light" id="logout">Одјави се</button></div>
+<div class="field"><label for="campaign">Кампања</label><select id="campaign"></select></div>
+</section>
+<section class="panel">
+<h2>Подаци о примаоцу и уплати</h2>
+<p class="help">Попуни само податке који су проверени и које желиш да буду јавно приказани.</p>
+<div class="grid">
+<div class="field"><label for="recipient_name">Прималац донације</label><input id="recipient_name" placeholder="Назив организације или лица"></div>
+<div class="field"><label for="bank_account">Динарски рачун</label><input id="bank_account" placeholder="Број рачуна"></div>
+<div class="field"><label for="paypal_email">PayPal адреса</label><input id="paypal_email" type="email" placeholder="PayPal email"></div>
+<div class="field"><label for="payment_purpose">Сврха уплате</label><input id="payment_purpose" placeholder="Донација за кампању..."></div>
+<div class="field"><label for="reference_number">Позив на број</label><input id="reference_number" placeholder="Позив на број (ако постоји)"></div>
+<div class="field"><label for="contact_name">Контакт особа</label><input id="contact_name" placeholder="Коме да се јаве"></div>
+<div class="field"><label for="contact_phone">Телефон / Viber</label><input id="contact_phone" type="tel" placeholder="+381..."></div>
+<div class="field"><label for="contact_email">Контакт email</label><input id="contact_email" type="email" placeholder="Email за контакт"></div>
+<div class="field full"><label for="contact_note">Напомена за контакт</label><textarea id="contact_note" placeholder="Када је најбоље позвати, коме се обратити..."></textarea></div>
+<div class="field full"><label for="payment_instructions">Упутство за уплату</label><textarea id="payment_instructions" placeholder="Додатна упутства за уплату или преузимање потврде..."></textarea></div>
+</div>
+</section>
+<section class="panel">
+<div class="toolbar"><div><h2>Шта може да се донира</h2><p class="help">Свака ставка је посебна. Можеш да додаш новац, храну, опрему, материјал, услугу или другу врсту помоћи.</p></div><button class="btn light" id="addItem" type="button">+ Додај ставку</button></div>
+<div id="items"></div>
+<div class="notice">Типови донација су заједнички за све кампање. У свакој кампањи бираш само конкретне ставке које су јој потребне.</div>
+</section>
+<section class="panel">
+<div class="toolbar"><span class="help">Измене постају видљиве на јавној страници након чувања.</span><button class="btn primary" id="save">Сачувај подешавања</button></div>
+<div id="status" role="status"></div>
+</section>
+</section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="/config.js"></script><script src="/database.js"></script><script src="/donation-types.js"></script>
+<script>
+(function(){
+ const db=window.db,authBox=document.getElementById('authBox'),editor=document.getElementById('editor'),status=document.getElementById('status');
+ const types=window.DonationTypes.list.map(type=>[type.value,type.label]);
+ let campaigns=[],currentId=null;
+ const $=id=>document.getElementById(id);
+ const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ const typeOptions=selected=>types.map(([v,l])=>'<option value="'+v+'" '+(selected===v?'selected':'')+'>'+l+'</option>').join('');
+ function addItem(item={}){
+  const row=document.createElement('div');row.className='item-row';row.dataset.id=item.id||'';
+  row.innerHTML='<div class="item-grid">'+
+   '<label>Назив ставке<input data-field="title" value="'+esc(item.title)+'" placeholder="нпр. Сува храна за псе"></label>'+
+   '<label>Тип донације<select data-field="type">'+typeOptions(item.type||'money')+'</select></label>'+
+   '<label>Износ / количина<input data-field="suggested_amount" type="number" min="0" step="0.01" value="'+esc(item.suggested_amount??'')+'" placeholder="нпр. 5000"></label>'+
+   '<label>Јединица мере<input data-field="unit" value="'+esc(item.unit||'')+'" placeholder="кг, џак, комад, сат"></label>'+
+   '<label>Редослед<input data-field="order_number" type="number" min="0" value="'+esc(item.order_number??($('items').children.length+1))+'"></label></div>'+
+   '<textarea data-field="description" placeholder="Шта је тачно потребно и за шта ће се користити...">'+esc(item.description||'')+'</textarea>'+
+   '<div class="item-bottom"><label><input data-field="is_active" type="checkbox" '+(item.is_active===false?'':'checked')+'> Прикажи на јавној страници</label><button class="btn danger" type="button">Уклони ставку</button></div>';
+  row.querySelector('.danger').addEventListener('click',()=>row.remove());$('items').appendChild(row);
+ }
+ function readItems(){
+  return [...$('items').querySelectorAll('.item-row')].map((row,i)=>{
+   const val=k=>row.querySelector('[data-field="'+k+'"]');
+   const amount=val('suggested_amount').value;
+   return {title:val('title').value.trim(),type:val('type').value,suggested_amount:amount===''?null:Number(amount),unit:val('unit').value.trim()||null,order_number:Number(val('order_number').value||i+1),description:row.querySelector('[data-field="description"]').value.trim(),is_active:val('is_active').checked};
+  }).filter(x=>x.title);
+ }
+ async function loadCampaigns(){
+  const {data,error}=await db.from('campaigns').select('id,title,slug').eq('is_published',true).order('title');
+  if(error)throw error;campaigns=data||[];
+  $('campaign').innerHTML=campaigns.map(c=>'<option value="'+esc(c.id)+'">'+esc(c.title)+'</option>').join('');
+  const slug=new URLSearchParams(location.search).get('slug');
+  const match=campaigns.find(c=>c.slug===slug);
+  if(match)$('campaign').value=match.id;
+  if(campaigns.length)await loadCampaign($('campaign').value||campaigns[0].id);
+ }
+ async function loadCampaign(id){
+  currentId=id;status.textContent='Учитавање подешавања...';
+  const [settingsRes,itemsRes]=await Promise.all([
+   db.from('campaign_donations').select('*').eq('campaign_id',id).maybeSingle(),
+   db.from('campaign_donation_items').select('*').eq('campaign_id',id).order('order_number')
+  ]);
+  if(settingsRes.error)throw settingsRes.error;if(itemsRes.error)throw itemsRes.error;
+  const s=settingsRes.data||{};
+  ['recipient_name','bank_account','paypal_email','payment_purpose','reference_number','contact_name','contact_phone','contact_email','contact_note','payment_instructions'].forEach(k=>$(k).value=s[k]||'');
+  $('items').replaceChildren();(itemsRes.data||[]).forEach(addItem);if(!itemsRes.data?.length)addItem();
+  status.textContent='';
+ }
+ async function save(){
+  if(!currentId)return;
+  status.textContent='Чувам подешавања...';$('save').disabled=true;
+  try{
+   const settings={campaign_id:currentId,is_active:true};
+   ['recipient_name','bank_account','paypal_email','payment_purpose','reference_number','contact_name','contact_phone','contact_email','contact_note','payment_instructions'].forEach(k=>settings[k]=$(k).value.trim()||null);
+   const {error:settingsError}=await db.from('campaign_donations').upsert(settings,{onConflict:'campaign_id'});
+   if(settingsError)throw settingsError;
+   const {error:deleteError}=await db.from('campaign_donation_items').delete().eq('campaign_id',currentId);
+   if(deleteError)throw deleteError;
+   const rows=readItems();
+   if(rows.length){const {error:itemsError}=await db.from('campaign_donation_items').insert(rows.map(x=>({...x,campaign_id:currentId})));if(itemsError)throw itemsError;}
+   status.textContent='Подешавања су сачувана. Јавна страница ће приказати активне ставке.';
+  }catch(error){console.error(error);status.textContent='Грешка при чувању: '+(error.message||String(error));}
+  finally{$('save').disabled=false;}
+ }
+ async function checkSession(){
+  const {data:{session}}=await db.auth.getSession();
+  if(!session){authBox.hidden=false;editor.hidden=true;return;}
+  if(session.user?.email!=='jefimijaorg@gmail.com'){authBox.hidden=false;editor.hidden=true;$('authMessage').textContent='Овај налог нема администраторски приступ.';return;}
+  authBox.hidden=true;editor.hidden=false;
+  try{await loadCampaigns();}catch(error){status.textContent='Не могу да учитам кампање: '+(error.message||String(error));}
+ }
+ $('login').addEventListener('click',async()=>{
+  const {error}=await db.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});
+  $('authMessage').textContent=error?error.message:'';
+  if(!error)await checkSession();
+ });
+ $('logout').addEventListener('click',async()=>{await db.auth.signOut();await checkSession();});
+ $('campaign').addEventListener('change',e=>loadCampaign(e.target.value).catch(err=>status.textContent=err.message));
+ $('addItem').addEventListener('click',()=>addItem());
+ $('save').addEventListener('click',save);
+ checkSession();
+})();
+</script>
+</body></html>

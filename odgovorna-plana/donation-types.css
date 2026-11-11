@@ -1,0 +1,87 @@
+.donation-panel-intro{padding:13px 15px;border-radius:12px;background:#f1f6ff;color:#334155;font-size:14px;line-height:1.6;margin-bottom:16px}
+.donation-panel-section{margin-top:18px}.donation-panel-section h3{display:flex;align-items:center;gap:9px;margin:0 0 12px;color:#102b4e;font-size:18px}
+.donation-panel-section h3 i{color:#2166f3}
+.donation-items-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.donation-item-card{display:flex;align-items:flex-start;gap:12px;padding:14px;border:1px solid #e1e8f0;border-radius:13px;background:#fff}
+.donation-item-icon{display:grid;place-items:center;flex:0 0 40px;height:40px;border-radius:11px;background:#edf4ff;color:#2166f3;font-size:17px}
+.donation-item-copy{min-width:0}.donation-item-copy strong{display:block;color:#172033;font-size:14px}.donation-item-type{display:block;margin-top:4px;color:#64748b;font-size:11px;font-weight:800}
+.donation-item-copy p{margin:7px 0 0;color:#64748b;font-size:13px;line-height:1.5}.donation-item-quantity{display:inline-block;margin-top:8px;color:#176b3a;font-size:13px;font-weight:850}
+.donation-empty{padding:12px 14px;border:1px dashed #cbd5e1;border-radius:11px;background:#f8fafc;color:#64748b;font-size:13px;line-height:1.5}
+.donation-payment-card,.donation-contact-card{padding:16px;border:1px solid #dce5ef;border-radius:14px;background:#f8fbff;margin-top:12px}
+.donation-contact-title{font-size:15px;font-weight:900;color:#102b4e;margin-bottom:10px}
+.donation-detail-row{display:grid;grid-template-columns:130px minmax(0,1fr) auto;align-items:center;gap:9px;padding:10px 0;border-bottom:1px solid #e4ebf3;font-size:13px}
+.donation-detail-row span{color:#64748b}.donation-detail-row strong{overflow-wrap:anywhere;color:#172033}
+.donation-copy{border:1px solid #cbd9e8;border-radius:8px;background:#fff;color:#174ea6;padding:7px 9px;font-size:11px;font-weight:800;cursor:pointer}
+.donation-payment-note,.donation-contact-note{margin:12px 0 0;color:#475569;font-size:13px;line-height:1.55}
+.donation-contact-card>strong{display:block;color:#172033;font-size:17px}.donation-contact-card>p{margin:5px 0;color:#475569;font-size:13px}
+.donation-contact-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:13px}
+.donation-contact-link{display:inline-flex;align-items:center;gap:7px;padding:10px 12px;border-radius:9px;background:#2166f3;color:#fff;text-decoration:none;font-size:12px;font-weight:850}
+.donation-contact-link.secondary{background:#e8eef7;color:#17365f}
+@media(max-width:620px){.donation-items-grid{grid-template-columns:1fr}.donation-detail-row{grid-template-columns:1fr auto}.donation-detail-row span{grid-column:1/-1}.donation-contact-actions{display:grid;grid-template-columns:1fr}.donation-contact-link{justify-content:center}}
+/* Одвојени начини новчане донације */
+.donation-methods{display:grid;gap:14px}
+.donation-method{padding:15px;border:1px solid #dce5ef;border-radius:14px;background:#fff}
+.donation-method h4{margin:0 0 10px;color:#102b4e;font-size:16px}
+.donation-paypal-button{display:flex;align-items:center;justify-content:center;gap:9px;min-height:48px;padding:10px 16px;border-radius:10px;background:#1769aa;color:#fff;text-decoration:none;font-weight:850}
+.donation-paypal-email{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:10px;color:#475569;font-size:13px}
+.donation-slip-heading{margin-bottom:12px;padding-bottom:9px;border-bottom:2px solid #cbd5e1;color:#102b4e;font-size:14px;font-weight:900;letter-spacing:.08em}
+.donation-slip .donation-detail-row:first-of-type{display:none}
+@media(max-width:620px){.donation-method{padding:12px}.donation-paypal-button{width:100%;box-sizing:border-box}}
+
+
+/* Новчана донација: интерактивни табови */
+.donation-payment-tabs{margin-top:14px}
+.donation-tab-list{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;padding:5px;background:#edf2f8;border-radius:12px}
+.donation-tab{min-height:44px;padding:9px 8px;border:1px solid transparent;border-radius:9px;background:transparent;color:#334155;font:inherit;font-size:13px;font-weight:800;cursor:pointer}
+.donation-tab.is-active{background:#fff;border-color:#d7e1ed;color:#123b70;box-shadow:0 2px 7px #102b4e12}
+.donation-tab-panel{padding-top:13px}.donation-tab-panel[hidden]{display:none!important}.donation-tab-panel:not([hidden]){display:block}
+.donation-slip-fields{display:grid;gap:0}.donation-slip-fields>div{display:grid;grid-template-columns:130px minmax(0,1fr);gap:10px;padding:9px 0;border-bottom:1px solid #e4ebf3;font-size:13px}
+.donation-slip-fields span{color:#64748b}.donation-slip-fields strong{color:#172033;overflow-wrap:anywhere}
+.donation-print-slip{margin-top:14px;width:100%;min-height:44px;border:0;border-radius:9px;background:#174ea6;color:#fff;font-weight:800;cursor:pointer}
+@media(max-width:520px){.donation-tab-list{gap:4px;padding:4px}.donation-tab{font-size:11px;line-height:1.25;padding:8px 4px}.donation-slip-fields>div{grid-template-columns:1fr;gap:4px}}
+@media print{body *{visibility:hidden!important}.donation-slip,.donation-slip *{visibility:visible!important}.donation-slip{position:absolute;left:0;top:0;width:100%;border:1px solid #222!important;background:#fff!important}}
+
+/* Western Union tab — приказ података примаоца по кампањи */
+.donation-tab[data-donation-tab="western-union"]{white-space:normal}
+@media(max-width:520px){
+  .donation-tab-list{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .donation-tab{min-height:42px;font-size:12px}
+}
+
+/* Izbor iznosa pre izbora načina plaćanja */
+.donation-amount-step{display:grid;gap:14px;margin:18px 0}
+.donation-amount-step h4{margin:0;color:#102b4e;font-size:17px}
+.donation-amount-options{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.donation-amount-choice{min-height:46px;padding:9px 6px;border:1px solid #d5dfeb;border-radius:10px;background:#fff;color:#17365f;font:inherit;font-weight:800;cursor:pointer}
+.donation-amount-choice.is-active{border-color:#174ea6;background:#eaf2ff;color:#123b70;box-shadow:inset 0 0 0 1px #174ea6}
+.donation-amount-custom-label{display:grid;gap:7px;color:#334155;font-size:14px;font-weight:700}
+.donation-amount-custom-label input{box-sizing:border-box;width:100%;min-height:46px;padding:10px 12px;border:1px solid #cbd5e1;border-radius:10px;font:inherit}
+.donation-methods-wrap{margin-top:6px}
+.donation-methods-wrap[hidden]{display:none}
+.donation-amount-error{margin:0;color:#b42318;font-size:13px}
+.donation-amount-error[hidden]{display:none}
+@media(max-width:520px){.donation-amount-options{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* IPS QR kod za direktno skeniranje u bankarskoj aplikaciji */
+.donation-ips-qr{display:grid;place-items:center;min-height:250px;padding:12px;background:#fff;border:1px solid #dce5ef;border-radius:12px;color:#64748b;text-align:center;font-size:13px}
+.donation-ips-qr canvas,.donation-ips-qr img{display:block;max-width:100%;height:auto}
+.donation-ips-download{width:100%;min-height:44px;margin-top:12px;border:0;border-radius:9px;background:#174ea6;color:#fff;font-weight:800;cursor:pointer}
+.donation-ips-download:disabled{opacity:.45;cursor:not-allowed}
+.donation-ips-status{color:#475569;font-size:12px}
+@media(max-width:520px){.donation-tab-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* Уплатница — јасно поље за уплатиоца и штампање */
+.donation-slip{background:#fff;border:1px solid #cbd5e1;color:#172033}
+.donation-slip-fields>div{min-height:34px}
+.donation-slip-blank{min-height:24px;border-bottom:1px dotted #94a3b8;padding-bottom:4px}
+.donation-slip-footnote{margin:12px 0 0;color:#64748b;font-size:11px;line-height:1.5}
+@media print{
+  @page{size:A4;margin:18mm}
+  body *{visibility:hidden!important}
+  .donation-slip,.donation-slip *{visibility:visible!important}
+  .donation-slip{position:absolute!important;left:0!important;top:0!important;width:100%!important;box-sizing:border-box!important;padding:18px!important;border:1px solid #222!important;border-radius:0!important;background:#fff!important;color:#000!important;box-shadow:none!important}
+  .donation-slip-heading{color:#000!important;border-color:#000!important}
+  .donation-slip-fields>div{border-color:#bbb!important;break-inside:avoid}
+  .donation-slip-fields span,.donation-slip-footnote{color:#333!important}
+  .donation-print-slip{display:none!important}
+}

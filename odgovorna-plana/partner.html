@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="sr-Cyrl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#061A35">
+<title>Партнер — Одговорна Плана</title><meta name="description" content="Упознајте партнере и сараднике Одговорне Плане и сазнајте како можете да их подржите.">
+<link rel="stylesheet" href="/stranice.css"><link rel="stylesheet" href="/bottom-nav.css"><link rel="stylesheet" href="/donation-types.css">
+<style>
+body{background:#f5f7fa;color:#222831}.partner-hero{background:linear-gradient(115deg,#061a35eF,#174d7bd9),var(--cover) center/cover,#0b2d50;color:#fff;padding:clamp(48px,8vw,100px) max(20px,calc((100% - 1120px)/2));min-height:270px;display:flex;align-items:end}.partner-hero-inner{max-width:850px}.partner-kicker{font-size:12px;letter-spacing:1.5px;font-weight:850;color:#b9d8f5}.partner-hero h1{font-size:clamp(32px,5vw,58px);line-height:1.08;margin:12px 0;color:#fff}.partner-hero p{font-size:18px;line-height:1.6;max-width:780px;color:#eef6ff;margin:0}.partner-wrap{max-width:1120px;margin:auto;padding:26px 20px 100px}.partner-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:0 0 24px}.partner-action{display:flex;align-items:center;justify-content:center;gap:9px;min-height:54px;border-radius:12px;text-decoration:none;font-weight:850}.partner-action.volunteer{background:#2a6ba3;color:white}.partner-action.donate{background:#e63946;color:white}.partner-block{background:#fff;border:1px solid #e4eaf0;border-radius:16px;padding:25px;margin:16px 0}.partner-block h2{color:#123f78;margin:0 0 15px;font-size:25px}.partner-description{white-space:pre-line;line-height:1.8;color:#40566f}.partner-meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:20px}.partner-meta div{background:#f3f7fc;padding:12px 14px;border-radius:10px;color:#40566f;font-size:14px}.partner-meta a{color:#2166a8}.partner-article-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.partner-article{border:1px solid #e5eaf0;border-radius:13px;overflow:hidden;background:#fff}.partner-article img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}.partner-article-copy{padding:17px}.partner-article h3{margin:0 0 8px;color:#163f70}.partner-article p{margin:0;color:#64748b;line-height:1.7;white-space:pre-line}.partner-article time{display:block;margin-top:10px;font-size:12px;color:#8492a6}.partner-empty{padding:18px;background:#f5f8fc;border-radius:12px;color:#64748b}.partner-form{display:grid;gap:12px}.partner-form label{display:grid;gap:6px;font-size:13px;font-weight:750;color:#344054}.partner-form input,.partner-form select,.partner-form textarea{box-sizing:border-box;width:100%;padding:12px;border:1px solid #d5deea;border-radius:9px;font:inherit}.partner-form button{border:0;border-radius:10px;padding:14px;background:#2a6ba3;color:#fff;font-weight:850;font-size:15px}.partner-status{font-size:14px;color:#16834b}.partner-share{display:inline-flex;margin-top:16px;color:#dbeafe;text-decoration:underline;font-weight:700}
+.partner-share-actions{display:flex;flex-wrap:wrap;gap:9px;margin:16px 0}.partner-share-actions button,.partner-share-actions a{display:inline-flex;align-items:center;justify-content:center;min-height:43px;padding:10px 15px;border:1px solid #d5deea;border-radius:10px;background:#f5f8fc;color:#174d7b;text-decoration:none;font:inherit;font-size:14px;font-weight:800;cursor:pointer}.partner-share-actions .share-main{background:#2a6ba3;border-color:#2a6ba3;color:#fff}.partner-share-actions button:active,.partner-share-actions a:active{transform:scale(.98)}#shareUrl{box-sizing:border-box;width:100%;padding:12px;border:1px solid #d5deea;border-radius:9px;background:#f8fafc;color:#40566f}\n@media(max-width:650px){.partner-actions,.partner-article-list,.partner-meta{grid-template-columns:1fr}.partner-block{padding:19px}.partner-hero{min-height:250px}.partner-hero p{font-size:16px}}
+</style></head>
+<body class="content-page-body">
+<header class="site-header"><a class="site-brand" href="/index.html"><span class="brand-heart">♡</span><span>Одговорна<br>Плана</span></a><nav class="site-nav"><a href="/index.html">Почетна</a><a href="/kampanje.html">Кампање</a><a href="/akcije.html">Акције</a><a href="/podrska.html">Подршка</a></nav><button class="menu-trigger" id="openMenu" type="button" aria-label="Отвори мени">☰</button></header>
+<main id="partnerRoot"><div class="content-empty">Учитавање странице партнера…</div></main>
+<footer class="content-footer"><div class="content-footer-inner">ОДГОВОРНА ПЛАНА · Место за заједничко деловање · © <span id="year"></span></div></footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="/config.js"></script><script src="/database.js"></script><script src="/donation-types.js"></script>
+<script>
+document.getElementById('year').textContent=new Date().getFullYear();
+(async function(){
+ const root=document.getElementById('partnerRoot'),db=window.db,slug=new URLSearchParams(location.search).get('slug');
+ const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ if(!db||!slug){root.innerHTML='<div class="partner-wrap"><p class="partner-empty">Страница партнера није доступна.</p></div>';return;}
+ try{
+  const pr=await db.from('partners').select('*').eq('slug',slug).eq('is_active',true).eq('is_published',true).maybeSingle();
+  if(pr.error)throw pr.error;if(!pr.data){root.innerHTML='<div class="partner-wrap"><p class="partner-empty">Партнер није пронађен или страница није објављена.</p></div>';return;}
+  const p=pr.data;document.title=p.name+' — Одговорна Плана';
+  const cover=p.cover_image_url||'',phone=p.phone?'<a href="tel:'+esc(p.phone)+'">'+esc(p.phone)+'</a>':'',email=p.email?'<a href="mailto:'+esc(p.email)+'">'+esc(p.email)+'</a>':'';
+  root.innerHTML='<section class="partner-hero" style="--cover:url(&quot;'+esc(cover)+'&quot;)"><div class="partner-hero-inner"><span class="partner-kicker">ПАРТНЕРИ И САРАДНИЦИ</span><h1>'+esc(p.name)+'</h1><p>'+esc(p.short_description||'Организација која доприноси променама у заједници.')+'</p><button class="partner-share" id="openPartnerShare" type="button">↗ Подели страницу партнера</button></div></section><div class="partner-wrap"><div class="partner-actions"><a class="partner-action volunteer" href="#volontiranje">🤝 Постани волонтер</a><a class="partner-action donate" href="#donacije">❤ Подржи донацијом</a></div><section class="partner-block"><h2>О удружењу</h2><div class="partner-description">'+esc(p.description||p.short_description||'')+'</div><div class="partner-meta">'+(p.address?'<div>Адреса: '+esc(p.address)+(p.city?', '+esc(p.city):'')+'</div>':'')+(phone?'<div>Телефон: '+phone+'</div>':'')+(email?'<div>Имејл: '+email+'</div>':'')+(p.pib?'<div>ПИБ: '+esc(p.pib)+'</div>':'')+(p.registration_number?'<div>Матични број: '+esc(p.registration_number)+'</div>':'')+(p.website_url?'<div>Веб: <a href="'+esc(p.website_url)+'" target="_blank" rel="noopener">Посети сајт</a></div>':'')+(p.facebook_url?'<div><a href="'+esc(p.facebook_url)+'" target="_blank" rel="noopener">Facebook</a></div>':'')+(p.instagram_url?'<div><a href="'+esc(p.instagram_url)+'" target="_blank" rel="noopener">Instagram</a></div>':'')+'</div></section><section class="partner-block"><h2>Новости и приче о партнеру</h2><div id="partnerArticles" class="partner-article-list"><p class="partner-empty">Учитавање објава…</p></div></section><section class="partner-block" id="partnerCampaigns"><h2>Кампање у којима учествује</h2><div id="partnerCampaignList"><p class="partner-empty">Учитавање повезаних кампања…</p></div></section><div id="partnerActionForms" hidden><section class="partner-block" id="volontiranje"><h2>Постани волонтер</h2><p>Пријави се да помогнеш директно удружењу '+esc(p.name)+'.</p><form id="volunteerForm" class="partner-form"><label>Име и презиме *<input name="name" required minlength="2" maxlength="120"></label><label>Телефон или Viber *<input name="phone" required type="tel" minlength="6" maxlength="40"></label><label>Место<input name="place" maxlength="160"></label><label>Како желиш да помогнеш? *<select name="interest" required><option value="">Изабери</option><option>Свакодневна брига о животињама</option><option>Шетња и социјализација паса</option><option>Превоз животиња</option><option>Помоћ око удомљавања</option><option>Друго</option></select></label><label>Када и колико често можеш да помогнеш?<textarea name="availability" maxlength="1200"></textarea></label><label>Искуство или додатна напомена<textarea name="experience" maxlength="1500"></textarea></label><label><span><input type="checkbox" name="consent" required style="width:auto"> Сагласан/сагласна сам да се подаци користе ради контакта у вези са пријавом.</span></label><p class="partner-status" id="volunteerStatus" role="status"></p><button type="submit">Пошаљи пријаву</button></form></section><section class="partner-block" id="donacije"><h2>Подржи рад удружења</h2><p>Донација се уплаћује директно партнеру, на његов рачун или канал за плаћање.</p><div id="donationPanel"><p class="partner-empty">Учитавање података за донацију…</p></div></section></div><section class="partner-block" id="partner-share"><h2>Подели и позови друге да помогну</h2><p>Једним кликом пошаљи страницу удружења или директан позив да се помогне његов рад. Изабери апликацију или копирај линк.</p><div class="partner-share-actions"><button type="button" id="nativeShare" class="share-main">↗ Подели страницу</button><a id="shareWhatsApp" class="share-option" target="_blank" rel="noopener">WhatsApp</a><a id="shareViber" class="share-option" target="_blank" rel="noopener">Viber</a><a id="shareTelegram" class="share-option" target="_blank" rel="noopener">Telegram</a><a id="shareFacebook" class="share-option" target="_blank" rel="noopener">Facebook</a><a id="shareEmail" class="share-option">Имејл</a><button type="button" id="copyShare" class="share-option">Копирај линк</button><button type="button" id="copyDonationShare" class="share-option">Копирај линк за донације</button></div><input id="shareUrl" readonly aria-label="Линк странице партнера" value=""><p id="shareStatus" class="partner-status" role="status"></p></section></div>';
+  const canonicalPartnerUrl=location.href.split('#')[0],shareUrl='https://hmfeizkmpmxcnzhwxgbn.supabase.co/functions/v1/partner-share?slug='+encodeURIComponent(p.slug||slug),donationUrl=canonicalPartnerUrl+'#donacije',shareTitle=p.name+' — Одговорна Плана',shareText='Упознајте '+p.name+' и подржите њихов рад. Погледајте страницу удружења и поделите позив да се укључи још људи.';
+  const enc=encodeURIComponent,fullMessage=shareText+' '+shareUrl;
+  document.getElementById('shareUrl').value=shareUrl;
+  document.getElementById('shareWhatsApp').href='https://wa.me/?text='+enc(fullMessage);
+  document.getElementById('shareViber').href='viber://forward?text='+enc(fullMessage);
+  document.getElementById('shareTelegram').href='https://t.me/share/url?url='+enc(shareUrl)+'&text='+enc(shareText);
+  document.getElementById('shareFacebook').href='https://www.facebook.com/sharer/sharer.php?u='+enc(shareUrl);
+  document.getElementById('shareEmail').href='mailto:?subject='+enc(shareTitle)+'&body='+enc(fullMessage);
+  async function copyShareText(value,label){const status=document.getElementById('shareStatus');try{if(navigator.clipboard&&window.isSecureContext)await navigator.clipboard.writeText(value);else{const tmp=document.createElement('textarea');tmp.value=value;document.body.appendChild(tmp);tmp.select();document.execCommand('copy');tmp.remove();}status.textContent=label;}catch(e){status.textContent='Копирање није успело. Означи и копирај линк из поља.';}}
+  document.getElementById('copyShare').onclick=()=>copyShareText(shareUrl,'Линк странице је копиран.');
+  document.getElementById('copyDonationShare').onclick=()=>copyShareText(donationUrl,'Линк који отвара део за донације је копиран.');
+  document.getElementById('nativeShare').onclick=async()=>{if(navigator.share){try{await navigator.share({title:shareTitle,text:shareText,url:shareUrl});}catch(e){if(e.name!=='AbortError')document.getElementById('shareStatus').textContent='Дељење тренутно није доступно.';}}else{await copyShareText(shareUrl,'Дељење није подржано у овом прегледачу — линк је копиран.');}};
+  const ar=await db.from('partner_articles').select('*').eq('partner_id',p.id).eq('is_published',true).order('display_order').order('published_at',{ascending:false});
+  const articleRoot=document.getElementById('partnerArticles');if(ar.error)articleRoot.innerHTML='<p class="partner-empty">Објаве тренутно нису доступне.</p>';else if(!ar.data?.length)articleRoot.innerHTML='<p class="partner-empty">Овде ће се појављивати вести, извештаји и приче о раду партнера.</p>';else articleRoot.innerHTML=ar.data.map(a=>'<article class="partner-article">'+(a.cover_image_url?'<img src="'+esc(a.cover_image_url)+'" alt="">':'')+'<div class="partner-article-copy"><h3>'+esc(a.title)+'</h3>'+(a.excerpt?'<p>'+esc(a.excerpt)+'</p>':'<p>'+esc(a.content)+'</p>')+(a.published_at?'<time>'+new Date(a.published_at).toLocaleDateString('sr-RS')+'</time>':'')+'</div></article>').join('');
+   document.getElementById('volunteerForm').addEventListener('submit',async e=>{
+    e.preventDefault();
+    const form=e.currentTarget;
+    if(!form.reportValidity())return;
+    const data=new FormData(form);
+    const button=form.querySelector('button[type="submit"]');
+    const status=document.getElementById('volunteerStatus');
+    const interest=data.get('interest');
+    const availability=data.get('availability');
+    const experience=data.get('experience');
+    button.disabled=true;
+    button.textContent='Шаљем пријаву…';
+    status.textContent='';
+    try{
+     const {error}=await db.from('civic_submissions').insert({
+      submission_type:'help',
+      title:'Волонтирање — '+p.name,
+      description:'Пријава за волонтирање у удружењу '+p.name+'.\nОбласт: '+interest+'\nДоступност: '+(availability||'није наведена')+'\nИскуство: '+(experience||'није наведено'),
+      full_name:data.get('name'),
+      phone:data.get('phone'),
+      viber_phone:data.get('phone'),
+      location:data.get('place')||null,
+      support_type:'Волонтирање за удружење '+p.name,
+      social_links:{source:'partner_profile',partner_id:p.id,partner_name:p.name,volunteer_interest:interest,consent:true},
+      status:'new'
+     });
+     if(error)throw error;
+     form.innerHTML='<p class="partner-status">Пријава је успешно сачувана. Хвала ти на подршци!</p>';
+    }catch(error){
+     console.error('Грешка при слању пријаве за волонтирање:',error);
+     status.textContent='Пријава није послата. Провери интернет везу и покушај поново.';
+     status.style.color='#b42318';
+     button.disabled=false;
+     button.textContent='Пошаљи пријаву';
+    }
+   });
+  const ds=await db.from('partner_donation_settings').select('*').eq('partner_id',p.id).eq('is_active',true).maybeSingle(),dr=document.getElementById('donationPanel');
+  if(ds.error||!ds.data)dr.innerHTML='<p class="partner-empty">Подаци за донацију тренутно нису доступни. Контактирајте удружење директно.</p>';else{const x=ds.data,settings={recipient_name:x.recipient_name||p.name,bank_name:x.bank_name,bank_account:x.dinarski_racun,payment_purpose:x.payment_purpose,payment_code:x.payment_code,reference_number:x.reference_number,currency:x.currency||'RSD',paypal_email:x.paypal_email,show_bank_payment:x.show_bank_payment!==false,show_paypal:x.show_paypal!==false,show_payment_slip:true,show_ips:true,payment_instructions:x.instructions,payment_methods:x.payment_methods||[],contact_name:p.contact_person||p.name,contact_phone:p.phone,contact_email:p.email};const item={type:'money',title:'Новчана донација',description:'Донација се уплаћује директно удружењу '+p.name+'.'};dr.innerHTML=window.DonationTypes?window.DonationTypes.renderPanel(settings,[item]):'<p class="partner-empty">Форма за донације тренутно није доступна.</p>';}
+  const linksRes=await db.from('campaign_partners').select('campaign_id,relationship_type,description,display_order').eq('partner_id',p.id).order('display_order');
+  const campaignRoot=document.getElementById('partnerCampaignList');
+  if(linksRes.error)campaignRoot.innerHTML='<p class="partner-empty">Повезане кампање тренутно нису доступне.</p>';
+  else if(!linksRes.data?.length)campaignRoot.innerHTML='<p class="partner-empty">Овај партнер тренутно није повезан ни са једном објављеном кампањом.</p>';
+  else{
+   const ids=linksRes.data.map(x=>x.campaign_id).filter(Boolean);
+   const cr=await db.from('campaigns').select('id,title,slug,short_description,description,status,is_published').in('id',ids).eq('is_published',true);
+   if(cr.error)campaignRoot.innerHTML='<p class="partner-empty">Повезане кампање тренутно нису доступне.</p>';
+   else{
+    const byId=new Map((cr.data||[]).map(x=>[x.id,x]));
+    const rows=linksRes.data.map(x=>({campaign:byId.get(x.campaign_id),link:x})).filter(x=>x.campaign?.slug);
+    campaignRoot.innerHTML=rows.length?'<div class="partner-article-list">'+rows.map(x=>'<article class="partner-article"><div class="partner-article-copy"><h3>'+esc(x.campaign.title)+'</h3><p>'+esc(x.link.description||x.campaign.short_description||x.campaign.description||'Кампања у којој учествује '+p.name+'.')+'</p><a class="partner-action volunteer" style="margin-top:14px;min-height:44px" href="/kampanja.html?slug='+encodeURIComponent(x.campaign.slug)+'">Погледај кампању →</a></div></article>').join('')+'</div>':'<p class="partner-empty">Објављене повезане кампање тренутно нису доступне.</p>';
+   }
+  }
+  if(location.hash==='#donacije')document.getElementById('donacije').scrollIntoView({behavior:'smooth'});
+  if(location.hash==='#volontiranje')document.getElementById('volontiranje').scrollIntoView({behavior:'smooth'});
+ }catch(e){console.error(e);root.innerHTML='<div class="partner-wrap"><p class="partner-empty">Страница партнера тренутно није могла да се учита. Покушај поново касније.</p></div>';}
+})();
+</script><script src="/partner-share-modal.js" defer></script><script src="/partner-action-sheet.js" defer></script></body></html>
