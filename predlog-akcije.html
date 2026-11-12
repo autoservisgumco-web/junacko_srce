@@ -94,7 +94,7 @@ body.embed-mode .wizard-step{min-height:180px}
 <div id="campaignContext" class="panel" hidden style="border-color:#b9d2ff;background:#eef4ff;color:#10233f;margin-top:0"><strong>Предлог за кампању</strong><p id="campaignContextName" style="margin:5px 0 0"></p><span class="hint">Твој предлог ће бити повезан са овом кампањом.</span></div>
 <section class="panel">
 <form id="proposalForm" novalidate>
-<div class="wizard-progress"><span id="wizardCount">КОРАК 1 ОД 5</span><div class="wizard-track"><i id="wizardBar"></i></div></div>
+<div class="wizard-progress"><span id="wizardCount">КОРАК 1 ОД 6</span><div class="wizard-track"><i id="wizardBar"></i></div></div>
 <section class="wizard-step" data-step="0">
 <h2>1. Како би назвао своју идеју?</h2>
 <p class="sub">Напиши кратак назив који одмах говори шта желиш да покренеш. Не мора бити коначан.</p>
@@ -106,13 +106,22 @@ body.embed-mode .wizard-step{min-height:180px}
 <div class="field"><label for="location">Место акције <span class="hint">Није обавезно</span></label><input id="location" name="location" maxlength="180" placeholder="Насеље, улица, парк или други простор"></div>
 </section>
 <section class="wizard-step" data-step="2" hidden>
-<div class="proposal-heading"><h2>3. Напиши предлог акције</h2><button class="guide-link" type="button" id="openGuide">Како написати добар предлог? <span>↗</span></button></div>
-<p class="sub">Опиши шта си приметио и шта мислиш да би требало урадити. Не мораш имати готов план — важно је да поделиш идеју.</p>
-<div class="field"><label for="description">Твој предлог акције *</label><textarea id="description" name="description" minlength="10" maxlength="3000" required placeholder="Шта је проблем и шта мислиш да би требало урадити?"></textarea></div>
-<div class="field"><label for="goal">Шта желиш да постигнемо? <span class="hint">Није обавезно</span></label><textarea id="goal" name="goal" maxlength="2000" style="min-height:82px" placeholder="Опиши какав резултат би волео/волела да видиш."></textarea></div>
+<div class="proposal-heading"><h2>3. У чему је проблем и шта предлажеш?</h2><button class="guide-link" type="button" id="openGuide">Како написати добар предлог? <span>↗</span></button></div>
+<p class="sub">Не мораш имати готов пројекат. Помози нам да разумемо проблем и твоју идеју за његово решавање.</p>
+<div class="field"><label for="description">Опиши проблем и шта си приметио/ла *</label><textarea id="description" name="description" minlength="10" maxlength="3000" required placeholder="Шта се дешава, где се дешава и кога проблем погађа?"></textarea></div>
+<div class="field"><label for="problem_cause">Шта мислиш да је узрок проблема? <span class="hint">Није обавезно</span></label><textarea id="problem_cause" maxlength="2000" style="min-height:82px" placeholder="Зашто мислиш да проблем настаје или се стално понавља?"></textarea></div>
+<div class="field"><label for="proposed_solution">Шта предлажеш да урадимо? <span class="hint">Није обавезно</span></label><textarea id="proposed_solution" maxlength="2000" style="min-height:90px" placeholder="Који би био први корак или начин да се проблем решава?"></textarea></div>
+<div class="field"><label for="goal">Шта желиш да постигнемо? <span class="hint">Није обавезно</span></label><textarea id="goal" name="goal" maxlength="2000" style="min-height:82px" placeholder="Опиши какву промену желиш да видиш."></textarea></div>
 </section>
 <section class="wizard-step" data-step="3" hidden>
-<h2>4. Када планираш акцију?</h2>
+<h2>4. Шта је потребно да се идеја оствари?</h2>
+<p class="sub">Наведеш само оно што већ знаш. Остало можемо заједно да разрадимо.</p>
+<div class="field"><label for="suggested_activities">Које активности предлажеш? <span class="hint">Није обавезно</span></label><textarea id="suggested_activities" maxlength="2500" placeholder="На пример: разговор са школом, састанак са надлежнима, набавка опреме, едукација, јавна акција..."></textarea></div>
+<div class="field"><label for="needed_support">Шта је потребно за реализацију? <span class="hint">Није обавезно</span></label><textarea id="needed_support" maxlength="2000" placeholder="На пример: опрема, простор, превоз, средства, стручна помоћ или дозволе."></textarea></div>
+<div class="field"><label for="potential_helpers">Ко би могао да помогне или буде партнер? <span class="hint">Није обавезно</span></label><textarea id="potential_helpers" maxlength="1500" placeholder="Школе, удружења, предузећа, установе или људи који би могли да се укључе."></textarea></div>
+</section>
+<section class="wizard-step" data-step="4" hidden>
+<h2>5. Када планираш акцију?</h2>
 <p class="sub">Ако још не знаш датум или сатницу, нема проблема. Предлог можеш послати и без одређеног термина.</p>
 <label class="choice"><input type="radio" name="date_known" value="false" checked><span>Термин још није одређен<small>Датум ћемо договорити касније.</small></span></label>
 <label class="choice"><input type="radio" name="date_known" value="true"><span>Знам датум акције<small>Унећу датум, а време само ако га знам.</small></span></label>
@@ -122,8 +131,8 @@ body.embed-mode .wizard-step{min-height:180px}
 <div class="field" id="timeField" hidden><label for="action_time">Време почетка <span class="hint">Није обавезно</span></label><input id="action_time" name="action_time" type="time"><p class="hint">На пример: 10:00. Ако још не знаш у колико сати почиње, остави празно.</p></div>
 </div>
 </section>
-<section class="wizard-step" data-step="4" hidden>
-<h2>5. Ко покреће предлог?</h2>
+<section class="wizard-step" data-step="5" hidden>
+<h2>6. Ко покреће предлог?</h2>
 <p class="sub">Упиши име и презиме. Податак нам служи да знамо ко је предложио акцију и да можемо да се договоримо о следећим корацима.</p>
 <div class="field"><label for="proposer_name">Име и презиме *</label><input id="proposer_name" name="proposer_name" maxlength="120" autocomplete="name" placeholder="Унеси своје име и презиме" required></div>
 <div class="field"><label for="proposer_phone">Број телефона *</label><input id="proposer_phone" name="proposer_phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="30" minlength="6" placeholder="На пример: 064 123 4567" required><p class="hint">Унеси број на који можемо да те контактирамо. Може бити број за позив, Viber или WhatsApp.</p></div>
@@ -150,11 +159,11 @@ body.embed-mode .wizard-step{min-height:180px}
 <div class="guide-handle"></div>
 <button type="button" class="guide-close" id="closeGuide" aria-label="Затвори">×</button>
 <h2 id="guideTitle">Како написати добар предлог?</h2>
-<p><strong>Не мораш имати решење. Довољно је да препознаш шта треба променити.</strong></p>
+<p><strong>Не мораш имати готово решење. Довољно је да препознаш проблем и предложиш шта би могло да се промени.</strong></p>
 <p>Предлог акције је идеја о томе шта бисмо могли да променимо, поправимо или урадимо у својој средини.</p>
 <p>На пример: уредити запуштену пијацу, очистити простор поред реке, обновити игралиште или организовати помоћ комшијама.</p>
 <p><strong>Акција</strong> је конкретно заједничко деловање којим ту идеју претварамо у дело.</p>
-<p>Не мораш знати датум, време нити имати окупљене људе. То можемо договорити заједно.</p>
+<p>Не мораш знати датум, време, потребне ресурсе нити имати окупљене људе. То можемо договорити заједно.</p>
 <button type="button" class="primary" id="guideDone">Разумем, настави</button>
 </section>
 <style>
@@ -188,11 +197,11 @@ function updateDate(){
 }
 function renderWizard(){
  wizardSteps.forEach((el,i)=>el.hidden=i!==wizardStep);
- $('wizardCount').textContent='КОРАК '+(wizardStep+1)+' ОД 5';
- $('wizardBar').style.width=((wizardStep+1)*20)+'%';
+ $('wizardCount').textContent='КОРАК '+(wizardStep+1)+' ОД '+wizardSteps.length;
+ $('wizardBar').style.width=(((wizardStep+1)/wizardSteps.length)*100)+'%';
  $('wizardBack').hidden=wizardStep===0;
- $('wizardNext').hidden=wizardStep===4;
- $('submitProposal').hidden=wizardStep!==4;
+ $('wizardNext').hidden=wizardStep===wizardSteps.length-1;
+ $('submitProposal').hidden=wizardStep!==wizardSteps.length-1;
  $('submitProposal').disabled=wizardStep!==4;
  updateDate();
 }
@@ -207,10 +216,10 @@ function validateStep(){
   if(field.required&&!field.value.trim()){field.reportValidity();return false;}
   if(!field.checkValidity()){field.reportValidity();return false;}
  }
- if(wizardStep===3&&selectedDateKnown()&&!$('action_date').value){$('action_date').reportValidity();return false;}
+ if(wizardStep===4&&selectedDateKnown()&&!$('action_date').value){$('action_date').reportValidity();return false;}
  return true;
 }
-$('wizardNext').addEventListener('click',()=>{if(!validateStep())return;wizardStep=Math.min(4,wizardStep+1);renderWizard();});
+$('wizardNext').addEventListener('click',()=>{if(!validateStep())return;wizardStep=Math.min(wizardSteps.length-1,wizardStep+1);renderWizard();});
 $('wizardBack').addEventListener('click',()=>{wizardStep=Math.max(0,wizardStep-1);renderWizard();});
 form.querySelectorAll('input[name="date_known"]').forEach(x=>x.addEventListener('change',updateDate));
 $('action_date').addEventListener('change',updateDate);
@@ -242,7 +251,7 @@ form.addEventListener('submit',async e=>{
   proposer_phone:$('proposer_phone').value.trim(),
   proposer_email:null,
   proposer_viber:null,
-  proposer_social:{source:'predlog-akcije.html'},
+  proposer_social:{source:'predlog-akcije.html',problem_cause:$('problem_cause').value.trim()||null,proposed_solution:$('proposed_solution').value.trim()||null,suggested_activities:$('suggested_activities').value.trim()||null,needed_support:$('needed_support').value.trim()||null,potential_helpers:$('potential_helpers').value.trim()||null},
   campaign_id:linkedCampaign?.id||null,
   goal:$('goal').value.trim()||null,
   date_known:known,
@@ -286,6 +295,8 @@ async function adminLoad(){
   h.textContent=p.title+' · '+p.status;meta.textContent=(p.proposer_name||'')+' · '+(p.location||'')+' · '+(p.action_date||'Термин није одређен');
   desc.textContent=p.description;card.append(h,meta,desc);
   if(p.goal){const g=document.createElement('p');g.textContent='Жељени резултат: '+p.goal;card.append(g);}
+  const extra=p.proposer_social||{};
+  [['problem_cause','Узрок проблема'],['proposed_solution','Предложено решење'],['suggested_activities','Предложене активности'],['needed_support','Потребна подршка'],['potential_helpers','Могући партнери']].forEach(([key,label])=>{if(extra[key]){const row=document.createElement('p');row.textContent=label+': '+extra[key];card.append(row);}});
   if(p.status==='pending'){const b=document.createElement('button');b.textContent='Означи као објављен';b.onclick=async()=>{const u=await fetch(window.APP_CONFIG.supabase.url+'/rest/v1/action_proposals?id=eq.'+p.id,{method:'PATCH',headers:{...headers(),Prefer:'return=minimal'},body:JSON.stringify({status:'published'})});if(u.ok)adminLoad();};card.append(b);}
   root.append(card);
  });
