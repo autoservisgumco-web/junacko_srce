@@ -202,7 +202,7 @@ function renderWizard(){
  $('wizardBack').hidden=wizardStep===0;
  $('wizardNext').hidden=wizardStep===wizardSteps.length-1;
  $('submitProposal').hidden=wizardStep!==wizardSteps.length-1;
- $('submitProposal').disabled=wizardStep!==4;
+ $('submitProposal').disabled=wizardStep!==wizardSteps.length-1;
  updateDate();
 }
 function validateStep(){
