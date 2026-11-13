@@ -4,112 +4,90 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#101820">
-<meta name="description" content="Јуначко срце — од личног бунта до заједничког деловања.">
+<meta name="description" content="Јуначко срце — лични бунт претворен у подршку другима.">
 <link rel="manifest" href="./manifest.webmanifest">
 <link rel="icon" href="./icon.svg" type="image/svg+xml">
 <title>Јуначко срце — Бунт је почетак</title>
 <style>
-:root{--bg:#f4f0e8;--paper:#fffdf8;--ink:#171a1d;--muted:#696b68;--red:#b74332;--red2:#8f3026;--gold:#d8ad68;--line:#e6dfd3;--green:#526b57;--safe:env(safe-area-inset-bottom,0px)}
-*{box-sizing:border-box}html{background:var(--bg);scroll-behavior:smooth}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg)}
-button,a{font:inherit}button{cursor:pointer}.app{max-width:560px;min-height:100svh;margin:auto;padding-bottom:calc(82px + var(--safe));background:var(--bg);position:relative;overflow:hidden}
-header{height:68px;position:sticky;top:0;z-index:5;background:rgba(244,240,232,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 19px}
-.brand{display:flex;align-items:center;gap:10px;border:0;background:none;padding:0;color:var(--ink);text-align:left}.mark{width:37px;height:37px;border-radius:12px;background:var(--ink);color:white;display:grid;place-items:center;font-size:20px}.brand b{font-size:12px;letter-spacing:.15em}.brand small{display:block;font-size:9px;letter-spacing:.14em;color:var(--muted);margin-top:3px}.menu{width:40px;height:40px;border:1px solid var(--line);border-radius:50%;background:var(--paper);font-size:18px}
-main{padding:0 18px}.screen{display:none;animation:appear .2s ease}.screen.active{display:block}@keyframes appear{from{opacity:.3;transform:translateY(5px)}to{opacity:1;transform:none}}
-.hero{margin:17px 0 23px;min-height:410px;border-radius:25px;padding:28px 23px 25px;background:radial-gradient(circle at 90% 12%,rgba(183,67,50,.5),transparent 34%),linear-gradient(145deg,#101820,#1d2b31 65%,#30342e);color:white;display:flex;flex-direction:column;justify-content:flex-end;position:relative;overflow:hidden;box-shadow:0 15px 38px #21190f1a}
-.hero:before,.hero:after{content:"";position:absolute;border:1px solid #ffffff22;border-radius:50%;right:-105px;top:-110px;width:310px;height:310px}.hero:after{right:-55px;top:-60px;width:215px;height:215px;border-color:#d8ad6866}
-.kicker{position:relative;color:var(--gold);font-size:10px;font-weight:850;letter-spacing:.19em;text-transform:uppercase}
-h1{position:relative;font-size:clamp(39px,10vw,57px);line-height:.98;letter-spacing:-.055em;margin:15px 0 17px}
-.hero p{position:relative;color:#e5e2dc;font-size:15px;line-height:1.62;margin:0 0 23px;max-width:410px}
-.primary{position:relative;align-self:flex-start;border:0;border-radius:13px;background:var(--red);color:white;padding:14px 17px;font-size:13px;font-weight:850;text-decoration:none;display:inline-flex;align-items:center;gap:12px}.primary:active{background:var(--red2);transform:scale(.98)}
-.section-head{margin:28px 2px 12px}.section-head .kicker{color:var(--red)}h2{font-size:26px;line-height:1.08;letter-spacing:-.04em;margin:6px 0 0}.intro{font-size:14px;line-height:1.7;color:#55544f;margin:13px 2px 18px}
-.path{width:100%;display:flex;align-items:flex-start;gap:13px;text-align:left;padding:17px;margin:10px 0;border:1px solid var(--line);border-radius:18px;background:var(--paper);color:var(--ink);box-shadow:0 5px 18px #21190f08}.path-icon{width:44px;height:44px;flex:0 0 44px;border-radius:14px;background:#f0e7d9;display:grid;place-items:center;font-size:21px}.path-copy{flex:1}.path h3{font-size:16px;margin:1px 0 5px}.path p{font-size:12px;line-height:1.5;color:var(--muted);margin:0}.chev{font-size:22px;color:var(--red)}
-.quote{margin:23px 0;background:#e9dfd0;border-radius:20px;padding:22px}.quote-mark{font:44px Georgia;color:var(--red);line-height:.7}.quote p{font:23px/1.25 Georgia,serif;letter-spacing:-.025em;margin:12px 0 0}
-.page-head{padding:29px 2px 19px}.page-head .kicker{color:var(--red)}.page-head h1{font-size:40px;color:var(--ink);margin:12px 0}.page-head p{font-size:15px;line-height:1.68;color:#59564f;margin:0}
-.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:19px;margin:12px 0}.card h3{font-size:18px;margin:0 0 8px;letter-spacing:-.02em}.card p{font-size:14px;line-height:1.72;color:#56534d;margin:0}
-.note{border-left:3px solid var(--red);padding:2px 0 2px 14px;margin:22px 3px;color:#55534d;font-size:14px;line-height:1.7}
-.values{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:15px 0}.value{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:15px;text-align:left;min-height:124px;color:var(--ink)}.value span{font-size:21px}.value b{display:block;font-size:14px;margin:9px 0 4px}.value small{font-size:11px;line-height:1.45;color:var(--muted)}
-.choices{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:17px 0}.choice{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:15px;text-align:left;color:var(--ink);min-height:123px}.choice span{font-size:22px}.choice b{display:block;font-size:13px;margin:9px 0 4px}.choice small{display:block;color:var(--muted);font-size:11px;line-height:1.4}
-.form{display:grid;gap:12px;margin-top:15px}.field label{display:block;font-size:11px;font-weight:800;color:#5a564f;margin:0 0 6px}.field input,.field textarea,.field select{width:100%;border:1px solid var(--line);background:#fffefa;border-radius:11px;padding:12px 13px;font:inherit;font-size:14px;color:var(--ink)}.field textarea{min-height:100px;resize:vertical}.success{display:none;padding:12px;border-radius:12px;background:#e7eee2;color:#3f5940;font-size:12px;line-height:1.5}.success.show{display:block}
-.back{border:0;background:none;padding:14px 0;color:var(--red);font-size:12px;font-weight:850}
-nav.bottom{position:fixed;z-index:7;bottom:0;left:50%;transform:translateX(-50%);width:min(560px,100%);padding:8px 10px calc(8px + var(--safe));background:rgba(255,253,248,.96);backdrop-filter:blur(16px);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr)}.tab{border:0;background:none;color:#999187;display:flex;flex-direction:column;align-items:center;gap:4px;padding:5px 2px;font-size:9px;font-weight:800}.tab i{font-style:normal;font-size:19px;line-height:1.1}.tab.active{color:var(--red)}
-.footer{text-align:center;padding:24px 3px 15px;color:#938b80;font-size:9px;letter-spacing:.1em}
-.drawer{display:none;position:fixed;inset:0;z-index:15;background:#0006;justify-content:flex-end}.drawer.open{display:flex}.drawer-panel{width:min(86%,350px);height:100%;background:var(--bg);padding:24px 20px;box-shadow:0 12px 40px #0003}.drawer-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.drawer-head button{border:0;background:none;font-size:25px}.drawer-link{display:block;width:100%;text-align:left;padding:17px 2px;border:0;border-bottom:1px solid var(--line);background:none;color:var(--ink);font-weight:800}.drawer-link small{display:block;font-weight:400;color:var(--muted);margin-top:4px}
-@media(min-width:600px){body{padding:18px 0}.app{border-radius:28px;min-height:calc(100svh - 36px);box-shadow:0 20px 70px #0002}header{border-radius:28px 28px 0 0}nav.bottom{bottom:18px;border-radius:0 0 28px 28px}}
+:root{--ink:#f7f3eb;--muted:#c6c0b5;--gold:#e0b66f;--red:#b94b39;--dark:#101519;--panel:#1a2328;--line:#ffffff25;--safe:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}html{background:var(--dark);scroll-behavior:smooth}body{margin:0;background:var(--dark);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}button,a{font:inherit}button{cursor:pointer}
+.app{min-height:100svh;max-width:100%;margin:auto;padding-bottom:calc(24px + var(--safe))}
+.screen{display:none;min-height:100svh;animation:in .22s ease}.screen.active{display:block}@keyframes in{from{opacity:.25;transform:translateY(6px)}to{opacity:1;transform:none}}
+/* Насловна је намерно full-screen; фотографија може касније да замени визуелну позадину. */
+.home{min-height:100svh;padding:clamp(24px,5vw,64px);display:flex;flex-direction:column;justify-content:space-between;gap:28px;position:relative;overflow:hidden;background:radial-gradient(ellipse at 78% 17%,#8b493a88 0,transparent 32%),radial-gradient(ellipse at 10% 90%,#53655b66 0,transparent 35%),linear-gradient(135deg,#0b1115 0%,#182329 52%,#252b29 100%)}
+.home:before,.home:after{content:"";position:absolute;pointer-events:none;border:1px solid #e0b66f35;border-radius:50%;width:min(78vw,720px);aspect-ratio:1;right:-18%;top:-30%;box-shadow:0 0 0 35px #ffffff06,0 0 0 85px #ffffff04}
+.home:after{width:min(48vw,460px);right:-7%;top:-13%;border-color:#ffffff20}
+.home-top,.home-bottom{position:relative;z-index:1}.brand{font-size:12px;font-weight:900;letter-spacing:.22em;color:var(--gold)}.hero-copy{max-width:850px;margin:auto 0}.eyebrow{font-size:11px;letter-spacing:.2em;font-weight:850;color:var(--gold);text-transform:uppercase}h1{font-size:clamp(46px,10vw,104px);line-height:.91;letter-spacing:-.065em;margin:18px 0 20px;max-width:900px}.hero-copy p{font-size:clamp(15px,2vw,20px);line-height:1.6;color:#e3ded4;max-width:610px;margin:0}.main-grid{display:grid;grid-template-columns:1fr;gap:10px;margin-top:30px;max-width:950px}.main-link{border:1px solid #ffffff55;background:#ffffff12;color:white;border-radius:15px;padding:17px 18px;display:flex;align-items:center;gap:14px;text-align:left;backdrop-filter:blur(8px);transition:.18s}.main-link:active{transform:scale(.985);background:#ffffff25}.number{font-size:11px;color:var(--gold);font-weight:900;letter-spacing:.1em}.main-link strong{font-size:15px;letter-spacing:.035em}.main-link small{display:block;font-size:11px;color:#d1ccc2;margin-top:4px}.arrow{margin-left:auto;font-size:23px;color:var(--gold)}.home-foot{font-size:10px;letter-spacing:.15em;color:#d1ccc2}
+.topbar{position:sticky;top:0;z-index:5;background:#101519ed;backdrop-filter:blur(16px);border-bottom:1px solid var(--line);padding:14px clamp(18px,4vw,48px);display:flex;align-items:center;justify-content:space-between}.topbar button{border:1px solid var(--line);border-radius:30px;background:#ffffff0c;color:white;padding:9px 13px;font-size:12px;font-weight:800}.top-brand{font-size:11px;letter-spacing:.16em;font-weight:900;color:var(--gold)}
+.content{width:min(100% - 36px,900px);margin:0 auto;padding:clamp(24px,5vw,54px) 0 70px}.eyebrow.red{color:var(--gold)}.page-title{font-size:clamp(42px,8vw,76px);line-height:.96;letter-spacing:-.06em;margin:12px 0 18px}.lead{font-size:clamp(16px,2vw,19px);line-height:1.7;color:#ded8cd;max-width:760px;margin:0 0 30px}
+.submenu{display:grid;grid-template-columns:1fr;gap:11px;margin:25px 0}.sub-link{display:flex;align-items:center;gap:14px;text-align:left;padding:19px;border:1px solid var(--line);border-radius:16px;background:#ffffff09;color:var(--ink)}.sub-link .num{color:var(--gold);font-size:11px;font-weight:900}.sub-link strong{font-size:15px}.sub-link small{display:block;color:var(--muted);font-size:12px;margin-top:4px;line-height:1.45}.sub-link .arrow{font-size:20px}
+.article{border-top:1px solid var(--line);padding:25px 0;margin-top:15px}.article h2{font-size:clamp(24px,4vw,34px);letter-spacing:-.04em;margin:0 0 12px}.article p{font-size:15px;line-height:1.8;color:#d3cec4;max-width:760px;margin:0 0 13px}.callout{border-left:3px solid var(--gold);padding:5px 0 5px 17px;margin:25px 0;color:#eee5d5;font:italic 21px/1.45 Georgia,serif}
+.action{border:0;border-radius:12px;background:var(--red);color:white;font-size:13px;font-weight:900;padding:14px 18px;margin-top:14px}.backline{display:flex;gap:10px;flex-wrap:wrap;margin-top:35px}.backline button{border:1px solid var(--line);border-radius:30px;background:transparent;color:#e8e2d8;padding:11px 15px;font-size:12px;font-weight:800}
+.form{display:grid;gap:12px;max-width:650px;margin-top:20px}.field label{display:block;font-size:11px;font-weight:850;color:var(--gold);margin-bottom:6px}.field input,.field textarea,.field select{width:100%;border:1px solid var(--line);border-radius:11px;background:#ffffff0c;color:white;padding:13px;font:inherit;font-size:14px}.field select option{color:#111}.field textarea{min-height:110px;resize:vertical}.hint{font-size:11px;color:#bdb6aa;line-height:1.6}.success{display:none;color:#d8efcf;background:#344b3a;padding:13px;border-radius:10px;font-size:12px}.success.show{display:block}
+@media(min-width:620px){.main-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.main-link{min-height:88px}.submenu{grid-template-columns:repeat(2,minmax(0,1fr))}.sub-link{min-height:104px}.home{padding:clamp(32px,6vw,86px)}}
+@media(min-width:1050px){.home{padding-left:max(8vw,80px);padding-right:max(8vw,80px)}.main-grid{max-width:1000px}.main-link{padding:21px 24px}}
 </style>
 </head>
 <body>
 <div class="app">
-<header>
-<button class="brand" onclick="go('home')" aria-label="Почетна"><span class="mark">♥</span><span><b>ЈУНАЧКО СРЦЕ</b><small>МАРКЕТИНГ ВОЂЕН СРЦЕМ</small></span></button>
-<button class="menu" onclick="drawer(true)" aria-label="Мени">☰</button>
-</header>
-<main>
 <section class="screen active" id="home">
-<div class="hero"><div class="kicker">ОД ЛИЧНОГ БУНТА ДО ЗАЈЕДНИЧКОГ ДЕЛОВАЊА</div><h1>Бунт је почетак.<br>Деловање је избор.</h1><p>Јуначко срце је продукт мог бунта и вишедеценијске борбе за боље друштво.</p><button class="primary" onclick="go('about')">Упознај моју причу <span>→</span></button></div>
-<div class="section-head"><div class="kicker">ТРИ ДЕЛА ЈЕДНЕ ПРИЧЕ</div><h2>Од личног искуства<br>до заједничке промене.</h2></div>
-<p class="intro">Прво упознај човека. Затим идеју која је из његове борбе настала. На крају — пронађи начин да и сам учествујеш.</p>
-<button class="path" onclick="go('about')"><span class="path-icon">♙</span><span class="path-copy"><h3>О мени</h3><p>Моје одрастање, неконформизам, бунт и животна борба.</p></span><span class="chev">›</span></button>
-<button class="path" onclick="go('project')"><span class="path-icon">♥</span><span class="path-copy"><h3>О Јуначком срцу</h3><p>Идеја која је израсла из борбе за боље друштво.</p></span><span class="chev">›</span></button>
-<button class="path" onclick="go('join')"><span class="path-icon">↗</span><span class="path-copy"><h3>Укључи се</h3><p>Предложи, подржи, повежи се и покрени промену.</p></span><span class="chev">›</span></button>
-<div class="quote"><div class="quote-mark">“</div><p>Није довољно да видимо шта није добро. Важно је да одлучимо шта ћемо поводом тога да урадимо.</p></div>
-<button class="primary" onclick="go('join')">Постани део приче <span>→</span></button>
-<div class="footer">ЈУНАЧКО СРЦЕ · МАРКЕТИНГ ВОЂЕН СРЦЕМ</div>
-</section>
-<section class="screen" id="about">
-<div class="page-head"><div class="kicker">ПРВИ ДЕО · ЛИЧНОСТ</div><h1>О мени</h1><p>Моја борба није почела на улици. Почела је много раније — питањима, преиспитивањем и неприхватањем да је нешто исправно само зато што је уобичајено.</p></div>
-<div class="card"><h3>Неконформиста од малена</h3><p>Одувек сам имао потребу да постављам питања, да преиспитујем оно што се подразумева и да тражим сопствени одговор на то шта је исправно, праведно и нормално.</p></div>
-<div class="card"><h3>Шта ме је обликовало?</h3><p>Одрастање, људи који су ми били узори, различити погледи на свет и лична искуства утицали су на то да развијем сопствени став и осећај одговорности.</p></div>
-<div class="card"><h3>Моја борба</h3><p>Моја борба за боље друштво траје деценијама. Мењали су се начини, теме и околности, али је остала потреба да не пристајем на неправду и да покушам да нешто променим.</p></div>
-<div class="note">Ово није прича о човеку који је настао захваљујући једном пројекту. Ово је прича о пројекту који је настао из човека, његовог искуства и борбе.</div>
-<button class="primary" onclick="go('project')">Како је настало Јуначко срце <span>→</span></button><button class="back" onclick="go('home')">← Назад на почетну</button>
-</section>
-<section class="screen" id="project">
-<div class="page-head"><div class="kicker">ДРУГИ ДЕО · ИДЕЈА</div><h1>О Јуначком срцу</h1><p>Јуначко срце је наставак моје борбе — начин да личне вредности претворим у идеје, кампање, повезивање људи и конкретно деловање.</p></div>
-<div class="quote"><div class="quote-mark">“</div><p>Јуначко срце није настало из жеље да имам бренд. Настало је из жеље да оно у шта верујем добије облик и покрене друге.</p></div>
-<div class="card"><h3>Шта је Јуначко срце?</h3><p>Идеја, креативна платформа и простор за иницијативе које подстичу храброст, емпатију, одговорност и друштвене промене. Његов приступ је маркетинг вођен срцем — комуникација која не служи само продаји, већ и вредностима.</p></div>
-<div class="section-head"><div class="kicker">НАШИ ТЕМЕЉИ</div><h2>Вредности које нас воде</h2></div>
-<div class="values">
-<button class="value" onclick="info('Храброст','Храброст да поставимо питање, супротставимо се неправди и истрајемо у ономе у шта верујемо.')"><span>✦</span><b>Храброст</b><small>Не пристајати на равнодушност.</small></button>
-<button class="value" onclick="info('Емпатија','Разумевање других и спремност да видимо свет и из туђе перспективе.')"><span>♡</span><b>Емпатија</b><small>Човек испред интереса.</small></button>
-<button class="value" onclick="info('Одговорност','Преузимање одговорности за сопствене поступке и заједницу у којој живимо.')"><span>◎</span><b>Одговорност</b><small>Од речи ка поступцима.</small></button>
-<button class="value" onclick="info('Повезивање','Удруживање људи око идеја и циљева који су важнији од личних разлика.')"><span>⌘</span><b>Повезивање</b><small>Заједно можемо више.</small></button>
+<div class="home">
+<div class="home-top"><div class="brand">♥ &nbsp; ЈУНАЧКО СРЦЕ</div></div>
+<div class="hero-copy"><div class="eyebrow">ОД ЛИЧНОГ БУНТА ДО ПОДРШКЕ ДРУГИМА</div><h1>Нисам се уклопио.<br>Нисам одустао.</h1><p>Не тражим подршку за себе. Желим да своје искуство, знање и енергију ставим у службу људи који имају идеју, иницијативу и жељу да нешто промене.</p>
+<div class="main-grid">
+<button class="main-link" onclick="openSection('about')"><span class="number">01</span><span><strong>КО САМ ЈА</strong><smallМоје одрастање, ставови и животни пут</small></span><span class="arrow">↗</span></button>
+<button class="main-link" onclick="openSection('struggle')"><span class="number">02</span><span><strong>МОЈА БОРБА</strong><small>Од личног бунта до друштвеног ангажмана</small></span><span class="arrow">↗</span></button>
+<button class="main-link" onclick="openSection('project')"><span class="number">03</span><span><strong>ЈУНАЧКО СРЦЕ</strong><small>Идеја, вредности и начин рада</small></span><span class="arrow">↗</span></button>
+<button class="main-link" onclick="openSection('support')"><span class="number">04</span><span><strong>ПОДРШКА ДРУГИМА</strong><small>Идеје, људи и иницијативе којима помажемо</small></span><span class="arrow">↗</span></button>
+</div></div>
+<div class="home-bottom"><div class="home-foot">НЕ ПОДРШКА МЕНИ — ПОДРШКА ЉУДИМА И ЊИХОВИМ ИДЕЈАМА</div></div>
 </div>
-<div class="card"><h3>Од идеје до пројеката</h3><p>Кроз кампање, сарадњу и конкретне иницијативе, Јуначко срце даје простор људима и идејама које доприносе бољем друштву.</p></div>
-<button class="primary" onclick="go('join')">Укључи се у причу <span>→</span></button><button class="back" onclick="go('home')">← Назад на почетну</button>
 </section>
-<section class="screen" id="join">
-<div class="page-head"><div class="kicker">ТРЕЋИ ДЕО · ЗАЈЕДНИЦА</div><h1>Укључи се</h1><p>Не мораш да се слажеш са мном у свему да бисмо заједно урадили нешто добро. Важно је да препознамо шта можемо да променимо и да направимо први корак.</p></div>
-<div class="choices">
-<button class="choice" onclick="document.getElementById('join-form').scrollIntoView({behavior:'smooth'})"><span>✎</span><b>Предложи идеју</b><small>Имаш тему, проблем или решење?</small></button>
-<button class="choice" onclick="document.getElementById('join-form').scrollIntoView({behavior:'smooth'})"><span>♡</span><b>Подржи пројекат</b><small>Помози да добра идеја заживи.</small></button>
-<button class="choice" onclick="document.getElementById('join-form').scrollIntoView({behavior:'smooth'})"><span>♧</span><b>Укључи се у акцију</b><small>Понуди своје време и знање.</small></button>
-<button class="choice" onclick="document.getElementById('join-form').scrollIntoView({behavior:'smooth'})"><span>⌘</span><b>Повежи људе</b><small>Упознај нас са онима који деле идеју.</small></button>
-</div>
-<div class="card" id="join-form"><h3>Направимо први корак</h3><p>Остави поруку о томе како желиш да се укључиш. Овај образац је за сада пробни приказ и још не шаље податке.</p>
-<form class="form" onsubmit="demoSubmit(event)">
-<div class="field"><label for="name">Како се зовеш?</label><input id="name" placeholder="Твоје име" required></div>
-<div class="field"><label for="email">Имејл адреса</label><input id="email" type="email" placeholder="ime@primer.rs" required></div>
-<div class="field"><label for="kind">Како желиш да се укључиш?</label><select id="kind"><option>Имам предлог или идеју</option><option>Желим да подржим пројекат</option><option>Желим да учествујем у акцији</option><option>Желим да понудим сарадњу</option></select></div>
-<div class="field"><label for="message">Твоја порука</label><textarea id="message" placeholder="Напиши нам нешто више..."></textarea></div>
-<button class="primary" type="submit">Провери образац <span>→</span></button><div class="success" id="success">Хвала ти! Образац ради у демо режиму. Порука није послата јер још није повезан систем за пријем пријава.</div>
-</form></div><button class="back" onclick="go('home')">← Назад на почетну</button>
+
+<section class="screen" id="section">
+<header class="topbar"><button onclick="goHome()">← Почетна</button><div class="top-brand">ЈУНАЧКО СРЦЕ</div><button onclick="goHome()">Мени</button></header>
+<main class="content"><div class="eyebrow red" id="section-kicker"></div><h1 class="page-title" id="section-title"></h1><p class="lead" id="section-lead"></p><div class="submenu" id="submenu"></div><div id="section-extra"></div><div class="backline"><button onclick="goHome()">← Назад на почетну</button></div></main>
 </section>
-<section class="screen" id="info"><div class="page-head"><div class="kicker">ВРЕДНОСТИ ЈУНАЧКОГ СРЦА</div><h1 id="info-title">Вредност</h1><p id="info-text"></p></div><button class="primary" onclick="go('project')">Назад на Јуначко срце <span>→</span></button></section>
-</main>
-<nav class="bottom" aria-label="Главна навигација">
-<button class="tab active" data-screen="home" onclick="go('home')"><i>⌂</i>Почетна</button>
-<button class="tab" data-screen="about" onclick="go('about')"><i>♙</i>О мени</button>
-<button class="tab" data-screen="project" onclick="go('project')"><i>♥</i>Јуначко срце</button>
-<button class="tab" data-screen="join" onclick="go('join')"><i>↗</i>Укључи се</button>
-</nav>
+
+<section class="screen" id="detail">
+<header class="topbar"><button onclick="backToSection()">← Назад</button><div class="top-brand">ЈУНАЧКО СРЦЕ</div><button onclick="goHome()">Почетна</button></header>
+<main class="content"><div class="eyebrow red" id="detail-kicker"></div><h1 class="page-title" id="detail-title"></h1><div id="detail-body"></div><div class="backline"><button onclick="backToSection()">← Назад на претходну целину</button><button onclick="goHome()">Почетна</button></div></main>
+</section>
 </div>
-<div class="drawer" id="drawer" onclick="if(event.target===this)drawer(false)"><div class="drawer-panel"><div class="drawer-head"><b>ЈУНАЧКО СРЦЕ</b><button onclick="drawer(false)" aria-label="Затвори">×</button></div><button class="drawer-link" onclick="go('about');drawer(false)">О мени<small>Личност, одрастање и борба</small></button><button class="drawer-link" onclick="go('project');drawer(false)">О Јуначком срцу<small>Идеја, вредности и пројекти</small></button><button class="drawer-link" onclick="go('join');drawer(false)">Укључи се<small>Постани део приче</small></button></div></div>
 <script>
-function go(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.id===id));document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.screen===id));window.scrollTo({top:0,behavior:'smooth'});}
-function drawer(open){document.getElementById('drawer').classList.toggle('open',open);}
-function info(title,body){document.getElementById('info-title').textContent=title;document.getElementById('info-text').textContent=body;go('info');}
-function demoSubmit(e){e.preventDefault();document.getElementById('success').classList.add('show');}
-if('serviceWorker' in navigator && location.protocol.startsWith('http'))addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+const sections={
+about:{title:"Ко сам ја",kicker:"01 · ЛИЧНА ПРИЧА",lead:"Ја сам човек који никада није прихватао да је нешто исправно само зато што је уобичајено. Моја прича је прича о одрастању, преиспитивању, неприпадању и тражењу сопственог пута.",items:[
+["Одрастање","Два погледа на свет, људи који су ме обликовали и искуства која су утицала на то какав сам човек постао.","Одакле потиче мој начин размишљања? Како су породично окружење, узори и различити погледи на свет утицали на мене."],
+["Неконформизам","Зашто нисам желео да се уклопим у очекивања и зашто преиспитујем оно што се представља као нормално.","Не прихватам норме само зато што постоје. За мене је важно да разумем да ли су праведне, смислене и добре за људе."],
+["Шта је за мене нормално?","Моји критеријуми, вредности и питања која ме прате кроз живот.","Нормално није исто што и уобичајено. Оно што је прихваћено у друштву не мора аутоматски бити исправно."],
+["Мој животни пут","Како су се кроз године мењали моји начини деловања, али не и потреба да постављам питања.","Од личних преиспитивања до јавног ангажмана — пут који је обликовао и мене и идеју Јуначког срца."]
+]},
+struggle:{title:"Моја борба",kicker:"02 · ЖИВОТНИ АНГАЖМАН",lead:"Мој бунт није почео на улици. Почео је много раније, а временом је прерастао у дугогодишњу борбу за боље друштво и за људе чији се глас често не чује.",items:[
+["Како је почело","Прва питања, прва неслагања и тренутак када сам схватио да не могу да ћутим.","Борба је почела питањем шта је нормално и потребом да не прихватам ствари здраво за готово."],
+["Од личног бунта до јавног деловања","Како су размишљање, разговори, акције и јавни ангажман постали део мог живота.","Током година мењали су се теме и начини деловања — од разговора и форума до протеста, иницијатива и хуманитарних акција."],
+["Сукоб са наметнутим нормама","Зашто се супротстављам неправди, ћутању и одлукама које погађају људе.","Мој сукоб није са људима као таквима, већ са поступцима, системима и праксама које сматрам неправедним."],
+["Шта сам научио","Искуства, грешке, истрајност и важност повезивања.","Критика сама по себи није довољна. Важно је понудити решење, окупити људе и преузети део одговорности."]
+]},
+project:{title:"Јуначко срце",kicker:"03 · ИДЕЈА И ПРОЈЕКАТ",lead:"Јуначко срце није створило моју борбу. Оно је настало из ње. То је начин да искуство, знање, креативност и енергију усмерим ка људима и идејама којима је подршка потребна.",items:[
+["Зашто је настало","Како је лична борба добила облик пројекта и платформе.","Желео сам да оно у шта верујем добије практичан облик и да моје искуство буде корисно и другима."],
+["Маркетинг вођен срцем","Комуникација која не служи само промоцији, већ људима, вредностима и променама.","Креативност и маркетинг користим као алат за подизање свести, повезивање и подршку добрим иницијативама."],
+["Вредности","Храброст, емпатија, одговорност, солидарност и повезивање.","Вредности нису украс у опису пројекта. Оне треба да се виде у начину на који радимо и односимо се према људима."],
+["Како радимо","Кампање, сарадња, комуникација и претварање идеја у конкретне кораке.","Не обећавамо да можемо све. Тражимо шта је потребно, шта можемо да понудимо и са ким можемо да се повежемо."]
+]},
+support:{title:"Подршка другима",kicker:"04 · ЉУДИ И ИДЕЈЕ",lead:"Не тражим подршку за себе. Желим да пружим подршку људима који имају идеју, иницијативу или потребу да нешто промене. Не мораш имати готов пројекат — довољно је да желиш да направиш први корак.",items:[
+["Имам идеју","Имаш предлог, замисао или решење, али не знаш како да почнеш?","Представи идеју. Заједно можемо да размислимо шта је потребно, како да је обликујемо и кога можемо да укључимо."],
+["Покрећем иницијативу","Већ си окупио људе или покренуо нешто у својој средини?","Можемо да помогнемо у комуникацији, видљивости, повезивању и осмишљавању наредних корака."],
+["Потребна ми је подршка","Потребни су ти знање, промоција, савет, сарадници или помоћ да се чује за твоју идеју?","Опиши шта ти је потребно. Размотрићемо шта можемо да урадимо и са ким можемо да те повежемо."],
+["Желим да помогнем другима","Имаш знање, време, вештине или контакте које желиш да ставиш у службу добрих идеја?","Повежи се са нама и понуди оно што можеш. Подршка може да буде и савет, време, знање или контакт."]
+]}
+};
+let currentSection="about";
+function show(id){document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));document.getElementById(id).classList.add("active");window.scrollTo({top:0,behavior:"instant"});}
+function goHome(){show("home")}
+function openSection(id){currentSection=id;const s=sections[id];document.getElementById("section-kicker").textContent=s.kicker;document.getElementById("section-title").textContent=s.title;document.getElementById("section-lead").textContent=s.lead;document.getElementById("submenu").innerHTML=s.items.map((it,i)=>'<button class="sub-link" onclick="openDetail('+i+')"><span class="num">0'+(i+1)+'</span><span><strong>'+it[0]+'</strong><small>'+it[1]+'</small></span><span class="arrow">↗</span></button>').join("");document.getElementById("section-extra").innerHTML=id==="support"?'<div class="callout">Не мораш да тражиш подршку за мене. Дођи са својом идејом — потражићемо начин да подржимо тебе.</div><button class="action" onclick="openDetail(4)">ПРЕДСТАВИ СВОЈУ ИДЕЈУ →</button>':"";show("section")}
+function openDetail(i){const s=sections[currentSection];if(currentSection==="support"&&i===4){document.getElementById("detail-kicker").textContent="ПРЕДСТАВИ СВОЈУ ИДЕЈУ";document.getElementById("detail-title").textContent="Хајде да разговарамо";document.getElementById("detail-body").innerHTML='<p class="lead">Укратко опиши шта желиш да покренеш и каква би ти подршка значила.</p><form class="form" onsubmit="demoSubmit(event)"><div class="field"><label for="person">Име или назив иницијативе</label><input id="person" required placeholder="Како да те ословимо?"></div><div class="field"><label for="contact">Контакт (имејл или телефон)</label><input id="contact" required placeholder="Како можемо да ти се јавимо?"></div><div class="field"><label for="idea">Твоја идеја или иницијатива</label><textarea id="idea" required placeholder="Шта желиш да промениш или покренеш?"></textarea></div><div class="field"><label for="need">Каква подршка би ти значила?</label><textarea id="need" placeholder="Знање, промоција, повезивање, сарадња..."></textarea></div><button class="action" type="submit">ПОШАЉИ ПРЕДЛОГ</button><div class="hint">Образац је тренутно демонстрациони и још није повезан са системом за пријем порука.</div><div class="success" id="success">Хвала! Приказ обрасца је тестиран, али подаци нису послати.</div></form>';show("detail");return;}const it=s.items[i];document.getElementById("detail-kicker").textContent=s.title.toUpperCase();document.getElementById("detail-title").textContent=it[0];document.getElementById("detail-body").innerHTML='<p class="lead">'+it[1]+'</p><div class="article"><h2>'+it[0]+'</h2><p>'+it[2]+'</p></div>'+(currentSection==="support"?'<div class="callout">Не мораш све да знаш и не мораш све да имаш спремно. Довољно је да направиш први корак.</div><button class="action" onclick="openDetail(4)">ПРЕДСТАВИ СВОЈУ ИДЕЈУ →</button>':"");show("detail")}
+function backToSection(){openSection(currentSection)}
+function demoSubmit(e){e.preventDefault();document.getElementById("success").classList.add("show")}
 </script>
 </body>
 </html>
