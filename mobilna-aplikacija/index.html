@@ -69,6 +69,53 @@ html,body{background:#f3f0e8;color:#29352f}
 .section-photo img{object-position:center 45%}
 @media(min-width:620px){.home-photo{height:240px}.section-photo{height:220px}}
 
+/* Бунтовнији идентитет: бела и сива основа, црвени акценти и жута енергија */
+:root{--ink:#252525;--muted:#666;--gold:#f2c500;--red:#d71920;--dark:#f2f2f0;--panel:#fff;--line:#d2d2d0}
+html,body{background:#f2f2f0;color:#252525}
+.home{background:linear-gradient(112deg,rgba(248,248,246,.97) 0%,rgba(248,248,246,.9) 54%,rgba(248,248,246,.38) 100%),url('https://www.greenforests.org/assets/greenforests/images/resource/video-image-1.jpg') center/cover no-repeat}
+.home:before{width:min(62vw,620px);right:-18%;top:-32%;border:22px solid #d7192015;border-radius:0;transform:rotate(-18deg);box-shadow:0 0 0 22px #f2c50020,0 0 0 54px #d7192010}
+.home:after{width:min(42vw,420px);right:-9%;top:-17%;border:10px solid #f2c50055;border-radius:0;transform:rotate(-18deg)}
+.brand,.top-brand{color:var(--red)}
+.eyebrow,.eyebrow.red{color:var(--red)}
+.hero-copy h1{color:#202020;text-transform:uppercase;letter-spacing:-.075em}
+.hero-copy p{color:#454545}
+.home-foot{color:#555}
+.hamburger{border:2px solid #d71920;background:#fff;color:#d71920;border-radius:8px}
+.main-link{border:1px solid #bfc0be;border-left:5px solid #d71920;border-radius:5px;background:#fff;color:#252525;box-shadow:4px 5px 0 #dededb;backdrop-filter:none}
+.main-link:active{background:#fff4b8;transform:translate(2px,2px);box-shadow:1px 2px 0 #dededb}
+.main-link .number,.main-link .arrow,.number{color:#d71920}
+.main-link small{color:#666}
+.topbar{background:#fffFf7;border-bottom:3px solid #d71920}
+.topbar button{border:1px solid #bdbdbb;border-radius:6px;background:#f5f5f3;color:#292929}
+.topbar .hamburger{border:2px solid #d71920;color:#d71920}
+.content{color:#252525}
+.lead{color:#4b4b4b}
+.sub-link{border:1px solid #c9c9c7;border-left:4px solid #d71920;border-radius:5px;background:#fff;color:#252525;box-shadow:3px 4px 0 #e0e0de}
+.sub-link .num,.sub-link .arrow{color:#d71920}
+.sub-link small{color:#666}
+.article{border-color:#d0d0ce}
+.article h2{color:#242424}
+.article p{color:#4a4a4a}
+.callout{color:#242424;background:#fff1a8;border-left:5px solid #d71920;border-radius:0 5px 5px 0;font-weight:700}
+.action{background:#d71920;color:#fff;border-radius:5px;box-shadow:4px 4px 0 #f2c500}
+.action:active{transform:translate(2px,2px);box-shadow:1px 1px 0 #f2c500}
+.backline button{border:1px solid #aaa;border-radius:5px;background:#fff;color:#333}
+.menu-overlay{background:#25252588}
+.menu-panel{background:#f7f7f5;border-left:4px solid #d71920}
+.menu-head strong,.menu-caption{color:#d71920}
+.menu-close{border:1px solid #d71920;border-radius:6px;background:#fff;color:#d71920}
+.menu-item{color:#252525;border-bottom:1px solid #d4d4d2}
+.menu-item .number,.menu-item .arrow{color:#d71920}
+.menu-item small{color:#666}
+.field label{color:#d71920}
+.field input,.field textarea,.field select{border:1px solid #bdbdbb;border-radius:5px;background:#fff;color:#252525}
+.hint{color:#666}
+.success{color:#28532c;background:#e5f1e3;border-left:4px solid #4b8a50}
+.home-photo,.section-photo{border-radius:5px;box-shadow:7px 7px 0 #f2c500}
+.home-photo:after{background:linear-gradient(transparent,#202020a8)}
+.home-photo span{background:#d71920;padding:7px 10px;left:0;bottom:0}
+@media(min-width:620px){.main-link:hover,.sub-link:hover{border-left-color:#f2c500;background:#fffdf0}}
+
 </style>
 </head>
 <body>
