@@ -26,6 +26,49 @@
 .menu-overlay{display:none;position:fixed;inset:0;z-index:20;background:#0009;backdrop-filter:blur(5px);justify-content:flex-end}.menu-overlay.open{display:flex}.menu-panel{width:min(88%,380px);height:100%;overflow:auto;background:#141d22;border-left:1px solid #ffffff25;padding:24px 22px calc(30px + var(--safe));box-shadow:-20px 0 60px #0007}.menu-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px}.menu-head strong{font-size:12px;letter-spacing:.18em;color:var(--gold)}.menu-close{width:40px;height:40px;border:1px solid var(--line);border-radius:50%;background:#ffffff0b;color:white;font-size:24px}.menu-caption{font-size:10px;letter-spacing:.16em;color:#b8ad9b;margin:18px 0 8px}.menu-item{width:100%;display:flex;align-items:center;gap:13px;padding:16px 2px;border:0;border-bottom:1px solid var(--line);background:none;color:white;text-align:left}.menu-item .number{width:25px}.menu-item strong{font-size:14px}.menu-item small{display:block;color:#bdb6aa;font-size:11px;margin-top:4px}.menu-item .arrow{margin-left:auto}.form{display:grid;gap:12px;max-width:650px;margin-top:20px}.field label{display:block;font-size:11px;font-weight:850;color:var(--gold);margin-bottom:6px}.field input,.field textarea,.field select{width:100%;border:1px solid var(--line);border-radius:11px;background:#ffffff0c;color:white;padding:13px;font:inherit;font-size:14px}.field select option{color:#111}.field textarea{min-height:110px;resize:vertical}.hint{font-size:11px;color:#bdb6aa;line-height:1.6}.success{display:none;color:#d8efcf;background:#344b3a;padding:13px;border-radius:10px;font-size:12px}.success.show{display:block}
 @media(min-width:620px){.main-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.main-link{min-height:88px}.submenu{grid-template-columns:repeat(2,minmax(0,1fr))}.sub-link{min-height:104px}.home{padding:clamp(32px,6vw,86px)}}
 @media(min-width:1050px){.home{padding-left:max(8vw,80px);padding-right:max(8vw,80px)}.main-grid{max-width:1000px}.main-link{padding:21px 24px}}
+
+/* Светлији, природнији визуелни идентитет */
+:root{--ink:#29352f;--muted:#68736b;--gold:#a87936;--red:#a85d48;--dark:#f3f0e8;--panel:#fffdf8;--line:#d9d7cd;--safe:env(safe-area-inset-bottom,0px)}
+html,body{background:#f3f0e8;color:#29352f}
+.home{background:linear-gradient(110deg,rgba(244,241,232,.96) 0%,rgba(244,241,232,.91) 48%,rgba(244,241,232,.48) 100%),url('https://www.greenforests.org/assets/greenforests/images/resource/video-image-1.jpg') center/cover no-repeat; color:#29352f}
+.home:before,.home:after{border-color:#8d9b8060;box-shadow:0 0 0 35px #6c80600a,0 0 0 85px #6c806008}
+.brand,.eyebrow,.number,.top-brand,.menu-head strong,.menu-caption,.field label{color:#718064}
+.hamburger{border-color:#687b6255;background:#ffffffa8;color:#344338;backdrop-filter:blur(8px)}
+.hero-copy p{color:#45534a}
+.home-foot{color:#59675b}
+.main-link{border-color:#aab4a1;background:#fffdf0d9;color:#344338;backdrop-filter:blur(8px);box-shadow:0 8px 24px #35452a0b}
+.main-link:active{background:#fff}
+.main-link small{color:#68736b}
+.arrow{color:#a87936}
+.topbar{background:#f7f5eeed;border-bottom:1px solid #d9d7cd}
+.topbar button{border-color:#c9c9bd;background:#ffffff;color:#435047}
+.topbar .hamburger{color:#344338}
+.content{color:#29352f}
+.lead{color:#536158}
+.sub-link{border-color:#d8d8cd;background:#fffdf8;color:#29352f;box-shadow:0 5px 18px #39452f08}
+.sub-link small{color:#6d776e}
+.article{border-color:#d9d7cd}
+.article p{color:#505d54}
+.callout{color:#48594a;background:#e9ede3;padding:16px 18px;border-left-color:#879875;border-radius:0 12px 12px 0}
+.backline button{border-color:#c9c9bd;color:#455249}
+.menu-overlay{background:#29352f55}
+.menu-panel{background:#f8f6ef;border-left-color:#d9d7cd;box-shadow:-20px 0 60px #28352a22}
+.menu-close{border-color:#d1d1c5;background:#fff;color:#344338}
+.menu-item{color:#344338;border-bottom-color:#ddddd2}
+.menu-item small{color:#727b71}
+.field input,.field textarea,.field select{border-color:#d0d2c7;background:#fffdf8;color:#29352f}
+.hint{color:#69756c}
+.success{color:#36553b;background:#e1eddf}
+.action{background:#a85d48}
+.home-photo,.section-photo{position:relative;overflow:hidden;border-radius:18px;margin:25px 0 22px;background:#e0e5d8;box-shadow:0 12px 30px #28352a12}
+.home-photo{height:clamp(145px,28vw,250px)}
+.home-photo img,.section-photo img{display:block;width:100%;height:100%;object-fit:cover}
+.home-photo:after{content:"";position:absolute;inset:35% 0 0;background:linear-gradient(transparent,#18251d88)}
+.home-photo span{position:absolute;z-index:1;left:18px;bottom:15px;color:white;font-size:11px;letter-spacing:.12em;font-weight:850;text-shadow:0 1px 5px #0008}
+.section-photo{height:clamp(150px,25vw,230px);margin:8px 0 24px}
+.section-photo img{object-position:center 45%}
+@media(min-width:620px){.home-photo{height:240px}.section-photo{height:220px}}
+
 </style>
 </head>
 <body>
@@ -34,6 +77,7 @@
 <div class="home">
 <div class="home-top"><div class="brand">♥ &nbsp; ЈУНАЧКО СРЦЕ</div><button class="hamburger" onclick="toggleMenu(true)" aria-label="Отвори мени" aria-expanded="false">☰</button></div>
 <div class="hero-copy"><div class="eyebrow">ОД ЛИЧНОГ БУНТА ДО ПОДРШКЕ ДРУГИМА</div><h1>Нисам се уклопио.<br>Нисам одустао.</h1><p>Не тражим подршку за себе. Желим да своје искуство, знање и енергију ставим у службу људи који имају идеју, иницијативу и жељу да нешто промене.</p>
+<div class="home-photo"><img src="https://www.greenforests.org/assets/greenforests/images/resource/video-image-1.jpg" alt="Ljudi zajedno sade mlado drvo u prirodi" loading="lazy" onerror="this.parentElement.style.display='none'"><span>МАЛИ КОРАЦИ · ЗАЈЕДНИЧКЕ ПРОМЕНЕ</span></div>
 <div class="main-grid">
 <button class="main-link" onclick="openSection('about')"><span class="number">01</span><span><strong>КО САМ ЈА</strong><small>Моје одрастање, ставови и животни пут</small></span><span class="arrow">↗</span></button>
 <button class="main-link" onclick="openSection('struggle')"><span class="number">02</span><span><strong>МОЈА БОРБА</strong><small>Од личног бунта до друштвеног ангажмана</small></span><span class="arrow">↗</span></button>
@@ -46,7 +90,7 @@
 
 <section class="screen" id="section">
 <header class="topbar"><button onclick="goHome()">← Почетна</button><div class="top-brand">ЈУНАЧКО СРЦЕ</div><button class="hamburger" onclick="toggleMenu(true)" aria-label="Отвори мени" aria-expanded="false">☰</button></header>
-<main class="content"><div class="eyebrow red" id="section-kicker"></div><h1 class="page-title" id="section-title"></h1><p class="lead" id="section-lead"></p><div class="submenu" id="submenu"></div><div id="section-extra"></div><div class="backline"><button onclick="goHome()">← Назад на почетну</button></div></main>
+<main class="content"><div class="eyebrow red" id="section-kicker"></div><h1 class="page-title" id="section-title"></h1><p class="lead" id="section-lead"></p><div class="section-photo" id="section-photo"></div><div class="submenu" id="submenu"></div><div id="section-extra"></div><div class="backline"><button onclick="goHome()">← Назад на почетну</button></div></main>
 </section>
 
 <section class="screen" id="detail">
@@ -88,7 +132,7 @@ function show(id){document.querySelectorAll(".screen").forEach(s=>s.classList.re
 function goHome(){show("home")}
 function toggleMenu(open){const menu=document.getElementById("menu-overlay");menu.classList.toggle("open",open);document.querySelectorAll(".hamburger").forEach(b=>b.setAttribute("aria-expanded",String(open)));document.body.style.overflow=open?"hidden":"";}
 function menuGo(id){toggleMenu(false);openSection(id)}
-function openSection(id){currentSection=id;const s=sections[id];document.getElementById("section-kicker").textContent=s.kicker;document.getElementById("section-title").textContent=s.title;document.getElementById("section-lead").textContent=s.lead;document.getElementById("submenu").innerHTML=s.items.map((it,i)=>'<button class="sub-link" onclick="openDetail('+i+')"><span class="num">0'+(i+1)+'</span><span><strong>'+it[0]+'</strong><small>'+it[1]+'</small></span><span class="arrow">↗</span></button>').join("");document.getElementById("section-extra").innerHTML=id==="support"?'<div class="callout">Не мораш да тражиш подршку за мене. Дођи са својом идејом — потражићемо начин да подржимо тебе.</div><button class="action" onclick="openDetail(4)">ПРЕДСТАВИ СВОЈУ ИДЕЈУ →</button>':"";show("section")}
+function openSection(id){currentSection=id;const s=sections[id];document.getElementById("section-kicker").textContent=s.kicker;document.getElementById("section-title").textContent=s.title;document.getElementById("section-lead").textContent=s.lead;const sectionImages={about:["https://images.squarespace-cdn.com/content/v1/5c33a69ccef37271ca6b206d/d87d0fb4-03eb-4422-bc59-37e3954aea45/image-asset.jpg","Размишљање и лични пут"],struggle:["https://images.rawpixel.com/image_social_landscape/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDI1LTA0L3NyLWltYWdlLTE0MDQyMDI1LXRvbmdhbTEyLXMtMjM0XzEuanBn.jpg","Време за преиспитивање и нове одлуке"],project:["https://www.greenforests.org/assets/greenforests/images/resource/video-image-1.jpg","Заједно можемо да покренемо промене"],support:["https://www.volunteerconnection.net/images/71/a8/eb7d944b42bc97a72249085b9cc4.jpg","Подршка почиње заједничким деловањем"]};const photo=sectionImages[id];document.getElementById("section-photo").innerHTML='<img src="'+photo[0]+'" alt="'+photo[1]+'" loading="lazy" onerror="this.parentElement.style.display=\'none\'">';document.getElementById("submenu").innerHTML=s.items.map((it,i)=>'<button class="sub-link" onclick="openDetail('+i+')"><span class="num">0'+(i+1)+'</span><span><strong>'+it[0]+'</strong><small>'+it[1]+'</small></span><span class="arrow">↗</span></button>').join("");document.getElementById("section-extra").innerHTML=id==="support"?'<div class="callout">Не мораш да тражиш подршку за мене. Дођи са својом идејом — потражићемо начин да подржимо тебе.</div><button class="action" onclick="openDetail(4)">ПРЕДСТАВИ СВОЈУ ИДЕЈУ →</button>':"";show("section")}
 function openDetail(i){const s=sections[currentSection];if(currentSection==="support"&&i===4){document.getElementById("detail-kicker").textContent="ПРЕДСТАВИ СВОЈУ ИДЕЈУ";document.getElementById("detail-title").textContent="Хајде да разговарамо";document.getElementById("detail-body").innerHTML='<p class="lead">Укратко опиши шта желиш да покренеш и каква би ти подршка значила.</p><form class="form" onsubmit="demoSubmit(event)"><div class="field"><label for="person">Име или назив иницијативе</label><input id="person" required placeholder="Како да те ословимо?"></div><div class="field"><label for="contact">Контакт (имејл или телефон)</label><input id="contact" required placeholder="Како можемо да ти се јавимо?"></div><div class="field"><label for="idea">Твоја идеја или иницијатива</label><textarea id="idea" required placeholder="Шта желиш да промениш или покренеш?"></textarea></div><div class="field"><label for="need">Каква подршка би ти значила?</label><textarea id="need" placeholder="Знање, промоција, повезивање, сарадња..."></textarea></div><button class="action" type="submit">ПОШАЉИ ПРЕДЛОГ</button><div class="hint">Образац је тренутно демонстрациони и још није повезан са системом за пријем порука.</div><div class="success" id="success">Хвала! Приказ обрасца је тестиран, али подаци нису послати.</div></form>';show("detail");return;}const it=s.items[i];document.getElementById("detail-kicker").textContent=s.title.toUpperCase();document.getElementById("detail-title").textContent=it[0];if(currentSection==="struggle"&&i===4){document.getElementById("detail-body").innerHTML='<p class="lead">Моја борба није се завршила са породичном борбом, нити је остала само на личном и породичном плану. Током година добијала је нове облике и отварала нове фронтове. Један од њих је егзистенцијална борба: како обезбедити себи живот, а притом не изгубити себе.</p><div class="article"><h2>Два посла, један живот</h2><p>Већ годинама живим између две стварности. С једне стране, радим на ономе што сматрам својим животним позивом. Бавим се друштвеним ангажманом, покрећем иницијативе, размишљам о томе како можемо да створимо боље и одговорније друштво. Улажем време, енергију, знање и себе у идеје за које верујем да могу да донесу промену.</p><p>Када ме неко пита чиме се бавим, мој одговор је једноставан: бавим се тиме да ово друштво буде боље.</p><p>Али тај рад ми није обезбеђивао егзистенцију. Од идеја, иницијатива и борбе за боље друштво не може се увек платити живот. Зато сам морао да радим и друге послове — послове који ће ми обезбедити средства за живот.</p></div><div class="article"><h2>Између онога што желим и онога што морам</h2><p>Тако сам годинама био између онога што желим да радим и онога што морам да радим. Између страсти и посла. Између онога чему посвећујем себе и онога од чега живим.</p><p>Понекад сам имао осећај да највећи део времена и енергије одлази на обезбеђивање услова да бих уопште могао да наставим оно што сматрам важним. Ипак, нисам одустајао.</p></div><div class="article"><h2>Од рада за друге до сопственог пута</h2><p>После година рада за друге, дошао сам до одлуке да покушам другачије. Да престанем да чекам да се моје знање, искуство, идеје и вредности уклопе у нечији туђи пословни модел. Да покушам да изградим нешто своје.</p><p>Тако је настало <strong>Јуначко срце</strong>. Не као одустајање од борбе, већ као покушај да повежем оно што радим са оним од чега могу да живим. Да посао не буде нешто што ме удаљава од мојих вредности, већ средство којим могу да их остварујем.</p><p>Желим да радим за себе, али не само због себе. Желим да знање и искуство које сам годинама стицао ставим у службу људи, њихових идеја и иницијатива.</p></div><div class="callout">Не желим више да ми посао буде препрека да радим оно у шта верујем. Желим да мој посао постане начин да радим управо то.</div><div class="article"><p>Можда је управо то један од најважнијих делова мог пута: не одустати од онога у шта верујем, али пронаћи начин да од тога могу да живим. Јер моја борба никада није била само борба за преживљавање. Била је и остала борба да, док преживљавам, не престанем да будем оно што јесам.</p></div>';}else{document.getElementById("detail-body").innerHTML='<p class="lead">'+it[1]+'</p><div class="article"><h2>'+it[0]+'</h2><p>'+it[2]+'</p></div>'+(currentSection==="support"?'<div class="callout">Не мораш све да знаш и не мораш све да имаш спремно. Довољно је да направиш први корак.</div><button class="action" onclick="openDetail(4)">ПРЕДСТАВИ СВОЈУ ИДЕЈУ →</button>':"");}show("detail")}
 function backToSection(){openSection(currentSection)}
 function demoSubmit(e){e.preventDefault();document.getElementById("success").classList.add("show")}
