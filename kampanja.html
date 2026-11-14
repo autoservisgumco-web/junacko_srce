@@ -278,6 +278,22 @@ body.campaign-page .content-wrap{padding:0!important}
  .campaign-tab{min-height:44px;padding:9px 14px;font-size:13px}
  .campaign-tab-panel{padding:18px 16px;margin-top:5px;border-radius:15px}
 }
+
+/* Акције у оквиру кампање */
+.campaign-actions-overview{width:min(1080px,calc(100% - 40px));margin:26px auto 34px}
+.campaign-actions-overview h2{font-size:clamp(24px,3vw,32px);color:#173f6b;margin:0 0 8px}
+.campaign-actions-lead{color:#61758a;margin:0 0 18px;line-height:1.6}
+.campaign-action-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px}
+.campaign-action-card{background:#fff;border:1px solid #dce7f2;border-radius:18px;padding:18px;box-shadow:0 5px 18px rgba(16,43,78,.05)}
+.campaign-action-card h3{color:#173f6b;margin:9px 0;font-size:20px}
+.campaign-action-card p{color:#60758b;line-height:1.55;margin:7px 0 14px}
+.campaign-action-state{display:inline-flex;border-radius:999px;padding:6px 11px;background:#e5f5ec;color:#167344;font-size:12px;font-weight:800}
+.campaign-action-link{display:inline-flex;color:#1765a5;font-weight:800;text-decoration:none;margin-top:4px}
+.campaign-actions-links{display:flex;flex-wrap:wrap;gap:12px;margin-top:20px}
+.campaign-actions-links a{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;padding:12px 18px;background:#eaf3fc;color:#1c5e98;font-weight:800;text-decoration:none}
+.campaign-actions-links a.primary{background:#1768b2;color:#fff}
+.campaign-actions-empty{padding:18px;border:1px dashed #b9cddd;border-radius:15px;color:#63778c;background:#fff}
+@media(max-width:760px){.campaign-actions-overview{width:calc(100% - 28px);margin:22px auto 28px}.campaign-action-grid{grid-template-columns:1fr}.campaign-actions-links{flex-direction:column}.campaign-actions-links a{width:100%}}
 </style>
 </head><body class="content-page-body campaign-page">
 <header class="site-header"><a class="site-brand" href="/index.html" aria-label="Одговорна Плана — почетна"><span class="brand-heart">♡</span><span>Одговорна<br>Плана</span></a><nav class="site-nav" aria-label="Главна навигација"><a href="/index.html">Почетна</a><a href="/kampanje.html">Кампање</a><a href="/akcije.html">Акције</a><a href="/podrska.html">Подршка</a></nav><button class="menu-trigger" id="openMenu" type="button" aria-label="Отвори мени">☰</button></header><div class="menu-backdrop" id="menuBackdrop" hidden></div><aside class="side-menu" id="sideMenu" aria-hidden="true"><div class="side-menu-head"><span>♡ Одговорна Плана</span><button class="side-menu-close" id="closeMenu" type="button" aria-label="Затвори мени">×</button></div><nav aria-label="Мени"><a href="/o-nama.html">О нама</a><a href="/kako-funkcionise.html">Како функционише платформа</a><a href="/kontakt.html">Контакт</a></nav></aside><main class="content-main"><div class="content-wrap"><div id="campaignDetail"><div class="content-empty">Учитавање кампање…</div></div></div></main>
@@ -366,6 +382,10 @@ body.campaign-page .content-wrap{padding:0!important}
    availableTabs.forEach((tab,index)=>{html+='<button type="button" class="campaign-tab" role="tab" id="campaignTab-'+tab.key+'" aria-controls="campaignTabPanel" aria-selected="'+(index===0?'true':'false')+'" data-campaign-tab="'+tab.key+'">'+tab.label+'</button>';});
    html+='</div><div class="campaign-tab-panel" id="campaignTabPanel" role="tabpanel" aria-labelledby="campaignTab-'+availableTabs[0].key+'"></div></section>';
   }
+  const ongoingCampaignActions=campaignActions.filter(action=>['in_progress','active'].includes(String(action.status||'').toLowerCase()));
+  const completedCampaignActions=campaignActions.filter(action=>action.status==='completed');
+  const campaignActionCardsMarkup=items=>items.map(action=>'<article class="campaign-action-card"><span class="campaign-action-state">'+(action.status==='completed'?'Завршено':'У току')+'</span><h3>'+txt(action.title)+'</h3>'+(action.summary?'<p>'+txt(action.summary)+'</p>':'')+(action.action_date?'<p>'+txt(new Date(action.action_date).toLocaleDateString('sr-RS'))+'</p>':'')+'<a class="campaign-action-link" href="/akcija.html?slug='+encodeURIComponent(action.slug||action.id)+'">'+(action.status==='completed'?'Погледај резултате →':'Погледај акцију →')+'</a></article>').join('');
+  html+='<section class="campaign-actions-overview" aria-labelledby="campaignOngoingTitle"><h2 id="campaignOngoingTitle">Акције у току</h2><p class="campaign-actions-lead">Конкретне активности које се тренутно спроводе у оквиру ове кампање.</p>'+(ongoingCampaignActions.length?'<div class="campaign-action-grid">'+campaignActionCardsMarkup(ongoingCampaignActions)+'</div>':'<div class="campaign-actions-empty">Тренутно нема акција у току у оквиру ове кампање.</div>')+'<div class="campaign-actions-links">'+(completedCampaignActions.length?'<a href="/akcije.html?campaign_id='+encodeURIComponent(c.id)+'&campaign_title='+encodeURIComponent(c.title)+'&status=completed">Погледај завршене акције ове кампање ('+completedCampaignActions.length+')</a>':'')+'<a class="primary" href="/akcije.html">Погледај све акције</a></div></section>';
   html+='<section class="campaign-landing-bottom"><div><span class="campaign-eyebrow">ТВОЈ ДОПРИНОС ЈЕ ВАЖАН</span><h2>Имаш идеју за конкретну акцију?</h2><p>Предложи шта можемо да урадимо у оквиру кампање.</p></div><button type="button" class="campaign-cta" id="openCampaignProposal">＋ Предложи акцију</button></section>';
   debugStage='Приказ кампање на страници';
   root.innerHTML=html;
