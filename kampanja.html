@@ -96,11 +96,13 @@ body.campaign-page .content-back{display:none}
 
 <style id="campaign-mobile-tabs">
 .campaign-tabs{width:min(1080px,calc(100% - 40px));margin:18px auto 24px}
-.campaign-tabs-nav{display:flex;gap:9px;overflow-x:auto;padding:3px 2px 10px;scrollbar-width:none}
-.campaign-tabs-nav::-webkit-scrollbar{display:none}
-.campaign-tab{flex:0 0 auto;border:1px solid #dce6f1;border-radius:999px;padding:11px 17px;background:#fff;color:#52677e;font:inherit;font-size:14px;font-weight:800;cursor:pointer;white-space:nowrap}
-.campaign-tab[aria-selected="true"]{background:#e8f2ff;border-color:#8eb8e4;color:#1e5e98;box-shadow:inset 0 0 0 1px #c6dcf4}
-.campaign-tab-panel{padding:20px 22px;background:#fff;border:1px solid #e0e8f1;border-radius:16px;box-shadow:0 6px 20px #102b4e08;color:#40566f;line-height:1.7}
+.campaign-tabs-nav{display:grid;grid-template-columns:1fr;gap:10px;padding:3px 0 10px}
+.campaign-tab{width:100%;display:flex;align-items:center;justify-content:space-between;gap:14px;text-align:left;border:1px solid #cbdcf0;border-radius:15px;padding:15px 18px;background:#fff;color:#173f70;font:inherit;font-size:16px;font-weight:850;cursor:pointer;box-shadow:0 4px 14px rgba(16,43,78,.04);transition:background .2s,border-color .2s}
+.campaign-tab:after{content:"⌄";font-size:23px;line-height:1;color:#2a6ba3;transition:transform .2s}
+.campaign-tab[aria-expanded="true"]{background:#2a6ba3;border-color:#2a6ba3;color:#fff;border-radius:15px 15px 0 0;margin-bottom:-10px}
+.campaign-tab[aria-expanded="true"]:after{content:"⌃";color:#fff}
+.campaign-tab-panel{padding:20px 22px;background:#fff;border:1px solid #b9d2eb;border-top:0;border-radius:0 0 15px 15px;box-shadow:0 8px 20px rgba(16,43,78,.07);color:#40566f;line-height:1.7;margin-bottom:10px}
+.campaign-tab-panel[hidden]{display:none}
 .campaign-tab-panel h2,.campaign-tab-panel h3{color:#123f78}
 .campaign-tab-panel>p{margin:0;white-space:pre-line}
 .campaign-tab-panel .campaign-goal-list{margin-top:14px}
@@ -302,9 +304,9 @@ body.campaign-page .content-wrap{max-width:none;padding:0}
   if(goals.length||sections.length)availableTabs.push({key:'plan',label:'План и циљеви'});
   if(supportAvailable||campaignActions.length)availableTabs.push({key:'support',label:'Укључи се'});
   if(availableTabs.length){
-   html+='<section class="campaign-tabs" aria-label="Садржај кампање"><div class="campaign-tabs-nav" role="tablist" aria-label="Одељци кампање">';
-   availableTabs.forEach((tab,index)=>{html+='<button type="button" class="campaign-tab" role="tab" id="campaignTab-'+tab.key+'" aria-controls="campaignTabPanel" aria-selected="'+(index===0?'true':'false')+'" data-campaign-tab="'+tab.key+'">'+tab.label+'</button>';});
-   html+='</div><div class="campaign-tab-panel" id="campaignTabPanel" role="tabpanel" aria-labelledby="campaignTab-'+availableTabs[0].key+'"></div></section>';
+   html+='<section class="campaign-tabs" aria-label="Садржај кампање"><div class="campaign-tabs-nav">';
+   availableTabs.forEach((tab,index)=>{html+='<button type="button" class="campaign-tab" id="campaignTab-'+tab.key+'" aria-controls="campaignPanel-'+tab.key+'" aria-expanded="'+(index===0?'true':'false')+'" data-campaign-tab="'+tab.key+'">'+tab.label+'</button><div class="campaign-tab-panel" id="campaignPanel-'+tab.key+'" role="region" aria-labelledby="campaignTab-'+tab.key+'" '+(index===0?'':'hidden')+'></div>';});
+   html+='</div></section>';
   }
   html+='<section class="campaign-landing-bottom"><div><span class="campaign-eyebrow">ТВОЈ ДОПРИНОС ЈЕ ВАЖАН</span><h2>Имаш идеју за конкретну акцију?</h2><p>Предложи шта можемо да урадимо у оквиру кампање.</p></div><button type="button" class="campaign-cta" id="openCampaignProposal">＋ Предложи акцију</button></section>';
   debugStage='Приказ кампање на страници';
@@ -326,12 +328,16 @@ body.campaign-page .content-wrap{max-width:none;padding:0}
    support:'<div class="campaign-sheet-content">'+(campaignActions.length?'<h3>Акције у оквиру кампање</h3><div class="campaign-story-list">'+campaignActionCards+'</div>':'')+'<div class="campaign-tab-support"><p>'+(supportAvailable?'Изабери начин на који можеш да допринесеш овој кампањи.':'Имаш идеју или желиш да помогнеш? Предложи конкретну акцију у оквиру кампање.')+'</p><button type="button" class="campaign-cta" id="openCampaignSupportTab">'+(supportAvailable?'♡ Изабери начин подршке':'＋ Предложи акцију')+'</button></div></div>',
    about:'<div class="campaign-sheet-content"><h3>О кампањи</h3><p>'+txt(introText)+'</p>'+(c.problem_text?'<h3>Проблем који желимо да решимо</h3><p>'+txt(c.problem_text)+'</p>':'')+(c.description&&c.description!==introText?'<h3>Наш приступ</h3><p>'+txt(c.description)+'</p>':'')+'</div>'
   };
-  const tabPanel=document.getElementById('campaignTabPanel');
   const showCampaignTab=key=>{
-   if(!tabPanel||!campaignTabContents[key])return;
-   tabPanel.innerHTML=campaignTabContents[key];
-   tabPanel.setAttribute('aria-labelledby','campaignTab-'+key);
-   root.querySelectorAll('[data-campaign-tab]').forEach(button=>button.setAttribute('aria-selected',String(button.dataset.campaignTab===key)));
+   root.querySelectorAll('[data-campaign-tab]').forEach(button=>{
+    const active=button.dataset.campaignTab===key&&button.getAttribute('aria-expanded')!=='true';
+    button.setAttribute('aria-expanded',String(active));
+    const panel=document.getElementById('campaignPanel-'+button.dataset.campaignTab);
+    if(panel){
+     panel.hidden=!active;
+     if(active&&!panel.dataset.loaded){panel.innerHTML=campaignTabContents[button.dataset.campaignTab]||'';panel.dataset.loaded='true';}
+    }
+   });
    document.getElementById('openCampaignSupportTab')?.addEventListener('click',()=>{if(supportAvailable)window.openSupportChooser?.();else openActionProposalForm();});
   };
   root.querySelectorAll('[data-campaign-tab]').forEach(button=>button.addEventListener('click',()=>showCampaignTab(button.dataset.campaignTab)));
