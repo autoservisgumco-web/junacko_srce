@@ -298,9 +298,9 @@ body.campaign-page .content-wrap{max-width:none;padding:0}
    supportAvailable=!!(supportOptionsCheck.data||[]).length||!!donationSettings&&(!!(donationSettings.recipient_name||donationSettings.bank_account||donationSettings.paypal_email||donationSettings.paypal_link)||(donationItemsCheck.data||[]).length>0||!!(donationSettings.contact_phone||donationSettings.contact_email));
   }catch(supportCheckError){console.warn('Провера начина подршке није успела:',supportCheckError);}
   const availableTabs=[];
+  if(String(introText).trim())availableTabs.push({key:'about',label:'О кампањи'});
   if(goals.length||sections.length)availableTabs.push({key:'plan',label:'План и циљеви'});
   if(supportAvailable||campaignActions.length)availableTabs.push({key:'support',label:'Укључи се'});
-  if(String(introText).trim())availableTabs.push({key:'about',label:'О кампањи'});
   if(availableTabs.length){
    html+='<section class="campaign-tabs" aria-label="Садржај кампање"><div class="campaign-tabs-nav" role="tablist" aria-label="Одељци кампање">';
    availableTabs.forEach((tab,index)=>{html+='<button type="button" class="campaign-tab" role="tab" id="campaignTab-'+tab.key+'" aria-controls="campaignTabPanel" aria-selected="'+(index===0?'true':'false')+'" data-campaign-tab="'+tab.key+'">'+tab.label+'</button>';});
