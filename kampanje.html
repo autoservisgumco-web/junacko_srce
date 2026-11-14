@@ -130,6 +130,56 @@ body.content-page-body .actions-section-lead{font-size:14px;line-height:1.5;marg
  .campaign-join-panel{margin-top:20px;padding:18px 13px}
 }
 
+
+/* Кампање: компактни hero са навигацијом преко фотографије и картице са текстом преко слике */
+.site-header{position:absolute!important;top:0;left:0;right:0;width:100%;z-index:30;background:linear-gradient(180deg,rgba(4,25,51,.82),rgba(4,25,51,.08))!important;border:0!important;box-shadow:none!important}
+.site-header .site-brand,.site-header .menu-trigger,.site-header .site-nav a{color:#fff!important}
+.site-header .menu-trigger{border-color:rgba(255,255,255,.48)!important;background:rgba(4,25,51,.24)!important}
+.site-shared-hero.hero-full{min-height:0!important;height:auto!important;padding:112px 22px 22px!important;position:relative;display:flex;align-items:flex-end;background:linear-gradient(90deg,rgba(4,29,59,.92),rgba(4,39,75,.48)),linear-gradient(0deg,rgba(4,29,59,.4),transparent),url('https://raw.githubusercontent.com/autoservisgumco-web/junacko_srce/refs/heads/main/Velika_Plana%2B.jpg') center 48%/cover no-repeat!important}
+.site-shared-hero .hero-inner{width:min(920px,100%);margin:0 auto}
+.site-shared-hero .hero-copy{max-width:690px}
+.site-shared-hero .eyebrow{font-size:9px;letter-spacing:1.5px;margin:0 0 5px}
+.site-shared-hero h1{font-size:clamp(25px,6vw,38px)!important;line-height:1.02!important;letter-spacing:-.6px!important;margin:0 0 6px!important;max-width:650px}
+.site-shared-hero .lead{font-size:12px!important;line-height:1.32!important;max-width:600px}
+body.content-page-body .content-main{padding:15px 12px 42px!important;background:#f5f7fa}
+body.content-page-body .content-wrap{width:min(920px,100%);max-width:920px;margin:0 auto}
+body.content-page-body .actions-section-title{font-size:22px!important;margin:0 0 3px!important;color:#173f63}
+body.content-page-body .actions-section-lead{font-size:12px!important;line-height:1.35;margin:0 0 11px!important}
+body.content-page-body .content-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}
+body.content-page-body .content-card{position:relative;display:block!important;min-width:0;aspect-ratio:1.18!important;min-height:0!important;height:auto!important;overflow:hidden;border-radius:13px!important;background:#12395f!important;border:1px solid #d8e5f0;box-shadow:0 3px 12px rgba(16,52,84,.13)!important}
+body.content-page-body .content-card-media{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;min-height:0!important;display:block!important;background:#dbe7f0}
+body.content-page-body .content-card-media:after{content:""!important;display:block!important;position:absolute;inset:0;background:linear-gradient(180deg,rgba(4,23,45,.04) 12%,rgba(4,23,45,.18) 38%,rgba(4,23,45,.92) 100%)!important}
+body.content-page-body .content-card-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+body.content-page-body .content-image-fallback{display:flex;position:absolute;inset:0;align-items:center;justify-content:center;font-size:48px;color:#fff;background:linear-gradient(135deg,#2a6ba3,#102e4d)}
+body.content-page-body .content-card-media.image-missing .content-image-fallback{display:flex}
+body.content-page-body .content-card-body{position:absolute!important;inset:0!important;z-index:2;display:flex!important;flex-direction:column;align-items:flex-start;justify-content:flex-end!important;padding:10px!important;gap:4px!important;color:#fff!important}
+body.content-page-body .content-card-body .content-tag{order:0;align-self:flex-start;margin:0 0 auto!important;padding:4px 6px!important;font-size:8px!important;background:rgba(5,31,58,.72)!important;color:#fff!important;border:1px solid rgba(255,255,255,.28)!important;backdrop-filter:blur(5px)}
+body.content-page-body .content-card-body h2{order:1;color:#fff!important;font-size:clamp(13px,3.5vw,17px)!important;line-height:1.12!important;margin:0!important;text-shadow:0 1px 5px rgba(0,0,0,.5)!important}
+body.content-page-body .content-card-body p{order:2;flex:0!important;margin:0!important;color:#f2f7fc!important;font-size:10px!important;line-height:1.25!important;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+body.content-page-body .content-card-body .content-btn{order:3;display:inline-flex!important;padding:5px 8px!important;margin-top:2px!important;border-radius:999px!important;background:#fff!important;color:#174b78!important;font-size:9px!important;font-weight:800}
+.campaign-join-panel{margin-top:16px!important;padding:16px!important}
+.campaign-join-panel h2{font-size:20px!important}
+.campaign-join-panel>p{font-size:12px!important;line-height:1.4!important;margin-bottom:12px!important}
+.campaign-join-actions a{min-height:36px!important;padding:8px 12px!important;font-size:11px!important}
+@media(min-width:761px){
+ .site-shared-hero.hero-full{padding:132px 30px 30px!important}
+ body.content-page-body .content-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:14px!important}
+ body.content-page-body .content-card{aspect-ratio:1.05!important}
+ body.content-page-body .content-card-body{padding:14px!important;gap:6px!important}
+ body.content-page-body .content-card-body h2{font-size:19px!important}
+ body.content-page-body .content-card-body p{font-size:12px!important}
+}
+@media(max-width:380px){
+ .site-shared-hero.hero-full{padding:104px 15px 18px!important}
+ .site-shared-hero h1{font-size:24px!important}
+ .site-shared-hero .lead{font-size:11px!important}
+ body.content-page-body .content-main{padding:12px 9px 40px!important}
+ body.content-page-body .content-grid{gap:8px!important}
+ body.content-page-body .content-card-body{padding:8px!important}
+ body.content-page-body .content-card-body h2{font-size:12px!important}
+ body.content-page-body .content-card-body p{font-size:9px!important}
+}
+
 </style>
 </head><body class="content-page-body">
 <header class="site-header"><a class="site-brand" href="/index.html" aria-label="Одговорна Плана — почетна"><span class="brand-heart">♡</span><span>Одговорна<br>Плана</span></a><nav class="site-nav" aria-label="Главна навигација"><a href="/index.html">Почетна</a><a href="/kampanje.html">Кампање</a><a href="/akcije.html">Акције</a><a href="/podrska.html">Буди нам подршка</a></nav><button class="menu-trigger" id="openMenu" type="button" aria-label="Отвори мени">☰</button></header><div class="menu-backdrop" id="menuBackdrop" hidden></div><aside class="side-menu" id="sideMenu" aria-hidden="true"><div class="side-menu-head"><span>♡ Одговорна Плана</span><button class="side-menu-close" id="closeMenu" type="button" aria-label="Затвори мени">×</button></div><nav aria-label="Мени"><a href="/o-nama.html">О нама</a><a href="/kako-funkcionise.html">Како функционише платформа</a><a href="/kontakt.html">Контакт</a></nav></aside><section class="site-shared-hero hero-full"><div class="hero-inner"><div class="hero-copy"><p class="eyebrow">ОДГОВОРНА ПЛАНА · КАМПАЊЕ</p><h1>Један човек може да покрене заједницу.</h1><p class="lead">Али заједница мора да помогне. Прикључи се кампањама које су већ покренуте, понуди оно што можеш или покрени своју идеју. Доста је било да сав терет носе појединци — време је за заједничко деловање.</p></div></div></section><main class="content-main"><div class="content-wrap"><h2 class="actions-section-title">Кампање које смо покренули</h2><p class="actions-section-lead">Изабери тему која ти је важна. Погледај шта се ради, коме је потребна подршка и како можеш да се укључиш.</p><div id="campaignList" class="content-grid"><div class="content-empty">Учитавање кампања…</div></div><section class="campaign-join-panel" aria-labelledby="campaignJoinTitle"><h2 id="campaignJoinTitle">Промена почиње када се укључимо.</h2><p>Не мораш све да преузмеш на себе. Можеш да се прикључиш постојећој кампањи, понудиш своје време, знање или другу врсту помоћи — или да покренеш сопствену кампању о теми која је важна теби и твојој заједници.</p><div class="campaign-join-actions"><a href="/ukljuci-se.html">Прикључи се кампањама</a><a href="/ukljuci-se.html">Понуди помоћ</a><a href="/predlog-kampanje.html">Покрени своју кампању</a></div></section><details id="dbDiagnostics" class="db-diagnostics"><summary>Дијагностика учитавања</summary><div id="dbDiagnosticText">Проверавам везу са базом…</div></details></div></main><footer class="content-footer"><div class="content-footer-inner">ОДГОВОРНА ПЛАНА · Место за заједничко деловање · © <span id="year"></span></div></footer>
@@ -147,7 +197,7 @@ try{
  const data=listResult.data;
  report(['Веза са Supabase: успостављена.','Табела campaigns: читање успешно.','Број објављених кампања (is_published = true): '+(allResult.count??data?.length??0)+'.','Приказују се искључиво кампање са is_published = true.']);
  if(!data?.length){root.innerHTML='<div class="content-empty">Нема кампања са is_published = true које су видљиве јавном налогу. Погледај дијагностику испод списка.</div>';return;}
- root.innerHTML=data.map(c=>{const raw=String(c.hero_image||'').trim();const image=raw?((raw.startsWith('http://')||raw.startsWith('https://'))?raw:'https://hmfeizkmpmxcnzhwxgbn.supabase.co/storage/v1/object/public/akcije/'+raw.split('/').map(encodeURIComponent).join('/')):'';return '<article class="content-card"><div class="content-card-media'+(image?'':' image-missing')+'">'+(image?'<img loading="lazy" src="'+esc(image)+'" alt="'+esc(c.title)+'">':'')+'<span class="content-image-fallback" aria-hidden="true">'+(String(c.title||'').toLowerCase().includes('пс')?'🐕':String(c.title||'').toLowerCase().includes('чист')?'🧹':String(c.title||'').toLowerCase().includes('домаћ')?'🥕':String(c.title||'').toLowerCase().includes('кај')?'❤️':'🤝')+'</span></div><div class="content-card-body"><span class="content-tag">Активна кампања</span><p>'+esc(c.intro_text||c.description||c.goal||'')+'</p><h2>'+esc(c.title)+'</h2><a class="content-btn" href="kampanja.html?slug='+encodeURIComponent(c.slug||c.id)+'">Погледај кампању →</a></div></article>';}).join('');root.querySelectorAll('.content-card-media img').forEach(img=>img.addEventListener('error',()=>{img.parentElement.classList.add('image-missing');img.remove();},{once:true}));
+ root.innerHTML=data.map(c=>{const raw=String(c.hero_image||'').trim();const title=String(c.title||'').toLowerCase();const fallbackImage=title.includes('пс')?'https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=900&q=82':title.includes('чист')||title.includes('комун')?'https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=900&q=82':title.includes('домаћ')||title.includes('купуј')?'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=900&q=82':'';const image=raw?((raw.startsWith('http://')||raw.startsWith('https://'))?raw:'https://hmfeizkmpmxcnzhwxgbn.supabase.co/storage/v1/object/public/akcije/'+raw.split('/').map(encodeURIComponent).join('/')):fallbackImage;return '<article class="content-card"><div class="content-card-media'+(image?'':' image-missing')+'">'+(image?'<img loading="lazy" src="'+esc(image)+'" alt="'+esc(c.title)+'">':'')+'<span class="content-image-fallback" aria-hidden="true">'+(String(c.title||'').toLowerCase().includes('пс')?'🐕':String(c.title||'').toLowerCase().includes('чист')?'🧹':String(c.title||'').toLowerCase().includes('домаћ')?'🥕':String(c.title||'').toLowerCase().includes('кај')?'❤️':'🤝')+'</span></div><div class="content-card-body"><span class="content-tag">Активна кампања</span><p>'+esc(c.intro_text||c.description||c.goal||'')+'</p><h2>'+esc(c.title)+'</h2><a class="content-btn" href="kampanja.html?slug='+encodeURIComponent(c.slug||c.id)+'">Погледај кампању →</a></div></article>';}).join('');root.querySelectorAll('.content-card-media img').forEach(img=>img.addEventListener('error',()=>{img.parentElement.classList.add('image-missing');img.remove();},{once:true}));
 }catch(e){console.error('Грешка при читању кампања:',e);report(['ГРЕШКА при читању табеле campaigns.','Порука: '+(e.message||String(e)),'Код: '+(e.code||'није доступан'),'Детаљи: '+(e.details||'нема'),'Проверити назив табеле/колона, Data API дозволе и RLS SELECT политику.']);root.innerHTML='<div class="content-empty">Кампање нису учитане. Отвори „Дијагностика учитавања“ испод списка.</div>';}
 })();</script>  <script src="/bottom-nav.js?v=20261114-campaign-page"></script>
 </body></html>
