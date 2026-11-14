@@ -491,11 +491,13 @@ const val=(...items)=>items.find(x=>x!==null&&x!==undefined&&String(x).trim()!==
 const mapFrame=location=>'<iframe loading="lazy" title="Мапа локације" src="https://maps.google.com/maps?q='+encodeURIComponent(location)+'&output=embed"></iframe>';
 (async()=>{
  if(!param){root.innerHTML='<div class="action-empty">Није изабрана акција.</div>';return;}
+ let loadedAction=null;
  try{
   let q=db.from('actions').select('*').eq('is_published',true);
   q=param.match(/^[0-9a-f-]{36}$/i)?q.eq('id',param):q.eq('slug',param);
   const {data:a,error}=await q.maybeSingle();if(error)throw error;
   if(!a){root.innerHTML='<div class="action-empty">Акција није пронађена или није објављена.</div>';return;}
+  loadedAction=a;
   document.title=a.title+' — Одговорна Плана';
   let approved=0;
   try{const r=await db.from('civic_submissions').select('id',{count:'exact',head:true}).eq('social_links->>kind','action').eq('social_links->>target_id',a.id).eq('status','approved');if(!r.error)approved=r.count||0;}catch(e){console.warn('Број пријављених није доступан',e);}
@@ -616,7 +618,19 @@ const mapFrame=location=>'<iframe loading="lazy" title="Мапа локациј�
   document.addEventListener('keydown',event=>{if(event.key==='Escape'&&questionModal.classList.contains('is-open'))closeQuestion();});
   if(new URLSearchParams(location.search).has('pitanje')) window.scrollTo(0,0);
   root.querySelector('#joinThisAction')?.addEventListener('click',()=>window.OPProposalModal?.openParticipation(a));
- }catch(e){console.error(e);root.innerHTML='<div class="action-empty">Детаљи акције тренутно нису доступни.</div>';}
+ }catch(e){
+  console.error('Грешка при приказу акције:',e);
+  if(loadedAction){
+    const a=loadedAction;
+    const date=a.action_date?new Date(a.action_date+'T00:00:00').toLocaleDateString('sr-RS',{day:'2-digit',month:'long',year:'numeric'}):'Није одређен';
+    const state={planned:'ПЛАНИРАНА',in_progress:'АКТИВНА',active:'АКТИВНА',completed:'ЗАВРШЕНА'}[a.status]||'ОБЈАВЉЕНА';
+    const cover=a.image_url||'https://raw.githubusercontent.com/autoservisgumco-web/junacko_srce/main/Velika_Plana%2B.jpg';
+    root.className='';
+    root.innerHTML='<div class="action-cover" style="background-image:url(&quot;'+esc(cover)+'&quot;)"><span class="action-cover-status">'+state+'</span></div><section class="action-overview"><div class="action-overview-main"><span class="action-kind">ϟ АКЦИЈА</span><h1>'+esc(a.title)+'</h1><p class="action-summary">'+esc(a.summary||a.intro||'')+'</p><div class="action-meta"><div class="action-meta-item">Датум:<strong>'+esc(date)+'</strong></div>'+(a.location?'<div class="action-meta-item">Место:<strong>'+esc(a.location)+'</strong></div>':'')+'</div></div></section>'+(a.description?'<section class="action-panel"><h2>Опис акције</h2><p class="action-description">'+esc(a.description)+'</p></section>':'')+(a.reason?'<section class="action-panel"><h2>Зашто је акција важна</h2><p class="action-description">'+esc(a.reason)+'</p></section>':'')+(a.goal?'<section class="action-panel"><h2>Циљ акције</h2><p class="action-description">'+esc(a.goal)+'</p></section>':'')+(a.location?'<section class="action-panel"><h2>Место одржавања</h2><p class="action-description">'+esc(a.location)+'</p></section>':'');
+  }else{
+    root.innerHTML='<div class="action-empty">Подаци о акцији тренутно нису доступни. Покушај поново касније.</div>';
+  }
+ }
 })();
 </script>
 <script src="/bottom-nav.js"></script>
