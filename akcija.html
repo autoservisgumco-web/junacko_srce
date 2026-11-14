@@ -472,7 +472,7 @@ body.iojz-modal-open{overflow:hidden}
 .action-campaign-info strong{font-size:16px;line-height:1.25}
 .action-campaign-info small{font-size:12px;line-height:1.4;color:#64748b}
 .action-campaign-arrow{font-size:23px;color:#2a6ba3}
-.action-campaign-card:hover .action-campaign-info strong{text-decoration:underline}
+.action-campaign-card{cursor:default}
 @media(max-width:600px){.action-campaign-link{padding:13px}.action-campaign-card img{width:62px;height:56px}.action-campaign-info strong{font-size:14px}}
 </style></head>
 <body class="content-page-body action-detail-page">
@@ -529,8 +529,7 @@ const mapFrame=location=>'<iframe loading="lazy" title="Мапа локациј�
       const {data:campaign,error:campaignError}=await db.from('campaigns').select('id,title,slug,hero_image,status').eq('id',a.campaign_id).eq('is_published',true).maybeSingle();
       if(campaignError)throw campaignError;
       if(campaign){
-        const campaignUrl='/kampanja.html?slug='+encodeURIComponent(campaign.slug||campaign.id);
-        campaignMarkup='<section class="action-campaign-link"><span class="action-campaign-kicker">АКЦИЈА ЈЕ ДЕО КАМПАЊЕ</span><a class="action-campaign-card" href="'+campaignUrl+'">'+(campaign.hero_image?'<img src="'+esc(campaign.hero_image)+'" alt="">':'')+'<span class="action-campaign-info"><strong>'+esc(campaign.title)+'</strong><small>Погледај циљеве и остале активности кампање →</small></span><span class="action-campaign-arrow" aria-hidden="true">→</span></a></section>';
+        campaignMarkup='<section class="action-campaign-link"><span class="action-campaign-kicker">АКЦИЈА ЈЕ ДЕО КАМПАЊЕ</span><div class="action-campaign-card">'+(campaign.hero_image?'<img src="'+esc(campaign.hero_image)+'" alt="">':'')+'<span class="action-campaign-info"><strong>'+esc(campaign.title)+'</strong><small>Ова акција је део наведене кампање. Све информације о акцији остају на овој страници.</small></span></div></section>';
       }
     }catch(campaignError){console.warn('Подаци о повезаној кампањи нису доступни:',campaignError);}
   }
