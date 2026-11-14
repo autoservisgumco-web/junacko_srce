@@ -43,9 +43,56 @@ body.content-page-body .actions-section-lead{font-size:14px;margin:0 0 14px;colo
  body.content-page-body .actions-section-title{font-size:25px;margin-bottom:5px}
  body.content-page-body .actions-section-lead{font-size:13px;margin-bottom:12px}
 }
+
+/* Нови приказ кампања — мења се само визуелни слој; учитавање и подаци остају исти. */
+:root{--op-blue:#2A6BA3;--op-red:#E63946;--op-bg:#F5F7FA;--op-ink:#222831;--op-soft:#DBE7F0}
+.site-shared-hero.hero-full{background:linear-gradient(112deg,rgba(13,54,91,.97),rgba(42,107,163,.88) 62%,rgba(42,107,163,.62)),url('https://raw.githubusercontent.com/autoservisgumco-web/junacko_srce/refs/heads/main/Velika_Plana%2B.jpg') center/cover no-repeat!important;padding:42px max(5vw,22px) 38px}
+.site-shared-hero .eyebrow{color:#dbe7f0}
+.site-shared-hero h1{max-width:820px;font-size:clamp(34px,5vw,58px)}
+.site-shared-hero .lead{max-width:760px;font-size:clamp(15px,1.6vw,19px)}
+body.content-page-body .content-main{background:var(--op-bg);padding:30px 18px 54px}
+body.content-page-body .content-wrap{max-width:1120px}
+body.content-page-body .actions-section-title{color:#174b78;font-size:clamp(26px,3vw,34px);margin-bottom:7px}
+body.content-page-body .actions-section-lead{font-size:15px;line-height:1.6;max-width:760px;margin-bottom:22px}
+body.content-page-body .content-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+body.content-page-body .content-card{aspect-ratio:auto;min-height:190px;height:auto;display:flex;flex-direction:row;overflow:hidden;background:#fff;border:1px solid #dce7f0;border-radius:18px;box-shadow:0 5px 18px rgba(22,57,86,.08);text-decoration:none;transition:transform .2s ease,box-shadow .2s ease}
+body.content-page-body .content-card:hover{transform:translateY(-3px);box-shadow:0 10px 25px rgba(22,57,86,.13)}
+body.content-page-body .content-card-media{position:relative;inset:auto;flex:0 0 36%;width:36%;height:auto;min-height:190px;background:var(--op-soft)}
+body.content-page-body .content-card-media:after{display:none}
+body.content-page-body .content-card-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+body.content-page-body .content-image-fallback{display:flex;background:linear-gradient(135deg,#dbe7f0,#edf4f8);color:var(--op-blue);font-size:48px}
+body.content-page-body .content-card-media.image-missing .content-image-fallback{display:flex}
+body.content-page-body .content-card-body{position:static;inset:auto;z-index:1;flex:1;min-width:0;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;padding:17px 16px;color:var(--op-ink);gap:8px}
+body.content-page-body .content-card-body .content-tag{order:0;margin:0;background:#eaf2f8;color:var(--op-blue);border:0;backdrop-filter:none;font-size:10px;letter-spacing:.5px;font-weight:800}
+body.content-page-body .content-card-body h2{order:1;color:#173f63;font-size:clamp(17px,1.6vw,21px);line-height:1.2;margin:0;text-shadow:none}
+body.content-page-body .content-card-body p{order:2;flex:0;color:#586777;font-size:13px;line-height:1.5;margin:0}
+body.content-page-body .content-card-body .content-btn{order:3;margin-top:3px;padding:0;border-radius:0;background:transparent;color:var(--op-blue);font-size:13px;font-weight:800}
+body.content-page-body .content-card-body .content-btn:hover{color:var(--op-red)}
+.campaign-join-panel{margin:30px 0 0;padding:25px;border-radius:20px;background:linear-gradient(120deg,#eaf2f8,#f8fbfd);border:1px solid #d7e5f0;text-align:center}
+.campaign-join-panel h2{margin:0 0 8px;color:#174b78;font-size:clamp(22px,3vw,30px)}
+.campaign-join-panel>p{max-width:760px;margin:0 auto 18px;color:#4e6071;line-height:1.6;font-size:14px}
+.campaign-join-actions{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+.campaign-join-actions a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:11px 18px;border-radius:999px;background:var(--op-blue);color:#fff;text-decoration:none;font-size:14px;font-weight:800}
+.campaign-join-actions a:nth-child(2){background:var(--op-red)}
+.campaign-join-actions a:nth-child(3){background:#fff;color:var(--op-blue);border:1px solid #b8d0e2}
+@media(max-width:760px){
+ .site-shared-hero.hero-full{padding:30px 19px 28px}
+ body.content-page-body .content-main{padding:22px 13px 46px}
+ body.content-page-body .content-grid{grid-template-columns:1fr;gap:12px}
+ body.content-page-body .content-card{min-height:150px;border-radius:15px}
+ body.content-page-body .content-card-media{flex-basis:34%;width:34%;min-height:150px}
+ body.content-page-body .content-card-body{padding:12px 12px;gap:6px}
+ body.content-page-body .content-card-body h2{font-size:16px}
+ body.content-page-body .content-card-body p{font-size:12px;line-height:1.4}
+ body.content-page-body .content-card-body .content-btn{font-size:12px}
+ .campaign-join-panel{margin-top:22px;padding:21px 15px}
+ .campaign-join-actions{display:grid;grid-template-columns:1fr;gap:9px}
+ .campaign-join-actions a{width:100%;box-sizing:border-box}
+}
+
 </style>
 </head><body class="content-page-body">
-<header class="site-header"><a class="site-brand" href="/index.html" aria-label="Одговорна Плана — почетна"><span class="brand-heart">♡</span><span>Одговорна<br>Плана</span></a><nav class="site-nav" aria-label="Главна навигација"><a href="/index.html">Почетна</a><a href="/kampanje.html">Кампање</a><a href="/akcije.html">Акције</a><a href="/podrska.html">Буди нам подршка</a></nav><button class="menu-trigger" id="openMenu" type="button" aria-label="Отвори мени">☰</button></header><div class="menu-backdrop" id="menuBackdrop" hidden></div><aside class="side-menu" id="sideMenu" aria-hidden="true"><div class="side-menu-head"><span>♡ Одговорна Плана</span><button class="side-menu-close" id="closeMenu" type="button" aria-label="Затвори мени">×</button></div><nav aria-label="Мени"><a href="/o-nama.html">О нама</a><a href="/kako-funkcionise.html">Како функционише платформа</a><a href="/kontakt.html">Контакт</a></nav></aside><section class="site-shared-hero hero-full"><div class="hero-inner"><div class="hero-copy"><p class="eyebrow">ОДГОВОРНА ПЛАНА · КАМПАЊЕ</p><h1>Окупимо се око важних тема.</h1><p class="lead">Кампања повезује људе око проблема или циља. Кроз разговор, информисање и конкретне активности радимо на променама које трају.</p></div></div></section><main class="content-main"><div class="content-wrap"><h2 class="actions-section-title">Кампање</h2><p class="actions-section-lead">Погледај теме око којих се окупљамо и радимо на конкретним променама у нашој заједници.</p><div id="campaignList" class="content-grid"><div class="content-empty">Учитавање кампања…</div></div><details id="dbDiagnostics" class="db-diagnostics"><summary>Дијагностика учитавања</summary><div id="dbDiagnosticText">Проверавам везу са базом…</div></details></div></main><footer class="content-footer"><div class="content-footer-inner">ОДГОВОРНА ПЛАНА · Место за заједничко деловање · © <span id="year"></span></div></footer>
+<header class="site-header"><a class="site-brand" href="/index.html" aria-label="Одговорна Плана — почетна"><span class="brand-heart">♡</span><span>Одговорна<br>Плана</span></a><nav class="site-nav" aria-label="Главна навигација"><a href="/index.html">Почетна</a><a href="/kampanje.html">Кампање</a><a href="/akcije.html">Акције</a><a href="/podrska.html">Буди нам подршка</a></nav><button class="menu-trigger" id="openMenu" type="button" aria-label="Отвори мени">☰</button></header><div class="menu-backdrop" id="menuBackdrop" hidden></div><aside class="side-menu" id="sideMenu" aria-hidden="true"><div class="side-menu-head"><span>♡ Одговорна Плана</span><button class="side-menu-close" id="closeMenu" type="button" aria-label="Затвори мени">×</button></div><nav aria-label="Мени"><a href="/o-nama.html">О нама</a><a href="/kako-funkcionise.html">Како функционише платформа</a><a href="/kontakt.html">Контакт</a></nav></aside><section class="site-shared-hero hero-full"><div class="hero-inner"><div class="hero-copy"><p class="eyebrow">ОДГОВОРНА ПЛАНА · КАМПАЊЕ</p><h1>Један човек може да покрене заједницу.</h1><p class="lead">Али заједница мора да помогне. Прикључи се кампањама које су већ покренуте, понуди оно што можеш или покрени своју идеју. Доста је било да сав терет носе појединци — време је за заједничко деловање.</p></div></div></section><main class="content-main"><div class="content-wrap"><h2 class="actions-section-title">Кампање које смо покренули</h2><p class="actions-section-lead">Изабери тему која ти је важна. Погледај шта се ради, коме је потребна подршка и како можеш да се укључиш.</p><div id="campaignList" class="content-grid"><div class="content-empty">Учитавање кампања…</div></div><section class="campaign-join-panel" aria-labelledby="campaignJoinTitle"><h2 id="campaignJoinTitle">Промена почиње када се укључимо.</h2><p>Не мораш све да преузмеш на себе. Можеш да се прикључиш постојећој кампањи, понудиш своје време, знање или другу врсту помоћи — или да покренеш сопствену кампању о теми која је важна теби и твојој заједници.</p><div class="campaign-join-actions"><a href="/ukljuci-se.html">Прикључи се кампањама</a><a href="/ukljuci-se.html">Понуди помоћ</a><a href="/predlog-kampanje.html">Покрени своју кампању</a></div></section><details id="dbDiagnostics" class="db-diagnostics"><summary>Дијагностика учитавања</summary><div id="dbDiagnosticText">Проверавам везу са базом…</div></details></div></main><footer class="content-footer"><div class="content-footer-inner">ОДГОВОРНА ПЛАНА · Место за заједничко деловање · © <span id="year"></span></div></footer>
 <script>document.getElementById('year').textContent=new Date().getFullYear();const menu=document.getElementById('sideMenu'),back=document.getElementById('menuBackdrop');function closeSideMenu(){menu.classList.remove('open');back.classList.remove('open');menu.setAttribute('aria-hidden','true');setTimeout(()=>back.hidden=true,260)}document.getElementById('openMenu').addEventListener('click',()=>{back.hidden=false;menu.setAttribute('aria-hidden','false');requestAnimationFrame(()=>{back.classList.add('open');menu.classList.add('open')})});document.getElementById('closeMenu').addEventListener('click',closeSideMenu);back.addEventListener('click',closeSideMenu);</script><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script>const db=window.supabase.createClient('https://hmfeizkmpmxcnzhwxgbn.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhtZmVpemttcG14Y256aHd4Z2JuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMzMjkyNzgsImV4cCI6MjEwODkwNTI3OH0.oTZopOJEGUnxK69BOYPP11CQoGrLqUJowqpPU2uiY-4');const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));const param=new URLSearchParams(location.search).get('slug');</script>
 <script>(async()=>{
 const root=document.getElementById('campaignList'),diag=document.getElementById('dbDiagnosticText');
