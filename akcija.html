@@ -514,7 +514,7 @@ const mapFrame=location=>'<iframe loading="lazy" title="Мапа локациј�
   try{const r=await db.from('civic_submissions').select('id',{count:'exact',head:true}).eq('social_links->>kind','action').eq('social_links->>target_id',a.id).eq('status','approved');if(!r.error)approved=r.count||0;}catch(e){console.warn('Број пријављених није доступан',e);}
   const date=val(a.action_date,a.date,a.start_date);
   const place=val(a.location,a.meeting_info);
-  const statusMap={planned:'ПЛАНИРАНА',in_progress:'АКТИВНА',active:'АКТИВНА',completed:'ЗАВРШЕНА'};
+  const statusMap={planned:'ПЛАНИРАНА',in_progress:'АКТИВНА',active:'АКТИВНА',completed:'ОДРЖАНА'};
   const status=statusMap[a.status]||String(a.status||'ОБЈАВЉЕНА').toLocaleUpperCase('sr');
   const cover=val(a.image_url,'https://raw.githubusercontent.com/autoservisgumco-web/junacko_srce/main/Velika_Plana%2B.jpg');
   const summary=val(a.summary,a.intro,a.description,'');
@@ -647,7 +647,7 @@ const mapFrame=location=>'<iframe loading="lazy" title="Мапа локациј�
   if(loadedAction){
     const a=loadedAction;
     const date=a.action_date?new Date(a.action_date+'T00:00:00').toLocaleDateString('sr-RS',{day:'2-digit',month:'long',year:'numeric'}):'Није одређен';
-    const state={planned:'ПЛАНИРАНА',in_progress:'АКТИВНА',active:'АКТИВНА',completed:'ЗАВРШЕНА'}[a.status]||'ОБЈАВЉЕНА';
+    const state={planned:'ПЛАНИРАНА',in_progress:'АКТИВНА',active:'АКТИВНА',completed:'ОДРЖАНА'}[a.status]||'ОБЈАВЉЕНА';
     const cover=a.image_url||'https://raw.githubusercontent.com/autoservisgumco-web/junacko_srce/main/Velika_Plana%2B.jpg';
     root.className='';
     root.innerHTML='<div class="action-cover" style="background-image:url(&quot;'+esc(cover)+'&quot;)"><span class="action-cover-status">'+state+'</span></div><section class="action-overview"><div class="action-overview-main"><span class="action-kind">ϟ АКЦИЈА</span><h1>'+esc(a.title)+'</h1><p class="action-summary">'+esc(a.summary||a.intro||'')+'</p><div class="action-meta"><div class="action-meta-item">Датум:<strong>'+esc(date)+'</strong></div>'+(a.location?'<div class="action-meta-item">Место:<strong>'+esc(a.location)+'</strong></div>':'')+'</div></div></section>'+(a.description?'<section class="action-panel"><h2>Опис акције</h2><p class="action-description">'+esc(a.description)+'</p></section>':'')+(a.reason?'<section class="action-panel"><h2>Зашто је акција важна</h2><p class="action-description">'+esc(a.reason)+'</p></section>':'')+(a.goal?'<section class="action-panel"><h2>Циљ акције</h2><p class="action-description">'+esc(a.goal)+'</p></section>':'')+(a.location?'<section class="action-panel"><h2>Место одржавања</h2><p class="action-description">'+esc(a.location)+'</p></section>':'');
