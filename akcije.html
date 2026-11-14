@@ -120,6 +120,6 @@ try{
  filterToggle.addEventListener('click',()=>{const open=filterToggle.getAttribute('aria-expanded')!=='true';filterToggle.setAttribute('aria-expanded',String(open));filterPanel.hidden=!open;});
  renderFilters();renderActions();
 }catch(e){console.error('Грешка при читању акција:',e);report(['ГРЕШКА при читању табеле actions.','Порука: '+(e.message||String(e)),'Код: '+(e.code||'није доступан'),'Детаљи: '+(e.details||'нема'),'Проверити назив табеле/колона, Data API дозволе и RLS SELECT политику.']);root.innerHTML='<div class="content-empty"><strong>Акције тренутно нису учитане.</strong><br>Отвори „Дијагностика учитавања“ да видиш тачан разлог, па освежи страницу.</div>';}
-})();</script>  <script src="/bottom-nav.js"></script>
+})();</script>  <script src="/bottom-nav.js?v=20261114-campaign-page"></script>
 <script src="/shared-proposal-modal.js?v=20261103-2"></script>
 </body></html>
