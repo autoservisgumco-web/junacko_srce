@@ -264,15 +264,17 @@ body.campaign-page .content-wrap{max-width:none;padding:0}
   let html='<section class="campaign-cover"'+(cover?' style="background-image:url(&quot;'+esc(cover)+'&quot;)"':'')+'><span class="campaign-status">'+status+'</span><div class="campaign-hero-copy"><span class="campaign-kind">КАМПАЊА</span><h1>'+txt(c.title)+'</h1><p>'+txt(intro)+'</p></div></section>';
 
   debugStage='Учитавање садржаја кампање из базе';
-  const [sectionsRes,goalsRes,activitiesRes]=await Promise.all([
+  const [sectionsRes,goalsRes,activitiesRes,actionsRes]=await Promise.all([
    db.from('campaign_sections').select('*').eq('campaign_id',c.id).eq('is_active',true).order('order_number'),
    db.from('campaign_goals').select('*').eq('campaign_id',c.id).eq('is_active',true).order('order_number'),
-   db.from('campaign_activities').select('*').eq('campaign_id',c.id).eq('is_published',true).order('order_number')
+   db.from('campaign_activities').select('*').eq('campaign_id',c.id).eq('is_published',true).order('order_number'),
+   db.from('actions').select('id,title,slug,summary,description,status,action_date').eq('campaign_id',c.id).eq('is_published',true).order('action_date',{ascending:false})
   ]);
   if(sectionsRes.error)throw sectionsRes.error;
   if(goalsRes.error)throw goalsRes.error;
   if(activitiesRes.error)throw activitiesRes.error;
-  const sections=sectionsRes.data||[],goals=goalsRes.data||[],activities=activitiesRes.data||[];
+  if(actionsRes.error)throw actionsRes.error;
+  const sections=sectionsRes.data||[],goals=goalsRes.data||[],activities=activitiesRes.data||[],campaignActions=actionsRes.data||[];
   debugStage='Учитавање партнера кампање';
   const partnerLinksRes=await db.from('campaign_partners').select('partner_id,relationship_type,description,display_order').eq('campaign_id',c.id).order('display_order');
   if(partnerLinksRes.error)throw partnerLinksRes.error;
@@ -297,7 +299,7 @@ body.campaign-page .content-wrap{max-width:none;padding:0}
   }catch(supportCheckError){console.warn('Провера начина подршке није успела:',supportCheckError);}
   const availableTabs=[];
   if(goals.length||sections.length)availableTabs.push({key:'plan',label:'План и циљеви'});
-  if(supportAvailable)availableTabs.push({key:'support',label:'Укључи се'});
+  if(supportAvailable||campaignActions.length)availableTabs.push({key:'support',label:'Укључи се'});
   if(String(introText).trim())availableTabs.push({key:'about',label:'О кампањи'});
   if(availableTabs.length){
    html+='<section class="campaign-tabs" aria-label="Садржај кампање"><div class="campaign-tabs-nav" role="tablist" aria-label="Одељци кампање">';
@@ -318,10 +320,11 @@ body.campaign-page .content-wrap{max-width:none;padding:0}
   const planContent='<div class="campaign-sheet-content"><p>'+txt(c.problem_text||c.description||'')+'</p>'+(goals.length?'<h3>Кључни циљеви</h3><ul class="campaign-goal-list">'+goals.map(g=>'<li><strong>'+txt(g.title)+'</strong>'+(g.description?'<p>'+txt(g.description)+'</p>':'')+'</li>').join('')+'</ul>':'')+(sections.length?'<h3 style="margin:22px 0 8px;color:#163f70">Од проблема до решења</h3><div class="campaign-story-list">'+sections.map((item,index)=>'<article class="campaign-story-item"><span class="campaign-story-number">'+String(index+1).padStart(2,'0')+'</span><div><h3>'+txt(item.title)+'</h3>'+(item.subtitle?'<h4>'+txt(item.subtitle)+'</h4>':'')+'<p>'+txt(item.content||'')+'</p></div></article>').join('')+'</div>':'')+'</div>';
   const activitiesContent='<div class="campaign-sheet-content">'+(activities.length?'<div class="campaign-activity-list">'+activities.map(a=>'<article class="campaign-activity-item"><span class="campaign-activity-status">'+(a.status==='completed'?'Завршено':a.status==='in_progress'?'У току':'Објављено')+'</span><div><h3>'+txt(a.title)+'</h3>'+(a.description?'<p>'+txt(a.description)+'</p>':'')+'</div></article>').join('')+'</div>':'<div class="campaign-empty-note">Активности још нису објављене.</div>')+'</div>';
   const partnersContent='<div class="campaign-sheet-content">'+(partners.length?'<div class="partner-cards">'+partners.map(partner=>'<article class="partner-card"><div class="partner-card-copy"><strong>'+txt(partner.name)+'</strong><p>'+txt(partner.short_description||partner.campaign_relationship.description||'Партнер кампање „'+c.title+'“.')+'</p></div><a class="partner-open-button" href="/partner.html?slug='+encodeURIComponent(partner.slug||'')+'">Отвори страницу партнера</a></article>').join('')+'</div>':'<div class="campaign-empty-note">Партнери још нису објављени.</div>')+'</div>';
+  const campaignActionCards=campaignActions.map(action=>'<article class="campaign-story-item campaign-linked-action"><div><span class="campaign-activity-status">'+(action.status==='completed'?'Завршено':action.status==='in_progress'?'У току':action.status==='planned'?'Планирано':'Објављено')+'</span><h3>'+txt(action.title)+'</h3>'+(action.summary?'<p>'+txt(action.summary)+'</p>':'')+'<a class="campaign-cta" href="/akcija.html?slug='+encodeURIComponent(action.slug)+'">Погледај акцију →</a></div></article>').join('');
   const campaignTabContents={
    plan:planContent,
-   support:'<div class="campaign-tab-support"><p>Желиш да помогнеш овој кампањи? Изабери начин на који можеш да допринесеш — временом, знањем, радом или донацијом.</p><button type="button" class="campaign-cta" id="openCampaignSupportTab">♡ Укључи се</button></div>',
-   about:'<p>'+txt(introText)+'</p>'
+   support:'<div class="campaign-sheet-content">'+(campaignActions.length?'<h3>Акције у оквиру кампање</h3><div class="campaign-story-list">'+campaignActionCards+'</div>':'')+'<div class="campaign-tab-support"><p>'+(supportAvailable?'Изабери начин на који можеш да допринесеш овој кампањи.':'Имаш идеју или желиш да помогнеш? Предложи конкретну акцију у оквиру кампање.')+'</p><button type="button" class="campaign-cta" id="openCampaignSupportTab">'+(supportAvailable?'♡ Изабери начин подршке':'＋ Предложи акцију')+'</button></div></div>',
+   about:'<div class="campaign-sheet-content"><h3>О кампањи</h3><p>'+txt(introText)+'</p>'+(c.problem_text?'<h3>Проблем који желимо да решимо</h3><p>'+txt(c.problem_text)+'</p>':'')+(c.description&&c.description!==introText?'<h3>Наш приступ</h3><p>'+txt(c.description)+'</p>':'')+'</div>'
   };
   const tabPanel=document.getElementById('campaignTabPanel');
   const showCampaignTab=key=>{
@@ -329,7 +332,7 @@ body.campaign-page .content-wrap{max-width:none;padding:0}
    tabPanel.innerHTML=campaignTabContents[key];
    tabPanel.setAttribute('aria-labelledby','campaignTab-'+key);
    root.querySelectorAll('[data-campaign-tab]').forEach(button=>button.setAttribute('aria-selected',String(button.dataset.campaignTab===key)));
-   document.getElementById('openCampaignSupportTab')?.addEventListener('click',window.openSupportChooser);
+   document.getElementById('openCampaignSupportTab')?.addEventListener('click',()=>{if(supportAvailable)window.openSupportChooser?.();else openActionProposalForm();});
   };
   root.querySelectorAll('[data-campaign-tab]').forEach(button=>button.addEventListener('click',()=>showCampaignTab(button.dataset.campaignTab)));
   if(availableTabs.length)showCampaignTab(availableTabs[0].key);
