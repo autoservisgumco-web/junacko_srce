@@ -463,7 +463,18 @@ body.action-detail-page .iojz-tab.is-active .iojz-tab-count{background:#e4eff8 !
 body.iojz-modal-open{overflow:hidden}
 @media(max-width:650px){.iojz-question-modal{padding:0;align-items:flex-end}.iojz-modal-dialog{width:100%;max-height:92dvh;border-radius:18px 18px 0 0}.iojz-modal-top{padding:13px 16px}.iojz-modal-body{padding:6px 16px 16px}.iojz-modal-footer{padding:11px 16px env(safe-area-inset-bottom,11px)}}
 </style>
-</head>
+<style id="action-campaign-link-style">
+.action-campaign-link{margin:16px 0;background:#fff;border:1px solid #dbe7f0;border-radius:16px;padding:15px 18px}
+.action-campaign-kicker{display:block;margin-bottom:9px;color:#2a6ba3;font-size:11px;font-weight:900;letter-spacing:1.1px}
+.action-campaign-card{display:flex;align-items:center;gap:13px;color:#173b5c;text-decoration:none;min-width:0}
+.action-campaign-card img{width:76px;height:64px;object-fit:cover;border-radius:10px;flex:0 0 auto}
+.action-campaign-info{display:flex;flex:1;min-width:0;flex-direction:column;gap:5px}
+.action-campaign-info strong{font-size:16px;line-height:1.25}
+.action-campaign-info small{font-size:12px;line-height:1.4;color:#64748b}
+.action-campaign-arrow{font-size:23px;color:#2a6ba3}
+.action-campaign-card:hover .action-campaign-info strong{text-decoration:underline}
+@media(max-width:600px){.action-campaign-link{padding:13px}.action-campaign-card img{width:62px;height:56px}.action-campaign-info strong{font-size:14px}}
+</style></head>
 <body class="content-page-body action-detail-page">
 <header class="site-header">
 <a class="site-brand" href="/index.html" aria-label="Одговорна Плана — почетна"><span class="brand-heart">♡</span><span>Одговорна<br>Плана</span></a>
@@ -512,9 +523,20 @@ const mapFrame=location=>'<iframe loading="lazy" title="Мапа локациј�
   const creator=val(a.proposer_name,a.created_by_name,a.organizer_name);
   const meta='<div class="action-meta">'+(date?'<div class="action-meta-item"><span class="action-meta-icon">▣</span><div>Почетак:<strong>'+esc(dateLabel)+'</strong></div></div>':'')+(a.location?'<div class="action-meta-item"><span class="action-meta-icon">●</span><div>Локација:<strong>'+esc(a.location)+'</strong></div></div>':'')+(creator?'<div class="action-meta-item"><span class="action-meta-icon">♟</span><div>Покретач:<strong>'+esc(creator)+'</strong></div></div>':'')+'</div>';
   const overview='<section class="action-overview"><div class="action-overview-main"><span class="action-kind"><span style="color:#d71920">ϟ</span> АКЦИЈА</span><h1>'+esc(a.title)+'</h1><p class="action-summary">'+esc(summary)+'</p>'+meta+'</div>'+(approved>0?'<aside class="action-stat"><div class="action-stat-number">'+approved+'</div><div class="action-stat-label">пријављених</div></aside>':'')+'</section>';
+  let campaignMarkup='';
+  if(a.campaign_id){
+    try{
+      const {data:campaign,error:campaignError}=await db.from('campaigns').select('id,title,slug,hero_image,status').eq('id',a.campaign_id).eq('is_published',true).maybeSingle();
+      if(campaignError)throw campaignError;
+      if(campaign){
+        const campaignUrl='/kampanja.html?slug='+encodeURIComponent(campaign.slug||campaign.id);
+        campaignMarkup='<section class="action-campaign-link"><span class="action-campaign-kicker">АКЦИЈА ЈЕ ДЕО КАМПАЊЕ</span><a class="action-campaign-card" href="'+campaignUrl+'">'+(campaign.hero_image?'<img src="'+esc(campaign.hero_image)+'" alt="">':'')+'<span class="action-campaign-info"><strong>'+esc(campaign.title)+'</strong><small>Погледај циљеве и остале активности кампање →</small></span><span class="action-campaign-arrow" aria-hidden="true">→</span></a></section>';
+      }
+    }catch(campaignError){console.warn('Подаци о повезаној кампањи нису доступни:',campaignError);}
+  }
   const panel=(id,icon,title,text)=>text?'<section class="action-panel" id="'+id+'"><h2><span>'+icon+'</span>'+title+'</h2><p class="action-description">'+esc(text)+'</p></section>':'';
   const goals=Array.isArray(a.goal_items)?a.goal_items.filter(Boolean):[];
-  let html='<div class="action-cover" style="background-image:url(&quot;'+esc(cover)+'&quot;)"><span class="action-cover-status">'+esc(status)+'</span></div>'+overview;
+  let html='<div class="action-cover" style="background-image:url(&quot;'+esc(cover)+'&quot;)"><span class="action-cover-status">'+esc(status)+'</span></div>'+overview+campaignMarkup;
   html+=panel('opis','●','Опис акције',description);
   if(a.reason)html+=panel('razlog','●','Зашто покрећемо акцију',a.reason);
   if(a.goal||goals.length)html+='<section class="action-panel"><h2><span>✓</span>Циљеви акције</h2>'+(a.goal?'<p class="action-description">'+esc(a.goal)+'</p>':'')+(goals.length?'<ul class="action-description">'+goals.map(x=>'<li>'+esc(typeof x==='string'?x:x.title||x.text||'')+'</li>').join('')+'</ul>':'')+'</section>';
