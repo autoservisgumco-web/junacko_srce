@@ -202,13 +202,11 @@ try{
  report(['Веза са Supabase: успостављена.','Табела campaigns: читање успешно.','Број учитаних активних и објављених кампања: '+data.length+'.']);
  if(!Array.isArray(data)||!data.length){root.innerHTML='<div class="content-empty">Тренутно нема објављених активних кампања.</div>';return;}
  root.innerHTML=data.map(c=>{
-  const raw=String(c.hero_image||'').trim(),title=String(c.title||'').toLowerCase();
-  const fallbackImage=title.includes('пс')?'https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=900&q=82':title.includes('чист')||title.includes('комун')?'https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&w=900&q=82':title.includes('домаћ')||title.includes('купуј')?'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=900&q=82':'';
-  const image=raw?(raw.startsWith('http')?raw:'https://hmfeizkmpmxcnzhwxgbn.supabase.co/storage/v1/object/public/akcije/'+raw.replace(/^\/+/, '')):fallbackImage;
-  const emoji=title.includes('пс')?'🐕':title.includes('чист')||title.includes('комун')?'🧹':title.includes('домаћ')||title.includes('купуј')?'🥕':title.includes('кај')?'❤️':'🤝';
-  return '<article class="content-card"><div class="content-card-media'+(image?'':' image-missing')+'">'+(image?'<img loading="eager" decoding="async" data-fallback="'+esc(fallbackImage)+'" src="'+esc(image)+'" alt="'+esc(c.title)+'">':'')+'<span class="content-image-fallback" aria-hidden="true">'+emoji+'</span></div><div class="content-card-body"><span class="content-tag">Активна кампања</span><p>'+esc(c.intro_text||c.description||c.goal||'')+'</p><h2>'+esc(c.title)+'</h2><a class="content-btn" href="kampanja.html?slug='+encodeURIComponent(c.slug||c.id)+'">Погледај кампању →</a></div></article>';
+  const raw=String(c.hero_image||'').trim();
+  const image=raw?(raw.startsWith('http')?raw:'https://hmfeizkmpmxcnzhwxgbn.supabase.co/storage/v1/object/public/akcije/'+raw.split('/').map(encodeURIComponent).join('/')):'';
+  return '<article class="content-card"><div class="content-card-media'+(image?'':' image-missing')+'">'+(image?'<img loading="eager" decoding="async" referrerpolicy="no-referrer" src="'+esc(image)+'" alt="'+esc(c.title)+'">':'')+'<span class="content-image-fallback" aria-hidden="true">Фотографија није доступна</span></div><div class="content-card-body"><span class="content-tag">Активна кампања</span><p>'+esc(c.intro_text||c.description||c.goal||'')+'</p><h2>'+esc(c.title)+'</h2><a class="content-btn" href="kampanja.html?slug='+encodeURIComponent(c.slug||c.id)+'">Погледај кампању →</a></div></article>';
  }).join('');
- root.querySelectorAll('.content-card-media img').forEach(img=>img.addEventListener('error',()=>{const fallback=img.dataset.fallback||'';if(fallback&&img.src!==fallback&&!img.dataset.fallbackTried){img.dataset.fallbackTried='1';img.src=fallback;return;}img.parentElement.classList.add('image-missing');img.remove();}));
+ root.querySelectorAll('.content-card-media img').forEach(img=>img.addEventListener('error',()=>{img.parentElement.classList.add('image-missing');img.remove();}));
 }catch(e){
  console.error('Грешка при учитавању кампања:',e);
  report(['Кампање нису учитане.','Разлог: '+(e.message||String(e)),'Проверити Supabase REST приступ и јавну SELECT политику (RLS).']);
