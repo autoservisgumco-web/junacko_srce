@@ -305,7 +305,7 @@ body.campaign-page .content-wrap{max-width:none;padding:0}
   if(supportAvailable||campaignActions.length)availableTabs.push({key:'support',label:'Укључи се'});
   if(availableTabs.length){
    html+='<section class="campaign-tabs" aria-label="Садржај кампање"><div class="campaign-tabs-nav">';
-   availableTabs.forEach((tab,index)=>{html+='<button type="button" class="campaign-tab" id="campaignTab-'+tab.key+'" aria-controls="campaignPanel-'+tab.key+'" aria-expanded="'+(index===0?'true':'false')+'" data-campaign-tab="'+tab.key+'">'+tab.label+'</button><div class="campaign-tab-panel" id="campaignPanel-'+tab.key+'" role="region" aria-labelledby="campaignTab-'+tab.key+'" '+(index===0?'':'hidden')+'></div>';});
+   availableTabs.forEach((tab,index)=>{html+='<button type="button" class="campaign-tab" id="campaignTab-'+tab.key+'" aria-controls="campaignPanel-'+tab.key+'" aria-expanded="false" data-campaign-tab="'+tab.key+'">'+tab.label+'</button><div class="campaign-tab-panel" id="campaignPanel-'+tab.key+'" role="region" aria-labelledby="campaignTab-'+tab.key+'" hidden></div>';});
    html+='</div></section>';
   }
   html+='<section class="campaign-landing-bottom"><div><span class="campaign-eyebrow">ТВОЈ ДОПРИНОС ЈЕ ВАЖАН</span><h2>Имаш идеју за конкретну акцију?</h2><p>Предложи шта можемо да урадимо у оквиру кампање.</p></div><button type="button" class="campaign-cta" id="openCampaignProposal">＋ Предложи акцију</button></section>';
