@@ -596,26 +596,28 @@ const mapFrame=location=>'<iframe loading="lazy" title="Мапа локациј�
     root.querySelectorAll('.iojz-tab-panel').forEach(panel=>panel.classList.toggle('is-active',panel.dataset.panel===selected));
   }));
   const questionModal=root.querySelector('#iojzQuestionModal');
-  let openedQuestion=0;
-  const questionCards=Array.from(root.querySelectorAll('[data-question-modal]'));
-  const showQuestion=(order)=>{
-    const index=questionCards.findIndex(card=>Number(card.dataset.questionModal)===Number(order));
-    if(index<0)return;
-    openedQuestion=index;
-    questionCards.forEach((card,i)=>card.hidden=i!==index);
-    questionModal.classList.add('is-open');
-    questionModal.setAttribute('aria-hidden','false');
-    document.body.classList.add('iojz-modal-open');
-    questionModal.querySelector('.iojz-modal-body').scrollTop=0;
-    questionModal.querySelector('[data-question-step="-1"]').disabled=index===0;
-    questionModal.querySelector('[data-question-step="1"]').disabled=index===questionCards.length-1;
-    questionModal.querySelector('.iojz-modal-close').focus();
-  };
-  const closeQuestion=()=>{questionModal.classList.remove('is-open');questionModal.setAttribute('aria-hidden','true');document.body.classList.remove('iojz-modal-open');};
-  root.querySelectorAll('[data-open-question]').forEach(btn=>btn.addEventListener('click',()=>showQuestion(btn.dataset.openQuestion)));
-  questionModal.querySelectorAll('[data-close-question]').forEach(btn=>btn.addEventListener('click',closeQuestion));
-  questionModal.querySelectorAll('[data-question-step]').forEach(btn=>btn.addEventListener('click',()=>{if(!btn.disabled)showQuestion(Number(questionCards[openedQuestion].dataset.questionModal)+Number(btn.dataset.questionStep));}));
-  document.addEventListener('keydown',event=>{if(event.key==='Escape'&&questionModal.classList.contains('is-open'))closeQuestion();});
+  if(questionModal){
+    let openedQuestion=0;
+    const questionCards=Array.from(root.querySelectorAll('[data-question-modal]'));
+    const showQuestion=(order)=>{
+      const index=questionCards.findIndex(card=>Number(card.dataset.questionModal)===Number(order));
+      if(index<0)return;
+      openedQuestion=index;
+      questionCards.forEach((card,i)=>card.hidden=i!==index);
+      questionModal.classList.add('is-open');
+      questionModal.setAttribute('aria-hidden','false');
+      document.body.classList.add('iojz-modal-open');
+      questionModal.querySelector('.iojz-modal-body').scrollTop=0;
+      questionModal.querySelector('[data-question-step="-1"]').disabled=index===0;
+      questionModal.querySelector('[data-question-step="1"]').disabled=index===questionCards.length-1;
+      questionModal.querySelector('.iojz-modal-close').focus();
+    };
+    const closeQuestion=()=>{questionModal.classList.remove('is-open');questionModal.setAttribute('aria-hidden','true');document.body.classList.remove('iojz-modal-open');};
+    root.querySelectorAll('[data-open-question]').forEach(btn=>btn.addEventListener('click',()=>showQuestion(btn.dataset.openQuestion)));
+    questionModal.querySelectorAll('[data-close-question]').forEach(btn=>btn.addEventListener('click',closeQuestion));
+    questionModal.querySelectorAll('[data-question-step]').forEach(btn=>btn.addEventListener('click',()=>{if(!btn.disabled)showQuestion(Number(questionCards[openedQuestion].dataset.questionModal)+Number(btn.dataset.questionStep));}));
+    document.addEventListener('keydown',event=>{if(event.key==='Escape'&&questionModal.classList.contains('is-open'))closeQuestion();});
+  }
   if(new URLSearchParams(location.search).has('pitanje')) window.scrollTo(0,0);
   root.querySelector('#joinThisAction')?.addEventListener('click',()=>window.OPProposalModal?.openParticipation(a));
  }catch(e){
