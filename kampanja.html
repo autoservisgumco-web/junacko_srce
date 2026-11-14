@@ -105,6 +105,14 @@ body.campaign-page .content-back{display:none}
 .campaign-tab-panel[hidden]{display:none}
 .campaign-tab-panel h2,.campaign-tab-panel h3{color:#123f78}
 .campaign-tab-panel>p{margin:0;white-space:pre-line}
+.campaign-plan-intro{margin:0 0 18px;padding:20px 21px;border:1px solid #c9dcef;border-left:5px solid #2a6ba3;border-radius:14px;background:linear-gradient(120deg,#edf5ff,#f8fbff)}
+.campaign-plan-kicker{display:block;margin-bottom:8px;color:#2a6ba3;font-size:11px;font-weight:900;letter-spacing:1.1px}
+.campaign-plan-intro h3,.campaign-plan-method h3,.campaign-goals-heading{margin:0 0 8px;color:#163f70;font-size:19px}
+.campaign-plan-intro p,.campaign-plan-method p{margin:0;color:#50657c;font-size:14px;line-height:1.75;white-space:pre-line}
+.campaign-plan-method{margin:0 0 22px;padding:0 2px}
+.campaign-plan-method h3{font-size:17px}
+.campaign-goals-heading{padding-top:17px;border-top:1px solid #e2eaf3}
+@media(max-width:650px){.campaign-plan-intro{padding:17px 15px}.campaign-plan-intro h3{font-size:17px}.campaign-plan-intro p,.campaign-plan-method p{font-size:13px}}
 .campaign-tab-panel .campaign-goal-list{margin-top:14px}
 .campaign-tab-panel .campaign-goal-list{counter-reset:campaign-goal;grid-template-columns:1fr;gap:12px}
 .campaign-tab-panel .campaign-goal-list li{position:relative;padding:18px 18px 18px 68px;border:1px solid #dce8f5;border-radius:14px;background:linear-gradient(110deg,#f7faff,#edf4fc);box-shadow:0 4px 12px rgba(24,64,110,.04)}
@@ -332,7 +340,7 @@ body.campaign-page .content-wrap{max-width:none;padding:0}
   };
   function closeSheet(){document.getElementById('campaignOverlay')?.classList.remove('open');document.body.style.overflow='';}
   window.closeCampaignSheet=closeSheet;
-  const planContent='<div class="campaign-sheet-content"><p>Шта желимо да променимо и које резултате желимо да постигнемо.</p>'+(goals.length?'<h3>Кључни циљеви</h3><ul class="campaign-goal-list">'+goals.map(g=>'<li><strong>'+txt(g.title)+'</strong>'+(g.description?'<p>'+txt(g.description)+'</p>':'')+'</li>').join('')+'</ul>':'')+'</div>';
+  const planContent='<div class="campaign-sheet-content"><section class="campaign-plan-intro"><span class="campaign-plan-kicker">ПРАВАЦ КАМПАЊЕ</span><h3>Шта желимо да постигнемо?</h3><p>'+txt(c.goal_text||'Желимо трајну промену и одговорнији систем управљања отпадом и јавним простором.')+'</p></section>'+(c.plan_text?'<section class="campaign-plan-method"><h3>Како ћемо то остварити</h3><p>'+txt(c.plan_text)+'</p></section>':'')+(goals.length?'<h3 class="campaign-goals-heading">Кључни циљеви</h3><ul class="campaign-goal-list">'+goals.map(g=>'<li><strong>'+txt(g.title)+'</strong>'+(g.description?'<p>'+txt(g.description)+'</p>':'')+'</li>').join('')+'</ul>':'')+'</div>';
   const solutionContent='<div class="campaign-sheet-content"><p>Промена почиње разумевањем проблема, а завршава се конкретним и одрживим решењима.</p><div class="campaign-solution-list">'+sections.map((item,index)=>'<article class="campaign-solution-item"><span class="campaign-solution-number">'+String(index+1).padStart(2,'0')+'</span><div><h3>'+txt(item.title)+'</h3>'+(item.subtitle?'<h4>'+txt(item.subtitle)+'</h4>':'')+'<p>'+txt(item.content||'')+'</p></div></article>').join('')+'</div></div>';
   const activitiesContent='<div class="campaign-sheet-content">'+(activities.length?'<div class="campaign-activity-list">'+activities.map(a=>'<article class="campaign-activity-item"><span class="campaign-activity-status">'+(a.status==='completed'?'Завршено':a.status==='in_progress'?'У току':'Објављено')+'</span><div><h3>'+txt(a.title)+'</h3>'+(a.description?'<p>'+txt(a.description)+'</p>':'')+'</div></article>').join('')+'</div>':'<div class="campaign-empty-note">Активности још нису објављене.</div>')+'</div>';
   const partnersContent='<div class="campaign-sheet-content">'+(partners.length?'<div class="partner-cards">'+partners.map(partner=>'<article class="partner-card"><div class="partner-card-copy"><strong>'+txt(partner.name)+'</strong><p>'+txt(partner.short_description||partner.campaign_relationship.description||'Партнер кампање „'+c.title+'“.')+'</p></div><a class="partner-open-button" href="/partner.html?slug='+encodeURIComponent(partner.slug||'')+'">Отвори страницу партнера</a></article>').join('')+'</div>':'<div class="campaign-empty-note">Партнери још нису објављени.</div>')+'</div>';
