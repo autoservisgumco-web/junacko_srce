@@ -8,7 +8,7 @@
   const items=[
     {href:'/index.html',icon:'⌂',label:'Почетна',target:'/index.html'},
     {href:'/akcije.html',icon:'✓',label:'Акције',target:'/akcije.html',sheet:'action'},
-    {href:'/kampanje.html',icon:'◎',label:'Кампање',target:'/kampanje.html',sheet:'campaign'},
+    {href:'/kampanje.html',icon:'◎',label:'Кампање',target:'/kampanje.html'},
     {href:'/ukljuci-se.html',icon:'♡',label:'Укључи се',target:'/ukljuci-se.html'}
   ];
   items.forEach((item,index)=>{
