@@ -289,7 +289,7 @@ body.campaign-page .content-wrap{max-width:none;padding:0}
   try{
    const [supportOptionsCheck,donationCheck,donationItemsCheck]=await Promise.all([
     db.from('support_options').select('id').eq('campaign_id',c.id).eq('is_active',true).eq('is_public',true).eq('approval_status','approved'),
-    db.from('campaign_donations').select('recipient_name,bank_account,paypal_email,paypal_link,contact_phone,contact_email').eq('campaign_id',c.id).eq('is_active',true).maybeSingle(),
+    db.from('campaign_donations').select('*').eq('campaign_id',c.id).eq('is_active',true).maybeSingle(),
     db.from('campaign_donation_items').select('id').eq('campaign_id',c.id).eq('is_active',true)
    ]);
    const donationSettings=donationCheck.data;
