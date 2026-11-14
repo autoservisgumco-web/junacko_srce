@@ -492,8 +492,10 @@ body.campaign-page .content-wrap{padding:0!important}
   };
 const oldProposal=document.getElementById('openCampaignProposal');
   if(oldProposal)oldProposal.addEventListener('click',openActionProposalForm);
-  const bar=document.createElement('div');bar.className='campaign-joinbar';bar.innerHTML='<button class="campaign-cta" type="button" id="supportCampaignButton">Подржи кампању</button>';document.body.appendChild(bar);
-  document.getElementById('supportCampaignButton').addEventListener('click',window.openSupportChooser);
+  if(supportAvailable){
+   const bar=document.createElement('div');bar.className='campaign-joinbar';bar.innerHTML='<button class="campaign-cta" type="button" id="supportCampaignButton">Подржи кампању</button>';document.body.appendChild(bar);
+   document.getElementById('supportCampaignButton').addEventListener('click',window.openSupportChooser);
+  }
  }catch(error){showDebug('Грешка при учитавању кампање',error);root.innerHTML='<div class="campaign-empty">Детаљи кампање нису учитани: '+esc(error.message||String(error))+'</div>';}
 })();</script>  <script src="/bottom-nav.js?v=20261114-campaign-page"></script>
 <script src="/shared-proposal-modal.js"></script>
