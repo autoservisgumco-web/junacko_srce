@@ -211,7 +211,7 @@ try{
  const responseText=await response.text();
  if(!response.ok)throw new Error('Supabase HTTP '+response.status+': '+responseText.slice(0,500));
  const data=JSON.parse(responseText);
- const statsResponse=await fetch('https://hmfeizkmpmxcnzhwxgbn.supabase.co/rest/v1/campaign_public_stats?select=campaign_id,action_count,application_count',{headers:{apikey:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhtZmVpemttcG14Y256aHd4Z2JuIiwicm9sZSI6ImFub24iLCJpYXQiMTc5MzMyOTI3OCwiZXhwIjoyMTA4OTA1Mjc4fQ.oTZopOJEGUnxK69BOYPP11CQoGrLqUJowqpPU2uiY-4',Authorization:'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhtZmVpemttcG14Y256aHd4Z2JuIiwicm9sZSI6ImFub24iLCJpYXQiMTc5MzMyOTI3OCwiZXhwIjoyMTA4OTA1Mjc4fQ.oTZopOJEGUnxK69BOYPP11CQoGrLqUJowqpPU2uiY-4',Accept:'application/json'}});
+ const statsResponse=await fetch('https://hmfeizkmpmxcnzhwxgbn.supabase.co/rest/v1/campaign_public_stats?select=campaign_id,action_count,application_count',{headers:{apikey:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhtZmVpemttcG14Y256aHd4Z2JuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMzMjkyNzgsImV4cCI6MjEwODkwNTI3OH0.oTZopOJEGUnxK69BOYPP11CQoGrLqUJowqpPU2uiY-4',Authorization:'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhtZmVpemttcG14Y256aHd4Z2JuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMzMjkyNzgsImV4cCI6MjEwODkwNTI3OH0.oTZopOJEGUnxK69BOYPP11CQoGrLqUJowqpPU2uiY-4',Accept:'application/json'}});
  if(!statsResponse.ok)throw new Error('Статистика кампања није доступна: HTTP '+statsResponse.status);
  const statsRows=await statsResponse.json();
  const campaignStats=new Map((statsRows||[]).map(row=>[String(row.campaign_id),row]));
