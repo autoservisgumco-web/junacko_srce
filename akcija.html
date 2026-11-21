@@ -540,7 +540,11 @@ const mapFrame=location=>'<iframe loading="lazy" title="Мапа локациј�
   if(a.reason)html+=panel('razlog','●','Зашто покрећемо акцију',a.reason);
   if(a.goal||goals.length)html+='<section class="action-panel"><h2><span>✓</span>Циљеви акције</h2>'+(a.goal?'<p class="action-description">'+esc(a.goal)+'</p>':'')+(goals.length?'<ul class="action-description">'+goals.map(x=>'<li>'+esc(typeof x==='string'?x:x.title||x.text||'')+'</li>').join('')+'</ul>':'')+'</section>';
   if(a.activities)html+=panel('plan','✓','Шта планирамо',a.activities);
+  if(a.participation)html+=panel('ukljucivanje','♟','Како грађани могу да се укључе',a.participation);
   if(a.materials)html+=panel('potrebno','＋','Шта је потребно',a.materials);
+  if(a.meeting_info)html+=panel('okupljanje','▣','Први састанак и окупљање',a.meeting_info);
+  if(a.call_to_action)html+=panel('poziv','♥','Придружи се акцији',a.call_to_action);
+  if(a.results)html+=panel('rezultati','✓','Праћење резултата',a.results);
   if(place)html+='<section class="action-panel"><h2><span>●</span>Место</h2><div class="action-place"><p>'+esc(place)+'</p>'+mapFrame(place)+'</div></section>';
   // Посебан јавни приказ за акције типа приступа информацијама од јавног значаја.
   if(a.action_type==='informacije_od_javnog_znacaja'){
