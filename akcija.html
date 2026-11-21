@@ -522,7 +522,7 @@ const mapFrame=location=>'<iframe loading="lazy" title="Мапа локациј�
   const dateLabel=date?new Date(date+'T00:00:00').toLocaleDateString('sr-RS',{day:'2-digit',month:'2-digit',year:'numeric'}):'Није одређен';
   const creator=val(a.proposer_name,a.created_by_name,a.organizer_name);
   const meta='<div class="action-meta">'+(date?'<div class="action-meta-item"><span class="action-meta-icon">▣</span><div>Почетак:<strong>'+esc(dateLabel)+'</strong></div></div>':'')+(a.location?'<div class="action-meta-item"><span class="action-meta-icon">●</span><div>Локација:<strong>'+esc(a.location)+'</strong></div></div>':'')+(creator?'<div class="action-meta-item"><span class="action-meta-icon">♟</span><div>Покретач:<strong>'+esc(creator)+'</strong></div></div>':'')+'</div>';
-  const overview='<section class="action-overview"><div class="action-overview-main"><span class="action-kind"><span style="color:#d71920">ϟ</span> АКЦИЈА</span><h1>'+esc(a.title)+'</h1><p class="action-summary">'+esc(summary)+'</p>'+meta+'</div>'+(approved>0?'<aside class="action-stat"><div class="action-stat-number">'+approved+'</div><div class="action-stat-label">пријављених</div></aside>':'')+'</section>';
+  const overview='<section class="action-overview"><div class="action-overview-main"><span class="action-kind"><span style="color:#d71920">ϟ</span> АКЦИЈА</span><h1>'+esc(a.title)+'</h1><p class="action-summary">'+esc(summary)+'</p>'+(a.intro?'<p class="action-summary">'+esc(a.intro)+'</p>':'')+meta+'</div>'+(approved>0?'<aside class="action-stat"><div class="action-stat-number">'+approved+'</div><div class="action-stat-label">пријављених</div></aside>':'')+'</section>';
   let campaignMarkup='';
   if(a.campaign_id){
     try{
