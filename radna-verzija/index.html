@@ -1,0 +1,562 @@
+<!doctype html>
+<html lang="sr-Cyrl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#102b4e">
+<title>Одговорна Велика Плана — Заједно можемо више</title>
+<style>
+:root{--navy:#061A35;--blue:#2166F3;--sky:#F1F5F9;--ink:#142844;--muted:#64748b}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",sans-serif;color:var(--ink);background:#F1F5F9}header{height:76px;background:#061A35;display:flex;align-items:center;justify-content:space-between;padding:0 max(6vw,22px);box-shadow:0 2px 16px #102b4e12}.brand{display:flex;align-items:center;gap:12px;color:#fff;font-weight:800;font-size:17px;text-decoration:none}.mark{width:42px;height:42px;border-radius:13px;background:#2166F3;color:#fff;display:grid;place-items:center;font-size:22px}nav{display:flex;gap:26px;font-size:14px}nav a{color:#456078;text-decoration:none}.hero{background:linear-gradient(120deg,#061A35,#0d3263 68%,#2166F3);color:#fff;padding:82px 22px 88px;text-align:center;position:relative;overflow:hidden}.eyebrow{font-size:12px;letter-spacing:2.5px;font-weight:750;color:#b9d9f3;margin:0 0 18px}h1{font-size:clamp(36px,6vw,64px);line-height:1.08;letter-spacing:-1.8px;margin:0 auto 20px;max-width:850px}.lead{font-size:18px;line-height:1.7;color:#e0edf8;max-width:680px;margin:auto}.actions{max-width:940px;margin:-38px auto 0;padding:0 22px;position:relative;display:grid;grid-template-columns:1fr 1fr;gap:22px}.action,.card,.panel{background:#fff;border:1px solid #e1eaf2;border-radius:18px;box-shadow:0 12px 38px #0b29420d}.action{padding:32px;min-height:220px;display:flex;flex-direction:column;align-items:flex-start}.num{color:#5b9bd0;font-weight:800;font-size:13px;letter-spacing:1.5px}.action h2{font-size:30px;color:var(--navy);margin:10px 0}.action p,.card p{color:var(--muted);line-height:1.6;margin:0 0 22px}.btn{border:0;border-radius:10px;background:var(--blue);color:white;padding:14px 22px;font-weight:750;font-size:15px;text-decoration:none;cursor:pointer;display:inline-block}.btn.secondary{background:var(--navy)}.wrap{max-width:940px;margin:62px auto;padding:0 22px}.section-head{text-align:center;margin-bottom:25px}.section-head h2{font-size:30px;color:var(--navy);margin:0 0 8px}.section-head p{color:var(--muted)}.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}.card{padding:22px;box-shadow:none}.tag{display:inline-block;background:#e8f3fc;color:#1769aa;border-radius:30px;padding:6px 10px;font-size:12px;font-weight:750}.card h3{color:var(--navy);margin:13px 0 8px;font-size:20px}.card .btn{padding:10px 16px;font-size:14px}.panel{display:none;padding:24px;margin-top:24px;box-shadow:none}.panel.active{display:block}.close{float:right;background:none;border:0;color:#5d7184;font-size:24px;cursor:pointer}label{display:block;font-weight:650;color:var(--navy);margin:14px 0 6px}input,textarea{width:100%;border:1px solid #cbd9e5;border-radius:9px;padding:12px;font:inherit}textarea{min-height:100px;resize:vertical}.bottom{text-align:center;background:var(--sky);padding:40px 22px;margin-top:65px}.bottom h2{color:var(--navy);margin:0 0 10px}.bottom p{color:var(--muted);margin:0 0 20px}footer{text-align:center;padding:24px;color:#6d8192;font-size:13px}@media(max-width:650px){header{height:66px}nav{display:none}.hero{padding:64px 20px 75px}.actions{grid-template-columns:1fr;margin-top:-28px}.action{min-height:0;padding:25px}.cards{grid-template-columns:1fr}.wrap{margin:45px auto}}
+
+
+.site-header{position:absolute;z-index:5;top:0;left:0;right:0;height:140px;padding:20px max(6.8vw,24px);display:flex;align-items:center;justify-content:space-between;background:linear-gradient(180deg,rgba(2,24,51,.42),transparent);box-shadow:none}
+.site-brand{display:flex;align-items:center;gap:12px;color:#fff;text-decoration:none;font-size:clamp(22px,2.6vw,34px);font-weight:850;font-style:italic;line-height:.92;letter-spacing:-1.2px;text-shadow:0 2px 12px #00152c}
+.brand-heart{font-size:74px;line-height:1;color:#fff;text-shadow:3px 0 #e83c50,-2px 0 #42b8ff}
+.site-nav{display:flex;align-items:center;gap:clamp(22px,3.5vw,54px)}
+.site-nav a{color:#fff;text-decoration:none;font-size:16px;font-weight:700;padding:12px 0;position:relative;text-shadow:0 1px 8px #00152c}
+.site-nav a.active:after,.site-nav a:hover:after{content:"";position:absolute;left:0;right:0;bottom:3px;height:3px;border-radius:4px;background:#35a9ff}
+.hero-full{padding-top:155px}
+.hero-inner{min-height:calc(100svh - 155px)}
+.hero-buttons{margin-top:42px}
+@media(max-width:760px){.site-header{height:100px;padding:14px 18px}.brand-heart{font-size:54px}.site-brand{font-size:23px}.site-nav{gap:14px}.site-nav a{font-size:13px}.hero-full{padding-top:112px}.hero-inner{min-height:calc(100svh - 130px)}}
+@media(max-width:390px){.site-header{align-items:flex-start;height:94px}.site-nav{gap:10px;padding-top:10px}.site-nav a{font-size:11px}.brand-heart{font-size:43px}.site-brand{font-size:19px}}
+body.home-hero{min-height:100vh;overflow-x:hidden;background:#061A35}
+.hero-full{position:relative;min-height:100svh;height:100vh;height:100dvh;padding:54px max(6.8vw,24px) 42px;display:flex;align-items:center;justify-content:flex-start;background:linear-gradient(90deg,rgba(3,27,59,.98) 0%,rgba(3,35,73,.94) 34%,rgba(3,35,73,.58) 58%,rgba(3,20,42,.12) 100%),linear-gradient(0deg,rgba(3,15,34,.42),transparent 55%),url('https://raw.githubusercontent.com/autoservisgumco-web/junacko_srce/refs/heads/main/Velika_Plana%2B.jpg') center/cover no-repeat;text-align:left}
+.hero-inner{width:min(1320px,100%);margin:0 auto;display:flex;flex-direction:column;justify-content:center;min-height:calc(100svh - 96px)}
+.hero-copy{max-width:690px}
+.hero-full .eyebrow{font-size:13px;letter-spacing:2.6px;color:#8ecbff;margin-bottom:20px}
+.hero-full h1{color:#fff;text-shadow:0 3px 24px rgba(0,0,0,.3);font-size:clamp(48px,6.2vw,86px);line-height:1.04;letter-spacing:-2px;margin:0 0 24px;max-width:720px}
+.hero-full h1 span{color:#35a9ff}
+.hero-full .lead{display:block;color:#f0f6ff;font-size:clamp(17px,1.6vw,22px);line-height:1.62;max-width:560px;margin:0}
+.hero-buttons{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;width:min(1120px,100%);margin:42px auto 0}
+.hero-cta{min-height:142px;display:flex;align-items:center;gap:22px;text-align:left;padding:22px 26px;border:1px solid rgba(48,164,255,.55);border-radius:20px;background:rgba(5,76,143,.78);color:#fff;box-shadow:0 12px 36px rgba(0,14,36,.2);backdrop-filter:blur(8px);cursor:pointer;transition:transform .2s ease,background .2s ease,border-color .2s ease}
+.hero-cta:hover{transform:translateY(-4px);background:rgba(7,100,178,.9);border-color:#39adff}
+.cta-icon{width:76px;height:76px;flex:0 0 76px;border:3px solid #64c4ff;border-radius:50%;display:grid;place-items:center;font-size:48px;line-height:1;color:#9bdcff}
+.people-icon{font-size:52px}
+.cta-copy{display:flex;flex:1;flex-direction:column;gap:7px}
+.cta-copy strong{font-size:clamp(21px,2vw,29px);line-height:1.15}
+.cta-copy small{font-size:16px;line-height:1.45;color:#d3eaff}
+.cta-arrow{width:54px;height:54px;flex:0 0 54px;border-radius:50%;display:grid;place-items:center;background:#32aaff;color:#fff;font-size:34px;line-height:1}
+.file-help{display:block;margin:7px 0 12px;color:#a9c9e8;font-size:13px;line-height:1.45}.file-error{color:#ffb4b4;font-size:13px;margin:6px 0}.action-list{display:grid;grid-template-columns:minmax(0,1fr);max-width:760px;margin:0 auto 30px}.action-card{border:1px solid rgba(45,169,255,.38);background:linear-gradient(145deg,rgba(9,67,119,.96),rgba(5,35,72,.98));box-shadow:0 14px 36px rgba(0,15,40,.18);padding:30px;border-radius:20px}.action-card h3{font-size:clamp(23px,3vw,30px);color:#fff}.action-card p{color:#d5e8f8}.start-action{max-width:1000px;margin:34px auto 0;padding:26px 30px;border:1px dashed rgba(53,169,255,.7);border-radius:18px;background:rgba(8,45,82,.48);display:flex;align-items:center;justify-content:space-between;gap:24px}.start-action-copy{max-width:620px}.start-action h3{margin:7px 0 8px;font-size:24px;color:#fff}.start-action p{margin:0;color:#d5e8f8;line-height:1.55}.start-action .btn{flex:0 0 auto}@media(max-width:650px){.action-card{padding:22px}.start-action{padding:22px;display:flex;flex-direction:column;align-items:stretch;gap:18px}.start-action .btn{width:100%}}.hidden-content{display:none}
+@media(max-width:760px){.hero-full{min-height:100svh;height:auto;padding:44px 20px 28px;background:linear-gradient(90deg,rgba(3,27,59,.94),rgba(3,35,73,.76)),linear-gradient(0deg,rgba(3,15,34,.55),transparent),url('https://raw.githubusercontent.com/autoservisgumco-web/junacko_srce/refs/heads/main/Velika_Plana%2B.jpg') center/cover no-repeat}.hero-inner{min-height:calc(100svh - 72px);justify-content:center}.hero-full h1{font-size:clamp(43px,12vw,66px)}.hero-full .lead{font-size:17px}.hero-buttons{grid-template-columns:1fr;gap:13px;margin-top:30px}.hero-cta{min-height:112px;padding:16px 18px;gap:15px;border-radius:16px}.cta-icon{width:58px;height:58px;flex-basis:58px;font-size:38px}.people-icon{font-size:42px}.cta-copy strong{font-size:21px}.cta-copy small{font-size:14px}.cta-arrow{width:44px;height:44px;flex-basis:44px;font-size:28px}}
+@media(max-width:380px){.hero-full{padding-left:15px;padding-right:15px}.hero-cta{gap:11px;padding:14px}.cta-icon{width:48px;height:48px;flex-basis:48px}.cta-arrow{width:38px;height:38px;flex-basis:38px}}
+.market-photo{background:#061A35;padding:0 22px 28px}.market-photo img{display:block;width:min(1100px,100%);height:clamp(190px,32vw,340px);object-fit:cover;object-position:center 52%;margin:auto;border-radius:16px;box-shadow:0 18px 44px #061a3530}
+body.sheet-open{overflow:hidden}.sheet-backdrop{position:fixed;inset:0;background:rgba(3,15,34,.48);z-index:1000;opacity:0;transition:opacity .28s ease}
+.bottom-sheet{position:fixed;z-index:1001;left:0;right:0;bottom:0;width:100%;max-height:min(88dvh,900px);background:#F1F5F9;border-radius:20px 20px 0 0;box-shadow:0 -16px 55px #061a3530;transform:translateY(105%);transition:transform .32s cubic-bezier(.2,.75,.25,1);display:flex;flex-direction:column;overflow:hidden}
+.bottom-sheet.open{transform:translateY(0)}.sheet-backdrop.open{opacity:1}.sheet-handle{height:22px;flex:0 0 22px;display:flex;align-items:center;justify-content:center;touch-action:pan-y}.sheet-handle span{display:block;width:42px;height:5px;border-radius:8px;background:#b9c9df}
+.sheet-top{display:flex;align-items:center;justify-content:space-between;padding:0 20px 12px;border-bottom:1px solid #dce5f0;background:#fff}.sheet-title{font-size:17px;font-weight:850;color:#061A35}.sheet-close{border:0;background:transparent;color:#061A35;font-size:30px;line-height:1;padding:2px 8px;cursor:pointer}
+.sheet-content{overflow-y:auto;overscroll-behavior:contain;padding:16px max(16px,calc((100% - 900px)/2)) 28px}.sheet-content>.panel,.sheet-content>#akcije{margin:0}.sheet-content>#akcije{padding:0}
+.signup-success-overlay{position:fixed;inset:0;z-index:1200;background:#F1F5F9;display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;visibility:hidden;transition:opacity .2s ease,visibility .2s ease}.signup-success-overlay.open{opacity:1;visibility:visible}.signup-success-card{position:relative;width:min(520px,100%);min-height:260px;background:#fff;border-radius:22px;padding:54px 28px 36px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;box-shadow:0 18px 60px #061a3520;color:#061A35}.signup-success-close{position:absolute;top:14px;right:16px;border:0;background:transparent;color:#061A35;font-size:34px;line-height:1;padding:4px 10px;cursor:pointer}.signup-success-icon{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:#e2f3e9;color:#247348;font-size:32px;font-weight:800;margin-bottom:22px}.signup-success-card h2{font-size:clamp(22px,5vw,30px);line-height:1.25;margin:0;color:#061A35}.signup-success-card p{font-size:16px;color:#52677d;margin:12px 0 0}
+@media(min-width:700px){.bottom-sheet{left:50%;right:auto;width:min(900px,calc(100% - 40px));border-radius:20px 20px 0 0;transform:translate(-50%,105%)}.bottom-sheet.open{transform:translate(-50%,0)}.sheet-content{padding:18px 28px 30px}}
+@media(max-width:650px){.market-photo{padding:0 16px 22px}.market-photo img{height:210px;border-radius:12px}}
+
+
+/* Појединачна акција приказује се унутар постојећег изгледа сајта. */
+body.action-page{background:#F1F5F9;min-height:100vh;overflow-x:hidden}
+body.action-page .site-header{position:relative;background:#061A35;height:100px;padding:14px max(6.8vw,24px);box-shadow:0 2px 16px #102b4e20}
+body.action-page .site-nav a[href="#akcije"]{color:#8ecbff}
+body.action-page .hero-full{display:none!important}
+body.action-page main.hidden-content{display:block!important}
+body.action-page #singleAction[hidden]{display:none!important}
+body.action-page #singleAction:not([hidden]){display:block!important}
+body.action-page main.hidden-content{display:block;min-height:65vh}
+body.action-page #akcije{display:none}
+.single-action{max-width:940px;margin:42px auto 65px;padding:0 22px}
+.single-action-hero{background:linear-gradient(120deg,#061A35,#0d3263 68%,#2166F3);color:#fff;border-radius:20px;padding:clamp(30px,6vw,58px);box-shadow:0 14px 36px #061a3520}
+.single-action-hero .tag{background:rgba(255,255,255,.15);color:#d5eaff}
+.single-action-hero h1{font-size:clamp(34px,6vw,58px);line-height:1.08;letter-spacing:-1.5px;margin:18px 0;max-width:800px}
+.single-action-hero p{color:#e0edf8;line-height:1.7;font-size:18px;margin:0}
+.single-action-meta{display:flex;flex-wrap:wrap;gap:12px 24px;margin-top:22px;color:#d5eaff;font-size:14px}
+.single-action-body{background:#fff;border:1px solid #e1eaf2;border-radius:18px;padding:clamp(22px,5vw,38px);margin-top:20px}
+.single-action-body h2{color:#061A35;margin:0 0 14px}
+.single-action-description{white-space:pre-wrap;line-height:1.8;color:#52677d}
+.single-action-form{display:none;border-top:1px solid #e1eaf2;margin-top:26px;padding-top:24px}
+.single-action-form.open{display:block}
+.single-action-form select{width:100%;border:1px solid #cbd9e5;border-radius:9px;padding:12px;font:inherit;background:#fff}
+.single-action-message{margin-top:14px;line-height:1.5}
+.submit-success{margin-top:18px;padding:22px;border:1px solid #d8e8df;border-radius:14px;background:#f4faf6;color:#183b2a;line-height:1.6}.submit-success-mark{width:42px;height:42px;display:grid;place-items:center;border-radius:50%;background:#d9f2e2;color:#18723b;font-size:25px;font-weight:850;margin-bottom:12px}.submit-success h3{margin:0 0 8px;color:#123b29;font-size:22px}.submit-success p{margin:0 0 12px;color:#315844}.submit-success ul{margin:8px 0 14px;padding-left:21px}.submit-success .submit-signoff{font-weight:750;margin:0;color:#183b2a}
+.single-action-back{display:inline-block;color:#2166F3;text-decoration:none;font-weight:750;margin-bottom:20px}
+@media(max-width:650px){body.action-page .site-header{height:88px;padding:12px 16px}.single-action{margin:26px auto 45px;padding:0 16px}.single-action-hero,.single-action-body{border-radius:15px}.single-action-hero{padding:26px 22px}}
+
+/* Леви навигациони мени */
+.menu-trigger{display:none;border:1px solid rgba(255,255,255,.45);background:rgba(4,35,72,.45);color:#fff;border-radius:10px;padding:9px 13px;font-size:25px;line-height:1;cursor:pointer}
+.menu-backdrop{position:fixed;inset:0;background:rgba(3,15,34,.5);z-index:1100;opacity:0;transition:opacity .25s ease}
+.side-menu{position:fixed;z-index:1101;top:0;bottom:0;left:0;width:min(340px,86vw);background:#061A35;color:#fff;padding:28px 24px;transform:translateX(-105%);transition:transform .28s ease;box-shadow:12px 0 40px #061a3530}
+.side-menu.open{transform:translateX(0)}.menu-backdrop.open{opacity:1}.side-menu nav{display:flex;flex-direction:column;align-items:stretch;gap:8px;margin-top:36px}.side-menu nav a{color:#fff;text-decoration:none;padding:15px 10px;border-bottom:1px solid #ffffff20;font-weight:700}.side-menu-head{display:flex;justify-content:space-between;align-items:center;font-size:20px;font-weight:850}.side-menu-close{border:0;background:transparent;color:#fff;font-size:30px;cursor:pointer}
+.single-action-join{margin-top:25px}
+@media(max-width:760px){.menu-trigger{display:block}.site-header .site-nav{display:none}}
+
+/* Single akcija — usklađen prikaz prema odobrenoj referenci */
+body.action-page{background:#f7f8fa}
+body.action-page main.hidden-content{display:block!important}
+body.action-page .single-action{max-width:1440px;margin:22px auto 55px;padding:0 20px}
+body.action-page .single-action-back{margin:0 0 14px;color:#2166f3}
+.single-action-cover{height:clamp(190px,27vw,350px);position:relative;background-position:center 48%;background-size:cover;border-radius:16px 16px 0 0;overflow:hidden}
+.single-action-cover:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#061a3530,transparent 65%)}
+.single-action-status{position:absolute;z-index:1;top:24px;left:24px;border-radius:30px;padding:10px 18px;color:#fff;font-weight:850;background:#16a34a;box-shadow:0 4px 15px #0002}
+.single-action-status.is-done{background:#64748b}
+.single-action-overview{display:grid;grid-template-columns:minmax(0,1fr) 235px;gap:24px;background:#fff;border:1px solid #e1e5eb;border-radius:18px;padding:26px 30px;margin-top:-1px;box-shadow:0 5px 20px #0f172a08}
+.single-action-main{min-width:0}.single-action-kind{display:inline-flex;background:#f1f3f5;color:#273244;border-radius:22px;padding:6px 13px;font-size:13px;font-weight:850}
+.single-action-main h1{font-size:clamp(28px,3.2vw,46px);line-height:1.12;letter-spacing:-1.2px;margin:12px 0;color:#111827}
+.single-action-summary{font-size:clamp(16px,1.6vw,21px);line-height:1.45;color:#374151;margin:0}
+.single-action-meta{display:flex;flex-wrap:wrap;gap:12px 22px;border-top:1px solid #e5e7eb;margin-top:20px;padding-top:16px;color:#374151}
+.single-action-meta-item{display:flex;align-items:center;gap:10px;padding-right:20px;border-right:1px solid #e5e7eb;font-size:14px}
+.single-action-meta-item:last-child{border:0}.single-action-meta-item>span{font-size:22px;color:#d71920}.single-action-meta-item strong{display:block;color:#111827;font-size:15px}
+.single-action-stat{border-left:1px solid #e5e7eb;padding:8px 0 8px 24px;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+.single-action-stat-number{font-size:42px;line-height:1;font-weight:850;color:#111827}.single-action-stat-label{font-size:14px;color:#475569;margin:5px 0 18px}
+.single-action-red{background:#d71920!important;color:white!important;border-radius:11px!important;padding:13px 18px!important;font-weight:800!important}.single-action-red:hover{background:#b9151b!important}
+.single-action-stat .btn{width:100%}
+.single-action-panel{background:#fff;border:1px solid #e1e5eb;border-radius:16px;padding:20px 26px;margin-top:16px}
+.single-action-panel h2{font-size:22px;color:#111827;margin:0 0 10px;display:flex;gap:12px;align-items:center}
+.single-action-panel h2 span{color:#d71920}.single-action-description{white-space:pre-wrap;line-height:1.5;color:#202938;font-size:17px}
+.single-action-place{display:grid;grid-template-columns:1fr minmax(280px,44%);gap:18px;align-items:center}.single-action-place p{margin:0;font-size:17px}.single-action-place iframe{width:100%;height:118px;border:0;border-radius:12px;background:#eef2f7}
+.single-action-callout{display:flex;align-items:center;gap:18px;background:#fff0f1;border:1px solid #f3dadd;border-radius:16px;padding:18px 24px;margin-top:16px}
+.single-action-heart{font-size:40px;color:#d71920}.single-action-callout>div{flex:1}.single-action-callout h2{font-size:23px;margin:0 0 3px;color:#111827}.single-action-callout p{margin:0;color:#374151;line-height:1.4}.single-action-callout .btn{min-width:205px}
+.single-action-banner{margin:22px 4px 0;border-radius:16px;min-height:155px;padding:24px 30px;background:linear-gradient(90deg,#071321ed,#07132199),url('https://raw.githubusercontent.com/autoservisgumco-web/junacko_srce/main/Velika_Plana%2B.jpg') center/cover;color:#fff}
+.single-action-banner h2{font-size:clamp(21px,2.5vw,30px);margin:0 0 4px;color:#fff}.single-action-banner p{margin:0 0 16px;font-size:17px;color:#fff}
+.single-action-loading{background:#fff;border-radius:16px;padding:28px}
+@media(max-width:760px){body.action-page .single-action{margin:20px auto 35px;padding:0 12px}.single-action-cover{height:205px;border-radius:12px 12px 0 0}.single-action-status{top:14px;left:14px;padding:8px 13px;font-size:13px}.single-action-overview{grid-template-columns:1fr;padding:18px;gap:14px}.single-action-stat{border-left:0;border-top:1px solid #e5e7eb;padding:14px 0 0;display:grid;grid-template-columns:auto 1fr;column-gap:12px;text-align:left;justify-items:start}.single-action-stat-number{grid-row:1/3;font-size:35px;align-self:center}.single-action-stat-label{margin:0 0 8px}.single-action-stat .btn{grid-column:2;width:auto}.single-action-meta{gap:12px}.single-action-meta-item{padding-right:12px}.single-action-panel{padding:17px;margin-top:12px}.single-action-panel h2{font-size:19px}.single-action-description{font-size:15px}.single-action-place{grid-template-columns:1fr;gap:10px}.single-action-place iframe{height:145px}.single-action-callout{padding:15px;gap:10px;flex-wrap:wrap}.single-action-heart{font-size:31px}.single-action-callout>div{min-width:calc(100% - 55px)}.single-action-callout h2{font-size:20px}.single-action-callout p{font-size:14px}.single-action-callout .btn{width:100%}.single-action-banner{padding:20px;min-height:145px;margin:16px 0 0}}
+@media(max-width:420px){.single-action-meta-item{font-size:12px}.single-action-meta-item strong{font-size:13px}.single-action-main h1{font-size:28px}}
+
+.single-action-list{margin:10px 0 0;padding-left:28px;color:#202938;font-size:17px;line-height:1.65}
+.single-action-list li{padding:5px 0 5px 7px}
+@media(max-width:760px){.single-action-list{font-size:15px;padding-left:24px}}
+
+/* Single action — full bleed cover, section shortcuts and fixed join bar */
+body.action-page .single-action{max-width:none;margin:0 auto 90px;padding:0 20px}
+body.action-page .single-action-cover{width:calc(100% + 40px);margin-left:-20px;height:clamp(210px,30vw,380px);border-radius:0 0 20px 20px}
+.single-action-nav{position:sticky;top:0;z-index:30;display:flex;gap:8px;overflow-x:auto;white-space:nowrap;padding:12px 2px;background:#f7f8faeF;backdrop-filter:blur(10px);scrollbar-width:none}
+.single-action-nav::-webkit-scrollbar{display:none}
+.single-action-nav a{flex:0 0 auto;text-decoration:none;color:#243044;background:#fff;border:1px solid #e1e5eb;border-radius:22px;padding:9px 14px;font-size:14px;font-weight:750}
+.single-action-nav a:active,.single-action-nav a:focus{background:#d71920;color:#fff}
+.single-action-panel[id],.single-action-overview{scroll-margin-top:76px}
+.single-action-sticky-join{position:fixed;z-index:80;left:0;right:0;bottom:0;display:flex;align-items:center;gap:12px;padding:12px max(16px,env(safe-area-inset-right)) calc(12px + env(safe-area-inset-bottom)) max(16px,env(safe-area-inset-left));background:#fff;border-top:1px solid #e1e5eb;box-shadow:0 -5px 22px #0f172a18}
+.single-action-sticky-join>span{font-size:27px;color:#d71920}
+.single-action-sticky-join>div{display:flex;flex:1;min-width:0;flex-direction:column;color:#111827}
+.single-action-sticky-join small{font-size:12px;color:#64748b}
+.single-action-sticky-join .btn{white-space:nowrap}
+@media(max-width:760px){
+ body.action-page .single-action{padding:0 14px;margin-top:0;margin-bottom:105px}
+ body.action-page .single-action-cover{width:calc(100% + 28px);margin-left:-14px;height:220px}
+ .single-action-nav{margin:0 -14px;padding:10px 14px}
+ .single-action-overview{grid-template-columns:1fr;padding:20px 18px;gap:15px}
+ .single-action-stat{border-left:0;border-top:1px solid #e5e7eb;padding:15px 0 0}
+ .single-action-sticky-join{padding-left:14px;padding-right:14px}
+}
+
+/* Почетна — издвојене главне могућности и кратак увод у пројекат. */
+.hero-buttons{grid-template-columns:repeat(3,minmax(0,1fr));width:min(1180px,100%);gap:16px}
+.hero-cta{min-height:128px;padding:18px 20px;gap:15px}
+.cta-icon{width:62px;height:62px;flex-basis:62px;font-size:40px}
+.people-icon{font-size:44px}
+.cta-copy strong{font-size:clamp(18px,1.7vw,25px)}
+.cta-copy small{font-size:14px}
+.cta-arrow{width:42px;height:42px;flex-basis:42px;font-size:28px}
+.home-project-summary{position:relative;background:#f1f5f9;padding:clamp(28px,5vw,54px) 24px}
+.home-project-inner{width:min(1120px,100%);margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:32px;padding:clamp(22px,4vw,38px);background:#fff;border:1px solid #dce5f0;border-radius:18px;box-shadow:0 12px 38px #061a350b}
+.home-project-copy{max-width:790px}
+.home-project-kicker{font-size:11px;font-weight:900;letter-spacing:2px;color:#2166f3;margin-bottom:9px}
+.home-project-copy h2{font-size:clamp(24px,3.2vw,36px);line-height:1.18;letter-spacing:-.7px;color:#061a35;margin:0 0 11px}
+.home-project-copy p{font-size:16px;line-height:1.65;color:#526780;margin:0}
+.home-project-link{flex:0 0 auto;display:inline-flex;align-items:center;gap:12px;padding:14px 19px;border-radius:11px;background:#2166f3;color:#fff;text-decoration:none;font-weight:850;white-space:nowrap}
+.home-project-link span{font-size:22px}
+@media(max-width:900px){.hero-buttons{grid-template-columns:1fr;max-width:720px;margin-top:28px}.hero-cta{min-height:100px}.home-project-inner{align-items:flex-start;flex-direction:column;gap:18px}.home-project-link{width:100%;justify-content:center}}
+@media(max-width:760px){.hero-full{height:auto;min-height:100svh;padding:105px 18px 28px}.hero-inner{min-height:0;justify-content:center}.hero-full h1{font-size:clamp(42px,11vw,62px)}.hero-buttons{gap:11px;margin-top:24px}.hero-cta{min-height:88px;padding:13px 14px;gap:12px}.cta-icon{width:48px;height:48px;flex-basis:48px;font-size:31px}.people-icon{font-size:34px}.cta-copy strong{font-size:18px}.cta-copy small{font-size:12px}.cta-arrow{width:34px;height:34px;flex-basis:34px;font-size:23px}.home-project-summary{padding:22px 15px}.home-project-inner{padding:22px 18px}.home-project-copy p{font-size:14px}}
+
+
+/* Четири начина укључивања — додато у постојећи почетни приказ. */
+.contribute-section{background:#f1f5f9;padding:clamp(34px,5vw,64px) 22px 58px}
+.contribute-inner{width:min(1120px,100%);margin:0 auto}
+.contribute-copy{max-width:850px;margin:0 auto 28px;text-align:center}
+.contribute-kicker{font-size:11px;letter-spacing:2px;font-weight:900;color:#2166f3;margin-bottom:10px}
+.contribute-copy h2{font-size:clamp(27px,4vw,42px);line-height:1.14;letter-spacing:-1px;color:#061a35;margin:0 0 14px}
+.contribute-copy p{font-size:clamp(15px,1.6vw,18px);line-height:1.7;color:#526780;margin:0}
+.contribute-question{text-align:center;color:#061a35;font-size:20px;margin:0 0 17px}
+.contribute-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.contribute-option{min-width:0;display:flex;align-items:center;gap:16px;text-align:left;padding:21px 22px;border:1px solid #dce5f0;border-radius:15px;background:#fff;color:#061a35;box-shadow:0 8px 24px #061a3509;cursor:pointer;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
+.contribute-option:hover{transform:translateY(-3px);border-color:#65aef5;box-shadow:0 12px 28px #061a3514}
+.contribute-number{width:42px;height:42px;flex:0 0 42px;border-radius:12px;background:#e8f3ff;color:#2166f3;display:grid;place-items:center;font-size:13px;font-weight:900}
+.contribute-option-copy{display:flex;flex:1;min-width:0;flex-direction:column;gap:5px}
+.contribute-option-copy strong{font-size:17px;line-height:1.25}
+.contribute-option-copy small{font-size:13px;line-height:1.45;color:#64748b}
+.contribute-arrow{font-size:26px;color:#2166f3;line-height:1}
+@media(max-width:650px){.contribute-section{padding:34px 16px 42px}.contribute-copy{text-align:left;margin-bottom:24px}.contribute-question{text-align:left;font-size:18px}.contribute-options{grid-template-columns:1fr;gap:10px}.contribute-option{padding:17px 16px;gap:13px}.contribute-option-copy strong{font-size:16px}}
+
+/* Продавница је засебан приказ унутар постојећег index.html */
+body.shop-page{background:#F1F5F9;min-height:100vh;overflow-x:hidden}
+body.shop-page .site-header{position:relative;background:#061A35;height:100px;padding:14px max(6.8vw,24px);box-shadow:0 2px 16px #102b4e20}
+body.shop-page .site-nav a[href="#prodavnica"]{color:#8ecbff}
+body.shop-page .hero-full,body.shop-page .home-project-summary{display:none!important}
+body.shop-page main.hidden-content{display:block!important;min-height:65vh}
+body.shop-page #akcije,body.shop-page #singleAction{display:none!important}
+#prodavnica{display:none;max-width:1120px;margin:0 auto;padding:30px 22px 58px}
+body.shop-page #prodavnica{display:block}
+.shop-intro{background:linear-gradient(120deg,#061A35,#0d3263 68%,#2166F3);color:#fff;border-radius:20px;padding:clamp(25px,5vw,45px);margin-bottom:22px}
+.shop-intro .shop-kicker{font-size:11px;letter-spacing:2px;font-weight:850;color:#a9d5ff}
+.shop-intro h1{font-size:clamp(30px,5vw,46px);line-height:1.12;margin:10px 0 14px;color:#fff;max-width:850px}
+.shop-intro p{color:#e0edf8;max-width:850px;line-height:1.75;margin:0;font-size:16px}
+.shop-product{display:grid;grid-template-columns:1fr 1fr;gap:30px;background:#fff;border:1px solid #e1eaf2;border-radius:18px;padding:clamp(18px,3vw,30px);box-shadow:0 12px 38px #0b29420d}
+.shop-product-art{min-height:300px;border-radius:15px;background:radial-gradient(circle at 50% 42%,#fff 0,#f4f7fb 55%,#e4edf8 100%);display:grid;place-items:center;overflow:hidden}
+.shop-product-art svg{width:min(88%,370px);height:auto;filter:drop-shadow(0 18px 18px #061a3520)}
+.shop-product-info{display:flex;flex-direction:column;justify-content:center;align-items:flex-start}
+.shop-product-info h2{font-size:clamp(25px,3.5vw,34px);line-height:1.2;color:#061A35;margin:13px 0 7px}
+.shop-price{font-size:32px;font-weight:900;color:#d71920;margin:0 0 10px}
+.shop-description{color:#52677d;line-height:1.7;margin:0 0 18px}
+.shop-quantity-row{display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%;padding:15px 0;border-top:1px solid #e5ebf2;border-bottom:1px solid #e5ebf2}
+.shop-quantity{display:flex;align-items:center;gap:13px;margin-top:8px}
+.shop-quantity button{width:38px;height:38px;border:1px solid #cbd9e8;border-radius:9px;background:#f4f8fd;color:#061A35;font-size:22px;cursor:pointer}
+.shop-quantity button:disabled{opacity:.4}
+.shop-quantity output{min-width:22px;text-align:center;font-weight:850;font-size:19px}
+.shop-total{text-align:right}.shop-total small{display:block;color:#64748b;font-size:12px}.shop-total strong{font-size:21px;color:#d71920;white-space:nowrap}
+.shop-order-btn{width:100%;margin-top:18px;background:#d71920!important}
+.shop-order-btn:hover{background:#b9151b!important}
+.shop-notice{display:flex;gap:9px;background:#edf5ff;border-radius:10px;padding:12px 14px;color:#365775;font-size:13px;margin-top:14px}
+.shop-info{margin-top:22px;background:#fff;border:1px solid #e1eaf2;border-radius:18px;padding:clamp(20px,3vw,30px)}
+.shop-info h2{font-size:25px;color:#061A35;margin:0 0 18px}
+.shop-info-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.shop-info-item{display:flex;gap:12px;align-items:flex-start}
+.shop-info-icon{width:38px;height:38px;flex:0 0 38px;display:grid;place-items:center;background:#eaf2ff;color:#1554a0;border-radius:11px;font-size:19px}
+.shop-info-item strong{display:block;color:#061A35;margin-bottom:3px}
+.shop-info-item p{font-size:14px;color:#64748b;margin:0;line-height:1.55}
+.shop-closing{margin-top:22px;border-radius:18px;background:#e7f0fb;padding:24px;text-align:center}
+.shop-closing h2{font-size:24px;color:#061A35;margin:0 0 8px}
+.shop-closing p{color:#52677d;margin:0}
+.shop-modal-backdrop{position:fixed;inset:0;background:#031329a8;z-index:1300;display:none;align-items:flex-end;justify-content:center;padding:18px}
+.shop-modal-backdrop.open{display:flex}
+.shop-modal{background:#fff;width:min(620px,100%);max-height:90dvh;overflow:auto;border-radius:20px;padding:22px;box-shadow:0 20px 70px #0004}
+.shop-modal-head{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e5ebf2;padding-bottom:12px}
+.shop-modal-head h2{font-size:23px;color:#061A35;margin:0}
+.shop-modal-close{border:0;background:transparent;color:#061A35;font-size:30px;cursor:pointer}
+.shop-order-summary{display:flex;justify-content:space-between;gap:15px;background:#f1f5f9;border-radius:11px;padding:13px 15px;margin:16px 0;font-weight:750}
+.shop-field{margin:13px 0}.shop-field label{display:block;color:#061A35;font-size:14px;font-weight:750;margin:0 0 6px}
+.shop-field input{width:100%;border:1px solid #cbd9e5;border-radius:9px;padding:12px;font:inherit}
+.shop-form-hint{color:#64748b;font-size:12px;margin:12px 0 0}
+.shop-form-error{color:#b42318;font-size:13px}
+.shop-success{display:none;text-align:center;padding:24px 5px}.shop-success.show{display:block}
+@media(max-width:760px){body.shop-page .site-header{height:88px;padding:12px 16px}#prodavnica{padding:22px 16px 42px}.shop-product{grid-template-columns:1fr}.shop-product-art{min-height:245px}.shop-info-grid{grid-template-columns:1fr}.shop-quantity-row{align-items:flex-start;flex-direction:column}.shop-total{text-align:left}.shop-modal-backdrop{padding:0}.shop-modal{border-radius:20px 20px 0 0;max-height:92dvh}}
+
+</style>
+</head>
+<body class="home-hero" id="pocetna">
+<script>
+if(new URLSearchParams(window.location.search).has('akcija')){
+ document.body.classList.remove('home-hero');
+ document.body.classList.add('action-page');
+}
+</script>
+<header class="site-header">
+<a class="site-brand" href="#pocetna" onclick="hideShopPage();return true" aria-label="Одговорна Плана — почетна"><span class="brand-heart">♡</span><span>Одговорна<br>Плана</span></a>
+<nav class="site-nav" aria-label="Главна навигација">
+<a class="active" href="#pocetna" onclick="hideShopPage();return true">Почетна</a>
+<a href="#predlozi" onclick="showPanel('proposal');return false">Предложи</a>
+<a href="#akcije" onclick="showPanel('akcije');return false">Акције</a>
+<a href="#prodavnica" onclick="showShopPage();return false">Продавница</a>
+</nav>
+<button class="menu-trigger" id="openMenu" type="button" aria-label="Отвори мени">☰</button>
+</header>
+<div class="menu-backdrop" id="menuBackdrop" hidden></div>
+<aside class="side-menu" id="sideMenu" aria-hidden="true"><div class="side-menu-head"><span>♡ Одговорна Плана</span><button class="side-menu-close" id="closeMenu" type="button" aria-label="Затвори мени">×</button></div><nav aria-label="Мени"><a href="index.html">Почетна</a><a href="#" onclick="closeSideMenu();showPanel('proposal');return false">Предложи акцију</a><a href="#" onclick="closeSideMenu();showPanel('akcije');return false">Акције</a><a href="#" onclick="closeSideMenu();showPanel('membership');return false">Прикључи се заједници</a><a href="o-projektu.html">О нама</a><a href="#prodavnica" onclick="closeSideMenu();showShopPage();return false">Продавница</a></nav></aside>
+<section class="hero hero-full">
+<div class="hero-inner">
+<div class="hero-copy">
+<p class="eyebrow">ЗАЈЕДНО МОЖЕМО ВИШЕ</p>
+<h1>Промене почињу<br><span>од нас.</span></h1>
+<p class="lead">Предложи акцију, подржи постојеће иницијативе и заједно урадимо нешто добро за нашу заједницу.</p>
+</div>
+<div class="hero-buttons">
+<button class="hero-cta" type="button" onclick="showPanel('proposal')">
+<span class="cta-icon" aria-hidden="true">＋</span>
+<span class="cta-copy"><strong>Покрени акцију</strong><small>Имаш идеју или уочаваш проблем? Предложи шта можемо да урадимо заједно.</small></span>
+<span class="cta-arrow" aria-hidden="true">→</span>
+</button>
+<button class="hero-cta" type="button" onclick="showPanel('akcije')">
+<span class="cta-icon people-icon" aria-hidden="true">♡</span>
+<span class="cta-copy"><strong>Придружи се акцији</strong><small>Погледај иницијативе које су већ покренуте и укључи се.</small></span>
+<span class="cta-arrow" aria-hidden="true">→</span>
+</button>
+<button class="hero-cta" type="button" onclick="showPanel('membership')">
+<span class="cta-icon" aria-hidden="true">◎</span>
+<span class="cta-copy"><strong>Прикључи се заједници</strong><small>Постани део Одговорне Плане и доприноси раду заједнице, и ван појединачних акција.</small></span>
+<span class="cta-arrow" aria-hidden="true">→</span>
+</button>
+</div>
+</div>
+</section>
+<section class="home-project-summary" aria-labelledby="homeProjectTitle">
+ <div class="home-project-inner">
+  <div class="home-project-copy">
+   <div class="home-project-kicker">МЕСТО ЗА ЗАЈЕДНИЧКО ДЕЛОВАЊЕ</div>
+   <h2 id="homeProjectTitle">Одговорна Плана повезује људе који желе да мењају своје окружење.</h2>
+   <p>Ово је простор у ком грађани могу да укажу на проблем, предложе идеју, покрену акцију и пронађу друге који желе да помогну. Не мораш све сам — важно је да направимо први корак и повежемо се.</p>
+  </div>
+  <a class="home-project-link" href="o-projektu.html">Више о пројекту <span aria-hidden="true">→</span></a>
+ </div>
+
+<section class="contribute-section" aria-labelledby="contributeTitle">
+ <div class="contribute-inner">
+  <div class="contribute-copy">
+   <div class="contribute-kicker">СВАКО МОЖЕ ДА ДОПРИНЕСЕ</div>
+   <h2 id="contributeTitle">Свако има свој начин да буде део промене.</h2>
+   <p>Неко има идеју коју жели да покрене. Неко може да се придружи акцији, неко да уложи своје време и знање у рад заједнице, а неко да подржи наш рад куповином производа. Не морамо сви да доприносимо на исти начин — важно је да свако добије прилику да учествује.</p>
+  </div>
+  <h3 class="contribute-question">Како можеш да се укључиш?</h3>
+  <div class="contribute-options">
+   <button class="contribute-option" type="button" onclick="showPanel('proposal')"><span class="contribute-number">01</span><span class="contribute-option-copy"><strong>Покрени акцију</strong><small>Имаш идеју или проблем који желиш да решиш?</small></span><span class="contribute-arrow" aria-hidden="true">→</span></button>
+   <button class="contribute-option" type="button" onclick="showPanel('akcije')"><span class="contribute-number">02</span><span class="contribute-option-copy"><strong>Придружи се акцији</strong><small>Прикључи се људима који већ нешто покрећу.</small></span><span class="contribute-arrow" aria-hidden="true">→</span></button>
+   <button class="contribute-option" type="button" onclick="showPanel('membership')"><span class="contribute-number">03</span><span class="contribute-option-copy"><strong>Укључи се у рад заједнице</strong><small>Поклони своје време, знање или практичну помоћ.</small></span><span class="contribute-arrow" aria-hidden="true">→</span></button>
+   <button class="contribute-option" type="button" onclick="showShopPage()"><span class="contribute-number">04</span><span class="contribute-option-copy"><strong>Подржи наш рад</strong><small>Изабери производ и подржи грађанске активности.</small></span><span class="contribute-arrow" aria-hidden="true">→</span></button>
+  </div>
+ </div>
+</section>
+</section>
+<main class="hidden-content" aria-hidden="true"><section class="single-action" id="singleAction" hidden aria-live="polite"></section>
+
+<section id="prodavnica" aria-labelledby="shopTitle">
+ <div class="shop-intro">
+  <div class="shop-kicker">ПОДРЖИ ЗАЈЕДНИЦУ</div>
+  <h1 id="shopTitle">Мали знак подршке. Велика прича.</h1>
+  <p>Желимо да Одговорна Плана буде место на коме се не задржавамо само на речима. Место на коме људи могу да покрену идеју, представе иницијативу, организују акцију и пронађу друге који желе да помогну. Ова продавница је један од начина да подржимо тај рад. Куповином производа подржавате развој грађанских активности и заједничких иницијатива у Великој Плани.</p>
+ </div>
+ <div class="shop-product">
+  <div class="shop-product-art" role="img" aria-label="Илустрација привеска Одговорна Плана">
+   <svg viewBox="0 0 440 390" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs><linearGradient id="shopMetal" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#fff"/><stop offset=".45" stop-color="#9aa8b8"/><stop offset=".7" stop-color="#fff"/><stop offset="1" stop-color="#68788b"/></linearGradient><linearGradient id="shopFace" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#fff"/><stop offset="1" stop-color="#e8edf4"/></linearGradient></defs>
+    <ellipse cx="220" cy="347" rx="130" ry="18" fill="#061a35" opacity=".12"/><circle cx="220" cy="57" r="34" fill="none" stroke="url(#shopMetal)" stroke-width="13"/><circle cx="220" cy="57" r="25" fill="none" stroke="#fff" stroke-width="3"/><path d="M220 88v38" stroke="url(#shopMetal)" stroke-width="13" stroke-linecap="round"/><circle cx="220" cy="128" r="13" fill="none" stroke="url(#shopMetal)" stroke-width="8"/><circle cx="220" cy="244" r="111" fill="url(#shopMetal)"/><circle cx="220" cy="244" r="102" fill="url(#shopFace)" stroke="#fff" stroke-width="4"/><path d="M137 238q35-30 68-12 18-27 37-5 22-20 45 4 17-11 37 13-49-8-91-4-50-1-96 4z" fill="#123d72"/><path d="M143 246q77 12 154 0" fill="none" stroke="#e32d40" stroke-width="7" stroke-linecap="round"/><circle cx="174" cy="207" r="9" fill="#123d72"/><path d="M165 231v-14q9-13 18 0v14" fill="#123d72"/><circle cx="196" cy="198" r="10" fill="#123d72"/><path d="M186 228v-17q10-14 20 0v17" fill="#123d72"/><circle cx="246" cy="198" r="10" fill="#123d72"/><path d="M236 228v-17q10-14 20 0v17" fill="#123d72"/><circle cx="269" cy="207" r="9" fill="#123d72"/><path d="M260 231v-14q9-13 18 0v14" fill="#123d72"/><text x="220" y="274" text-anchor="middle" font-family="Arial,sans-serif" font-size="23" font-weight="900" fill="#12345d">ОДГОВОРНА</text><text x="220" y="301" text-anchor="middle" font-family="Arial,sans-serif" font-size="29" font-weight="900" fill="#d62838">ПЛАНА</text>
+   </svg>
+  </div>
+  <div class="shop-product-info">
+   <span class="tag">ЗАЈЕДНИЧКА ПОДРШКА</span><h2>Привезак Одговорна Плана</h2><p class="shop-price">150 динара</p>
+   <p class="shop-description">Мали знак припадности заједници која верује да промене почињу од људи. Носи поруку одговорности, солидарности и заједничког деловања.</p>
+   <div class="shop-quantity-row"><div><strong>Количина</strong><div class="shop-quantity"><button type="button" id="shopMinus" aria-label="Смањи количину">−</button><output id="shopQty" aria-live="polite">1</output><button type="button" id="shopPlus" aria-label="Повећај количину">+</button></div></div><div class="shop-total"><small>Укупно</small><strong id="shopTotal">150 динара</strong></div></div>
+   <button class="btn shop-order-btn" type="button" id="shopOpenOrder">Наручи →</button>
+   <div class="shop-notice"><span>ⓘ</span><span><strong>Преузимање и достава:</strong> начин преузимања или доставе договара се са купцем након пријема наруџбине.</span></div>
+  </div>
+ </div>
+ <section class="shop-info"><h2>Важне информације о куповини</h2><div class="shop-info-grid">
+  <div class="shop-info-item"><span class="shop-info-icon">₽</span><div><strong>Цена производа</strong><p>Цена једног привеска је 150 динара. Укупан износ се аутоматски обрачунава према изабраној количини.</p></div></div>
+  <div class="shop-info-item"><span class="shop-info-icon">✎</span><div><strong>Како наручити</strong><p>Изаберите жељену количину, кликните на „Наручи“ и попуните обавезне контакт податке.</p></div></div>
+  <div class="shop-info-item"><span class="shop-info-icon">⌂</span><div><strong>Преузимање и достава</strong><p>Након пријема наруџбине потребно је договорити начин и место преузимања или доставе.</p></div></div>
+  <div class="shop-info-item"><span class="shop-info-icon">♡</span><div><strong>Ваша подршка</strong><p>Куповином помажете развој грађанских иницијатива и активности у Великој Плани.</p></div></div>
+ </div></section>
+ <section class="shop-closing"><h2>Заједно можемо више.</h2><p>Није ствар само у привеску. Ствар је у људима који желе да учествују, помогну и оставе нешто добро иза себе.</p></section>
+ <div class="shop-modal-backdrop" id="shopOrderModal" role="dialog" aria-modal="true" aria-labelledby="shopFormTitle">
+  <div class="shop-modal"><div class="shop-modal-head"><h2 id="shopFormTitle">Подаци за наруџбину</h2><button class="shop-modal-close" type="button" id="shopCloseModal" aria-label="Затвори">×</button></div>
+   <div id="shopFormArea"><div class="shop-order-summary"><span id="shopSummaryQty">1 × привезак</span><span id="shopSummaryTotal">150 динара</span></div>
+    <form id="shopOrderForm"><div class="shop-field"><label for="shopCustomerName">Име и презиме *</label><input id="shopCustomerName" name="name" required minlength="2" maxlength="120" autocomplete="name" placeholder="Унесите име и презиме"></div>
+    <div class="shop-field"><label for="shopCustomerPhone">Телефон *</label><input id="shopCustomerPhone" name="phone" required type="tel" maxlength="40" autocomplete="tel" placeholder="06X XXX XXXX"></div>
+    <div class="shop-field"><label for="shopCustomerCity">Место *</label><input id="shopCustomerCity" name="city" required maxlength="100" autocomplete="address-level2" placeholder="Место становања"></div>
+    <div class="shop-field"><label for="shopCustomerAddress">Адреса за доставу / преузимање *</label><input id="shopCustomerAddress" name="address" required maxlength="180" autocomplete="street-address" placeholder="Улица и број"></div>
+    <p class="shop-form-error" id="shopFormError" role="alert"></p><button class="btn shop-order-btn" type="submit">Потврди наруџбину</button>
+    <p class="shop-form-hint">Ово је прототип: подаци се не шаљу и не чувају. Повезивање наруџбина са системом радићемо посебно, након одобрења.</p></form>
+   </div><div class="shop-success" id="shopSuccess" aria-live="polite"><div class="submit-success-mark" style="margin:0 auto 14px">✓</div><h2>Пробна наруџбина је попуњена!</h2><p id="shopSuccessText"></p><button class="btn" type="button" id="shopFinishOrder">Назад у продавницу</button></div>
+  </div>
+ </div>
+</section>
+
+<section class="wrap" id="akcije"><div class="section-head"><h2>Акције којима можеш да се придружиш</h2><p>Изабери оно у чему желиш да помогнеш.</p></div>
+<div class="section-head"><h2>Активне акције</h2><p>Изабери акцију којој желиш да се придружиш.</p></div><div class="cards action-list" id="activeActionsList"><p>Учитавање активних акција...</p></div>
+<div class="start-action"><div class="start-action-copy"><span class="tag">ИМАШ ИДЕЈУ?</span><h3>Покрени своју акцију</h3><p>Уочи проблем, предложи решење и позови људе из своје заједнице да ти се придруже.</p></div><button class="btn secondary" onclick="showPanel('proposal')">Предложи нову акцију →</button></div>
+<div class="panel" id="support"><button class="close" onclick="hidePanels()">×</button><h2>Подржи акцију</h2><p>Изабери иницијативу коју желиш да подржиш и напиши на који начин можеш да помогнеш.</p><form onsubmit="event.preventDefault();alert('Пријава подршке још није повезана са базом.');"><label>Твоје име и презиме</label><input required placeholder="Име и презиме"><label>Контакт телефон</label><input required type="tel" placeholder="Број телефона"><label>Коју акцију желиш да подржиш?</label><select required><option value="">Изабери акцију</option><option value="uredjenje-pijace">Уређење пијаце у Крњеву</option></select><label>Како желиш да подржиш акцију?</label><textarea required placeholder="Напиши како можеш да помогнеш..."></textarea><button class="btn" type="submit">Пошаљи подршку</button></form></div>
+<div class="panel" id="proposal"><button class="close" onclick="hidePanels()">×</button><h2>Предложи акцију</h2><p>Опиши шта треба урадити и где.</p><form id="proposalForm"><label>Твоје име</label><input required minlength="2" placeholder="Име и презиме"><label>Viber број</label><input required placeholder="Број телефона"><label>Назив предлога</label><input required minlength="3" placeholder="Шта предлажеш?"><label>Опис и место</label><textarea required minlength="10" placeholder="Опиши идеју..."></textarea><label for="proposalPhotos">Фотографије (највише 5)</label><input id="proposalPhotos" name="photos" type="file" accept="image/*" multiple onchange="validateProposalPhotos(this)"><small class="file-help">Можеш да приложиш до пет фотографија које показују проблем или предлог.</small><p id="proposalPhotosError" class="file-error" role="alert" hidden></p><button class="btn" type="submit">Пошаљи предлог</button><div id="proposalMessage" role="status" aria-live="polite"></div></form></div>
+<div class="panel" id="membership"><button class="close" onclick="hidePanels()">×</button><h2>Постани део Одговорне Плане</h2><p>Ова пријава није везана за једну акцију. Пријави се ако желиш да учествујеш у раду организације и допринесеш развоју наше заједнице.</p><form id="membershipForm"><label>Твоје име и презиме</label><input id="membershipName" required minlength="2" maxlength="120" placeholder="Име и презиме"><label>Контакт телефон</label><input id="membershipPhone" required type="tel" maxlength="60" placeholder="Број телефона"><label>Имејл (није обавезно)</label><input id="membershipEmail" type="email" maxlength="180" placeholder="Имејл адреса"><label>Како желиш да се укључиш?</label><select id="membershipWay" required><option value="">Изабери начин укључивања</option><option>Волонтирање и теренски рад</option><option>Организација акција</option><option>Комуникација и промоција</option><option>Стручна помоћ</option><option>Предлози и иницијативе</option><option>Друго</option></select><label>Порука (није обавезно)</label><textarea id="membershipNote" maxlength="3000" placeholder="Напиши нам нешто о себи и начину на који желиш да допринесеш..."></textarea><button class="btn" type="submit">Пошаљи пријаву</button></form></div>
+<div class="panel" id="join"><button class="close" onclick="hidePanels()">×</button><h2>Придружи се акцији</h2><p>Уређење пијаце у Крњеву</p><form id="joinForm"><input type="hidden" id="joinActionId"><input type="hidden" id="joinActionTitle"><label>Твоје име</label><input id="joinName" required maxlength="120" placeholder="Име и презиме"><label>Viber број</label><input id="joinPhone" required type="tel" maxlength="60" placeholder="Број телефона"><label>Како желиш да се прикључиш?</label><select id="joinMethod" required><option value="">Изабери начин прикључења</option><option value="Практична помоћ и волонтирање">Практична помоћ и волонтирање</option><option value="Материјал или опрема">Материјал или опрема</option><option value="Стручна помоћ">Стручна помоћ</option><option value="Организација и промоција">Организација и промоција</option><option value="Друго">Друго</option></select><label>Додатна порука (није обавезно)</label><textarea id="joinHelp" maxlength="3000" placeholder="Напиши како конкретно можеш да помогнеш..."></textarea><button class="btn" type="submit">Пошаљи пријаву</button><div id="joinMessage" role="status" aria-live="polite"></div></form></div></section>
+</main>
+<div class="sheet-backdrop" id="sheetBackdrop" hidden></div>
+<section class="bottom-sheet" id="bottomSheet" role="dialog" aria-modal="true" aria-hidden="true" hidden>
+<div class="sheet-handle" aria-hidden="true"><span></span></div>
+<div class="sheet-top"><span class="sheet-title" id="sheetTitle"></span><button class="sheet-close" id="closeSheet" type="button" aria-label="Затвори">×</button></div>
+<div class="sheet-content" id="sheetContent"></div>
+</section>
+
+<section class="signup-success-overlay" id="signupSuccessOverlay" role="dialog" aria-modal="true" aria-labelledby="signupSuccessTitle" aria-hidden="true" hidden><div class="signup-success-card"><button class="signup-success-close" id="closeSignupSuccess" type="button" aria-label="Затвори">×</button><div class="signup-success-icon" aria-hidden="true">✓</div><h2 id="signupSuccessTitle">Ваша пријава је успешно завршена.</h2></div></section>
+<footer>Одговорна Велика Плана · Покретач: Јовица Вратница</footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL='https://hmfeizkmpmxcnzhwxgbn.supabase.co';
+const SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhtZmVpemttcG14Y256aHd4Z2JuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMzMjkyNzgsImV4cCI6MjEwODkwNTI3OH0.oTZopOJEGUnxK69BOYPP11CQoGrLqUJowqpPU2uiY-4';
+const civicDb=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+const bottomSheet=document.getElementById('bottomSheet'),sheetBackdrop=document.getElementById('sheetBackdrop'),sheetContent=document.getElementById('sheetContent');
+let sheetTarget=null,sheetParent=null,sheetNext=null,sheetTouchY=0;
+
+/* Продавница унутар index.html — засебан приказ без почетног hero банера. */
+function showShopPage(){
+ if(sheetTarget)hidePanels();
+ document.body.classList.remove('home-hero','action-page');
+ document.body.classList.add('shop-page');
+ const main=document.querySelector('main.hidden-content');main.classList.remove('hidden-content');main.removeAttribute('aria-hidden');
+ document.getElementById('prodavnica').scrollIntoView({behavior:'instant',block:'start'});
+ document.title='Продавница — Одговорна Плана';
+ history.replaceState(null,'',window.location.pathname+'#prodavnica');
+}
+function hideShopPage(){
+ document.body.classList.remove('shop-page');
+ document.body.classList.add('home-hero');
+ const main=document.querySelector('main');main.classList.add('hidden-content');main.setAttribute('aria-hidden','true');
+ document.title='Одговорна Велика Плана — Заједно можемо више';
+}
+function initShopPage(){
+ const params=new URLSearchParams(location.search);
+ if(!params.has('akcija')&&location.hash==='#prodavnica')showShopPage();
+}
+(()=>{const price=150;let qty=1;const $=id=>document.getElementById(id);if(!$('shopOpenOrder'))return;
+ const money=n=>n.toLocaleString('sr-RS')+' динара';
+ function render(){ $('shopQty').textContent=qty;$('shopTotal').textContent=money(qty*price);$('shopMinus').disabled=qty<=1;$('shopSummaryQty').textContent=qty+' × привезак';$('shopSummaryTotal').textContent=money(qty*price);}
+ function close(){ $('shopOrderModal').classList.remove('open');document.body.classList.remove('sheet-open');}
+ $('shopMinus').addEventListener('click',()=>{qty=Math.max(1,qty-1);render()});
+ $('shopPlus').addEventListener('click',()=>{qty=Math.min(99,qty+1);render()});
+ $('shopOpenOrder').addEventListener('click',()=>{render();$('shopFormArea').style.display='block';$('shopSuccess').classList.remove('show');$('shopOrderModal').classList.add('open');document.body.classList.add('sheet-open');$('shopCustomerName').focus()});
+ $('shopCloseModal').addEventListener('click',close);
+ $('shopOrderModal').addEventListener('click',e=>{if(e.target===$('shopOrderModal'))close()});
+ document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+ $('shopOrderForm').addEventListener('submit',e=>{e.preventDefault();const form=e.currentTarget;if(!form.reportValidity())return;const d=new FormData(form);$('shopFormError').textContent='';$('shopFormArea').style.display='none';$('shopSuccess').classList.add('show');$('shopSuccessText').textContent=d.get('name')+', ваша пробна наруџбина: '+qty+' × привезак, укупно '+money(qty*price)+'. Подаци нису послати нити сачувани.';});
+ $('shopFinishOrder').addEventListener('click',()=>{close();$('shopOrderForm').reset();qty=1;render()});render();
+})();
+
+function validateProposalPhotos(input){
+ const error=document.getElementById('proposalPhotosError');
+ if(input.files.length>5){input.value='';error.textContent='Можеш да изабереш највише 5 фотографија.';error.hidden=false;return false;}
+ error.hidden=true;error.textContent='';return true;
+}
+function showPanel(id,actionId='',actionTitle=''){
+ const target=document.getElementById(id);if(!target)return;
+ if(id==='join'){document.getElementById('joinActionId').value=actionId;document.getElementById('joinActionTitle').value=actionTitle;document.querySelector('#join h2').textContent='Придружи се акцији';document.querySelector('#join>p').textContent=actionTitle;document.getElementById('joinMessage').textContent='';}
+ if(sheetTarget)hidePanels();
+ sheetTarget=target;sheetParent=target.parentNode;sheetNext=target.nextSibling;sheetContent.appendChild(target);
+ target.hidden=false;target.classList.add('active');
+ document.getElementById('sheetTitle').textContent=id==='proposal'?'Предложи акцију':id==='join'?'Придружи се акцији':id==='membership'?'Пријава за чланство':id==='support'?'Подржи акцију':'Акције којима можеш да се придружиш';
+ sheetBackdrop.hidden=false;bottomSheet.hidden=false;bottomSheet.setAttribute('aria-hidden','false');
+ requestAnimationFrame(()=>{sheetBackdrop.classList.add('open');bottomSheet.classList.add('open')});document.body.classList.add('sheet-open');
+}
+function hidePanels(){
+ if(!sheetTarget)return;bottomSheet.classList.remove('open');sheetBackdrop.classList.remove('open');bottomSheet.setAttribute('aria-hidden','true');document.body.classList.remove('sheet-open');
+ sheetTarget.classList.remove('active');if(sheetParent)sheetParent.insertBefore(sheetTarget,sheetNext&&sheetNext.parentNode===sheetParent?sheetNext:null);
+ sheetTarget=null;sheetParent=null;sheetNext=null;setTimeout(()=>{bottomSheet.hidden=true;sheetBackdrop.hidden=true},330);
+}
+
+async function loadSingleAction(){
+ const key=new URLSearchParams(window.location.search).get('akcija');if(!key)return;
+ document.body.classList.remove('home-hero');document.body.classList.add('action-page');
+ const main=document.querySelector('main.hidden-content');main.classList.remove('hidden-content');main.removeAttribute('aria-hidden');
+ document.getElementById('akcije').style.display='none';
+ const view=document.getElementById('singleAction');view.hidden=false;
+ view.innerHTML='<div class="single-action-loading">Учитавање акције...</div>';
+ const fields='id,title,slug,summary,description,location,status,action_date,image_url,intro,reason,goal,goal_items,activities,participation,materials,meeting_info,call_to_action,results';
+ let result=await civicDb.from('actions').select(fields).eq('slug',key).maybeSingle();
+ if(!result.data&&!result.error){result=await civicDb.from('actions').select(fields).eq('id',key).maybeSingle();}
+ const action=result.data;
+ if(result.error||!action){view.innerHTML='<div class="single-action-loading">Ова акција тренутно није доступна.</div>';return;}
+ document.title=action.title+' — Одговорна Плана';
+ let participantCount=null;
+ try{const countResult=await civicDb.from('civic_submissions').select('id',{count:'exact',head:true}).eq('submission_type','help').contains('social_links',{action_id:action.id}).eq('status','accepted');if(!countResult.error)participantCount=countResult.count||0;}catch(_){}
+ const date=action.action_date?new Date(action.action_date+'T12:00:00').toLocaleDateString('sr-RS'):'';
+ const active=action.status!=='completed';
+ const location=action.location||'';
+ const map=location?'https://maps.google.com/maps?q='+encodeURIComponent(location)+'&output=embed':'';
+ const cover=action.image_url||'https://raw.githubusercontent.com/autoservisgumco-web/junacko_srce/main/Velika_Plana%2B.jpg';
+ const section=(id,heading,content,icon='●')=>content?'<section class="single-action-panel" id="'+id+'"><h2><span>'+icon+'</span> '+heading+'</h2><div class="single-action-description">'+escapeActionText(content)+'</div></section>':'';
+ const listSection=(id,heading,items,icon='●')=>Array.isArray(items)&&items.length?'<section class="single-action-panel" id="'+id+'"><h2><span>'+icon+'</span> '+heading+'</h2><ol class="single-action-list">'+items.map(item=>'<li>'+escapeActionText(item)+'</li>').join('')+'</ol></section>':'';
+ const goals=Array.isArray(action.goal_items)?action.goal_items:(action.goal?[action.goal]:[]);
+ const intro=action.intro||action.description||action.summary||'';
+ view.innerHTML='<section class="single-action-cover" style="background-image:url(\''+cover+'\')"><span class="single-action-status '+(active?'is-active':'is-done')+'">'+(active?'▶ АКТИВНА':'✓ ЗАВРШЕНА')+'</span></section>'+
+ '<section class="single-action-overview"><div class="single-action-main"><span class="single-action-kind">⚡ ГРАЂАНСКА АКЦИЈА</span><h1>'+escapeActionText(action.title)+'</h1><p class="single-action-summary">'+escapeActionText(action.summary||intro)+'</p><div class="single-action-meta">'+(date?'<div class="single-action-meta-item"><span>▣</span><div>Датум:<strong>'+escapeActionText(date)+'</strong></div></div>':'')+(location?'<div class="single-action-meta-item"><span>📍</span><div>Локација:<strong>'+escapeActionText(location)+'</strong></div></div>':'')+'<div class="single-action-meta-item"><span>♟</span><div>Покретач:<strong>Јовица Вратница</strong></div></div></div></div>'+
+ (participantCount>0?'<aside class="single-action-stat"><div class="single-action-stat-number">'+participantCount+'</div><div class="single-action-stat-label">пријављених</div></aside>':'')+'</section>'+
+ section('uvod','О акцији',intro,'●')+
+ section('zasto','Зашто покрећемо ову акцију?',action.reason,'●')+
+ listSection('ciljevi','Циљеви акције',goals,'◎')+
+ section('aktivnosti','Шта ћемо радити?',action.activities,'✓')+
+ section('ucesce','Како можеш да учествујеш?',action.participation,'♟')+
+ section('potrebno','Шта је потребно понети?',action.materials,'＋')+
+ section('okupljanje','Када и где се окупљамо?',action.meeting_info,'📍')+
+ section('poziv','Позив на акцију',action.call_to_action,'♥')+
+ (action.results&&action.results.trim()?section('rezultati','Резултати акције',action.results,'✓'):'')+
+ (location?'<section class="single-action-panel single-action-place"><div><h2><span>📍</span> Место</h2><p>'+escapeActionText(location)+'</p></div><iframe title="Мапа локације акције" loading="lazy" src="'+map+'"></iframe></section>':'')+
+ (active?'<div class="single-action-sticky-join"><span>♥</span><div><strong>Укључи се у акцију</strong><small>Заједно можемо више.</small></div><button class="btn single-action-red" type="button" id="singleJoinBottom">Прикључи се</button></div>':'')+
+ '<section class="single-action-banner"><h2>Имаш проблем који не треба да остане само прича?</h2><p>Покрени акцију и заједно тражимо решење.</p><a class="btn single-action-red" href="predlog-akcije.html">⚡ Покрени акцију</a></section>';
+ const navItems=[['uvod','Увод'],['zasto','Зашто'],['ciljevi','Циљеви'],['aktivnosti','Активности'],['ucesce','Учешће'],['okupljanje','Окупљање']];
+ const navHtml=navItems.filter(([id])=>view.querySelector('#'+id)).map(([id,label])=>'<a href="#'+id+'">'+label+'</a>').join('');
+ const nav=document.createElement('nav');nav.className='single-action-nav';nav.setAttribute('aria-label','Преглед садржаја акције');nav.innerHTML=navHtml;
+ const coverElement=view.querySelector('.single-action-cover');if(coverElement)coverElement.insertAdjacentElement('afterend',nav);
+ nav.querySelectorAll('a').forEach(link=>link.addEventListener('click',event=>{event.preventDefault();const target=view.querySelector(link.getAttribute('href'));if(target)target.scrollIntoView({behavior:'smooth',block:'start'});}));
+ const join=()=>showPanel('join',action.id,action.title);
+ ['singleJoinBottom'].forEach(id=>{const button=document.getElementById(id);if(button)button.addEventListener('click',join);});
+}
+function escapeActionText(value){return String(value??'').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));}
+function renderActionCard(action){
+ const article=document.createElement('article');article.className='card action-card';
+ const tag=document.createElement('span');tag.className='tag';tag.textContent='АКТИВНА АКЦИЈА';
+ const title=document.createElement('h3');title.textContent=action.title||'Акција';
+ const desc=document.createElement('p');desc.textContent=action.summary||action.description||'Погледај детаље и пријави се да помогнеш.';
+ if(action.location){const place=document.createElement('p');place.textContent='Место: '+action.location;article.append(tag,title,desc,place);}else{article.append(tag,title,desc);}
+ const actionKey=action.slug||action.id;
+ const actionUrl=new URL('index.html',window.location.href);actionUrl.searchParams.set('akcija',actionKey);
+ const btn=document.createElement('a');btn.className='btn';btn.textContent='Погледај акцију →';btn.href=actionUrl.href;
+ btn.addEventListener('click',event=>{event.preventDefault();window.location.assign(actionUrl.href);});
+ article.appendChild(btn);return article;
+}
+async function loadActiveActions(){
+ const list=document.getElementById('activeActionsList');if(!list)return;
+ const {data,error}=await civicDb.from('actions').select('id,title,slug,summary,description,location,status').in('status',['planned','in_progress']).order('created_at',{ascending:false});
+ list.replaceChildren();
+ if(error){const msg=document.createElement('p');msg.textContent='Тренутно не можемо да учитамо акције. Покушај поново касније.';list.appendChild(msg);return;}
+ if(!data||!data.length){const msg=document.createElement('p');msg.textContent='Тренутно нема активних акција. Можеш да предложиш нову.';list.appendChild(msg);return;}
+ data.forEach(action=>list.appendChild(renderActionCard(action)));
+}
+function showJoinSuccess(){
+ const overlay=document.getElementById('signupSuccessOverlay');if(!overlay)return;
+ overlay.hidden=false;overlay.setAttribute('aria-hidden','false');document.body.classList.add('sheet-open');
+ requestAnimationFrame(()=>overlay.classList.add('open'));
+}
+function closeJoinSuccess(){
+ const overlay=document.getElementById('signupSuccessOverlay');if(!overlay)return;
+ overlay.classList.remove('open');overlay.setAttribute('aria-hidden','true');document.body.classList.remove('sheet-open');
+ setTimeout(()=>{overlay.hidden=true},220);
+}
+document.getElementById('closeSignupSuccess').addEventListener('click',closeJoinSuccess);
+function showSubmitMessage(id,text,isError=false){
+ const el=document.getElementById(id);if(!el)return;
+ if(isError){el.textContent=text;el.style.color='#b42318';return;}
+ el.style.color='';el.innerHTML='<section class="submit-success" role="status" aria-live="polite"><div style="font-size:11px;letter-spacing:1.2px;font-weight:800;color:#527564;margin-bottom:12px">ОДГОВОРНА ВЕЛИКА ПЛАНА · МЕСТО ЗА ЗАЈЕДНИЧКО ДЕЛОВАЊЕ</div><div class="submit-success-mark" aria-hidden="true">✓</div><h3>Пријава је успешно послата!</h3><p>Хвала вам на поверењу.</p><p>Ваша порука је стигла до нас. Обавестићемо вас о нашем деловању и могућностима за укључивање.</p><strong>Шта следи?</strong><ul><li>Прегледаћемо вашу пријаву.</li><li>Јавићемо вам се ако су потребне додатне информације или договор.</li><li>По потреби ћемо вас упутити у начин даљег укључивања.</li></ul><p class="submit-signoff">Хвала што сте део промене.</p></section>';
+ el.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+document.getElementById('joinForm').addEventListener('submit',async event=>{
+ event.preventDefault();const form=event.currentTarget;const btn=form.querySelector('button[type="submit"]');btn.disabled=true;btn.textContent='Слање...';
+ const actionId=document.getElementById('joinActionId').value;const actionTitle=document.getElementById('joinActionTitle').value;
+ const payload={submission_type:'help',title:'Пријава за акцију: '+actionTitle,description:(document.getElementById('joinHelp').value.trim()||'Жели да се придружи акцији.')+'\\nНачин прикључења: '+document.getElementById('joinMethod').value,full_name:document.getElementById('joinName').value.trim(),phone:document.getElementById('joinPhone').value.trim(),viber_phone:document.getElementById('joinPhone').value.trim(),support_type:document.getElementById('joinMethod').value,social_links:{action_id:actionId,action_title:actionTitle},status:'new'};
+ const {error}=await civicDb.from('civic_submissions').insert(payload);
+ btn.disabled=false;btn.textContent='Пошаљи пријаву';
+ if(error){showSubmitMessage('joinMessage','Пријава није послата. Проверите интернет везу и покушајте поново.',true);return;}
+ form.reset();showJoinSuccess();
+});
+document.getElementById('membershipForm').addEventListener('submit',async event=>{
+ event.preventDefault();const form=event.currentTarget;const btn=form.querySelector('button[type="submit"]');btn.disabled=true;btn.textContent='Слање...';
+ const payload={submission_type:'membership',title:'Пријава за укључивање у Одговорну Плану',description:document.getElementById('membershipNote').value.trim()||'Пријава за укључивање у рад организације.',full_name:document.getElementById('membershipName').value.trim(),phone:document.getElementById('membershipPhone').value.trim(),viber_phone:document.getElementById('membershipPhone').value.trim(),email:document.getElementById('membershipEmail').value.trim()||null,support_type:document.getElementById('membershipWay').value,status:'new'};
+ const {error}=await civicDb.from('civic_submissions').insert(payload);
+ btn.disabled=false;btn.textContent='Пошаљи пријаву';
+ if(error){alert('Пријава није послата. Проверите интернет везу и покушајте поново.');return;}
+ form.reset();hidePanels();showJoinSuccess();
+});
+document.getElementById('proposalForm').addEventListener('submit',async event=>{
+ event.preventDefault();const form=event.currentTarget;const btn=form.querySelector('button[type="submit"]');btn.disabled=true;btn.textContent='Слање...';
+ const payload={submission_type:'action',title:form.querySelector('input[placeholder="Шта предлажеш?"]').value.trim(),description:form.querySelector('textarea[placeholder="Опиши идеју..."]').value.trim(),full_name:form.querySelector('input[placeholder="Име и презиме"]').value.trim(),phone:form.querySelector('input[placeholder="Број телефона"]').value.trim(),viber_phone:form.querySelector('input[placeholder="Број телефона"]').value.trim(),location:null,status:'new'};
+ const {error}=await civicDb.from('civic_submissions').insert(payload);
+ btn.disabled=false;btn.textContent='Пошаљи предлог';
+ if(error){showSubmitMessage('proposalMessage','Предлог није послат. Проверите интернет везу и покушајте поново.',true);return;}
+ form.reset();showSubmitMessage('proposalMessage','success',false);
+});
+
+document.getElementById('closeSheet').addEventListener('click',hidePanels);
+const sideMenu=document.getElementById('sideMenu'),menuBackdrop=document.getElementById('menuBackdrop');
+function closeSideMenu(){sideMenu.classList.remove('open');menuBackdrop.classList.remove('open');sideMenu.setAttribute('aria-hidden','true');document.body.classList.remove('sheet-open');setTimeout(()=>{menuBackdrop.hidden=true},260)}
+document.getElementById('openMenu').addEventListener('click',()=>{menuBackdrop.hidden=false;sideMenu.setAttribute('aria-hidden','false');requestAnimationFrame(()=>{sideMenu.classList.add('open');menuBackdrop.classList.add('open')});document.body.classList.add('sheet-open')});
+document.getElementById('closeMenu').addEventListener('click',closeSideMenu);menuBackdrop.addEventListener('click',closeSideMenu);
+loadActiveActions();
+initShopPage();
+loadSingleAction().catch(error=>{
+ console.error('Грешка при отварању Single акције:',error);
+ const view=document.getElementById('singleAction');
+ if(view){const main=document.querySelector('main.hidden-content');if(main){main.classList.remove('hidden-content');main.removeAttribute('aria-hidden');}view.hidden=false;const detail=error&&error.message?String(error.message):String(error);view.innerHTML='<div class="single-action-loading"><strong>Грешка при учитавању акције.</strong><p>Детаљ: '+escapeActionText(detail)+'</p><p>Пошаљи ми снимак ове поруке.</p></div>';}
+});
+sheetBackdrop.addEventListener('click',hidePanels);
+document.addEventListener('keydown',e=>{if(e.key==='Escape')hidePanels()});
+bottomSheet.addEventListener('touchstart',e=>{sheetTouchY=e.touches[0].clientY},{passive:true});
+bottomSheet.addEventListener('touchend',e=>{if(e.changedTouches[0].clientY-sheetTouchY>90&&sheetContent.scrollTop===0)hidePanels()},{passive:true});
+</script>
+</body></html>
