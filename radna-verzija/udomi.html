@@ -17,6 +17,7 @@
 .animal-body h2{font-size:22px;margin:0 0 5px}
 .animal-meta{font-size:13px;color:var(--muted);margin-bottom:10px}
 .animal-body p{color:#314967;margin:0 0 16px;white-space:pre-line}
+.animal-details{margin:12px 0 16px;border-top:1px solid var(--line);padding-top:10px;color:#314967}.animal-details summary{cursor:pointer;font-weight:800;color:#2a6ba3}.animal-details p{margin:10px 0}.animal-facts{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}.animal-facts span{background:#edf3f9;border-radius:20px;padding:5px 9px;font-size:12px}.animal-gallery{display:flex;gap:8px;overflow-x:auto;margin:10px 0}.animal-gallery img{width:88px;height:76px;object-fit:cover;border-radius:8px;flex:0 0 auto}
 .adoption-form{display:none;margin:24px 0;background:#fff;border:1px solid var(--line);border-radius:18px;padding:clamp(18px,4vw,30px)}
 .adoption-form.open{display:block}
 .adoption-form .fields{display:grid;grid-template-columns:1fr 1fr;gap:14px}
@@ -74,7 +75,9 @@ async function loadAnimals(){
  $('animals').innerHTML=animals.map(a=>{
   const pics=allImages.filter(i=>i.animal_id===a.id).sort((x,y)=>(x.sort_order||0)-(y.sort_order||0));
   const img=a.main_image_url||pics.find(i=>i.is_cover)?.image_url||pics[0]?.image_url||'';
-  return '<article class="animal-card">'+(img?'<img src="'+esc(img)+'" alt="'+esc(a.name)+'">':'<div style="height:220px;background:#e8eef6;display:grid;place-items:center;color:#64748b">Фотографија није доступна</div>')+'<div class="animal-body"><h2>'+esc(a.name)+'</h2><div class="animal-meta">'+esc(a.species)+' · '+esc(a.sex||'Пол није наведен')+' · '+esc(a.age_text||'Узраст није наведен')+' · '+esc(a.location_text||'')+'</div><p>'+esc(a.short_description||a.description||'')+'</p><button class="btn" type="button" data-adopt="'+esc(a.id)+'">Желим да пружим дом →</button></div></article>';
+  const gallery=pics.map(i=>'<img src="'+esc(i.image_url)+'" alt="Фотографија '+esc(a.name)+'">').join('');
+  const facts=[a.size?'Величина: '+a.size:null,a.health_status?'Здравље: '+a.health_status:null,a.chipped?'Чипован':'Без евидентираног чипа',a.sterilized?'Стерилисан/а':'Није стерилисан/а',a.vaccinated?'Вакцинисан/а':'Вакцинација није евидентирана'].filter(Boolean);
+  return '<article class="animal-card">'+(img?'<img src="'+esc(img)+'" alt="'+esc(a.name)+'">':'<div style="height:220px;background:#e8eef6;display:grid;place-items:center;color:#64748b">Фотографија није доступна</div>')+'<div class="animal-body"><h2>'+esc(a.name)+'</h2><div class="animal-meta">'+esc(a.species)+' · '+esc(a.sex||'Пол није наведен')+' · '+esc(a.age_text||'Узраст није наведен')+' · '+esc(a.location_text||'')+'</div><p>'+esc(a.short_description||a.description||'')+'</p><details class="animal-details"><summary>Више о животињи</summary><p>'+esc(a.description||a.short_description||'')+'</p><div class="animal-facts">'+facts.map(x=>'<span>'+esc(x)+'</span>').join('')+'</div>'+(gallery?'<div class="animal-gallery">'+gallery+'</div>':'')+'</details><button class="btn" type="button" data-adopt="'+esc(a.id)+'">Желим да пружим дом →</button></div></article>';
  }).join('');
 }
 $('animals').addEventListener('click',e=>{const b=e.target.closest('[data-adopt]');if(!b)return;const a=animals.find(x=>x.id===b.dataset.adopt);if(a)openForm(a.id,a.name)});
