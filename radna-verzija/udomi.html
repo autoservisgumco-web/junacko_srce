@@ -43,8 +43,9 @@ body.sheet-open{overflow:hidden}
 <main><div class="wrap">
 <div class="community-intro"><div class="community-kicker">ОД УЛИЦЕ ДО ПОРОДИЦЕ</div><h2>Упознај свог будућег пријатеља.</h2><p>За сваку животињу приказујемо доступне податке и контакт. Ако желиш да пружиш дом, пошаљи пријаву. Наша администрација ће те контактирати ради разговора и договора.</p></div>
 <div id="animals" class="adoption-grid"><div class="page-empty">Учитавање животиња...</div></div>
-<section id="adoptionForm" class="adoption-form">
-<div class="community-kicker">ПРИЈАВА ЗА УДОМЉАВАЊЕ</div><h2 id="formHeading">Желим да пружим дом</h2><p class="hint">Пријава није аутоматско преузимање животиње. Контактираћемо те да разговарамо о условима и потребама животиње.</p>
+<div id="adoptionBackdrop" class="adoption-sheet-backdrop"></div>
+<section id="adoptionForm" class="adoption-form" role="dialog" aria-modal="true" aria-labelledby="formHeading">
+<div class="sheet-handle"></div><div class="sheet-top"><div><div class="community-kicker">ПРИЈАВА ЗА УДОМЉАВАЊЕ</div><h2 id="formHeading">Желим да пружим дом</h2></div><button class="sheet-close" id="closeApplication" type="button" aria-label="Затвори форму">×</button></div><p class="hint">Пријава није аутоматско преузимање животиње. Контактираћемо те да разговарамо о условима и потребама животиње.</p>
 <form id="applicationForm"><input type="hidden" id="animalId">
 <div class="fields">
 <div class="field"><label for="appName">Име и презиме *</label><input id="appName" required minlength="2" maxlength="120"></div>
@@ -69,8 +70,9 @@ const $=id=>document.getElementById(id);
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 $('year').textContent=new Date().getFullYear();
 let animals=[];
-function openForm(id,name){$('animalId').value=id;$('formHeading').textContent='Пријава за: '+name;$('applicationMessage').className='adoption-msg';$('applicationMessage').textContent='';$('adoptionForm').classList.add('open');$('adoptionForm').scrollIntoView({behavior:'smooth',block:'start'});}
-$('cancelApplication').addEventListener('click',()=>{$('adoptionForm').classList.remove('open');$('applicationForm').reset()});
+function closeForm(reset=true){$('adoptionForm').classList.remove('open');$('adoptionBackdrop').classList.remove('open');document.body.classList.remove('sheet-open');if(reset){$('applicationForm').reset();$('animalId').value='';}}
+function openForm(id,name){$('animalId').value=id;$('formHeading').textContent='Пријава за: '+name;$('applicationMessage').className='adoption-msg';$('applicationMessage').textContent='';$('adoptionForm').classList.add('open');$('adoptionBackdrop').classList.add('open');document.body.classList.add('sheet-open');setTimeout(()=>$('appName').focus({preventScroll:true}),250);}
+$('cancelApplication').addEventListener('click',()=>closeForm());$('closeApplication').addEventListener('click',()=>closeForm());$('adoptionBackdrop').addEventListener('click',()=>closeForm());document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('adoptionForm').classList.contains('open'))closeForm()});
 async function loadAnimals(){
  const {data,error}=await db.from('animals_public').select('*').order('created_at',{ascending:false});
  if(error){$('animals').innerHTML='<div class="page-empty">Тренутно није могуће учитати евиденцију. Покушај поново касније.</div>';return}
