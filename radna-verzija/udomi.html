@@ -10,7 +10,7 @@
 .adoption-hero{background:linear-gradient(120deg,#061a35,#0d3263 70%,#2166f3);color:#fff;padding:42px 0}
 .adoption-hero h1{font-size:clamp(32px,6vw,52px);line-height:1.1;margin:8px 0}
 .adoption-hero p{max-width:720px;color:#d8e7fb;margin:0}
-.adoption-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:18px;margin:24px 0}
+.adoption-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin:24px 0}
 .animal-card{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 12px 34px #061a3510}
 .animal-card img{width:100%;height:220px;object-fit:cover;display:block;background:#e8eef6}
 .animal-body{padding:18px}
@@ -18,8 +18,14 @@
 .animal-meta{font-size:13px;color:var(--muted);margin-bottom:10px}
 .animal-body p{color:#314967;margin:0 0 16px;white-space:pre-line}
 .animal-details{margin:12px 0 16px;border-top:1px solid var(--line);padding-top:10px;color:#314967}.animal-details summary{cursor:pointer;font-weight:800;color:#2a6ba3}.animal-details p{margin:10px 0}.animal-facts{display:flex;flex-wrap:wrap;gap:7px;margin:10px 0}.animal-facts span{background:#edf3f9;border-radius:20px;padding:5px 9px;font-size:12px}.animal-gallery{display:flex;gap:8px;overflow-x:auto;margin:10px 0}.animal-gallery img{width:88px;height:76px;object-fit:cover;border-radius:8px;flex:0 0 auto}
-.adoption-form{display:none;margin:24px 0;background:#fff;border:1px solid var(--line);border-radius:18px;padding:clamp(18px,4vw,30px)}
-.adoption-form.open{display:block}
+.adoption-sheet-backdrop{position:fixed;inset:0;z-index:9998;background:rgba(3,14,31,.62);opacity:0;visibility:hidden;transition:opacity .25s ease,visibility .25s ease}
+.adoption-sheet-backdrop.open{opacity:1;visibility:visible}
+.adoption-form{position:fixed;z-index:9999;left:50%;bottom:0;transform:translate(-50%,105%);width:min(100%,760px);max-height:88vh;overflow-y:auto;overscroll-behavior:contain;background:#fff;border:1px solid var(--line);border-radius:22px 22px 0 0;padding:clamp(18px,4vw,30px);padding-bottom:max(24px,env(safe-area-inset-bottom));box-shadow:0 -18px 60px #061a3533;visibility:hidden;transition:transform .3s ease,visibility .3s ease}
+.adoption-form.open{transform:translate(-50%,0);visibility:visible}
+.sheet-handle{width:42px;height:5px;border-radius:9px;background:#cbd5e1;margin:-7px auto 18px}
+.sheet-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.sheet-close{border:0;background:#edf3f9;border-radius:50%;width:38px;height:38px;font-size:22px;cursor:pointer;color:#314967;flex:0 0 auto}
+body.sheet-open{overflow:hidden}
 .adoption-form .fields{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .adoption-form .field.full{grid-column:1/-1}
 .adoption-form input,.adoption-form textarea,.adoption-form select{width:100%;border:1px solid #cbd8e8;border-radius:9px;padding:12px;background:#fbfdff;font:inherit;color:var(--text)}
@@ -28,7 +34,7 @@
 .adoption-msg.error{display:block;background:#fff0f0;color:#9b2424}
 .adoption-msg.success{display:block;background:#e8f7ef;color:#176b3a}
 .page-empty{background:#fff;border:1px dashed #b8c9dc;border-radius:14px;padding:28px;text-align:center;color:#64748b}
-@media(max-width:600px){.adoption-form .fields{grid-template-columns:1fr}}
+@media(max-width:600px){.adoption-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.animal-card img{height:145px}.animal-body{padding:12px}.animal-body h2{font-size:18px}.animal-meta{font-size:11px}.animal-body p{font-size:13px}.animal-body .btn{width:100%;white-space:normal;padding:10px 8px;font-size:12px}.adoption-form .fields{grid-template-columns:1fr}.adoption-form{width:100%;max-height:90vh;border-radius:20px 20px 0 0}}
 </style>
 </head>
 <body>
