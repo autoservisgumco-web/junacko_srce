@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="sr-Cyrl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#061A35">
+<title>Детаљи о животињи — Одговорна Плана</title>
+<meta name="description" content="Упознај животињу која тражи дом. Сазнај више и направи одговоран корак ка удомљавању.">
+<link rel="stylesheet" href="../odgovorna-plana/style.css">
+<style>
+.animal-hero{background:linear-gradient(120deg,#061a35,#0d3263 70%,#2166f3);color:#fff;padding:24px 0}
+.animal-hero a{color:#dceaff;text-decoration:none;font-weight:700}
+.profile-wrap{max-width:1000px;margin:28px auto 60px;padding:0 18px}
+.profile-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(280px,.95fr);gap:28px;align-items:start}
+.profile-photo{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:18px;background:#e8eef6;display:block}
+.profile-gallery{display:flex;gap:9px;overflow:auto;margin-top:10px}
+.profile-gallery img{width:90px;height:76px;object-fit:cover;border-radius:9px;cursor:pointer}
+.profile-info{background:#fff;border:1px solid var(--line);border-radius:18px;padding:24px;box-shadow:0 12px 34px #061a3510}
+.profile-info h1{font-size:clamp(30px,5vw,42px);margin:0 0 8px;color:#102d50}
+.profile-meta{color:#64748b;margin-bottom:18px;line-height:1.6}
+.profile-description{white-space:pre-line;line-height:1.75;color:#314967}
+.profile-facts{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:20px 0}
+.profile-facts div{background:#edf3f9;border-radius:10px;padding:11px;font-size:13px;color:#29435f}
+.profile-facts strong{display:block;font-size:11px;text-transform:uppercase;color:#64748b;margin-bottom:4px}
+.profile-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.profile-actions .btn{text-align:center;text-decoration:none}
+.profile-status{display:inline-block;border-radius:30px;padding:6px 11px;background:#eaf4ed;color:#176b3a;font-size:12px;font-weight:800;margin-bottom:12px}
+.profile-status.reserved{background:#fff3df;color:#8a5200}
+.profile-empty{padding:36px 22px;background:#fff;border:1px dashed #b8c9dc;border-radius:14px;text-align:center;color:#64748b}
+@media(max-width:700px){.profile-grid{grid-template-columns:1fr;gap:16px}.profile-info{padding:18px}.profile-photo{aspect-ratio:5/4}.profile-wrap{margin-top:18px}}
+</style>
+</head>
+<body>
+<header><div class="wrap" style="display:flex;align-items:center;justify-content:space-between;gap:14px"><a href="index.html" class="brand" style="color:#fff;text-decoration:none">ОДГОВОРНА ПЛАНА<small>МЕСТО ЗА ЗАЈЕДНИЧКО ДЕЛОВАЊЕ</small></a><a class="btn" href="udomi.html" style="white-space:nowrap">← Све животиње</a></div></header>
+<section class="animal-hero"><div class="wrap"><a href="udomi.html">← Назад на удомљавање</a></div></section>
+<main class="profile-wrap"><div id="profile"><div class="profile-empty">Учитавање података о животињи…</div></div></main>
+<footer><div class="wrap">ОДГОВОРНА ПЛАНА · Место за заједничко деловање · © <span id="year"></span></div></footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const db=window.supabase.createClient('https://hmfeizkmpmxcnzhwxgbn.supabase.co','sb_publishable_JPtLezaiIeq4MsQ2f3LSlg_nT01Chxe');
+const $=id=>document.getElementById(id);
+const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+$('year').textContent=new Date().getFullYear();
+async function loadProfile(){
+ const id=new URLSearchParams(location.search).get('id');
+ if(!id){$('profile').innerHTML='<div class="profile-empty">Није изабрана животиња. <a href="udomi.html">Погледај све животиње.</a></div>';return}
+ const {data:a,error}=await db.from('animals_public').select('*').eq('id',id).maybeSingle();
+ if(error||!a){$('profile').innerHTML='<div class="profile-empty">Подаци о овој животињи тренутно нису доступни. <a href="udomi.html">Врати се на списак животиња.</a></div>';return}
+ const {data:images}=await db.from('animal_images').select('image_url,sort_order,is_cover').eq('animal_id',id).order('sort_order',{ascending:true});
+ const pics=images||[];
+ const cover=a.main_image_url||pics.find(x=>x.is_cover)?.image_url||pics[0]?.image_url||'';
+ const gallery=pics.filter(x=>x.image_url&&x.image_url!==cover).map(x=>'<img src="'+esc(x.image_url)+'" alt="Додатна фотографија '+esc(a.name)+'" data-photo="'+esc(x.image_url)+'">').join('');
+ const status=a.status==='reserved'?'У РЕЗЕРВАЦИЈИ':'ТРАЖИ ДОМ';
+ const facts=[
+  ['Врста',a.species],['Пол',a.sex],['Узраст',a.age_text],['Величина',a.size],['Место',a.location_text],
+  ['Здравствено стање',a.health_status],['Чип',a.chipped?'Да':'Није евидентиран'],['Стерилизација',a.sterilized?'Да':'Није евидентирана'],['Вакцинација',a.vaccinated?'Да':'Није евидентирана']
+ ].filter(x=>x[1]!==null&&x[1]!==undefined&&x[1]!=='').map(x=>'<div><strong>'+esc(x[0])+'</strong>'+esc(x[1])+'</div>').join('');
+ $('profile').innerHTML='<div class="profile-grid"><div>'+(cover?'<img id="mainPhoto" class="profile-photo" src="'+esc(cover)+'" alt="'+esc(a.name)+'">':'<div class="profile-photo" style="display:grid;place-items:center;color:#64748b">Фотографија није доступна</div>')+(gallery?'<div class="profile-gallery">'+gallery+'</div>':'')+'</div><article class="profile-info"><span class="profile-status '+(a.status==='reserved'?'reserved':'')+'">'+status+'</span><h1>'+esc(a.name)+'</h1><div class="profile-meta">'+[a.species,a.sex,a.age_text,a.location_text].filter(Boolean).map(esc).join(' · ')+'</div><div class="profile-description">'+esc(a.description||a.short_description||'За ову животињу тренутно нема додатног описа.')+'</div>'+(facts?'<div class="profile-facts">'+facts+'</div>':'')+'<div class="profile-actions">'+(a.status==='available'?'<a class="btn" href="udomi.html?animal='+encodeURIComponent(a.id)+'">Желим да уdomim →</a>':'<span class="btn secondary" aria-disabled="true">Тренутно у резервацији</span>')+'<a class="btn secondary" href="udomi.html">Све животиње</a></div></article></div>';
+ document.querySelectorAll('[data-photo]').forEach(img=>img.addEventListener('click',()=>{$('mainPhoto').src=img.dataset.photo;}));
+}
+loadProfile();
+</script>
+</body></html>
