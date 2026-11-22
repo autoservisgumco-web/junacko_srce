@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="sr-Cyrl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#061A35">
+<title>Удомљавање животиња — Одговорна Плана</title>
+<meta name="description" content="Упознај животиње које траже дом у Великој Плани и околини. Удомљавање почиње одговорном одлуком.">
+<link rel="stylesheet" href="style.css">
+<style>
+.adoption-hero{background:linear-gradient(120deg,#061a35,#0d3263 70%,#2166f3);color:#fff;padding:42px 0}
+.adoption-hero h1{font-size:clamp(32px,6vw,52px);line-height:1.1;margin:8px 0}
+.adoption-hero p{max-width:720px;color:#d8e7fb;margin:0}
+.adoption-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(245px,1fr));gap:18px;margin:24px 0}
+.animal-card{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 12px 34px #061a3510}
+.animal-card img{width:100%;height:220px;object-fit:cover;display:block;background:#e8eef6}
+.animal-body{padding:18px}
+.animal-body h2{font-size:22px;margin:0 0 5px}
+.animal-meta{font-size:13px;color:var(--muted);margin-bottom:10px}
+.animal-body p{color:#314967;margin:0 0 16px;white-space:pre-line}
+.adoption-form{display:none;margin:24px 0;background:#fff;border:1px solid var(--line);border-radius:18px;padding:clamp(18px,4vw,30px)}
+.adoption-form.open{display:block}
+.adoption-form .fields{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.adoption-form .field.full{grid-column:1/-1}
+.adoption-form input,.adoption-form textarea,.adoption-form select{width:100%;border:1px solid #cbd8e8;border-radius:9px;padding:12px;background:#fbfdff;font:inherit;color:var(--text)}
+.adoption-form label{display:block;font-size:13px;font-weight:800;margin-bottom:6px}
+.adoption-msg{display:none;margin-top:14px;padding:13px;border-radius:9px;background:#eaf1ff;color:#1648a1}
+.adoption-msg.error{display:block;background:#fff0f0;color:#9b2424}
+.adoption-msg.success{display:block;background:#e8f7ef;color:#176b3a}
+.page-empty{background:#fff;border:1px dashed #b8c9dc;border-radius:14px;padding:28px;text-align:center;color:#64748b}
+@media(max-width:600px){.adoption-form .fields{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="wrap" style="display:flex;align-items:center;justify-content:space-between;gap:14px"><a href="index.html" class="brand" style="color:#fff;text-decoration:none">ОДГОВОРНА ПЛАНА<small>МЕСТО ЗА ЗАЈЕДНИЧКО ДЕЛОВАЊЕ</small></a><a class="btn" href="index.html" style="white-space:nowrap">← Почетна</a></div></header>
+<section class="adoption-hero"><div class="wrap"><div class="eyebrow">ОДГОВОРНО УДОМЉАВАЊЕ</div><h1>Дом није место. Дом је нечија сигурност.</h1><p>Погледај животиње које траже породицу. Удомљавање није тренутна одлука — то је прихватање одговорности за један живот.</p></div></section>
+<main><div class="wrap">
+<div class="community-intro"><div class="community-kicker">ОД УЛИЦЕ ДО ПОРОДИЦЕ</div><h2>Упознај свог будућег пријатеља.</h2><p>За сваку животињу приказујемо доступне податке и контакт. Ако желиш да пружиш дом, пошаљи пријаву. Наша администрација ће те контактирати ради разговора и договора.</p></div>
+<div id="animals" class="adoption-grid"><div class="page-empty">Учитавање животиња...</div></div>
+<section id="adoptionForm" class="adoption-form">
+<div class="community-kicker">ПРИЈАВА ЗА УДОМЉАВАЊЕ</div><h2 id="formHeading">Желим да пружим дом</h2><p class="hint">Пријава није аутоматско преузимање животиње. Контактираћемо те да разговарамо о условима и потребама животиње.</p>
+<form id="applicationForm"><input type="hidden" id="animalId">
+<div class="fields">
+<div class="field"><label for="appName">Име и презиме *</label><input id="appName" required minlength="2" maxlength="120"></div>
+<div class="field"><label for="appPhone">Телефон *</label><input id="appPhone" required minlength="5" maxlength="40" type="tel"></div>
+<div class="field"><label for="appEmail">Имејл</label><input id="appEmail" type="email" maxlength="254"></div>
+<div class="field"><label for="appPlace">Место становања</label><input id="appPlace" maxlength="160"></div>
+<div class="field"><label for="appHome">Где би животиња боравила?</label><select id="appHome"><option value="">Изабери</option><option>Стан</option><option>Кућа</option><option>Двориште</option><option>Друго</option></select></div>
+<div class="field"><label for="appYard">Да ли имаш обезбеђен простор?</label><select id="appYard"><option value="">Изабери</option><option>Да</option><option>Не</option><option>Делимично</option></select></div>
+<div class="field"><label for="appPets">Да ли већ имаш животиње?</label><select id="appPets"><option value="">Изабери</option><option>Да</option><option>Не</option></select></div>
+<div class="field"><label for="appExperience">Искуство са животињама</label><select id="appExperience"><option value="">Изабери</option><option>Имам искуства</option><option>Први пут</option></select></div>
+<div class="field full"><label for="appMessage">Зашто желиш да пружиш дом овој животињи и шта би још требало да знамо?</label><textarea id="appMessage" rows="4" maxlength="3000"></textarea></div>
+</div>
+<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px"><button class="btn" id="sendApplication" type="submit">Пошаљи пријаву</button><button class="btn secondary" id="cancelApplication" type="button">Откажи</button></div>
+<div id="applicationMessage" class="adoption-msg" role="status"></div>
+</form></section>
+</div></main>
+<footer><div class="wrap">ОДГОВОРНА ПЛАНА · Место за заједничко деловање · © <span id="year"></span></div></footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const db=window.supabase.createClient('https://hmfeizkmpmxcnzhwxgbn.supabase.co','sb_publishable_JPtLezaiIeq4MsQ2f3LSlg_nT01Chxe');
+const $=id=>document.getElementById(id);
+const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+$('year').textContent=new Date().getFullYear();
+let animals=[];
+function openForm(id,name){$('animalId').value=id;$('formHeading').textContent='Пријава за: '+name;$('applicationMessage').className='adoption-msg';$('applicationMessage').textContent='';$('adoptionForm').classList.add('open');$('adoptionForm').scrollIntoView({behavior:'smooth',block:'start'});}
+$('cancelApplication').addEventListener('click',()=>{$('adoptionForm').classList.remove('open');$('applicationForm').reset()});
+async function loadAnimals(){
+ const {data,error}=await db.from('animals').select('*').eq('is_published',true).eq('visibility','public').eq('status','available').order('created_at',{ascending:false});
+ if(error){$('animals').innerHTML='<div class="page-empty">Тренутно није могуће учитати евиденцију. Покушај поново касније.</div>';return}
+ animals=data||[];
+ const {data:images}=await db.from('animal_images').select('animal_id,image_url,sort_order,is_cover').in('animal_id',animals.map(a=>a.id).length?animals.map(a=>a.id):['00000000-0000-0000-0000-000000000000']);
+ const allImages=images||[];
+ if(!animals.length){$('animals').innerHTML='<div class="page-empty">Тренутно нема објављених животиња које траже дом. Прати страницу — нови огласи ће бити додавани.</div>';return}
+ $('animals').innerHTML=animals.map(a=>{
+  const pics=allImages.filter(i=>i.animal_id===a.id).sort((x,y)=>(x.sort_order||0)-(y.sort_order||0));
+  const img=a.main_image_url||pics.find(i=>i.is_cover)?.image_url||pics[0]?.image_url||'';
+  return '<article class="animal-card">'+(img?'<img src="'+esc(img)+'" alt="'+esc(a.name)+'">':'<div style="height:220px;background:#e8eef6;display:grid;place-items:center;color:#64748b">Фотографија није доступна</div>')+'<div class="animal-body"><h2>'+esc(a.name)+'</h2><div class="animal-meta">'+esc(a.species)+' · '+esc(a.sex||'Пол није наведен')+' · '+esc(a.age_text||'Узраст није наведен')+' · '+esc(a.location_text||'')+'</div><p>'+esc(a.short_description||a.description||'')+'</p><button class="btn" type="button" data-adopt="'+esc(a.id)+'">Желим да пружим дом →</button></div></article>';
+ }).join('');
+}
+$('animals').addEventListener('click',e=>{const b=e.target.closest('[data-adopt]');if(!b)return;const a=animals.find(x=>x.id===b.dataset.adopt);if(a)openForm(a.id,a.name)});
+$('applicationForm').addEventListener('submit',async e=>{
+ e.preventDefault();const animal=animals.find(a=>a.id===$('animalId').value);if(!animal)return;
+ const button=$('sendApplication'),message=$('applicationMessage');button.disabled=true;button.textContent='Шаљем пријаву…';message.className='adoption-msg';message.textContent='';
+ const payload={animal_id:animal.id,full_name:$('appName').value.trim(),phone:$('appPhone').value.trim(),email:$('appEmail').value.trim()||null,place:$('appPlace').value.trim()||null,application_data:{home_type:$('appHome').value,yard:$('appYard').value,has_other_pets:$('appPets').value,experience:$('appExperience').value,message:$('appMessage').value.trim()},status:'new'};
+ try{const {error}=await db.from('animal_adoption_applications').insert(payload);if(error)throw error;message.className='adoption-msg success';message.textContent='Хвала ти. Пријава је успешно послата. Јавићемо ти се ради разговора и договора.';$('applicationForm').reset();$('animalId').value='';}
+ catch(err){console.error(err);message.className='adoption-msg error';message.textContent='Пријава тренутно није послата. Покушај поново касније.';}
+ finally{button.disabled=false;button.textContent='Пошаљи пријаву'}
+});
+loadAnimals();
+</script>
+</body></html>
