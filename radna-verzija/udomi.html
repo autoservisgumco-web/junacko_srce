@@ -66,7 +66,7 @@ let animals=[];
 function openForm(id,name){$('animalId').value=id;$('formHeading').textContent='Пријава за: '+name;$('applicationMessage').className='adoption-msg';$('applicationMessage').textContent='';$('adoptionForm').classList.add('open');$('adoptionForm').scrollIntoView({behavior:'smooth',block:'start'});}
 $('cancelApplication').addEventListener('click',()=>{$('adoptionForm').classList.remove('open');$('applicationForm').reset()});
 async function loadAnimals(){
- const {data,error}=await db.from('animals').select('*').eq('is_published',true).eq('visibility','public').eq('status','available').order('created_at',{ascending:false});
+ const {data,error}=await db.from('animals_public').select('*').order('created_at',{ascending:false});
  if(error){$('animals').innerHTML='<div class="page-empty">Тренутно није могуће учитати евиденцију. Покушај поново касније.</div>';return}
  animals=data||[];
  const {data:images}=await db.from('animal_images').select('animal_id,image_url,sort_order,is_cover').in('animal_id',animals.map(a=>a.id).length?animals.map(a=>a.id):['00000000-0000-0000-0000-000000000000']);
