@@ -91,7 +91,7 @@ function renderAnimals(){
  $('countAnimals').textContent=animals.length;
  const q=($('animalSearch').value||'').toLowerCase(),sf=$('animalStatusFilter').value,sp=$('animalSpeciesFilter').value,sx=$('animalSexFilter').value;
  const rows=animals.filter(a=>{
-  const match=![a.name,a.species,a.location_text,a.contact_phone,a.contact_name].join(' ').toLowerCase().includes(q)===false;
+  const haystack=[a.name,a.species,a.location_text,a.contact_phone,a.contact_name].join(' ').toLowerCase();const match=!q||haystack.includes(q);
   const status=sf==='all'||(sf==='pending'?!a.is_published:sf==='published'?(a.is_published&&a.visibility==='public'):a.status===sf);
   return match&&status&&(sp==='all'||a.species===sp)&&(sx==='all'||a.sex===sx);
  });
