@@ -10,12 +10,29 @@ main{padding:30px clamp(16px,3vw,38px) 60px;max-width:1600px;width:100%;margin:a
 <section id="authBox"><div class="eyebrow">ОДГОВОРНА ВЕЛИКА ПЛАНА</div><h1>Администрација</h1><p class="intro">Приступ систему за управљање пријавама и иницијативама.</p><form id="authForm"><label for="email">Е-пошта</label><input id="email" type="email" autocomplete="username" required style="width:100%"><label for="password">Лозинка</label><input id="password" type="password" autocomplete="current-password" minlength="8" required style="width:100%"><p id="message" role="status"></p><button class="primary" type="submit">Пријави се</button></form></section>
 <div id="app" class="hidden"><header><div class="brand">ОДГОВОРНА ВЕЛИКА ПЛАНА<small>АДМИНИСТРАТИВНИ ЦЕНТАР</small></div><div class="toolbar"><a href="./" style="color:#e4edf5;text-decoration:none;font-size:13px">Јавни сајт ↗</a><button class="quiet" id="logout">Одјави се</button></div></header>
 <div class="shell"><aside><div class="nav-label">УПРАВЉАЊЕ</div><nav class="nav" id="nav">
-<button class="active" data-view="home"><span class="ico">⌂</span>Преглед</button><button data-view="all"><span class="ico">▣</span>Све пријаве <span class="count" id="countAll">0</span></button><button data-view="requests"><span class="ico">▤</span>Захтеви <span class="count" id="countRequests">0</span></button><button data-view="participation"><span class="ico">＋</span>Пријаве за учешће <span class="count" id="countParticipation">0</span></button><button data-view="citizens"><span class="ico">♙</span>Активни грађани</button><button data-view="campaigns"><span class="ico">◉</span>Кампање</button><button data-view="actions"><span class="ico">⚑</span>Акције</button><button data-view="archive"><span class="ico">▣</span>Архива</button><button data-view="documents"><span class="ico">▧</span>Документација</button></nav></aside>
+<button class="active" data-view="home"><span class="ico">⌂</span>Преглед</button><button data-view="all"><span class="ico">▣</span>Све пријаве <span class="count" id="countAll">0</span></button><button data-view="requests"><span class="ico">▤</span>Захтеви <span class="count" id="countRequests">0</span></button><button data-view="participation"><span class="ico">＋</span>Пријаве за учешће <span class="count" id="countParticipation">0</span></button><button data-view="citizens"><span class="ico">♙</span>Активни грађани</button><button data-view="animals"><span class="ico">♥</span>Животиње <span class="count" id="countAnimals">0</span></button><button data-view="campaigns"><span class="ico">◉</span>Кампање</button><button data-view="actions"><span class="ico">⚑</span>Акције</button><button data-view="archive"><span class="ico">▣</span>Архива</button><button data-view="documents"><span class="ico">▧</span>Документација</button></nav></aside>
 <main>
 <section class="view" id="view-home"><div class="eyebrow">ЦЕНТРАЛНИ ПРЕГЛЕД</div><h1>Последње активности</h1><p class="intro">Најновије пријаве и активности у систему.</p><div class="stats"><article class="stat"><strong id="statAll">0</strong><span>Све пријаве</span></article><article class="stat"><strong id="statNew">0</strong><span>Нове за преглед</span></article><article class="stat"><strong id="statAccepted">0</strong><span>Прихваћене</span></article><article class="stat"><strong id="statCitizens">0</strong><span>Активни грађани</span></article></div><section class="panel"><div class="toolbar"><h2>Последње пристигло</h2><button class="secondary" data-goto="requests">Сви захтеви →</button></div><div id="latest" class="cards"><div class="empty">Учитавање...</div></div></section></section>
 <section class="view hidden" id="view-all"><div class="eyebrow">ЦЕНТРАЛНА ЕВИДЕНЦИЈА</div><h1>Све пријаве</h1><p class="intro">Јединствена листа свих захтева и пријава грађана.</p><div class="toolbar"><input id="searchAll" class="search" placeholder="Претрага по имену, теми или садржају"><select id="filterAll" class="select"><option value="all">Сви статуси</option><option value="new">Нове</option><option value="reviewing">На разматрању</option><option value="accepted">Прихваћене</option><option value="rejected">Одбијене</option><option value="completed">Завршене</option></select></div><div id="allList" class="cards"></div></section><section class="view hidden" id="view-requests"><div class="eyebrow">ПРИЈЕМНА ПОШТА</div><h1>Захтеви и предлози</h1><p class="intro">Предлози кампања, акција, опште идеје и пријаве проблема.</p><div class="toolbar"><input id="searchRequests" class="search" placeholder="Претрага по имену, називу или садржају"><select id="filterRequests" class="select"><option value="all">Сви статуси</option><option value="new">Нови</option><option value="reviewing">На разматрању</option><option value="accepted">Прихваћени</option><option value="rejected">Одбијени</option></select></div><div class="filters" id="requestKinds"><button class="primary" data-kind="all">Све врсте</button><button class="quiet" data-kind="action">Предлози акција</button><button class="quiet" data-kind="campaign">Предлози кампања</button><button class="quiet" data-kind="problem">Пријаве проблема</button></div><div id="requestsList" class="cards"></div></section>
 <section class="view hidden" id="view-participation"><div class="eyebrow">УКЉУЧИВАЊЕ ГРАЂАНА</div><h1>Пријаве за учешће</h1><p class="intro">Грађани који желе да се прикључе већ постојећој активности.</p><div class="toolbar"><input id="searchParticipation" class="search" placeholder="Претрага по имену или контакту"><select id="filterParticipation" class="select"><option value="all">Сви статуси</option><option value="new">Нове</option><option value="accepted">Прихваћене</option><option value="rejected">Одбијене</option></select></div><div id="participationList" class="cards"></div></section>
 <section class="view hidden" id="view-citizens"><div class="eyebrow">ЗАЈЕДНИЦА</div><h1>Активни грађани</h1><p class="intro">Грађани чије су пријаве за учешће прихваћене. Свака пријава остаје повезана са својом активношћу.</p><input id="searchCitizens" class="search" placeholder="Претрага по имену или контакту"><div id="citizensList" class="cards"></div></section>
+<section class="view hidden" id="view-animals">
+<div class="eyebrow">УДОМЉАВАЊЕ И ОДГОВОРНО ВЛАСНИШТВО</div><h1>Животиње</h1>
+<p class="intro">Евиденција животиња, објава за удомљавање и праћење пријава заинтересованих грађана.</p>
+<div class="stats">
+<article class="stat"><strong id="animalStatAll">0</strong><span>Укупно животиња</span></article>
+<article class="stat"><strong id="animalStatPending">0</strong><span>Чекају објаву</span></article>
+<article class="stat"><strong id="animalStatPublished">0</strong><span>Објављене</span></article>
+<article class="stat"><strong id="animalStatApplications">0</strong><span>Пријаве за удомљавање</span></article>
+</div>
+<div class="toolbar">
+<input id="animalSearch" class="search" placeholder="Претрага по имену, локацији или телефону">
+<select id="animalStatusFilter" class="select"><option value="all">Сви статуси</option><option value="pending">Чекају објаву</option><option value="published">Објављене</option><option value="available">Траже дом</option><option value="reserved">Резервисане</option><option value="adopted">Удомљене</option><option value="archived">Архивиране</option></select>
+<select id="animalSpeciesFilter" class="select"><option value="all">Све врсте</option><option value="пас">Пси</option><option value="мачка">Мачке</option><option value="друго">Друге животиње</option></select>
+<select id="animalSexFilter" class="select"><option value="all">Оба пола</option><option value="женка">Женке</option><option value="мужјак">Мужјаци</option></select>
+</div>
+<div id="animalsList" class="cards"><div class="empty">Учитавање евиденције...</div></div>
+</section>
 <section class="view hidden" id="view-campaigns"><div class="eyebrow">ТЕМЕ И ИНИЦИЈАТИВЕ</div><h1>Кампање</h1><p class="intro">Објављене кампање. Прихваћен предлог није аутоматски кампања — прво га администрација разматра.</p><div id="campaignsList" class="cards"></div></section>
 <section class="view hidden" id="view-actions"><div class="eyebrow">КОНКРЕТНЕ АКТИВНОСТИ</div><h1>Акције</h1><p class="intro">Објављене акције којима грађани могу да се придруже.</p><div id="actionsList" class="cards"></div></section>
 <section class="view hidden" id="view-archive"><div class="eyebrow">ИСТОРИЈА</div><h1>Архива</h1><p class="intro">Одбијене и завршене пријаве. Подаци остају сачувани.</p><div id="archiveList" class="cards"></div></section>
@@ -24,7 +41,7 @@ main{padding:30px clamp(16px,3vw,38px) 60px;max-width:1600px;width:100%;margin:a
 <div id="backdrop" class="backdrop hidden"></div><section id="sheet" class="sheet" role="dialog" aria-modal="true"><div class="toolbar"><h2 id="sheetTitle">Детаљи</h2><button id="closeSheet" class="quiet">Затвори ✕</button></div><div id="sheetBody"></div></section>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script>
 const db=window.supabase.createClient('https://hmfeizkmpmxcnzhwxgbn.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhbGciOiJIUzI1NiIsInJlZiI6ImhtZmVpemttcG14Y256aHd4Z2JuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMzMjkyNzgsImV4cCI6MjEwODkwNTI3OH0.oTZopOJEGUnxK69BOYPP11CQoGrLqUJowqpPU2uiY-');
-const $=id=>document.getElementById(id);let records=[],view='home',requestKind='all';
+const $=id=>document.getElementById(id);let records=[],view='home',requestKind='all',animals=[],animalApps=[],animalImages=[];
 const participationTypes=['membership','help','adoption'];const requestTypes=['action','campaign','problem'];
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const date=v=>v?new Date(v).toLocaleString('sr-RS'):'Датум није наведен';
@@ -33,7 +50,7 @@ const statusName=s=>({new:'Нова',reviewing:'На разматрању',accep
 function statusClass(s){return ['accepted','published'].includes(s)?'accepted':s==='rejected'?'rejected':s==='new'||!s?'new':''}
 function isPart(x){return participationTypes.includes(x.submission_type)}
 function isRequest(x){return requestTypes.includes(x.submission_type)}
-function showView(name){view=name;document.querySelectorAll('.view').forEach(v=>v.classList.add('hidden'));$('view-'+name).classList.remove('hidden');document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===name));history.replaceState(null,'','#'+name);renderAll()}
+function showView(name){view=name;document.querySelectorAll('.view').forEach(v=>v.classList.add('hidden'));$('view-'+name).classList.remove('hidden');document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===name));history.replaceState(null,'','#'+name);renderAll();if(name==='animals')renderAnimals()}
 document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>showView(b.dataset.view)));
 document.querySelectorAll('[data-goto]').forEach(b=>b.addEventListener('click',()=>showView(b.dataset.goto)));
 function card(x){const p=x.full_name||'Име није наведено',contact=x.phone||x.viber_phone||x.email||'Контакт није наведен';return '<article class="record"><div class="record-top"><span class="tag">'+esc(typeName(x.submission_type))+'</span><span class="status '+statusClass(x.status)+'">'+esc(statusName(x.status))+'</span></div><h3>'+esc(x.title||p)+'</h3><div class="muted">'+esc(p)+' · '+esc(contact)+' · '+esc(date(x.created_at))+'</div><p>'+esc(x.description||'Нема додатног описа.')+'</p><div class="toolbar"><span class="muted">'+esc(x.location||'Локација није наведена')+'</span><button class="secondary" data-open="'+esc(x.id)+'">Отвори пријаву →</button></div></article>'}
@@ -55,13 +72,85 @@ function renderAll(){
 }
 async function load(){for(const id of ['latest','requestsList','participationList','citizensList','campaignsList','actionsList','archiveList','documentsList'])$(id).innerHTML='<div class="empty">Учитавање...</div>';
  const {data,error}=await db.from('civic_submissions').select('id,submission_type,title,description,full_name,email,phone,viber_phone,location,support_type,status,created_at,social_links').order('created_at',{ascending:false});
- if(error){$('listMessage').textContent='Пријаве нису учитане. Проверите приступ и дозволе у бази.';return}records=data||[];renderAll()}
+ if(error){$('listMessage').textContent='Пријаве нису учитане. Проверите приступ и дозволе у бази.';return}records=data||[];renderAll();await loadAnimals()}
 function openSheet(x){$('sheetTitle').textContent=x.title||typeName(x.submission_type);const phone=x.phone||x.viber_phone||'';$('sheetBody').innerHTML='<div class="muted">'+esc(typeName(x.submission_type))+' · '+esc(date(x.created_at))+'</div><h3>'+esc(x.full_name||'Име није наведено')+'</h3><div class="muted">Телефон: '+esc(phone||'—')+' · Имејл: '+esc(x.email||'—')+' · Локација: '+esc(x.location||'—')+'</div><div class="description">'+esc(x.description||'Нема описа.')+'</div><label for="newStatus">Статус пријаве</label><select id="newStatus" class="select" style="width:100%"><option value="new">Нова</option><option value="reviewing">На разматрању</option><option value="accepted">Прихваћена</option><option value="rejected">Одбијена</option><option value="completed">Завршена</option><option value="published">Објављено</option></select><div class="sheet-actions"><button class="primary" id="saveStatus">Сачувај статус</button>'+(phone?'<a class="secondary" style="padding:10px 13px;border-radius:9px;color:white;text-decoration:none" href="tel:'+encodeURIComponent(phone)+'">Позови</a>':'')+(x.email?'<a class="secondary" style="padding:10px 13px;border-radius:9px;color:white;text-decoration:none" href="mailto:'+encodeURIComponent(x.email)+'">Пошаљи имејл</a>':'')+'</div><label for="internalNote">Интерна напомена администратора</label><textarea id="internalNote" rows="4" placeholder="Напомена видљива само у овом прегледачу..."></textarea><div class="sheet-actions"><button class="secondary" id="saveNote">Сачувај напомену</button></div><p class="muted">Напомене се чувају локално у овом прегледачу. Оригинална пријава остаје сачувана. Прихватање предлога само по себи не креира кампању или акцију.</p>';
  $('newStatus').value=x.status||'new';$('internalNote').value=localStorage.getItem('ovp-note-'+x.id)||'';$('saveNote').onclick=()=>{localStorage.setItem('ovp-note-'+x.id,$('internalNote').value);$('listMessage').textContent='Интерна напомена је сачувана у овом прегледачу.'};$('backdrop').classList.remove('hidden');$('sheet').classList.add('open');$('saveStatus').onclick=()=>saveStatus(x.id,$('newStatus').value)}
 async function saveStatus(id,status){const {error}=await db.from('civic_submissions').update({status}).eq('id',id);if(error){$('listMessage').textContent='Статус није сачуван. Покушај поново.';return}const r=records.find(x=>String(x.id)===String(id));if(r)r.status=status;$('backdrop').classList.add('hidden');$('sheet').classList.remove('open');renderAll();$('listMessage').textContent='Статус је успешно сачуван.'}
-document.addEventListener('click',async e=>{const b=e.target.closest('[data-open]');if(b){const x=records.find(r=>String(r.id)===b.dataset.open);if(x)openSheet(x)}const f=e.target.closest('[data-file]');if(f){const x=records.find(r=>String(r.id)===f.dataset.file);const {data,error}=await db.storage.from('action-proposal-files').createSignedUrl(f.dataset.path,3600);if(!error&&data?.signedUrl)window.open(data.signedUrl,'_blank','noopener');else $('listMessage').textContent='Документ тренутно није доступан.'}});
+document.addEventListener('click',async e=>{const animalButton=e.target.closest('[data-animal]');if(animalButton){openAnimal(animalButton.dataset.animal);return}const appButton=e.target.closest('[data-save-app]');if(appButton){await saveAnimalApplication(appButton.dataset.saveApp);return}const b=e.target.closest('[data-open]');if(b){const x=records.find(r=>String(r.id)===b.dataset.open);if(x)openSheet(x)}const f=e.target.closest('[data-file]');if(f){const x=records.find(r=>String(r.id)===f.dataset.file);const {data,error}=await db.storage.from('action-proposal-files').createSignedUrl(f.dataset.path,3600);if(!error&&data?.signedUrl)window.open(data.signedUrl,'_blank','noopener');else $('listMessage').textContent='Документ тренутно није доступан.'}});
+
+const animalStatusName=s=>({available:'Тражи дом',reserved:'Резервисана',adopted:'Удомљена',archived:'Архивирана'})[s]||s||'Није одређен';
+function animalImage(a){const imgs=animalImages.filter(i=>i.animal_id===a.id).sort((x,y)=>(x.sort_order||0)-(y.sort_order||0));return a.main_image_url||imgs.find(i=>i.is_cover)?.image_url||imgs[0]?.image_url||''}
+function renderAnimals(){
+ if(!$('animalsList'))return;
+ const published=animals.filter(a=>a.is_published&&a.visibility==='public');
+ $('animalStatAll').textContent=animals.length;
+ $('animalStatPending').textContent=animals.filter(a=>!a.is_published).length;
+ $('animalStatPublished').textContent=published.length;
+ $('animalStatApplications').textContent=animalApps.length;
+ $('countAnimals').textContent=animals.length;
+ const q=($('animalSearch').value||'').toLowerCase(),sf=$('animalStatusFilter').value,sp=$('animalSpeciesFilter').value,sx=$('animalSexFilter').value;
+ const rows=animals.filter(a=>{
+  const match=![a.name,a.species,a.location_text,a.contact_phone,a.contact_name].join(' ').toLowerCase().includes(q)===false;
+  const status=sf==='all'||(sf==='pending'?!a.is_published:sf==='published'?(a.is_published&&a.visibility==='public'):a.status===sf);
+  return match&&status&&(sp==='all'||a.species===sp)&&(sx==='all'||a.sex===sx);
+ });
+ $('animalsList').innerHTML=rows.length?rows.map(a=>{
+  const n=animalApps.filter(x=>x.animal_id===a.id).length,img=animalImage(a);
+  return '<article class="record"><div class="record-top"><span class="tag">'+esc(a.species||'Животиња')+' · '+esc(a.location_text||'Локација није наведена')+'</span><span class="status '+(a.is_published&&a.visibility==='public'?'published':!a.is_published?'new':'')+'">'+(a.is_published&&a.visibility==='public'?'Објављена':!a.is_published?'Чека објаву':'Скривена')+'</span></div><div style="display:flex;gap:14px;align-items:center;margin-top:10px">'+(img?'<img src="'+esc(img)+'" alt="" style="width:86px;height:86px;object-fit:cover;border-radius:12px;border:1px solid #45617e">':'')+'<div style="min-width:0;flex:1"><h3>'+esc(a.name)+'</h3><div class="muted">'+esc(a.sex||'Пол није наведен')+' · '+esc(a.age_text||'Узраст није наведен')+' · '+esc(animalStatusName(a.status))+'</div><div class="muted">'+n+' пријава за удомљавање</div></div></div><div class="toolbar" style="margin-top:12px"><span class="muted">'+esc(a.contact_phone||'Контакт није наведен')+'</span><button class="secondary" data-animal="'+esc(a.id)+'">Отвори евиденцију →</button></div></article>'
+ }).join(''):'<div class="empty">Нема животиња за изабране филтере.</div>';
+}
+async function loadAnimals(){
+ const [a,i,p]=await Promise.all([
+  db.from('animals').select('*').order('created_at',{ascending:false}),
+  db.from('animal_images').select('*').order('sort_order'),
+  db.from('animal_adoption_applications').select('*').order('created_at',{ascending:false})
+ ]);
+ const error=a.error||i.error||p.error;
+ if(error){$('animalsList').innerHTML='<div class="empty">Евиденција животиња није учитана. Проверите дозволе у бази.</div>';$('listMessage').textContent='Евиденција животиња није учитана: '+(error.message||'грешка приступа');return}
+ animals=a.data||[];animalImages=i.data||[];animalApps=p.data||[];renderAnimals();
+}
+function openAnimal(id){
+ const a=animals.find(x=>x.id===id);if(!a)return;
+ const apps=animalApps.filter(x=>x.animal_id===id),imgs=animalImages.filter(x=>x.animal_id===id);
+ $('sheetTitle').textContent='Евиденција: '+a.name;
+ $('sheetBody').innerHTML='<div class="muted">ID: '+esc(a.id)+'</div><div class="sheet-actions">'+(a.is_published&&a.visibility==='public'?'<span class="status published">Јавно објављена</span>':'<span class="status new">Није јавно објављена</span>')+'</div>'+
+ '<label>Назив / име</label><input id="animalEditName" class="search" style="width:100%" value="'+esc(a.name)+'">'+
+ '<label>Врста</label><input id="animalEditSpecies" class="search" style="width:100%" value="'+esc(a.species)+'">'+
+ '<label>Пол</label><select id="animalEditSex" class="select" style="width:100%"><option value="">Није наведено</option><option value="женка">Женка</option><option value="мужјак">Мужјак</option></select>'+
+ '<label>Узраст</label><input id="animalEditAge" class="search" style="width:100%" value="'+esc(a.age_text||'')+'">'+
+ '<label>Величина</label><input id="animalEditSize" class="search" style="width:100%" value="'+esc(a.size||'')+'">'+
+ '<label>Локација</label><input id="animalEditLocation" class="search" style="width:100%" value="'+esc(a.location_text||'')+'">'+
+ '<label>Име контакт особе</label><input id="animalEditContact" class="search" style="width:100%" value="'+esc(a.contact_name||'')+'">'+
+ '<label>Телефон</label><input id="animalEditPhone" class="search" style="width:100%" value="'+esc(a.contact_phone||'')+'">'+
+ '<label>Опис</label><textarea id="animalEditDescription" rows="4">'+esc(a.description||'')+'</textarea>'+
+ '<label>Статус</label><select id="animalEditStatus" class="select" style="width:100%"><option value="available">Тражи дом</option><option value="reserved">Резервисана</option><option value="adopted">Удомљена</option><option value="archived">Архивирана</option></select>'+
+ '<label>Видљивост</label><select id="animalEditVisibility" class="select" style="width:100%"><option value="public">Јавно</option><option value="private">Приватно</option></select>'+
+ '<label style="display:flex;gap:9px;align-items:center"><input id="animalEditPublished" type="checkbox" style="width:auto"> Објављена на јавном сајту</label>'+
+ '<div class="sheet-actions"><button class="primary" id="saveAnimal">Сачувај измене</button><button class="secondary" id="approveAnimal">Одобри и објави</button><button class="danger" id="hideAnimal">Сакриј</button></div>'+
+ (imgs.length?'<h3>Фотографије</h3>'+imgs.map(im=>'<a href="'+esc(im.image_url)+'" target="_blank" rel="noopener"><img src="'+esc(im.image_url)+'" alt="" style="width:82px;height:82px;object-fit:cover;border-radius:9px;margin:3px"></a>').join(''):'<p class="muted">Нема додатих фотографија.</p>')+
+ '<h3>Пријаве за удомљавање ('+apps.length+')</h3>'+
+ (apps.length?apps.map(x=>'<article class="record"><strong>'+esc(x.full_name)+'</strong><div class="muted">Телефон: '+esc(x.phone)+' · Имејл: '+esc(x.email||'—')+' · Место: '+esc(x.place||'—')+'</div><p>'+esc(JSON.stringify(x.application_data||{},null,2))+'</p><label>Статус пријаве</label><select class="select" id="appStatus-'+esc(x.id)+'" style="width:100%"><option value="new">Нова</option><option value="contacted">Контактиран</option><option value="accepted">Прихваћена</option><option value="rejected">Одбијена</option></select><button class="secondary" data-save-app="'+esc(x.id)+'" style="margin-top:8px">Сачувај статус пријаве</button></article>').join(''):'<div class="empty">Још нема пријава за ову животињу.</div>');
+ $('animalEditSex').value=a.sex||'';$('animalEditStatus').value=a.status||'available';$('animalEditVisibility').value=a.visibility||'private';$('animalEditPublished').checked=!!a.is_published;
+ $('backdrop').classList.remove('hidden');$('sheet').classList.add('open');
+ $('saveAnimal').onclick=()=>saveAnimal(id,{name:$('animalEditName').value.trim(),species:$('animalEditSpecies').value.trim(),sex:$('animalEditSex').value||null,age_text:$('animalEditAge').value.trim()||null,size:$('animalEditSize').value.trim()||null,location_text:$('animalEditLocation').value.trim()||null,contact_name:$('animalEditContact').value.trim()||null,contact_phone:$('animalEditPhone').value.trim()||null,description:$('animalEditDescription').value.trim(),status:$('animalEditStatus').value,visibility:$('animalEditVisibility').value,is_published:$('animalEditPublished').checked});
+ $('approveAnimal').onclick=()=>saveAnimal(id,{is_published:true,visibility:'public'});
+ $('hideAnimal').onclick=()=>saveAnimal(id,{is_published:false,visibility:'private'});
+}
+async function saveAnimal(id,patch){
+ const {error}=await db.from('animals').update({...patch,updated_at:new Date().toISOString()}).eq('id',id);
+ if(error){$('listMessage').textContent='Измене нису сачуване: '+error.message;return}
+ await loadAnimals();const a=animals.find(x=>x.id===id);if(a)openAnimal(id);$('listMessage').textContent='Подаци о животињи су сачувани.';
+}
+async function saveAnimalApplication(id){
+ const select=$('appStatus-'+id);if(!select)return;
+ const {error}=await db.from('animal_adoption_applications').update({status:select.value}).eq('id',id);
+ if(error){$('listMessage').textContent='Статус пријаве није сачуван: '+error.message;return}
+ await loadAnimals();$('listMessage').textContent='Статус пријаве за удомљавање је сачуван.';const app=animalApps.find(x=>x.id===id);if(app)openAnimal(app.animal_id);
+}
+
 function closeSheet(){$('backdrop').classList.add('hidden');$('sheet').classList.remove('open')}$('closeSheet').onclick=closeSheet;$('backdrop').onclick=closeSheet;
 ['searchAll','filterAll','searchRequests','filterRequests','searchParticipation','filterParticipation','searchCitizens'].forEach(id=>$(id).addEventListener('input',renderAll));
+['animalSearch','animalStatusFilter','animalSpeciesFilter','animalSexFilter'].forEach(id=>$(id).addEventListener('input',renderAnimals));
 $('requestKinds').addEventListener('click',e=>{const b=e.target.closest('[data-kind]');if(!b)return;requestKind=b.dataset.kind;document.querySelectorAll('[data-kind]').forEach(x=>x.className=x===b?'primary':'quiet');renderAll()});
 $('authForm').addEventListener('submit',async e=>{e.preventDefault();$('message').textContent='Проверавам приступ...';const {error}=await db.auth.signInWithPassword({email:$('email').value.trim().toLowerCase(),password:$('password').value});if(error){$('message').textContent='Пријава није успела. Проверите е-пошту и лозинку.';return}await refresh()});
 async function refresh(){const {data:{session}}=await db.auth.getSession();$('authBox').classList.toggle('hidden',!!session);$('app').classList.toggle('hidden',!session);if(session){let hash=location.hash.slice(1);showView(document.getElementById('view-'+hash)?hash:'home');await load()}}
