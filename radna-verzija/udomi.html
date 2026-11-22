@@ -85,7 +85,7 @@ async function loadAnimals(){
   const img=a.main_image_url||pics.find(i=>i.is_cover)?.image_url||pics[0]?.image_url||'';
   const gallery=pics.map(i=>'<img src="'+esc(i.image_url)+'" alt="Фотографија '+esc(a.name)+'">').join('');
   const facts=[a.size?'Величина: '+a.size:null,a.health_status?'Здравље: '+a.health_status:null,a.chipped?'Чипован':'Без евидентираног чипа',a.sterilized?'Стерилисан/а':'Није стерилисан/а',a.vaccinated?'Вакцинисан/а':'Вакцинација није евидентирана'].filter(Boolean);
-  return '<article class="animal-card">'+(img?'<img src="'+esc(img)+'" alt="'+esc(a.name)+'">':'<div style="height:220px;background:#e8eef6;display:grid;place-items:center;color:#64748b">Фотографија није доступна</div>')+'<div class="animal-body"><h2>'+esc(a.name)+'</h2><div class="animal-meta">'+esc(a.species)+' · '+esc(a.sex||'Пол није наведен')+' · '+esc(a.age_text||'Узраст није наведен')+' · '+esc(a.location_text||'')+'</div><p>'+esc(a.short_description||a.description||'')+'</p><details class="animal-details"><summary>Више о животињи</summary><p>'+esc(a.description||a.short_description||'')+'</p><div class="animal-facts">'+facts.map(x=>'<span>'+esc(x)+'</span>').join('')+'</div>'+(gallery?'<div class="animal-gallery">'+gallery+'</div>':'')+'</details><button class="btn" type="button" data-adopt="'+esc(a.id)+'">Желим да пружим дом →</button></div></article>';
+  return '<article class="animal-card">'+(img?'<img src="'+esc(img)+'" alt="'+esc(a.name)+'">':'<div style="height:220px;background:#e8eef6;display:grid;place-items:center;color:#64748b">Фотографија није доступна</div>')+'<div class="animal-body"><h2>'+esc(a.name)+'</h2><div class="animal-meta">'+esc(a.species)+' · '+esc(a.sex||'Пол није наведен')+' · '+esc(a.age_text||'Узраст није наведен')+' · '+esc(a.location_text||'')+'</div><p>'+esc(a.short_description||a.description||'')+'</p><a class="btn secondary" style="display:block;text-align:center;text-decoration:none;margin-bottom:9px" href="zivotinja.html?id='+encodeURIComponent(a.id)+'">Више о животињи →</a><button class="btn" type="button" data-adopt="'+esc(a.id)+'">Желим да пружим дом →</button></div></article>';
  }).join('');
 }
 $('animals').addEventListener('click',e=>{const b=e.target.closest('[data-adopt]');if(!b)return;const a=animals.find(x=>x.id===b.dataset.adopt);if(a)openForm(a.id,a.name)});
@@ -97,6 +97,6 @@ $('applicationForm').addEventListener('submit',async e=>{
  catch(err){console.error(err);message.className='adoption-msg error';message.textContent='Пријава тренутно није послата. Покушај поново касније.';}
  finally{button.disabled=false;button.textContent='Пошаљи пријаву'}
 });
-loadAnimals();
+loadAnimals().then(()=>{const selected=new URLSearchParams(location.search).get('animal');if(selected){const a=animals.find(x=>x.id===selected);if(a)openForm(a.id,a.name);}});
 </script>
 </body></html>
