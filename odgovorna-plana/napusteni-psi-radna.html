@@ -39,6 +39,7 @@ footer{background:#04182e;color:#b8cee2;padding:22px 0;font-size:12px}
 .tab-button.active{background:var(--navy);color:#fff;box-shadow:0 4px 12px #0b294922}
 .tab-panel{display:none;animation:panelIn .2s ease}.tab-panel.active{display:block}@keyframes panelIn{from{opacity:.35;transform:translateY(5px)}to{opacity:1;transform:none}}
 .tab-panel>.section:first-child{margin-top:8px}.mobile-tabs{display:none}
+.hero.is-hidden{display:none}
 @media(max-width:760px){body{padding-bottom:82px}.mobile-tabs{position:fixed;z-index:30;bottom:0;left:0;right:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:2px;background:#fff;border-top:1px solid var(--line);padding:7px 5px calc(7px + env(safe-area-inset-bottom));box-shadow:0 -8px 24px #0b294912}.mobile-tabs button{border:0;background:transparent;color:#587087;font:750 10px system-ui;padding:7px 1px;display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0}.mobile-tabs button span{font-size:18px;line-height:1}.mobile-tabs button.active{color:var(--blue)}}
 </style>
 </head>
@@ -122,7 +123,7 @@ function setupTabs(){
  });
  const docs=main.querySelector('#documentsList')?.closest('section');if(docs)document.querySelector('#panel-blogovi').appendChild(docs);
  const end=main.querySelector('.end');if(end)document.querySelector('#panel-pregled').appendChild(end);
- function activate(key){document.querySelectorAll('.tab-panel').forEach(p=>p.classList.toggle('active',p.dataset.panel===key));document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===key));window.scrollTo({top:0,behavior:'smooth'});}
+ function activate(key){document.querySelector('.hero')?.classList.add('is-hidden');document.querySelectorAll('.tab-panel').forEach(p=>p.classList.toggle('active',p.dataset.panel===key));document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===key));window.scrollTo({top:0,behavior:'smooth'});}
  document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>activate(b.dataset.tab)));
  document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const target=a.getAttribute('href').slice(1);const owner=Object.entries(groups).find(([,ids])=>ids.includes(target));if(owner){e.preventDefault();activate(owner[0]);setTimeout(()=>{const el=document.getElementById(target);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});},80);}}));
 }
