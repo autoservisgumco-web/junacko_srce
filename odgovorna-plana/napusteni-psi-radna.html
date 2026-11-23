@@ -108,7 +108,7 @@ function setupTabs(){
  const groups={pregled:['pet-minuta'],plan:['problem','uzroci','odgovornost','stubovi','resenje','zahtevi'],akcije:['sta-smo-uradili','akcije'],blogovi:['blogovi'],udomljavanje:['udomljavanje']};
  const main=document.querySelector('main .wrap');
  Object.entries(groups).forEach(([key,ids])=>{
-  const panel=document.createElement('div');panel.className='tab-panel'+(key==='pregled'?' active':'');panel.dataset.panel=key;
+  const panel=document.createElement('div');panel.id='panel-'+key;panel.className='tab-panel'+(key==='pregled'?' active':'');panel.dataset.panel=key;
   const first=main.querySelector('#'+ids[0]);if(first)first.parentNode.insertBefore(panel,first);
   ids.forEach(id=>{const node=main.querySelector('#'+id);if(node)panel.appendChild(node);});
  });
