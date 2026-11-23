@@ -42,6 +42,19 @@ footer{background:#04182e;color:#b8cee2;padding:22px 0;font-size:12px}
 .hero.is-hidden{display:none}
 @media(max-width:760px){body{padding-bottom:82px}.mobile-tabs{position:fixed;z-index:30;bottom:0;left:0;right:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:2px;background:#fff;border-top:1px solid var(--line);padding:7px 5px calc(7px + env(safe-area-inset-bottom));box-shadow:0 -8px 24px #0b294912}.mobile-tabs button{border:0;background:transparent;color:#587087;font:750 10px system-ui;padding:7px 1px;display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0}.mobile-tabs button span{font-size:18px;line-height:1}.mobile-tabs button.active{color:var(--blue)}}
 
+/* CAMPAIGN NAV + HERO MESSAGE */
+.hero{background-image:linear-gradient(100deg,rgba(4,20,38,.94),rgba(5,30,54,.48)),url("https://hmfeizkmpmxcnzhwxgbn.supabase.co/storage/v1/object/public/Plan%20za%20pse/Hero.jpg");background-size:cover;background-position:center 42%}
+.hero h1{max-width:850px;font-size:clamp(42px,6.8vw,76px);letter-spacing:-2px}
+.hero h1 span{color:#ff737d}
+.hero-signature{margin-top:28px;padding-top:15px;border-top:1px solid #ffffff45;color:#d7e8f6;font-size:11px;font-weight:900;letter-spacing:1.35px}
+.desktop-tabs{position:sticky;top:0;z-index:25;background:rgba(255,255,255,.96);border-bottom:1px solid var(--line);backdrop-filter:blur(14px);box-shadow:0 6px 20px #0927460a}
+.desktop-tabs .tab-nav{max-width:1120px;margin:auto;display:flex;gap:7px;overflow-x:auto;padding:10px 0}
+.desktop-tabs .tab-button{border:0;cursor:pointer}
+.desktop-tabs .tab-button:hover{background:#dcecf8;color:#164e7a}
+.desktop-tabs .tab-button.active{background:var(--navy);color:#fff}
+.desktop-tabs:has(.tab-button.active){}.desktop-tabs.is-hidden{display:none}
+@media(max-width:760px){.desktop-tabs{display:none}.hero-signature{font-size:9px;line-height:1.5;letter-spacing:.9px;margin-top:22px}.hero{background-position:62% center}}
+
 /* VISUAL CAMPAIGN SYSTEM — editorial, image-led, mobile-first */
 :root{--navy:#092746;--blue:#2878b8;--red:#e63946;--bg:#f2f6fa;--ink:#17283a;--muted:#61758a;--line:#d8e3ed}
 body{background:linear-gradient(180deg,#edf4fa 0,#f7f9fc 38%,#eef4f9 100%);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}
@@ -129,14 +142,13 @@ h2{letter-spacing:-.8px;font-weight:900}h3{font-weight:850;letter-spacing:-.25px
 </head>
 <body>
 <header><div class="wrap topline"><div class="brand">ОДГОВОРНА ПЛАНА<small>ЈАВНИ ПРЕГЛЕД КАМПАЊЕ</small></div><span class="draft">РАДНА ВЕРЗИЈА · НИЈЕ У ГЛАВНОМ МЕНИЈУ</span></div></header>
-<section class="hero"><div class="wrap"><div class="eyebrow">КАМПАЊА · ВЕЛИКА ПЛАНА</div><h1>ПЛАН ЗА ПСЕ:<br><span>од проблема до решења.</span></h1><p id="heroIntro">Јавни извештај о проблему напуштених паса, његовим узроцима, одговорности институција и корацима које предузимамо да бисмо дошли до трајног, хуманог решења.</p><div class="hero-actions"><a class="btn" href="#pet-minuta">Преглед за 5 минута ↓</a><a class="btn alt" href="#sta-smo-uradili">Шта смо предузели</a></div></div></section>
-<!-- Посебна навигација кампање „План за псе“ -->
+<section class="hero"><div class="wrap"><div class="eyebrow">КАМПАЊА · ВЕЛИКА ПЛАНА</div><h1>ЊЕГОВА ТИШИНА<br><span>ЈЕ НАШ ТЕСТ ЉУДСКОСТИ.</span></h1><p id="heroIntro">Пас није проблем, већ често жртва неодговорности. Не решавајмо само последице — отклонимо узроке и изградимо хуман систем који штити и људе и животиње.</p><div class="hero-actions"><a class="btn" href="#pet-minuta">УПОЗНАЈ КАМПАЊУ ↓</a><a class="btn alt" href="#sta-smo-uradili">Шта смо предузели</a></div><div class="hero-signature">ПАС НИЈЕ ПРОБЛЕМ. НАШ ОДНОС ПРЕМА ЊЕМУ ЈЕ ОГЛЕДАЛО ДРУШТВА.</div></div></section>
+<!-- Навигација припада искључиво кампањи „Напуштени пси“ -->
+<nav class="desktop-tabs" aria-label="Мени кампање"><div class="wrap tab-nav">
+ <button type="button" class="tab-button active" data-tab="pregled">⌂ Преглед</button><button type="button" class="tab-button" data-tab="plan">⚖ План</button><button type="button" class="tab-button" data-tab="akcije">✓ Акције</button><button type="button" class="tab-button" data-tab="blogovi">▤ Блогови</button><button type="button" class="tab-button" data-tab="udomljavanje">♥ Удомљавање</button>
+</div></nav>
 <nav class="mobile-tabs" aria-label="Мени кампање">
- <button type="button" data-tab="pregled" class="active"><span>⌂</span>Преглед</button>
- <button type="button" data-tab="plan"><span>⚖</span>План</button>
- <button type="button" data-tab="akcije"><span>✓</span>Акције</button>
- <button type="button" data-tab="blogovi"><span>▤</span>Блогови</button>
- <button type="button" data-tab="udomljavanje"><span>♥</span>Удомљавање</button>
+ <button type="button" data-tab="pregled" class="active"><span>⌂</span>Преглед</button><button type="button" data-tab="plan"><span>⚖</span>План</button><button type="button" data-tab="akcije"><span>✓</span>Акције</button><button type="button" data-tab="blogovi"><span>▤</span>Блогови</button><button type="button" data-tab="udomljavanje"><span>♥</span>Удомљавање</button>
 </nav>
 <!-- Навигација ове кампање налази се у доњем менију; главни улаз припада Одговорној Плани. -->
 <main><div class="wrap">
@@ -207,7 +219,7 @@ function setupTabs(){
  });
  const docs=main.querySelector('#documentsList')?.closest('section');if(docs)document.querySelector('#panel-blogovi').appendChild(docs);
  const end=main.querySelector('.end');if(end)document.querySelector('#panel-pregled').appendChild(end);
- function activate(key){document.querySelector('.hero')?.classList.add('is-hidden');document.querySelectorAll('.tab-panel').forEach(p=>p.classList.toggle('active',p.dataset.panel===key));document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===key));window.scrollTo({top:0,behavior:'smooth'});}
+ function activate(key){document.querySelector('.hero')?.classList.add('is-hidden');document.querySelector('.desktop-tabs')?.classList.add('is-hidden');document.querySelectorAll('.tab-panel').forEach(p=>p.classList.toggle('active',p.dataset.panel===key));document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===key));window.scrollTo({top:0,behavior:'smooth'});}
  document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>activate(b.dataset.tab)));
  document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const target=a.getAttribute('href').slice(1);const owner=Object.entries(groups).find(([,ids])=>ids.includes(target));if(owner){e.preventDefault();activate(owner[0]);setTimeout(()=>{const el=document.getElementById(target);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});},80);}}));
 }
