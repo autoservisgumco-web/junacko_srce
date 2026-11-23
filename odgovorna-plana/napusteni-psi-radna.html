@@ -39,13 +39,13 @@ footer{background:#04182e;color:#b8cee2;padding:22px 0;font-size:12px}
 .tab-button.active{background:var(--navy);color:#fff;box-shadow:0 4px 12px #0b294922}
 .tab-panel{display:none;animation:panelIn .2s ease}.tab-panel.active{display:block}@keyframes panelIn{from{opacity:.35;transform:translateY(5px)}to{opacity:1;transform:none}}
 .tab-panel>.section:first-child{margin-top:8px}.mobile-tabs{display:none}
-@media(max-width:760px){body{padding-bottom:76px}.nav{top:0}.tab-nav{justify-content:space-between}.tab-button{flex:1;padding:12px 8px;font-size:12px}.mobile-tabs{position:fixed;z-index:30;bottom:0;left:0;right:0;display:grid;grid-template-columns:repeat(4,1fr);gap:4px;background:#fff;border-top:1px solid var(--line);padding:8px 8px calc(8px + env(safe-area-inset-bottom));box-shadow:0 -8px 24px #0b294912}.mobile-tabs button{border:0;background:transparent;color:#587087;font:750 11px system-ui;padding:7px 2px;display:flex;flex-direction:column;align-items:center;gap:3px}.mobile-tabs button span{font-size:18px;line-height:1}.mobile-tabs button.active{color:var(--blue)}}
+@media(max-width:760px){body{padding-bottom:82px}.mobile-tabs{position:fixed;z-index:30;bottom:0;left:0;right:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:2px;background:#fff;border-top:1px solid var(--line);padding:7px 5px calc(7px + env(safe-area-inset-bottom));box-shadow:0 -8px 24px #0b294912}.mobile-tabs button{border:0;background:transparent;color:#587087;font:750 10px system-ui;padding:7px 1px;display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0}.mobile-tabs button span{font-size:18px;line-height:1}.mobile-tabs button.active{color:var(--blue)}}
 </style>
 </head>
 <body>
 <header><div class="wrap topline"><div class="brand">ОДГОВОРНА ПЛАНА<small>ЈАВНИ ПРЕГЛЕД КАМПАЊЕ</small></div><span class="draft">РАДНА ВЕРЗИЈА · НИЈЕ У ГЛАВНОМ МЕНИЈУ</span></div></header>
 <section class="hero"><div class="wrap"><div class="eyebrow">КАМПАЊА · ВЕЛИКА ПЛАНА</div><h1>ПЛАН ЗА ПСЕ:<br><span>од проблема до решења.</span></h1><p id="heroIntro">Јавни извештај о проблему напуштених паса, његовим узроцима, одговорности институција и корацима које предузимамо да бисмо дошли до трајног, хуманог решења.</p><div class="hero-actions"><a class="btn" href="#pet-minuta">Преглед за 5 минута ↓</a><a class="btn alt" href="#sta-smo-uradili">Шта смо предузели</a></div></div></section>
-<nav class="nav" aria-label="Главна навигација"><div class="wrap tab-nav"><button class="tab-button active" data-tab="pregled">Преглед</button><button class="tab-button" data-tab="akcije">Акције</button><button class="tab-button" data-tab="blogovi">Блогови</button><button class="tab-button" data-tab="udomljavanje">Удомљавање</button></div></nav>
+<!-- Навигација ове кампање налази се у доњем менију; главни улаз припада Одговорној Плани. -->
 <main><div class="wrap">
 <section class="intro-grid" id="pet-minuta">
 <article class="panel"><div class="kicker">СУШТИНА КАМПАЊЕ</div><h2>Проблем је заједнички. Нека и решење буде заједничко.</h2><p class="lead" id="campaignIntro">Проблем напуштених паса у Великој Плани траје годинама. Реагује се углавном када се појави инцидент, док узроци због којих пси завршавају на улици остају недовољно решени.</p><p id="campaignDescription">Кампањом „План за псе“ тражимо примену већ усвојеног Плана мера, одговорност надлежних и систем који ће истовремено штитити грађане и добробит животиња.</p><a class="btn" href="#problem">САЗНАЈ ВИШЕ ↓</a><div class="callout">Улица је место на којем видимо последице. Одговорност и превенција морају да почну много раније — тамо где се пси држе, размножавају и понекад напуштају.</div></article>
@@ -105,17 +105,17 @@ async function load(){
  }catch(err){console.error('Campaign page data load failed',err);['activityTimeline','actionsList','dogsList','documentsList'].forEach(id=>{if($(id))$(id).innerHTML='<div class="empty">Подаци тренутно нису доступни. Покушајте поново касније.</div>';});}
 }
 function setupTabs(){
- const groups={pregled:['problem','uzroci','odgovornost','stubovi','resenje','zahtevi'],akcije:['sta-smo-uradili','akcije'],blogovi:['blogovi'],udomljavanje:['udomljavanje']};
+ const groups={pregled:['pet-minuta'],plan:['problem','uzroci','odgovornost','stubovi','resenje','zahtevi'],akcije:['sta-smo-uradili','akcije'],blogovi:['blogovi'],udomljavanje:['udomljavanje']};
  const main=document.querySelector('main .wrap');
  Object.entries(groups).forEach(([key,ids])=>{
   const panel=document.createElement('div');panel.className='tab-panel'+(key==='pregled'?' active':'');panel.dataset.panel=key;
-  const first=main.querySelector('#'+ids[0]);first.parentNode.insertBefore(panel,first);
+  const first=main.querySelector('#'+ids[0]);if(first)first.parentNode.insertBefore(panel,first);
   ids.forEach(id=>{const node=main.querySelector('#'+id);if(node)panel.appendChild(node);});
  });
  const docs=main.querySelector('#documentsList')?.closest('section');if(docs)document.querySelector('#panel-blogovi').appendChild(docs);
  const end=main.querySelector('.end');if(end)document.querySelector('#panel-pregled').appendChild(end);
  const mobile=document.createElement('div');mobile.className='mobile-tabs';mobile.setAttribute('aria-label','Брзи мени');
- const items=[['pregled','⌂','Преглед'],['akcije','✓','Акције'],['blogovi','▤','Блогови'],['udomljavanje','♥','Пси']];
+ const items=[['pregled','⌂','Преглед'],['plan','⚖','План'],['akcije','✓','Акције'],['blogovi','▤','Блогови'],['udomljavanje','♥','Удомљавање']];
  mobile.innerHTML=items.map(([key,icon,label])=>'<button type="button" data-tab="'+key+'" class="'+(key==='pregled'?'active':'')+'"><span>'+icon+'</span>'+label+'</button>').join('');document.body.appendChild(mobile);
  function activate(key){document.querySelectorAll('.tab-panel').forEach(p=>p.classList.toggle('active',p.dataset.panel===key));document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===key));window.scrollTo({top:0,behavior:'smooth'});}
  document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>activate(b.dataset.tab)));
