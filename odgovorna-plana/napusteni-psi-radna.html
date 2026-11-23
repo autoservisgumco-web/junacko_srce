@@ -42,6 +42,28 @@ footer{background:#04182e;color:#b8cee2;padding:22px 0;font-size:12px}
 .hero.is-hidden{display:none}
 @media(max-width:760px){body{padding-bottom:82px}.mobile-tabs{position:fixed;z-index:30;bottom:0;left:0;right:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:2px;background:#fff;border-top:1px solid var(--line);padding:7px 5px calc(7px + env(safe-area-inset-bottom));box-shadow:0 -8px 24px #0b294912}.mobile-tabs button{border:0;background:transparent;color:#587087;font:750 10px system-ui;padding:7px 1px;display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0}.mobile-tabs button span{font-size:18px;line-height:1}.mobile-tabs button.active{color:var(--blue)}}
 
+/* THREE VISUAL CHAPTERS: problem / causes / solution */
+.visual-story{margin:42px 0 36px}
+.visual-story-heading{max-width:760px;margin:0 0 20px}
+.visual-story-heading h2{font-size:clamp(28px,4vw,42px);margin:8px 0}
+.visual-story-heading p{color:var(--muted);font-size:16px;max-width:650px}
+.visual-story-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.visual-story-card{position:relative;min-height:430px;overflow:hidden;border-radius:22px;background:#092746;isolation:isolate;box-shadow:0 16px 38px #09274620}
+.visual-story-card .visual-photo{position:absolute;inset:0;z-index:-2;background-size:cover;background-position:center;transition:transform .55s}
+.visual-story-card:hover .visual-photo{transform:scale(1.045)}
+.problem-visual .visual-photo{background-image:url("https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=1000&q=85")}
+.cause-visual .visual-photo{background-image:url("https://images.unsplash.com/photo-1543466835-00a7907e9de1?auto=format&fit=crop&w=1000&q=85")}
+.solution-visual .visual-photo{background-image:url("https://images.unsplash.com/photo-1601758228041-f3b2795255f1?auto=format&fit=crop&w=1000&q=85")}
+.visual-story-card:after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(4,19,35,.04) 10%,rgba(4,19,35,.30) 42%,rgba(4,19,35,.96) 100%)}
+.visual-copy{position:absolute;left:0;right:0;bottom:0;padding:25px;color:#fff}
+.visual-copy>span{display:inline-block;color:#c9e2f6;font-size:10px;font-weight:900;letter-spacing:1.5px;margin-bottom:8px}
+.visual-copy h3{color:#fff;font-size:30px;letter-spacing:.5px;margin:0 0 8px}
+.visual-copy p{color:#e0eaf3;font-size:14px;line-height:1.55;margin:0 0 17px}
+.visual-copy a{display:inline-flex;align-items:center;gap:12px;color:#fff;text-decoration:none;font-size:12px;font-weight:900;border-bottom:1px solid #ffffff80;padding-bottom:5px}
+.visual-copy a b{color:#ff7b84;font-size:17px}
+@media(max-width:760px){.visual-story{margin:26px 0}.visual-story-grid{grid-template-columns:1fr;gap:13px}.visual-story-card{min-height:340px;border-radius:19px}.visual-copy{padding:21px}.visual-copy h3{font-size:27px}}
+@media(min-width:761px) and (max-width:980px){.visual-story-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.solution-visual{grid-column:1/-1;min-height:350px}}
+
 /* CAMPAIGN NAV + HERO MESSAGE */
 .hero{background-image:linear-gradient(100deg,rgba(4,20,38,.94),rgba(5,30,54,.48)),url("https://hmfeizkmpmxcnzhwxgbn.supabase.co/storage/v1/object/public/Plan%20za%20pse/Hero.jpg");background-size:cover;background-position:center 42%}
 .hero h1{max-width:850px;font-size:clamp(42px,6.8vw,76px);letter-spacing:-2px}
@@ -155,6 +177,14 @@ h2{letter-spacing:-.8px;font-weight:900}h3{font-weight:850;letter-spacing:-.25px
 <section class="intro-grid" id="pet-minuta">
 <article class="panel"><div class="kicker">СУШТИНА КАМПАЊЕ</div><h2>Проблем је заједнички. Нека и решење буде заједничко.</h2><p class="lead" id="campaignIntro">Проблем напуштених паса у Великој Плани траје годинама. Реагује се углавном када се појави инцидент, док узроци због којих пси завршавају на улици остају недовољно решени.</p><p id="campaignDescription">Кампањом „План за псе“ тражимо примену већ усвојеног Плана мера, одговорност надлежних и систем који ће истовремено штитити грађане и добробит животиња.</p><a class="btn" href="#problem">САЗНАЈ ВИШЕ ↓</a><div class="callout">Улица је место на којем видимо последице. Одговорност и превенција морају да почну много раније — тамо где се пси држе, размножавају и понекад напуштају.</div></article>
 <aside class="quick"><div class="kicker" style="color:#a8c9e5">ПЕТ МИНУТА · БРЗИ ПРЕГЛЕД</div><h2>Шта треба да знате?</h2><ol><li>Зашто имамо проблем?</li><li>Који су стварни узроци?</li><li>Ко је одговоран?</li><li>Шта институције могу и морају да ураде?</li><li>Шта смо већ предузели?</li><li>Шта захтевамо и како можете да помогнете?</li></ol></aside>
+</section>
+<section class="section visual-story" aria-label="Проблем, узроци и решење">
+ <div class="visual-story-heading"><div class="kicker">ОД ПОСЛЕДИЦЕ ДО РЕШЕЊА</div><h2>Да бисмо решили проблем, морамо да видимо целу слику.</h2><p>Пас на улици је оно што видимо. Узрок је оно што морамо да променимо. Решење је оно што морамо заједно да изградимо.</p></div>
+ <div class="visual-story-grid">
+  <article class="visual-story-card problem-visual"><div class="visual-photo" role="img" aria-label="Пас који сам борави на улици"></div><div class="visual-copy"><span>01 · ПОСЛЕДИЦА</span><h3>ПРОБЛЕМ</h3><p>Пас на улици није настао сам од себе. Он је видљива последица људског поступања и пропуста система.</p><a href="#problem">Погледај проблем <b>↗</b></a></div></article>
+  <article class="visual-story-card cause-visual"><div class="visual-photo" role="img" aria-label="Пас који зависи од одговорности човека"></div><div class="visual-copy"><span>02 · КОРЕН ПРОБЛЕМА</span><h3>УЗРОЦИ</h3><p>Напуштање, неодговорно власништво, неконтролисано размножавање и недовољна контрола.</p><a href="#uzroci">Погледај узроке <b>↗</b></a></div></article>
+  <article class="visual-story-card solution-visual"><div class="visual-photo" role="img" aria-label="Човек брине о псу и пружа му сигурност"></div><div class="visual-copy"><span>03 · ПУТ НАПРЕД</span><h3>РЕШЕЊЕ</h3><p>Превенција, одговорност, стерилизација, хумано збрињавање и удомљавање.</p><a href="#resenje">Погледај решења <b>↗</b></a></div></article>
+ </div>
 </section>
 <section class="section" id="problem"><div class="section-head"><div><div class="kicker">01 · ПРОБЛЕМ</div><h2>Зашто имамо проблем напуштених паса?</h2></div><p>Пси на улици су видљиви део проблема. Али само њихово склањање са једне локације не спречава да се сутра појаве нови.</p></div><article class="panel"><p class="lead" id="problemText">Проблем се понавља када се не спречава напуштање, када нема доследне контроле одговорног власништва и када мере за спречавање неконтролисаног размножавања не дају резултате.</p><p>Последице осећају сви: грађани су забринути за безбедност и уређеност јавних површина, пси су изложени глади, болестима, повредама и опасностима саобраћаја, а јавне службе и буџет општине сносе трошкове поновљеног збрињавања.</p><div class="callout">Пас није дивља животиња која је сама изабрала улицу. Често је последица људске неодговорности и система који није спречио напуштање.</div></article></section>
 <section class="section" id="uzroci"><div class="section-head"><div><div class="kicker">02 · УЗРОЦИ</div><h2>Где проблем заиста почиње?</h2></div><p>Не можемо решити проблем ако се бавимо само псима које видимо на улици, а занемаримо шта се дешава пре тога.</p></div><div class="cards">
