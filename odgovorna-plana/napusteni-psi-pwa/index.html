@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="sr-Cyrl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#102b46">
+<meta name="description" content="Грађанска кампања Напуштени пси — разумевање узрока, јавна одговорност, акције и удомљавање.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="./icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="./styles.css">
+<title>Напуштени пси — грађанска кампања</title>
+</head>
+<body>
+<div class="app-shell">
+<header class="topbar">
+  <a class="brand" href="#pocetna" aria-label="Напуштени пси — почетна"><span class="brand-mark">🐾</span><span>НАПУШТЕНИ ПСИ<small>ГРАЂАНСКА КАМПАЊА</small></span></a>
+  <button class="install-btn" id="installBtn" hidden>Инсталирај</button>
+</header>
+<main id="appMain">
+  <section class="tab-view active" id="view-pocetna" data-view="pocetna">
+    <section class="hero">
+      <img class="hero-photo" src="https://hmfeizkmpmxcnzhwxgbn.supabase.co/storage/v1/object/public/Plan%20za%20pse/Hero.jpg" alt="Пас који чека помоћ">
+      <div class="hero-shade"></div>
+      <div class="hero-copy">
+        <span class="eyebrow">КАМПАЊА ЗА ОДГОВОРНОСТ И ХУМАНОСТ</span>
+        <h1>ЊЕГОВА ТИШИНА ЈЕ НАШ ТЕСТ <em>ЉУДСКОСТИ.</em></h1>
+        <p>Пас није проблем. Он је често жртва неодговорности. Не решавајмо само последице — уклонимо узроке.</p>
+        <button class="primary-btn" data-go="problemi">УПОЗНАЈ ПРОБЛЕМ <span>→</span></button>
+      </div>
+    </section>
+    <section class="intro-block">
+      <div class="section-kicker">ОД ЕМОЦИЈЕ ДО ПРОМЕНЕ</div>
+      <h2>Празне улице почињу одговорношћу.</h2>
+      <p>Проблем напуштених паса не решава се само њиховим уклањањем са улице. Трајно решење почиње спречавањем напуштања, одговорним власништвом, хуманим збрињавањем и контролом рада институција.</p>
+    </section>
+    <section class="four-pillars">
+      <article class="pillar-card"><span>01</span><div><b>Спречити напуштање</b><small>Уклонити узрок, не само последицу.</small></div></article>
+      <article class="pillar-card"><span>02</span><div><b>Одговорно власништво</b><small>Обележавање, надзор и брига о псу.</small></div></article>
+      <article class="pillar-card"><span>03</span><div><b>Хумано збрињавање</b><small>Нега, стерилизација и удомљавање.</small></div></article>
+      <article class="pillar-card"><span>04</span><div><b>Јавна одговорност</b><small>План, буџет, уговори и проверљиви резултати.</small></div></article>
+    </section>
+    <section class="plan-banner">
+      <div class="plan-year">2015.</div><div><span>ПОСТОЈИ ПОЛАЗНИ ДОКУМЕНТ</span><h3>План мера за контролу популације паса и мачака</h3><p>Не тражимо нова обећања. Тражимо спровођење Плана мера и јавно полагање рачуна о резултатима.</p></div>
+      <button class="text-btn" data-open-problem="plan">Погледај захтеве →</button>
+    </section>
+    <section class="home-next">
+      <div><span class="section-kicker">СВАКО МОЖЕ ДА ДОПРИНЕСЕ</span><h2>Промена не почиње негде далеко. Почиње нашим поступцима.</h2></div>
+      <div class="next-actions"><button data-go="akcije">Погледај акције</button><button data-go="udomljavanje">Упознај псе</button></div>
+    </section>
+  </section>
+
+  <section class="tab-view" id="view-problemi" data-view="problemi">
+    <div class="page-heading"><span class="section-kicker">РАЗУМЕВАЊЕ ПРОБЛЕМА</span><h1>Проблем није настао на улици.</h1><p>Да бисмо променили исход, морамо да разумемо узроке и утврдимо ко је за шта одговоран.</p></div>
+    <div class="filter-row" id="problemFilters">
+      <button class="filter-chip active" data-filter="sve">Све теме</button><button class="filter-chip" data-filter="uzroci">Узроци</button><button class="filter-chip" data-filter="lokalno">Локални проблеми</button><button class="filter-chip" data-filter="odgovornost">Одговорност</button><button class="filter-chip" data-filter="propisi">Прописи</button><button class="filter-chip" data-filter="blogovi">Блогови</button>
+    </div>
+    <div class="content-grid" id="problemCards">
+      <button class="content-card" data-problem="uzrok"><span class="card-tag">УЗРОЦИ</span><h3>Зашто пси завршавају на улици?</h3><p>Напуштање, неконтролисано размножавање и неодговорно власништво.</p><span class="card-link">Истражи узроке →</span></button>
+      <button class="content-card" data-problem="prihvatiliste"><span class="card-tag">ЛОКАЛНИ ПРОБЛЕМ</span><h3>Недостатак одговарајућег прихватилишта</h3><p>Зашто само уклањање паса са улице није трајно решење?</p><span class="card-link">Отвори анализу →</span></button>
+      <button class="content-card" data-problem="odvozenje"><span class="card-tag">ТРАНСПАРЕНТНОСТ</span><h3>Одвођење паса и недостатак информација</h3><p>Где се пси одвозе, ко поступа и где се објављује евиденција?</p><span class="card-link">Отвори тему →</span></button>
+      <button class="content-card" data-problem="vlasnistvo"><span class="card-tag">ОДГОВОРНОСТ</span><h3>Неодговорно власништво</h3><p>Пас није дивља животиња — нечија је обавеза и одговорност.</p><span class="card-link">Сазнај више →</span></button>
+      <button class="content-card" data-problem="institucije"><span class="card-tag">ИНСТИТУЦИЈЕ</span><h3>Ко је надлежан и шта мора да уради?</h3><p>Општина, комуналне службе, ветеринарске организације и инспекција.</p><span class="card-link">Погледај одговорности →</span></button>
+      <button class="content-card" data-problem="plan"><span class="card-tag">ПРОПИСИ · 2015.</span><h3>План мера који тражимо да се спроведе</h3><p>Постојећи документ мора да постане мерљив систем поступања.</p><span class="card-link">Погледај захтеве →</span></button>
+    </div>
+    <section class="blog-section"><div class="section-kicker">ТЕКСТОВИ И АНАЛИЗЕ</div><h2>Блог кампање</h2><div id="blogCards" class="content-grid"><p class="loading">Учитавање објава…</p></div></section>
+  </section>
+
+  <section class="tab-view" id="view-akcije" data-view="akcije">
+    <div class="page-heading"><span class="section-kicker">ГРАЂАНСКО УЧЕШЋЕ</span><h1>Од речи до конкретног деловања.</h1><p>Прати шта је покренуто, шта је у току и шта је завршено. Свака акција мора да има циљ и проверљив исход.</p></div>
+    <div class="filter-row" id="actionFilters"><button class="filter-chip active" data-status="all">Све</button><button class="filter-chip" data-status="active">Активне</button><button class="filter-chip" data-status="planned">Планиране</button><button class="filter-chip" data-status="done">Завршене</button></div>
+    <div id="actionCards" class="content-grid"><p class="loading">Учитавање акција…</p></div>
+    <section class="participate-panel"><span class="section-kicker">ТВОЈ ДОПРИНОС ЈЕ ВАЖАН</span><h2>Не мораш да урадиш све. Довољно је да урадиш свој део.</h2><div class="participate-grid"><div>✍️<b>Потпиши</b><small>Подржи конкретан захтев.</small></div><div>📣<b>Подели</b><small>Прошири проверене информације.</small></div><div>🤝<b>Подржи</b><small>Помози знањем, временом или ресурсима.</small></div><div>📍<b>Пријави</b><small>Укажи на проблем и приложи доказе.</small></div></div></section>
+  </section>
+
+  <section class="tab-view" id="view-udomljavanje" data-view="udomljavanje">
+    <div class="page-heading"><span class="section-kicker">ОД УЛИЦЕ ДО ПОРОДИЦЕ</span><h1>Не тражи савршеног пса. Упознај свог.</h1><p>Иза сваког профила је живо биће које заслужује сигурност, бригу и дом.</p></div>
+    <div class="adoption-note">🐾 <div><b>Удомљавање је део системског решења.</b><small>Приказујемо само псе који су јавно означени као доступни за удомљавање.</small></div></div>
+    <div id="dogCards" class="dog-grid"><p class="loading">Учитавање паса…</p></div>
+  </section>
+</main>
+<nav class="bottom-nav" aria-label="Главна навигација">
+  <button class="nav-item active" data-tab="pocetna"><span>⌂</span><small>Почетна</small></button>
+  <button class="nav-item" data-tab="problemi"><span>⌕</span><small>Проблеми</small></button>
+  <button class="nav-item" data-tab="akcije"><span>↗</span><small>Акције</small></button>
+  <button class="nav-item" data-tab="udomljavanje"><span>♡</span><small>Удомљавање</small></button>
+</nav>
+</div>
+<div class="detail-backdrop" id="detailBackdrop" hidden>
+  <section class="detail-sheet" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
+    <div class="sheet-handle"></div><button class="close-detail" id="closeDetail" aria-label="Затвори детаљ">×</button>
+    <div class="detail-scroll"><div class="detail-breadcrumb"><button id="detailBack">← Назад на проблеме</button><span id="detailCategory">АНАЛИЗА</span></div><div id="detailBody"></div></div>
+  </section>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="./app.js"></script>
+</body>
+</html>
