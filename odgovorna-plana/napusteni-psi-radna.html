@@ -78,13 +78,12 @@ const date=s=>s?new Date(s+'T00:00:00').toLocaleDateString('sr-RS',{day:'numeric
 const status=s=>s==='completed'?'<span class="pill done">Евидентирано као завршено</span>':s==='planned'?'<span class="pill planned">Планирано</span>':s==='active'?'<span class="pill">У току</span>':'<span class="pill">Статус није наведен</span>';
 async function load(){
  try{
- const [c,a,g,acts,posts,docs,dogs]=await Promise.all([
+ const [c,a,g,acts,posts,dogs]=await Promise.all([
  db.from('campaigns').select('title,description,intro_text,problem_text,goal_text,plan_text,hero_image').eq('id',campaignId).maybeSingle(),
  db.from('campaign_activities').select('title,description,status,activity_date,order_number').eq('campaign_id',campaignId).eq('is_published',true).order('order_number'),
  db.from('campaign_goals').select('title,description,order_number,is_active').eq('campaign_id',campaignId).eq('is_active',true).order('order_number'),
  db.from('actions').select('title,summary,description,status,action_type,slug,is_published').eq('campaign_id',campaignId).eq('is_published',true).order('created_at'),
  db.from('blog_posts').select('title,excerpt,slug,published_at,status').eq('campaign_id',campaignId).eq('status','published').order('published_at',{ascending:false}),
- db.from('iojz_documents').select('title,file_url,document_date,document_type').eq('is_public',true).order('document_date',{ascending:false}),
  db.from('animals').select('name,age_text,location_text,short_description,main_image_url,status,visibility,is_published,species').eq('visibility','public').eq('is_published',true).eq('status','available').eq('species','пас').order('featured',{ascending:false}).limit(6)
  ]);
  if(c.data){$('heroIntro').textContent=c.data.intro_text||c.data.description||$('heroIntro').textContent;$('campaignDescription').textContent=c.data.description||c.data.goal||$('campaignDescription').textContent;$('problemText').textContent=c.data.problem_text||$('problemText').textContent;if(c.data.hero_image)document.querySelector('.hero').style.backgroundImage='linear-gradient(100deg,rgba(5,26,49,.97),rgba(8,43,76,.85)),url("'+c.data.hero_image+'")';}
@@ -92,7 +91,7 @@ async function load(){
  if(a.data?.length){$('activityTimeline').innerHTML=a.data.map(x=>'<article class="event"><div class="meta">'+status(x.status)+' · '+esc(date(x.activity_date))+'</div><h3>'+esc(x.title)+'</h3><p>'+esc(x.description)+'</p></article>').join('');}else{$('activityTimeline').innerHTML='<div class="empty">Још нема јавно објављених активности у евиденцији.</div>';}
  if(acts.data?.length){$('actionsList').innerHTML=acts.data.map(x=>'<article class="dynamic-card">'+status(x.status)+'<h3>'+esc(x.title)+'</h3><p>'+esc(x.summary||x.description||'Детаљи акције биће објављени.')+'</p></article>').join('');}else{$('actionsList').innerHTML='<div class="empty">Тренутно нема јавно објављених акција повезаних са кампањом.</div>';}
  if(dogs.data?.length){$('dogsList').innerHTML=dogs.data.map(x=>'<article class="dog-card">'+(x.main_image_url?'<img src="'+esc(x.main_image_url)+'" alt="'+esc(x.name)+'">':'<div style="height:180px;background:#eaf2fa;display:grid;place-items:center;font-size:42px">🐾</div>')+'<div><h3>'+esc(x.name)+'</h3><p>'+esc(x.age_text||'')+' · '+esc(x.location_text||'')+'</p><p>'+esc(x.short_description||'')+'</p></div></article>').join('');}else{$('dogsList').innerHTML='<div class="empty">Тренутно нема јавно доступних паса за приказ.</div>';}
- if(docs.data?.length){$('documentsList').innerHTML=docs.data.map(x=>'<article class="doc"><div><b>'+esc(x.title)+'</b><small>'+esc(date(x.document_date))+'</small></div><a href="'+esc(x.file_url)+'" target="_blank" rel="noopener">Отвори документ ↗</a></article>').join('');}else{$('documentsList').innerHTML='<div class="empty">Још нема јавно објављених докумената повезаних са овом евиденцијом.</div>';}
+ $('documentsList').innerHTML='<div class="empty">Документи ће бити приказани када буду повезани са конкретним захтевима ове кампање. Не приказујемо документа из других тема.</div>';
  if(posts.data?.length){$('blogList').innerHTML='<h3 style="margin-top:22px">Извештаји и блог</h3>'+posts.data.map(x=>'<article class="doc"><div><b>'+esc(x.title)+'</b><small>'+esc(x.excerpt||'')+'</small></div><a href="/blog/'+encodeURIComponent(x.slug)+'.html">Прочитај ↗</a></article>').join('');}
  }catch(err){console.error('Campaign page data load failed',err);['activityTimeline','actionsList','dogsList','documentsList'].forEach(id=>{if($(id))$(id).innerHTML='<div class="empty">Подаци тренутно нису доступни. Покушајте поново касније.</div>';});}
 }
