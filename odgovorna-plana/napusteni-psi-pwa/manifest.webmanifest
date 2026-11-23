@@ -1,0 +1,16 @@
+{
+  "id": "./",
+  "name": "Напуштени пси — грађанска кампања",
+  "short_name": "Напуштени пси",
+  "description": "Упознај проблем. Прати акције. Помози псима да пронађу дом.",
+  "lang": "sr-Cyrl",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f4f7fa",
+  "theme_color": "#102b46",
+  "icons": [
+    {"src":"./icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+  ]
+}
