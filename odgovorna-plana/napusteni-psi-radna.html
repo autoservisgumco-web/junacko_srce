@@ -219,7 +219,7 @@ function setupTabs(){
  });
  const docs=main.querySelector('#documentsList')?.closest('section');if(docs)document.querySelector('#panel-blogovi').appendChild(docs);
  const end=main.querySelector('.end');if(end)document.querySelector('#panel-pregled').appendChild(end);
- function activate(key){document.querySelector('.hero')?.classList.add('is-hidden');document.querySelector('.desktop-tabs')?.classList.add('is-hidden');document.querySelectorAll('.tab-panel').forEach(p=>p.classList.toggle('active',p.dataset.panel===key));document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===key));window.scrollTo({top:0,behavior:'smooth'});}
+ function activate(key){document.querySelector('.hero')?.classList.add('is-hidden');document.querySelectorAll('.tab-panel').forEach(p=>p.classList.toggle('active',p.dataset.panel===key));document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===key));window.scrollTo({top:0,behavior:'smooth'});}
  document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>activate(b.dataset.tab)));
  document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const target=a.getAttribute('href').slice(1);const owner=Object.entries(groups).find(([,ids])=>ids.includes(target));if(owner){e.preventDefault();activate(owner[0]);setTimeout(()=>{const el=document.getElementById(target);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});},80);}}));
 }
