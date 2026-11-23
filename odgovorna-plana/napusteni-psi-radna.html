@@ -160,6 +160,37 @@ h2{letter-spacing:-.8px;font-weight:900}h3{font-weight:850;letter-spacing:-.25px
  *,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}
 }
 
+
+/* CAMPAIGN UX: specific local issues + central 2015 action plan */
+.issue-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.issue-card{position:relative;overflow:hidden;min-height:270px;padding:25px;border-radius:20px;background:#fff;border:1px solid var(--line);box-shadow:0 12px 32px #123a5b0c}
+.issue-card:before{content:"";position:absolute;right:-45px;top:-55px;width:170px;height:170px;border-radius:50%;background:#eaf3fb}
+.issue-card>*{position:relative;z-index:1}
+.issue-icon{width:48px;height:48px;display:grid;place-items:center;border-radius:15px;background:#e5f1fa;color:#1f659d;font-size:27px;font-weight:900;margin-bottom:18px}
+.issue-card>span{font-size:10px;letter-spacing:1.4px;font-weight:900;color:#2878b8}
+.issue-card h3{font-size:23px;max-width:420px;margin:8px 0 10px}
+.issue-card p{font-size:14px;color:#5c7084;line-height:1.65;margin:0 0 18px}
+.issue-card a{display:inline-flex;gap:10px;align-items:center;color:#1c639b;font-size:12px;font-weight:900;text-decoration:none;border-bottom:1px solid #a9c8df;padding-bottom:5px}
+.issue-card a b{color:var(--red);font-size:17px}
+.issue-shelter{border-top:4px solid #2878b8}.issue-transport{border-top:4px solid #e39a35}.issue-transparency{border-top:4px solid #6d7fa0}.issue-humane{border-top:4px solid #3d9b70}
+.issue-note{margin-top:15px;padding:16px 19px;background:#fff7e8;border:1px solid #f0d9a8;border-radius:13px;color:#74531e;font-size:13px;line-height:1.6}
+.plan-feature{position:relative;overflow:hidden;padding:clamp(24px,4vw,42px);border-radius:24px;background:linear-gradient(125deg,#071f39 0%,#0d3d66 58%,#185b88 100%);color:#e8f2fa;box-shadow:0 20px 48px #0927462b}
+.plan-feature:after{content:"2015";position:absolute;right:-12px;bottom:-75px;font-size:clamp(130px,24vw,280px);font-weight:950;line-height:1;color:#ffffff08;pointer-events:none}
+.plan-top{position:relative;z-index:1;display:flex;justify-content:space-between;align-items:center;gap:15px;margin-bottom:24px}
+.plan-top .kicker{color:#a8c9e5}.plan-year{display:inline-block;margin-top:9px;padding:5px 12px;border:1px solid #ffffff55;border-radius:99px;color:#fff;font-size:13px;font-weight:900;letter-spacing:2px}
+.plan-mark{padding:8px 13px;border-radius:99px;background:#e63946;color:#fff;font-size:11px;font-weight:950;letter-spacing:1.3px}
+.plan-content{position:relative;z-index:1;display:grid;grid-template-columns:1.08fr .92fr;gap:30px;align-items:start}
+.plan-feature h2{color:#fff;font-size:clamp(29px,4vw,44px);line-height:1.08;max-width:620px;margin:0 0 15px}
+.plan-lead{color:#d4e4f1;font-size:17px;line-height:1.65;max-width:680px}
+.plan-demand{margin-top:22px;padding:18px 20px;border-left:5px solid #ff6b75;background:#ffffff12;border-radius:0 14px 14px 0;color:#dceaf5;font-size:13px;line-height:1.8;letter-spacing:.7px}
+.plan-demand strong{color:#fff;font-size:clamp(16px,2vw,21px)}
+.plan-checklist{padding:23px;border:1px solid #ffffff30;border-radius:18px;background:#ffffff0d}
+.plan-checklist h3{color:#fff;font-size:20px;margin:0 0 13px}
+.plan-checklist ul{margin:0;padding-left:20px;color:#e1edf6}
+.plan-checklist li{padding:6px 0;font-size:14px;line-height:1.55}
+.plan-footnote{position:relative;z-index:1;margin:22px 0 0;padding-top:14px;border-top:1px solid #ffffff30;color:#bcd1e2;font-size:11px;line-height:1.6}
+@media(max-width:760px){.issue-grid{grid-template-columns:1fr;gap:12px}.issue-card{min-height:0;padding:21px}.issue-card h3{font-size:21px}.plan-content{grid-template-columns:1fr;gap:18px}.plan-top{align-items:flex-start}.plan-mark{font-size:9px}.plan-checklist{padding:19px}.plan-feature{padding:23px 20px}}
+
 </style>
 </head>
 <body>
@@ -187,6 +218,18 @@ h2{letter-spacing:-.8px;font-weight:900}h3{font-weight:850;letter-spacing:-.25px
  </div>
 </section>
 <section class="section" id="problem"><div class="section-head"><div><div class="kicker">01 · ПРОБЛЕМ</div><h2>Зашто имамо проблем напуштених паса?</h2></div><p>Пси на улици су видљиви део проблема. Али само њихово склањање са једне локације не спречава да се сутра појаве нови.</p></div><article class="panel"><p class="lead" id="problemText">Проблем се понавља када се не спречава напуштање, када нема доследне контроле одговорног власништва и када мере за спречавање неконтролисаног размножавања не дају резултате.</p><p>Последице осећају сви: грађани су забринути за безбедност и уређеност јавних површина, пси су изложени глади, болестима, повредама и опасностима саобраћаја, а јавне службе и буџет општине сносе трошкове поновљеног збрињавања.</p><div class="callout">Пас није дивља животиња која је сама изабрала улицу. Често је последица људске неодговорности и система који није спречио напуштање.</div></article></section>
+
+<section class="section" id="lokalni-problemi">
+ <div class="section-head"><div><div class="kicker">ПОСЕБНЕ ТЕМЕ КАМПАЊЕ</div><h2>Проблем није само пас на улици.</h2></div><p>Пратимо и питања збрињавања, прихвата, транспорта и поступања са псима. За свако тражимо чињенице, документацију и одговорност.</p></div>
+ <div class="issue-grid">
+  <article class="issue-card issue-shelter"><div class="issue-icon">⌂</div><span>01 · КАПАЦИТЕТИ</span><h3>Недостатак одговарајућег прихватилишта</h3><p>Где се пси смештају када буду уклоњени са улице? Да ли постоји одговарајући, законит и хуман простор за њихов прихват, лечење и привремено збрињавање?</p><a href="#zahtevi">Захтевамо јасне одговоре <b>↗</b></a></article>
+  <article class="issue-card issue-transport"><div class="issue-icon">⇢</div><span>02 · ТРАНСПОРТ</span><h3>Одвођење паса у непознатом правцу</h3><p>Када се пас преузме са улице, мора да постоји траг: ко га је преузео, када, по чијем налогу, где је одведен и коме је предат.</p><a href="#zahtevi">Тражимо евиденцију сваког преузимања <b>↗</b></a></article>
+  <article class="issue-card issue-transparency"><div class="issue-icon">⌕</div><span>03 · ЈАВНОСТ</span><h3>Непрозирност поступања</h3><p>Грађани имају право да знају колико је паса преузето, где су смештени, колико је средстава потрошено и какви су исходи поступања.</p><a href="#zahtevi">Тражимо јавне податке <b>↗</b></a></article>
+  <article class="issue-card issue-humane"><div class="issue-icon">♡</div><span>04 · ДОБРОБИТ ЖИВОТИЊА</span><h3>Хуманост током хватања и збрињавања</h3><p>Хватање, утовар, транспорт и смештај морају да буду обављени стручно и хумано, уз ветеринарску заштиту и поштовање прописа.</p><a href="#resenje">Погледај принципе решења <b>↗</b></a></article>
+ </div>
+ <div class="issue-note"><b>Важно:</b> Ово су питања и проблеми које кампања истражује и за које тражи проверљиве одговоре. Конкретне неправилности објављујемо уз документацију и проверене чињенице.</div>
+</section>
+
 <section class="section" id="uzroci"><div class="section-head"><div><div class="kicker">02 · УЗРОЦИ</div><h2>Где проблем заиста почиње?</h2></div><p>Не можемо решити проблем ако се бавимо само псима које видимо на улици, а занемаримо шта се дешава пре тога.</p></div><div class="cards">
 <article class="card"><div class="num">1</div><h3>Неодговорно власништво</h3><p>Пси који нису уредно обележени и евидентирани теже се повезују са власником. Одговорност не престаје када пас изађе из дворишта.</p></article>
 <article class="card"><div class="num">2</div><h3>Неконтролисано размножавање</h3><p>Легла без плана и одговорности стварају нове животиње за које често није обезбеђен трајан дом.</p></article>
@@ -194,6 +237,14 @@ h2{letter-spacing:-.8px;font-weight:900}h3{font-weight:850;letter-spacing:-.25px
 <div class="callout">Контрола не сме да се заврши на улици. Мора да почне у двориштима: идентификацијом паса, одговорношћу власника и спречавањем нових легала и напуштања.</div></section>
 <section class="section duo" id="odgovornost"><article class="feature"><div class="kicker">03 · ОДГОВОРНОСТ</div><h2>Ко је одговоран за решавање проблема?</h2><p>Одговорност је подељена, али не сме да буде пребацивана са једних на друге.</p><ul><li><b>Власници паса:</b> одговорно држање, обележавање и брига о животињи, спречавање напуштања и неконтролисаног размножавања.</li><li><b>Општина:</b> организовање и финансирање локалног система и спровођење усвојеног Плана мера.</li><li><b>Надлежне службе и инспекција:</b> поступање у оквиру својих овлашћења, контрола и надзор.</li><li><b>Ветеринарске службе:</b> ветеринарски послови, идентификација и евиденције у оквиру својих законских и уговорних обавеза.</li><li><b>Грађани:</b> пријављивање, одговорно поступање, подршка удомљавању и учешће у решењима.</li></ul></article>
 <article class="feature dark"><div class="kicker" style="color:#a8c9e5">ПИТАЊА ЗА ЈАВНОСТ И ИНСТИТУЦИЈЕ</div><h2>Шта институције могу да ураде?</h2><ul><li>Спроведу постојећи План мера и објаве шта је реализовано.</li><li>Организују систематску контролу и евиденцију власничких паса.</li><li>Прате и спречавају неконтролисано размножавање и напуштање.</li><li>Обезбеде хумано преузимање, ветеринарску негу и збрињавање напуштених паса.</li><li>Развију програм стерилизације и удомљавања.</li><li>Објављују трошкове, уговоре, бројеве и мерљиве резултате.</li></ul></article></section>
+
+<section class="section plan-feature" id="plan-mere">
+ <div class="plan-top"><div><div class="kicker">ЦЕНТРАЛНИ ДОКУМЕНТ КАМПАЊЕ</div><span class="plan-year">2015</span></div><div class="plan-mark">ПЛАН МЕРА</div></div>
+ <div class="plan-content"><div><h2>План мера за контролу популације паса и мачака</h2><p class="plan-lead">Општина је још 2015. године имала план мера. Наш кључни захтев је да се тај план доследно спроведе и да се јавности покаже шта је урађено, шта није и зашто.</p><div class="plan-demand">НЕ ТРАЖИМО НОВА ОБЕЋАЊА.<br><strong>ТРАЖИМО СПРОВОЂЕЊЕ ПЛАНА МЕРА ИЗ 2015. ГОДИНЕ.</strong></div></div>
+ <div class="plan-checklist"><h3>Шта тражимо од општине?</h3><ul><li>Да објави усвојени План мера и све пратеће одлуке.</li><li>Да прикаже које су мере спроведене од 2015. до данас.</li><li>Да наведе шта није спроведено и разлоге за то.</li><li>Да објави одговорне службе, буџетска средства и резултате.</li><li>Да утврди рокове и начин јавног праћења преосталих обавеза.</li></ul></div></div>
+ <p class="plan-footnote">План мера је полазни документ кампање. Појединачне законске обавезе и садржај самог плана приказиваћемо према тексту прописа и оригиналном документу, без приписивања мера које у њима нису наведене.</p>
+</section>
+
 <section class="section" id="stubovi"><div class="section-head"><div><div class="kicker">04 · ЧЕТИРИ СТУБА ОДГОВОРНОСТИ</div><h2>Свако има свој део одговорности.</h2></div><p>Систем функционише само када се зна ко шта мора да уради. Одговорност не сме да се пребацује са једних на друге.</p></div><div class="cards"><article class="card"><div class="num">1</div><h3>Грађани и власници паса</h3><p>Одговорно држање и надзор над псима, обележавање и евиденција у складу са прописима, спречавање напуштања и неконтролисаног размножавања. Грађани пријављују проблеме и учествују у хуманим решењима.</p></article><article class="card"><div class="num">2</div><h3>Општина</h3><p>Спровођење усвојеног Плана мера, организовање и финансирање локалног система, јасно одређивање надлежности и објављивање трошкова, активности и резултата.</p></article><article class="card"><div class="num">3</div><h3>Јавне комуналне службе</h3><p>Поступање у оквиру поверених послова: хумано преузимање и транспорт, евидентирање и сарадња са надлежним органима и ветеринарским службама. Конкретне обавезе зависе од локалних одлука и уговора.</p></article><article class="card"><div class="num">4</div><h3>Ветеринарске службе и инспекција</h3><p>Ветеринарске организације обављају послове идентификације, евиденције и здравствене заштите у оквиру својих овлашћења. Инспекција врши надзор и предузима мере у оквиру законом утврђених надлежности.</p></article></div><div class="callout">Четири стуба. Један систем. Ниједан актер не може сам да реши проблем, али свако мора да уради свој део.</div></section>
 <section class="section" id="resenje"><div class="section-head"><div><div class="kicker">05 · ЦИЉЕВИ КАМПАЊЕ</div><h2>Шта желимо да променимо?</h2></div><p>Постојећи План мера је полазна тачка. Тражимо његово доследно спровођење, јасне одговорности и јавно проверљиве резултате.</p></div><div class="callout">Главни правац: померамо фокус са последица на узроке — спречавамо да пси уопште заврше на улици.</div><div class="steps" id="goalsList"><article class="step"><b>ЦИЉ 01</b><h3>Примена Плана мера</h3><p>Јасне обавезе, рокови и праћење спровођења.</p></article><article class="step"><b>ЦИЉ 02</b><h3>Спречавање напуштања</h3><p>Одговорно власништво, идентификација и контрола.</p></article><article class="step"><b>ЦИЉ 03</b><h3>Системска стерилизација</h3><p>Планске мере против неконтролисаног размножавања.</p></article><article class="step"><b>ЦИЉ 04</b><h3>Функционалан систем</h3><p>Сарадња институција и јавни подаци.</p></article><article class="step"><b>ЦИЉ 05</b><h3>Хумано и трајно решење</h3><p>Заштита грађана и добробити животиња.</p></article></div><p class="source-note">Циљеви се учитавају из евиденције кампање. Приказ не представља потврду да су циљне вредности већ остварене.</p></section>
 <section class="section panel" id="sta-smo-uradili"><div class="kicker">06 · ЈАВНИ ИЗВЕШТАЈ</div><h2>Шта смо до сада предузели?</h2><p class="lead">Не представљамо најаве као резултате. Овде раздвајамо завршене активности од планираних корака и објављујемо само оно што је евидентирано.</p><div class="timeline" id="activityTimeline"><div class="loading">Учитавање активности из базе…</div></div></section>
@@ -240,7 +291,7 @@ async function load(){
  }catch(err){console.error('Campaign page data load failed',err);['activityTimeline','actionsList','dogsList','documentsList'].forEach(id=>{if($(id))$(id).innerHTML='<div class="empty">Подаци тренутно нису доступни. Покушајте поново касније.</div>';});}
 }
 function setupTabs(){
- const groups={pregled:['pet-minuta'],plan:['problem','uzroci','odgovornost','stubovi','resenje','zahtevi'],akcije:['sta-smo-uradili','akcije'],blogovi:['blogovi'],udomljavanje:['udomljavanje']};
+ const groups={pregled:['pet-minuta'],plan:['problem','lokalni-problemi','uzroci','odgovornost','plan-mere','stubovi','resenje','zahtevi'],akcije:['sta-smo-uradili','akcije'],blogovi:['blogovi'],udomljavanje:['udomljavanje']};
  const main=document.querySelector('main .wrap');
  Object.entries(groups).forEach(([key,ids])=>{
   const panel=document.createElement('div');panel.id='panel-'+key;panel.className='tab-panel'+(key==='pregled'?' active':'');panel.dataset.panel=key;
