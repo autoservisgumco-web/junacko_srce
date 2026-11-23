@@ -45,6 +45,14 @@ footer{background:#04182e;color:#b8cee2;padding:22px 0;font-size:12px}
 <body>
 <header><div class="wrap topline"><div class="brand">ОДГОВОРНА ПЛАНА<small>ЈАВНИ ПРЕГЛЕД КАМПАЊЕ</small></div><span class="draft">РАДНА ВЕРЗИЈА · НИЈЕ У ГЛАВНОМ МЕНИЈУ</span></div></header>
 <section class="hero"><div class="wrap"><div class="eyebrow">КАМПАЊА · ВЕЛИКА ПЛАНА</div><h1>ПЛАН ЗА ПСЕ:<br><span>од проблема до решења.</span></h1><p id="heroIntro">Јавни извештај о проблему напуштених паса, његовим узроцима, одговорности институција и корацима које предузимамо да бисмо дошли до трајног, хуманог решења.</p><div class="hero-actions"><a class="btn" href="#pet-minuta">Преглед за 5 минута ↓</a><a class="btn alt" href="#sta-smo-uradili">Шта смо предузели</a></div></div></section>
+<!-- Посебна навигација кампање „План за псе“ -->
+<nav class="mobile-tabs" aria-label="Мени кампање">
+ <button type="button" data-tab="pregled" class="active"><span>⌂</span>Преглед</button>
+ <button type="button" data-tab="plan"><span>⚖</span>План</button>
+ <button type="button" data-tab="akcije"><span>✓</span>Акције</button>
+ <button type="button" data-tab="blogovi"><span>▤</span>Блогови</button>
+ <button type="button" data-tab="udomljavanje"><span>♥</span>Удомљавање</button>
+</nav>
 <!-- Навигација ове кампање налази се у доњем менију; главни улаз припада Одговорној Плани. -->
 <main><div class="wrap">
 <section class="intro-grid" id="pet-minuta">
@@ -114,9 +122,6 @@ function setupTabs(){
  });
  const docs=main.querySelector('#documentsList')?.closest('section');if(docs)document.querySelector('#panel-blogovi').appendChild(docs);
  const end=main.querySelector('.end');if(end)document.querySelector('#panel-pregled').appendChild(end);
- const mobile=document.createElement('div');mobile.className='mobile-tabs';mobile.setAttribute('aria-label','Брзи мени');
- const items=[['pregled','⌂','Преглед'],['plan','⚖','План'],['akcije','✓','Акције'],['blogovi','▤','Блогови'],['udomljavanje','♥','Удомљавање']];
- mobile.innerHTML=items.map(([key,icon,label])=>'<button type="button" data-tab="'+key+'" class="'+(key==='pregled'?'active':'')+'"><span>'+icon+'</span>'+label+'</button>').join('');document.body.appendChild(mobile);
  function activate(key){document.querySelectorAll('.tab-panel').forEach(p=>p.classList.toggle('active',p.dataset.panel===key));document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('active',b.dataset.tab===key));window.scrollTo({top:0,behavior:'smooth'});}
  document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>activate(b.dataset.tab)));
  document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const target=a.getAttribute('href').slice(1);const owner=Object.entries(groups).find(([,ids])=>ids.includes(target));if(owner){e.preventDefault();activate(owner[0]);setTimeout(()=>{const el=document.getElementById(target);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});},80);}}));
