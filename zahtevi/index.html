@@ -4,102 +4,54 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#102b4e">
-<title>Сви захтеви кампање — Напуштени пси | Одговорна Плана</title>
-<meta name="description" content="Јавни списак захтева кампање Напуштени пси у општини Велика Плана.">
+<title>Регистар захтева за информације од јавног значаја | Одговорна Плана</title>
+<meta name="description" content="Јавна евиденција захтева за приступ информацијама од јавног значаја које су упућене институцијама у вези са проблемом напуштених паса у општини Велика Плана.">
 <link rel="canonical" href="https://odgovornaplana.org/zahtevi/">
-<meta property="og:title" content="Сви захтеви кампање — Напуштени пси">
-<meta property="og:description" content="Захтеви за одговоран систем, безбедност грађана и хумано поступање са животињама.">
+<meta property="og:title" content="Регистар захтева за информације од јавног значаја">
+<meta property="og:description" content="Пратимо шта смо питали институције, када су захтеви послати и какве смо одговоре добили.">
 <meta property="og:url" content="https://odgovornaplana.org/zahtevi/">
 <style>
-:root{--bg:#f5f7fa;--ink:#222831;--muted:#657386;--blue:#2a6ba3;--red:#e63946;--line:#dbe3ec;--soft:#eaf2f8}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 system-ui,-apple-system,"Segoe UI",sans-serif}a{color:var(--blue)}.wrap{width:min(1040px,calc(100% - 30px));margin:auto}
-header{background:linear-gradient(130deg,#102d49,#1e5f91 68%,#2a6ba3);color:#fff;padding:24px 0 58px}.brand{font-weight:850;letter-spacing:.04em}.brand span{color:#ff6670}.hero{padding:50px 0 0;max-width:820px}.eyebrow{color:#c9e4f8;text-transform:uppercase;font-size:.78rem;font-weight:800;letter-spacing:.13em}h1{font-size:clamp(2.3rem,6vw,4.1rem);line-height:1.06;margin:12px 0 18px;letter-spacing:-.04em}.hero p{font-size:1.12rem;color:#e6f1f9;margin:0}.intro{margin-top:-27px;position:relative;background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px 24px;box-shadow:0 12px 34px #17375514}.tools{margin:22px 0}.search{width:100%;padding:13px 15px;border:1px solid #cbd7e3;border-radius:12px;font:inherit}nav{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0 28px}nav a{background:#e7eef5;color:#244b6b;padding:8px 12px;border-radius:999px;text-decoration:none;font-size:.88rem;font-weight:650}.section{margin:26px 0;background:#fff;border:1px solid var(--line);border-radius:17px;overflow:hidden}.head{padding:18px 22px;background:var(--soft);border-bottom:1px solid var(--line);display:flex;gap:13px;align-items:center}.num{width:38px;height:38px;display:grid;place-items:center;border-radius:12px;background:var(--blue);color:#fff;font-weight:800;flex:none}h2{font-size:1.28rem;line-height:1.3;margin:0}.body{padding:8px 22px 16px}ul{padding-left:1.25rem;margin:12px 0}li{padding:7px 0 7px 4px;border-bottom:1px solid #edf1f5}li:last-child{border:0}.note{margin:26px 0;padding:18px 20px;border-left:4px solid var(--red);background:#fff;border-radius:0 13px 13px 0}.note p{margin:5px 0 0;color:var(--muted)}.muted{font-size:.9rem;color:var(--muted)}footer{background:#142b40;color:#d9e5ee;padding:28px 0;margin-top:45px}
-@media(max-width:600px){.hero{padding-top:36px}.intro{padding:18px}.head{padding:15px}.body{padding:6px 16px 14px}}@media print{header{background:#fff;color:#111}.hero p,.eyebrow{color:#333}.search,nav{display:none}.intro,.section{box-shadow:none;break-inside:avoid}}
+:root{--bg:#f5f7fa;--ink:#222831;--muted:#657386;--blue:#2a6ba3;--red:#e63946;--line:#dbe3ec;--soft:#eaf2f8;--green:#24734d;--amber:#946200}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}a{color:var(--blue)}.wrap{width:min(1100px,calc(100% - 30px));margin:auto}
+header{background:linear-gradient(130deg,#102d49,#1e5f91 68%,#2a6ba3);color:#fff;padding:23px 0 58px}.brand{font-weight:850;letter-spacing:.04em}.brand span{color:#ff6670}.hero{padding:46px 0 0;max-width:850px}.eyebrow{color:#c9e4f8;text-transform:uppercase;font-size:.78rem;font-weight:800;letter-spacing:.13em}h1{font-size:clamp(2.15rem,5.8vw,3.8rem);line-height:1.08;margin:12px 0 16px;letter-spacing:-.04em}.hero p{font-size:1.1rem;color:#e6f1f9;margin:0}.intro{margin-top:-27px;position:relative;background:#fff;border:1px solid var(--line);border-radius:18px;padding:21px 23px;box-shadow:0 12px 34px #17375514}.intro strong{color:#173f61}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:22px 0}.stat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:15px}.stat b{display:block;font-size:1.35rem;color:var(--blue)}.stat span{font-size:.88rem;color:var(--muted)}.toolbar{display:flex;gap:10px;margin:22px 0 12px}.search{width:100%;padding:12px 14px;border:1px solid #cbd7e3;border-radius:12px;font:inherit;background:#fff}.filters{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 20px}.filters button{border:1px solid #cbd7e3;background:#fff;color:#31516c;padding:8px 12px;border-radius:999px;font:inherit;font-size:.88rem;cursor:pointer}.filters button.active{background:var(--blue);border-color:var(--blue);color:#fff}.table-wrap{overflow-x:auto;background:#fff;border:1px solid var(--line);border-radius:16px}table{width:100%;border-collapse:collapse;min-width:850px}th,td{text-align:left;padding:13px 14px;border-bottom:1px solid #edf1f5;vertical-align:top}th{background:var(--soft);font-size:.84rem;color:#31516c;white-space:nowrap}td{font-size:.93rem}tbody tr:last-child td{border-bottom:0}.status{display:inline-block;padding:4px 9px;border-radius:999px;font-size:.78rem;font-weight:750;white-space:nowrap}.pending{background:#fff3d5;color:var(--amber)}.answered{background:#e2f4e9;color:var(--green)}.late{background:#fde7e8;color:#a32b35}.draft{background:#edf0f4;color:#596675}.empty{padding:28px;text-align:center;color:var(--muted)}.empty b{display:block;color:var(--ink);font-size:1.05rem;margin-bottom:5px}.how{margin:26px 0;background:#fff;border:1px solid var(--line);border-radius:16px;padding:20px}.how h2{margin:0 0 8px;font-size:1.2rem}.how p{margin:6px 0;color:var(--muted)}.note{margin:24px 0;padding:17px 19px;border-left:4px solid var(--red);background:#fff;border-radius:0 12px 12px 0}.muted{font-size:.88rem;color:var(--muted)}footer{background:#142b40;color:#d9e5ee;padding:26px 0;margin-top:42px}
+@media(max-width:650px){.hero{padding-top:34px}.intro{padding:18px}.stats{gap:7px}.stat{padding:11px}.stat b{font-size:1.15rem}.stat span{font-size:.78rem}.toolbar{display:block}}
+@media print{header{background:#fff;color:#111}.hero p,.eyebrow{color:#333}.filters,.search{display:none}.intro,.how,.table-wrap{box-shadow:none}}
 </style>
 </head>
 <body>
-<header><div class="wrap"><div class="brand">ЈУНАЧКО СРЦЕ <span>●</span> ОДГОВОРНА ПЛАНА</div><div class="hero"><div class="eyebrow">Јавни регистар кампање</div><h1>Сви захтеви<br>кампање</h1><p><strong>Напуштени пси у општини Велика Плана</strong><br>Не тражимо да се пси само уклањају. Тражимо одговоран систем који спречава напуштање, штити грађане и обезбеђује хумано поступање са животињама.</p></div></div></header>
+<header><div class="wrap"><div class="brand">ЈУНАЧКО СРЦЕ <span>●</span> ОДГОВОРНА ПЛАНА</div><div class="hero"><div class="eyebrow">Отвореност институција · јавна евиденција</div><h1>Захтеви за информације од јавног значаја</h1><p>Шта смо питали институције, када смо им се обратили, шта су нам одговориле и која документа су учиниле доступним.</p></div></div></header>
 <main class="wrap">
-<div class="intro">Ово је обједињен програмски списак захтева кампање. Сваки формални захтев упућује се надлежном органу или служби, уз навођење правног основа, датума слања, рока, одговора и доказа о поступању. Објављивање на овој страници не значи да су сви захтеви већ званично упућени.</div>
-<div class="tools"><input class="search" id="search" type="search" placeholder="Претражи захтеве…" aria-label="Претражи захтеве"></div>
-<nav aria-label="Садржај"><a href="#plan">План мера</a><a href="#prevention">Превенција</a><a href="#sterilization">Стерилизација</a><a href="#zoohygiene">Зоохигијена</a><a href="#transparency">Транспарентност</a><a href="#safety">Безбедност</a><a href="#community">Грађани</a></nav>
-
-<section class="section" id="plan"><div class="head"><div class="num">01</div><h2>Спровођење постојећег Плана мера</h2></div><div class="body"><ul>
-<li>Захтевамо доследно спровођење усвојеног Плана мера за контролу и смањење популације напуштених паса и мачака.</li>
-<li>Захтевамо објављивање важећег текста Плана мера и свих његових измена и допуна.</li>
-<li>Захтевамо извештај о спровођењу Плана мера од његовог усвајања до данас.</li>
-<li>Захтевамо преглед свих планираних, започетих, реализованих и нереализованих мера.</li>
-<li>Захтевамо податке о буџетским средствима планираним и утрошеним за спровођење Плана.</li>
-<li>Захтевамо јасно одређивање надлежних организационих јединица и одговорних служби за сваку меру.</li>
-<li>Захтевамо временски план за реализацију мера које до сада нису спроведене.</li>
-<li>Захтевамо редовно јавно извештавање о напретку и резултатима.</li>
-</ul></div></section>
-
-<section class="section" id="prevention"><div class="head"><div class="num">02</div><h2>Спречавање напуштања паса и одговорност власника</h2></div><div class="body"><ul>
-<li>Захтевамо спровођење мера за спречавање напуштања паса.</li>
-<li>Захтевамо контролу обележавања и регистрације паса у складу са прописима.</li>
-<li>Захтевамо поступање надлежних органа у случајевима сумње на напуштање или злостављање животиња.</li>
-<li>Захтевамо контролу одговорности власника и примену прописаних мера када се утврди кршење закона.</li>
-<li>Захтевамо едукативне активности о обавезама власника паса.</li>
-<li>Захтевамо мере за спречавање неконтролисаног размножавања паса у власништву.</li>
-<li>Захтевамо јасан поступак за пријаву напуштања животиње и информацију о исходу пријаве.</li>
-</ul></div></section>
-
-<section class="section" id="sterilization"><div class="head"><div class="num">03</div><h2>Стерилизација, обележавање и контрола популације</h2></div><div class="body"><ul>
-<li>Захтевамо програм континуиране и планске стерилизације напуштених паса.</li>
-<li>Захтевамо да програм обухвати и превентивне мере усмерене на спречавање неконтролисаног размножавања.</li>
-<li>Захтевамо објављивање броја паса обухваћених стерилизацијом, по периодима.</li>
-<li>Захтевамо податке о броју обележених и регистрованих паса.</li>
-<li>Захтевамо објављивање критеријума по којима се одређују приоритетне локације и животиње.</li>
-<li>Захтевамо праћење резултата програма и његово прилагођавање на основу проверљивих података.</li>
-</ul></div></section>
-
-<section class="section" id="zoohygiene"><div class="head"><div class="num">04</div><h2>Зоохигијена, хватање и хумано збрињавање</h2></div><div class="body"><ul>
-<li>Захтевамо да општина обезбеди законито и функционално организовано обављање послова зоохигијене.</li>
-<li>Захтевамо јавно објашњење ко тренутно обавља послове хватања, транспорта и збрињавања напуштених паса.</li>
-<li>Захтевамо објављивање уговора, анекса и других аката на основу којих се ове услуге обављају.</li>
-<li>Захтевамо обезбеђивање одговарајућих капацитета за привремени смештај и хумано збрињавање животиња.</li>
-<li>Захтевамо да сваки транспорт и премештање паса буду евидентирани и проверљиви.</li>
-<li>Захтевамо евиденцију о месту хватања, датуму, извршиоцу, превозу и месту на које је пас одведен.</li>
-<li>Захтевамо податке о ветеринарском прегледу, лечењу, обележавању и даљем поступању са сваким псом.</li>
-<li>Захтевамо да се за сваког пса евидентира исход: повратак власнику, удомљавање, смештај, премештање или други документовани исход.</li>
-<li>Захтевамо да се поступање са животињама спроводи хумано и у складу са важећим прописима.</li>
-</ul></div></section>
-
-<section class="section" id="transparency"><div class="head"><div class="num">05</div><h2>Транспарентност, уговори и јавни новац</h2></div><div class="body"><ul>
-<li>Захтевамо објављивање свих важећих уговора који се односе на хватање, транспорт, смештај и збрињавање паса.</li>
-<li>Захтевамо објављивање анекса уговора, наруџбеница, извештаја о извршеним услугама и других пратећих докумената.</li>
-<li>Захтевамо податке о планираним, уговореним и исплаћеним средствима за ове послове.</li>
-<li>Захтевамо спецификацију услуга и јединичних цена на основу којих се врше плаћања.</li>
-<li>Захтевамо периодичне извештаје о броју интервенција и обављених услуга.</li>
-<li>Захтевамо објављивање података о капацитетима и условима у објектима у којима се пси смештају.</li>
-<li>Захтевамо доступност података о исходу поступања са псима, уз поштовање прописа о заштити података о личности.</li>
-<li>Захтевамо да подаци буду објављени у облику који омогућава грађанима да прате трошење јавног новца и резултате.</li>
-</ul></div></section>
-
-<section class="section" id="safety"><div class="head"><div class="num">06</div><h2>Безбедност грађана и поступање по пријавама</h2></div><div class="body"><ul>
-<li>Захтевамо јасан и јавно доступан начин пријављивања паса који представљају непосредан ризик.</li>
-<li>Захтевамо евиденцију пријава, датум пријема, надлежну службу и предузете мере.</li>
-<li>Захтевамо благовремено поступање по пријавама у складу са проценом ризика и законом.</li>
-<li>Захтевамо посебну пажњу на локацијама у близини школа, вртића, игралишта, паркова и других места окупљања деце.</li>
-<li>Захтевамо јасне протоколе за поступање у случају уједа, напада или другог инцидента.</li>
-<li>Захтевамо обавештавање подносиоца пријаве о томе која је служба поступала и шта је предузето, у границама законом дозвољеног.</li>
-<li>Захтевамо да мере безбедности буду спроведене уз хумано поступање према животињама.</li>
-</ul></div></section>
-
-<section class="section" id="community"><div class="head"><div class="num">07</div><h2>Сарадња са грађанима, школама и удружењима</h2></div><div class="body"><ul>
-<li>Захтевамо успостављање редовне комуникације између општине, надлежних служби, школа, удружења и грађана.</li>
-<li>Захтевамо да грађани имају доступан механизам за пријаву проблема и праћење статуса пријаве.</li>
-<li>Захтевамо укључивање родитељских савета и школа у разговор о безбедности деце и одговорном поступању.</li>
-<li>Захтевамо подршку постојећим удружењима и волонтерима, без пребацивања законских обавеза институција на њих.</li>
-<li>Захтевамо развој програма удомљавања и одговорног власништва.</li>
-<li>Захтевамо јавне едукативне активности о превенцији напуштања и безбедном понашању у сусрету са псима.</li>
-<li>Захтевамо редовно представљање резултата и отворен дијалог о даљим мерама.</li>
-</ul></div></section>
-
-<div class="note"><strong>Заједнички циљ</strong><p>Не морамо сви да имамо исти однос према псима. Можемо сви да захтевамо безбеднију, хуманију и одговорнију заједницу. Грађани могу да буду део решења, али не могу да замене институције у обављању њихових законских обавеза.</p></div>
-<p class="muted">Напомена: Ово је програмски списак захтева за даљу разраду. Пре слања сваког формалног захтева потребно је проверити надлежност примаоца, важеће прописе и тачан правни основ. Захтеви се могу поделити у засебне дописе и захтеве за приступ информацијама од јавног значаја.</p>
+<div class="intro"><strong>Ово није списак жеља или програмских захтева кампање.</strong> Овде се евидентирају конкретни захтеви за приступ информацијама од јавног значаја који су упућени органима власти и другим обвезницима закона. Циљ је да сваки захтев има свој траг — од слања до одговора и објављене документације.</div>
+<div class="stats">
+<div class="stat"><b id="total">0</b><span>евидентираних захтева</span></div>
+<div class="stat"><b id="answered">0</b><span>са објављеним одговором</span></div>
+<div class="stat"><b id="waiting">0</b><span>без евидентираног одговора</span></div>
+</div>
+<div class="toolbar"><input class="search" id="search" type="search" placeholder="Претражи институцију, тему или број захтева…" aria-label="Претражи регистар"></div>
+<div class="filters" aria-label="Филтрирај статус"><button class="active" data-filter="all">Сви захтеви</button><button data-filter="pending">Чека се одговор</button><button data-filter="answered">Одговорено</button><button data-filter="late">Истекао рок</button></div>
+<div class="table-wrap"><table><thead><tr><th>Број</th><th>Институција</th><th>Предмет / тражене информације</th><th>Послато</th><th>Рок</th><th>Статус</th><th>Одговор / документа</th></tr></thead><tbody id="records"></tbody></table><div class="empty" id="empty"><b>Евиденција се припрема.</b>Подаци о појединачним захтевима и скенирана документа уносе се на основу стварно послатих дописа и доказа о пријему. Не објављујемо измишљене датуме, бројеве предмета или одговоре.</div></div>
+<section class="how"><h2>Шта садржи сваки запис?</h2><p>За сваки захтев објављујемо институцију којој је упућен, датум слања и пријема, предмет, тражене информације, законски рок, тренутни статус, датум одговора и документе које је могуће јавно објавити.</p><p>Када одговор изостане, евидентира се и даљи корак — ургенција, жалба или друго поступање, ако је предузето.</p></section>
+<div class="note"><strong>Зашто је овај регистар важан?</strong><br>Јавност има право да зна како институције поступају, како се троши јавни новац и шта се предузима поводом проблема напуштених паса. Грађани не траже поверење на реч — траже проверљиве информације и документа.</div>
+<p class="muted">Напомена: Статус „није евидентиран одговор“ не значи аутоматски да је институција прекршила закон. За процену рокова неопходни су датум пријема захтева, врста тражене информације и евентуална обавештења институције. Лични подаци и подаци који нису за јавно објављивање биће заштићени.</p>
 </main>
 <footer><div class="wrap"><strong>ОДГОВОРНА ПЛАНА</strong><p>Проблем је заједнички. Нека и решење буде заједничко.</p><span class="muted" style="color:#b9c9d7">Јуначко Срце · За људе, не за профит</span></div></footer>
-<script>const search=document.getElementById('search');search.addEventListener('input',()=>{const q=search.value.trim().toLocaleLowerCase('sr');document.querySelectorAll('.section').forEach(s=>s.style.display=s.innerText.toLocaleLowerCase('sr').includes(q)?'':'none')});</script>
+<script>
+/* У ову листу се уносе искључиво проверени подаци из стварно послатих захтева. */
+const requests = [];
+const labels = {pending:"Чека се одговор",answered:"Одговорено",late:"Истекао рок"};
+const tbody=document.getElementById('records'),empty=document.getElementById('empty');
+let filter='all';
+function render(){
+ const q=document.getElementById('search').value.trim().toLocaleLowerCase('sr');
+ const visible=requests.filter(r=>(filter==='all'||r.status===filter)&&[r.id,r.institution,r.subject,r.sent,r.deadline,r.status].join(' ').toLocaleLowerCase('sr').includes(q));
+ tbody.innerHTML=visible.map(r=>'<tr><td>'+r.id+'</td><td>'+r.institution+'</td><td>'+r.subject+'</td><td>'+r.sent+'</td><td>'+(r.deadline||'—')+'</td><td><span class="status '+r.status+'">'+(labels[r.status]||'Евидентирано')+'</span></td><td>'+(r.responseUrl?'<a href="'+r.responseUrl+'" target="_blank" rel="noopener">Погледај документ</a>':(r.response||'—'))+'</td></tr>').join('');
+ empty.style.display=visible.length?'none':'block';
+ document.getElementById('total').textContent=requests.length;
+ document.getElementById('answered').textContent=requests.filter(r=>r.status==='answered').length;
+ document.getElementById('waiting').textContent=requests.filter(r=>r.status==='pending'||r.status==='late').length;
+}
+document.getElementById('search').addEventListener('input',render);
+document.querySelectorAll('.filters button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.filters button').forEach(x=>x.classList.remove('active'));b.classList.add('active');filter=b.dataset.filter;render()}));
+render();
+</script>
 </body></html>
